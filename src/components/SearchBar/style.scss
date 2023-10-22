@@ -1,0 +1,32 @@
+@import "../../variables.scss";
+
+.search-wrapper {
+  height: 2.5rem;
+  max-width: 960px;
+  // width: calc(100% - 2rem);
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+
+  .search-bar {
+    max-width: 960px;
+    width: calc(100% - 2rem);
+    background-color: $dark-gray;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1),
+      0 0 0 1rem $secondary-color;
+    padding: 0.5rem 0;
+    text-align: center;
+    transition: all ease-in-out 200ms;
+    position: fixed; // sticky was not working
+    top: 5.5rem;
+    left: 50%;
+    align-self: flex-start;
+    transform: translateX(-50%);
+    z-index: 100;
+
+    &:focus {
+      top: 5rem;
+      padding: 0.75rem 0;
+    }
+  }
+}

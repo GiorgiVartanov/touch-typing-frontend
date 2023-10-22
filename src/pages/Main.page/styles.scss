@@ -1,0 +1,89 @@
+@import "../../variables";
+
+.main-page {
+  position: relative;
+
+  .hero {
+    position: absolute;
+    // height: 420px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 5rem;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .options {
+      transform: translateY(15%);
+      user-select: none;
+      padding: 0.5rem;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      .separate {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      a {
+        max-width: 100%;
+        padding: 1.25rem 1rem;
+        background-color: $secondary-color-dimmer;
+
+        &.main-button {
+          background-color: $primary-color;
+        }
+
+        &:hover,
+        &:active {
+          box-shadow: 0px 0px 3px 1px $primary-color;
+          text-shadow: 0px 0px 2px white;
+          opacity: 1;
+        }
+
+        p {
+          font-size: 1.35rem;
+          line-height: 1.5rem;
+          font-weight: 600;
+        }
+
+        span {
+          opacity: 0.6;
+          font-size: 0.85rem;
+          line-height: 0.85rem;
+          font-weight: 300;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $width-xsm) {
+  .main-page {
+    .hero {
+      .options {
+        width: fit-content;
+        max-width: 100%;
+
+        a {
+          padding: 1rem 0.75rem;
+
+          p {
+            font-size: 1.25rem;
+          }
+          span {
+            font-size: 0.75rem;
+          }
+        }
+
+        button {
+          margin: 0 0.5rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian&family=Noto+Serif+Georgian&display=swap");
+
+@import "../../variables.scss";
+
+.text-component {
+  max-width: 720px;
+  margin: auto;
+
+  .text-panel {
+    display: flex;
+    gap: 1rem;
+    margin: 0 0.25rem 1.25rem 0.25rem;
+    justify-content: space-between;
+
+    .options-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .word-count {
+      color: $primary-color;
+    }
+
+    .time {
+      color: $primary-color;
+    }
+  }
+
+  .hidden-input {
+    visibility: hidden;
+    width: 0;
+  }
+
+  .text {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.25rem;
+    margin-left: unset;
+    user-select: none;
+
+    .word {
+      color: rgb(143, 143, 143);
+      margin: 0 0.25rem;
+
+      &.final-word {
+        .incorrect-letter {
+          color: rgb(197, 56, 56) !important;
+        }
+      }
+
+      .letter {
+        transition: all 0.3s ease;
+
+        &.active-letter {
+          color: rgb(143, 143, 143);
+          text-decoration: underline;
+          position: relative;
+        }
+
+        &.correct-letter {
+          color: rgb(211, 211, 211);
+        }
+
+        &.incorrect-letter {
+          color: rgb(231, 76, 76);
+
+          animation: shake 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+      }
+    }
+  }
+}
+
+.settings {
+  width: 100vw;
+  height: 100vh;
+  background-color: $secondary-color;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  right: 0;
+  backdrop-filter: blur(100px);
+  z-index: 150;
+}
+
+.settings-window {
+  position: absolute;
+  height: 300px;
+  max-width: 400px;
+  width: calc(100% - 2rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  background-color: $dark-gray;
+  padding: 0.5rem 1rem;
+  animation: fadeIn 0.2s;
+  animation-fill-mode: forwards;
+  z-index: 200;
+
+  .font-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    label {
+      user-select: none;
+      cursor: pointer;
+    }
+  }
+}
+
+.font-poppins {
+  font-family: Poppins, serif;
+}
+
+.font-courier-new {
+  font-family: "Courier New", monospace;
+}
+
+.font-brush-script-mt {
+  font-family: "Brush Script MT", cursive;
+}
+
+.font-times-new-roman {
+  font-family: "Times New Roman", serif;
+}
+
+.font-sans {
+  font-family: "Noto Sans Georgian", sans-serif;
+}
+
+.font-serif {
+  font-family: "Noto Serif Georgian", serif;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// @keyframes shake {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   25% {
+//     transform: translateX(-20.5px);
+//   }
+//   50% {
+//     transform: translateX(20.5px);
+//   }
+//   75% {
+//     transform: translateX(-20.5px);
+//   }
+//   100% {
+//     transform: translateX(0);
+//   }
+// }

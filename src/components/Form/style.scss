@@ -1,0 +1,57 @@
+@import "../../variables.scss";
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 420px;
+  min-width: 100%;
+  width: calc(100vw - 2rem);
+  margin: auto;
+
+  input {
+    padding: 0.5rem;
+    background-color: $secondary-color-dimmer;
+    width: 100%;
+    display: block;
+    width: auto;
+
+    &:focus {
+      box-shadow: 0px 0px 3px 1px $primary-color;
+    }
+  }
+
+  .error-list {
+    .error {
+      color: $error-color;
+      font-size: 0.85rem;
+    }
+  }
+
+  button {
+    background-color: $primary-color;
+    padding: 0.5rem;
+  }
+}
+
+// @media screen and (max-width: $width-3xl) {
+//   form {
+//     input {
+//       width: 400px;
+//     }
+//   }
+// }
+// @media screen and (max-width: $width-lg) {
+//   form {
+//     input {
+//       width: 360px;
+//     }
+//   }
+// }
+// @media screen and (max-width: $width-xsm) {
+//   form {
+//     input {
+//       width: 100%;
+//     }
+//   }
+// }
