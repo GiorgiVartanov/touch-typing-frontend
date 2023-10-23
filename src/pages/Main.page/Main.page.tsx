@@ -50,7 +50,7 @@ const MainPage = () => {
           <Link
             to="play"
             onMouseEnter={() => {
-              handleOnButtonHover("play")
+              handleOnButtonHover("play online")
             }}
             onMouseLeave={handleOnMouseLeave}
           >

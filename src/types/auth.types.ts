@@ -1,4 +1,4 @@
-import { GuildType } from "./guild.Types"
+import { CommunityType } from "./community.types"
 import { LessonType, PvPMatchType } from "./lesson.types"
 import { AchievementType } from "./Achievement.types"
 
@@ -35,7 +35,7 @@ export type userType = {
   rating: number
   biography: string
   accountType: "User" | "Admin"
-  guild?: GuildType
+  guild?: CommunityType
   friends: userIdType[]
   completedAchievements: AchievementType[]
   pvpHistory: PvPMatchType[]
@@ -49,6 +49,5 @@ export type userType = {
     preferredTheme: "Dark" | "Light"
     isProfilePublic: boolean
     favoriteLayout: "QWERTY" // others will be added later
-    preferredTypingLanguage: "Eng" | "Geo"
   }
 }

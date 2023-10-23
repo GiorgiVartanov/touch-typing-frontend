@@ -14,8 +14,13 @@ import { login, register } from "../../services/authServices"
 import { authReducer } from "../reducers/authReducers"
 import { initialState } from "../initial/authInitialState"
 import { AuthState, AuthFunctions } from "../initial/authInitialState"
+import { AxiosError } from "axios"
 
 const AuthContext = createContext<AuthState & AuthFunctions>({} as AuthState & AuthFunctions)
+
+interface AxiosErrorResponse extends AxiosError {
+  message: string
+}
 
 export const useAuthStore = () => useContext(AuthContext)
 
@@ -45,8 +50,8 @@ const AuthProvider = ({ children }: Props) => {
     } catch (error) {
       dispatch(setIsError(true))
 
-      if (error instanceof Error) {
-        dispatch(setRegisterErrorMessage(error.message))
+      if (error instanceof AxiosError) {
+        dispatch(setRegisterErrorMessage((error?.response?.data as AxiosErrorResponse)?.message))
       } else {
         dispatch(setRegisterErrorMessage("unexpected error"))
       }
@@ -74,8 +79,8 @@ const AuthProvider = ({ children }: Props) => {
     } catch (error) {
       dispatch(setIsError(true))
 
-      if (error instanceof Error) {
-        dispatch(setLoginErrorMessage(error.message))
+      if (error instanceof AxiosError) {
+        dispatch(setLoginErrorMessage((error?.response?.data as AxiosErrorResponse)?.message))
       } else {
         dispatch(setRegisterErrorMessage("unexpected error"))
       }

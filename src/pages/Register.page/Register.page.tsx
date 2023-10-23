@@ -12,7 +12,7 @@ import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
 
 const RegisterPage = () => {
-  const { registerUser } = useAuthStore()
+  const { registerUser, registerErrorMessage } = useAuthStore()
 
   // const navigate = useNavigate()
 
@@ -116,6 +116,8 @@ const RegisterPage = () => {
   //   if (isLoggedIn) navigate("/")
   // }, [isLoggedIn, navigate])
 
+  // console.log(registerErrorMessage)
+
   return (
     <div className="page register-page">
       <Form onSubmit={handleSubmit}>
@@ -139,7 +141,9 @@ const RegisterPage = () => {
           onChange={handleConfirmPasswordChange}
           errors={credentialsError.confirmPasswordError}
         />
+
         <Button>register</Button>
+        {registerErrorMessage ? <div className="error">{registerErrorMessage}</div> : ""}
       </Form>
     </div>
   )

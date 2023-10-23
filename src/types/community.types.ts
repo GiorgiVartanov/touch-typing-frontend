@@ -1,6 +1,6 @@
 import { userIdType } from "./auth.types"
 
-export type GuildType = {
+export type CommunityType = {
   _id: string
   name: string
   motto: string

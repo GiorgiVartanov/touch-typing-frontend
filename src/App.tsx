@@ -14,6 +14,7 @@ import PlayPage from "./pages/Play.page/Play.page"
 import PracticePage from "./pages/Practice.page/Practice.page"
 import PageNotFoundPage from "./pages/PageNotFound.page/PageNotFound.page"
 import ProfilePage from "./pages/Profile.page/Profile.page"
+import CommunitiesPage from "./pages/Communities.page/Communities.page"
 
 // components
 import Header from "./components/Header/Header"
@@ -63,6 +64,10 @@ const App = () => {
         <Route
           path="/practice"
           element={<PracticePage />}
+        />
+        <Route
+          path="/communities"
+          element={<CommunitiesPage />}
         />
         <Route
           path="/*"
