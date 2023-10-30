@@ -8,6 +8,7 @@ import ajax from "../../services/ajax"
 import LessonCardList from "./LessonCardList"
 import LessonStats from "./LessonStats"
 import SearchBar from "../../components/SearchBar/SearchBar"
+import Loading from "../../components/Loading/Loading"
 
 const LearnPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")
@@ -39,17 +40,38 @@ const LearnPage = () => {
     setSearchValue(newText)
   }
 
+  if (isLoading || !data) return <Loading />
+
   return (
     <div className="page lesson-list-page">
       <SearchBar
         value={searchValue}
         handleTextChange={handleTextChange}
       />
+
       <div className="lesson-page-body">
-        <LessonCardList
-          lessonList={data}
-          isLoading={isLoading}
-        />
+        <div className="lesson-lists">
+          <LessonCardList
+            lessonList={data?.Beginner}
+            id="Beginner"
+            name="Beginner"
+          />
+          <LessonCardList
+            lessonList={data?.Intermediate}
+            id="Intermediate"
+            name="Intermediate"
+          />
+          <LessonCardList
+            lessonList={data?.Expert}
+            id="Expert"
+            name="Expert"
+          />
+          <LessonCardList
+            lessonList={data?.Advanced}
+            id="Advanced"
+            name="Advanced"
+          />
+        </div>
         <LessonStats />
       </div>
     </div>

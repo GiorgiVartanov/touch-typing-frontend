@@ -6,7 +6,7 @@ import "./styles.scss"
 import { LessonType } from "../../types/lesson.types"
 import ajax from "../../services/ajax"
 
-import Text from "../../components/Typer/Text"
+import Typer from "../../components/Typer/Typer"
 
 const LessonPage = () => {
   const { id } = useParams()
@@ -39,7 +39,7 @@ const LessonPage = () => {
         </h2>
         <p>{description}</p>
       </div>
-      <Text text={text} />
+      <Typer text={text} />
     </div>
   )
 }

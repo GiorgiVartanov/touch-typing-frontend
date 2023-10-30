@@ -144,6 +144,14 @@ input {
   width: auto;
 }
 
+select,
+option,
+button,
+input {
+  font-family: inherit;
+  color: inherit;
+}
+
 // @media (prefers-color-scheme: light) {
 //   :root {
 //     color: black;

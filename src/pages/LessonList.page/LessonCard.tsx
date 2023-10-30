@@ -5,11 +5,24 @@ import calculateTime from "../../util/calculateTime"
 
 import defaultLessonImage from "../../assets/image.png"
 
-const LessonCard = ({ image, title, description, approximateDuration, level, _id }: LessonType) => {
+interface Props extends LessonType {
+  style: React.CSSProperties
+}
+
+const LessonCard = ({
+  image,
+  title,
+  description,
+  approximateDuration,
+  level,
+  _id,
+  style,
+}: Props) => {
   return (
     <Link
       to={`/lesson/${_id}`}
       className={`lesson-card`}
+      style={style}
     >
       <img
         src={image || defaultLessonImage}

@@ -1,20 +1,24 @@
-// fixed issue with importing svg file as a component
-
 import { useState, useRef } from "react"
 
-import { FontType } from "./Text"
-
 import { useOnClickOutside } from "../../hooks/useOnClickOutside"
+import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
+// import { FontType } from "../../types/typingSettings.types"
 
 import SettingsIcon from "../../assets/icons/gear.svg?react"
+import TextSettingItemSelect from "./TextSettingItemSelect"
 
-interface Props {
-  selectedFont: FontType
-  selectFont: (font: FontType) => void
-  fonts: FontType[]
-}
+const TextSettings = () => {
+  const {
+    typingSettingsOptions,
+    selectedFont,
+    amountOfShownLines,
+    alignText,
+    fontSize,
+    lineSpacing,
+    letterSpacing,
+    changeSetting,
+  } = useTypingSettingsStore()
 
-const TextSettings = ({ selectedFont, selectFont, fonts }: Props) => {
   const settingsRef = useRef<HTMLDivElement>(null)
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -30,25 +34,63 @@ const TextSettings = ({ selectedFont, selectFont, fonts }: Props) => {
   const renderSettingsMenu = () => {
     return (
       <>
-        <div className="settings"></div>
+        <div className="settings-background"></div>
         <div
           ref={settingsRef}
           className="settings-window"
         >
-          <p>Select a font:</p>
-          <div className="font-options">
-            {fonts.map((font) => (
-              <label key={font}>
-                <input
-                  type="radio"
-                  value={font}
-                  checked={selectedFont === font}
-                  onChange={() => selectFont(font)}
-                />
-                {font}
-              </label>
-            ))}
+          <div className="typing-settings-bar">
+            <div>typing settings</div>
+            <button
+              onClick={handleCloseSettings}
+              className="close-settings"
+            >
+              <div>+</div>
+            </button>
           </div>
+
+          <TextSettingItemSelect
+            message={"font"}
+            field="selectedFont"
+            values={typingSettingsOptions.fontOptions}
+            selectedValue={selectedFont}
+            changeSetting={changeSetting}
+          />
+          <TextSettingItemSelect
+            message={"lines"}
+            field="amountOfShownLines"
+            values={typingSettingsOptions.amountOfShownLinesOptions}
+            selectedValue={amountOfShownLines}
+            changeSetting={changeSetting}
+          />
+          <TextSettingItemSelect
+            message={"align text"}
+            field="alignText"
+            values={typingSettingsOptions.alignTextOptions}
+            selectedValue={alignText}
+            changeSetting={changeSetting}
+          />
+          <TextSettingItemSelect
+            message={"font size"}
+            field="fontSize"
+            values={typingSettingsOptions.fontSizeOptions}
+            selectedValue={fontSize}
+            changeSetting={changeSetting}
+          />
+          <TextSettingItemSelect
+            message={"line spacing"}
+            field="lineSpacing"
+            values={typingSettingsOptions.lineSpacingOptions}
+            selectedValue={lineSpacing}
+            changeSetting={changeSetting}
+          />
+          <TextSettingItemSelect
+            message={"letter spacing"}
+            field="letterSpacing"
+            values={typingSettingsOptions.letterSpacingOptions}
+            selectedValue={letterSpacing}
+            changeSetting={changeSetting}
+          />
         </div>
       </>
     )
@@ -58,11 +100,14 @@ const TextSettings = ({ selectedFont, selectFont, fonts }: Props) => {
 
   return (
     <>
-      <button onClick={handleOpenSettings}>
+      <button
+        onClick={handleOpenSettings}
+        className="settings-button"
+      >
         <SettingsIcon
-          fill="white"
-          width={18}
-          height={18}
+          fill="gray"
+          width={24}
+          height={24}
         />
       </button>
       {isOpen ? renderSettingsMenu() : ""}

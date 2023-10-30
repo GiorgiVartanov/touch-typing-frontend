@@ -7,7 +7,7 @@ interface Props {
   children: React.ReactNode
 }
 
-// component that wraps pages, and checks if the user's access level satisfies route's access level
+// component that wraps Routes and checks if the user's access level satisfies route's access level
 const ProtectedRoute = ({ level, children }: Props) => {
   const { isLoggedIn, user } = useAuthStore()
   const accountType = user?.accountType

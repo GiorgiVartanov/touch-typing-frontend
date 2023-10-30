@@ -20,7 +20,7 @@ export type AuthAction =
   | { type: typeof SET_REGISTER_ERROR_MESSAGE; payload: string }
   | { type: typeof SET_LOGIN_ERROR_MESSAGE; payload: string }
 
-export const authReducer = (state: AuthState, action: AuthAction) => {
+const authReducer = (state: AuthState, action: AuthAction) => {
   switch (action.type) {
     case SET_USER:
       return { ...state, user: action.payload }

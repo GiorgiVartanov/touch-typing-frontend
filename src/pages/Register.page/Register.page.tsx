@@ -141,7 +141,6 @@ const RegisterPage = () => {
           onChange={handleConfirmPasswordChange}
           errors={credentialsError.confirmPasswordError}
         />
-
         <Button>register</Button>
         {registerErrorMessage ? <div className="error">{registerErrorMessage}</div> : ""}
       </Form>

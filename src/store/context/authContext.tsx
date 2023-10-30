@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react"
+import { AxiosError } from "axios"
 
 import { loginCredentialsInterface, registerCredentialsInterface } from "../../types/auth.types"
 import {
@@ -10,11 +11,12 @@ import {
   setRegisterErrorMessage,
   setLoginErrorMessage,
 } from "../actions/authActions"
+
 import { login, register } from "../../services/authServices"
-import { authReducer } from "../reducers/authReducers"
+import authReducer from "../reducers/authReducers"
 import { initialState } from "../initial/authInitialState"
 import { AuthState, AuthFunctions } from "../initial/authInitialState"
-import { AxiosError } from "axios"
+// import { useTypingSettingsStore } from "./typingSettingsContext"
 
 const AuthContext = createContext<AuthState & AuthFunctions>({} as AuthState & AuthFunctions)
 
@@ -30,6 +32,7 @@ interface Props {
 
 const AuthProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
+  // const { setFetchedSettings } = useTypingSettingsStore()
 
   const registerUser = async (userData: registerCredentialsInterface) => {
     try {
@@ -37,13 +40,16 @@ const AuthProvider = ({ children }: Props) => {
 
       const data = await register(userData)
       const { user, token } = data.data
+      // const typerSettings = user.typerSettings
+
+      // setFetchedSettings(typerSettings)
 
       dispatch(setUser(user))
       dispatch(setToken(token))
       dispatch(setIsLoggedIn(true))
 
       localStorage.setItem("user", JSON.stringify(user))
-      localStorage.setItem("token", JSON.stringify(token))
+      localStorage.setItem("token", token)
       localStorage.setItem("isLoggedIn", JSON.stringify(true))
 
       dispatch(setIsLoading(false))
@@ -66,13 +72,16 @@ const AuthProvider = ({ children }: Props) => {
 
       const data = await login(userData)
       const { user, token } = data.data
+      // const typerSettings = user.typerSettings
+
+      // setFetchedSettings(typerSettings)
 
       dispatch(setUser(user))
       dispatch(setToken(token))
       dispatch(setIsLoggedIn(true))
 
       localStorage.setItem("user", JSON.stringify(user))
-      localStorage.setItem("token", JSON.stringify(token))
+      localStorage.setItem("token", token)
       localStorage.setItem("isLoggedIn", JSON.stringify(true))
 
       dispatch(setIsLoading(false))

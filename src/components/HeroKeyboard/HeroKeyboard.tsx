@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import "./styles.scss"
 
@@ -35,6 +35,7 @@ interface Props {
 
 const HeroKeyboard = ({ activeKeys }: Props) => {
   const [currentLayout, setCurrentLayout] = useState<string>("geo-eng")
+  const [pressedKeys, setPressedKeys] = useState<string[]>([])
 
   const renderKeyboard = () => {
     const layoutToRender = layouts.find((layout) => layout.name === currentLayout)?.keys
@@ -42,21 +43,46 @@ const HeroKeyboard = ({ activeKeys }: Props) => {
     return layoutToRender?.map((row, index) => renderRow(row, index))
   }
 
+  // adds pressed key to the array of active keys for 500ms, then removes it
+  const addKeyToActiveKeys = (newKey: string) => {
+    setPressedKeys((prevState) => [...prevState, newKey])
+
+    setTimeout(() => {
+      setPressedKeys((prevState) => prevState.filter((key) => key !== newKey))
+    }, 500)
+  }
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    const pressedKey = event.key
+
+    addKeyToActiveKeys(pressedKey)
+  }
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress)
+    }
+  }, [])
+
   const renderRow = (row: string[], index: number) => {
     return (
       <div
         className="row"
         key={index}
       >
-        {row.map((key) => {
+        {row.map((key, index) => {
           const keys = key.split("")
-          const isActive = keys.some((part) => activeKeys.includes(part))
+          const isActive = keys.some(
+            (part) => activeKeys.includes(part) || pressedKeys.includes(part)
+          )
 
           return (
             <div
               key={key}
               className={`key ${isActive ? "active" : ""} children-${keys.length}`}
-              // onClick={() => handleKeyClick(key)}
+              style={{ animationDelay: `${index * 0.05}s` }}
             >
               {keys.length > 0 ? (
                 keys.map((part, index) => <span key={index}>{part}</span>)
@@ -70,13 +96,9 @@ const HeroKeyboard = ({ activeKeys }: Props) => {
     )
   }
 
-  // const handleKeyClick = (key: string) => {
-  //   console.log(key)
-  // }
-
   return (
     <div className="keyboard">
-      <div className="keyboardcontainer">
+      <div className="keyboard-container">
         <div className="container">{renderKeyboard()}</div>
         <div className="select-layout-buttons">
           <button

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 import "./styles.scss"
 import { loginCredentialsInterface, loginCredentialsErrorInterface } from "../../types/auth.types"
@@ -10,9 +9,9 @@ import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
 
 const LoginPage = () => {
-  const { isLoggedIn, loginUser, loginErrorMessage } = useAuthStore()
+  const { loginUser, loginErrorMessage } = useAuthStore()
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const [credentials, setCredentials] = useState<loginCredentialsInterface>({
     username: "",
@@ -44,9 +43,9 @@ const LoginPage = () => {
     loginUser(credentials)
   }
 
-  useEffect(() => {
-    if (isLoggedIn) navigate("/")
-  }, [isLoggedIn, navigate])
+  // useEffect(() => {
+  //   if (isLoggedIn) navigate("/")
+  // }, [isLoggedIn, navigate])
 
   return (
     <div className="page register-page">
@@ -63,6 +62,7 @@ const LoginPage = () => {
           onChange={handlePasswordChange}
         />
         <Button>log in</Button>
+        {loginErrorMessage ? <div className="error">{loginErrorMessage}</div> : ""}
       </Form>
     </div>
   )

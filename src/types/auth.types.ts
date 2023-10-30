@@ -1,6 +1,8 @@
 import { CommunityType } from "./community.types"
 import { LessonType, PvPMatchType } from "./lesson.types"
-import { AchievementType } from "./Achievement.types"
+import { AchievementType } from "./achievement.types"
+import { TypingSettingsInterface } from "./typingSettings.types"
+import { SettingsInterface } from "./settings.types"
 
 export interface loginCredentialsInterface {
   username: string
@@ -40,14 +42,15 @@ export type userType = {
   completedAchievements: AchievementType[]
   pvpHistory: PvPMatchType[]
   lessons: {
-    stats: { beginner: number; intermediate: number; expert: number; advanced: number }
+    stats: {
+      beginner: number
+      intermediate: number
+      expert: number
+      advanced: number
+    }
     history: LessonType[]
     completed: LessonType[]
   }
-  settings: {
-    preferredLanguage: "Eng" | "Geo"
-    preferredTheme: "Dark" | "Light"
-    isProfilePublic: boolean
-    favoriteLayout: "QWERTY" // others will be added later
-  }
+  typingSettings: TypingSettingsInterface
+  settings: SettingsInterface
 }
