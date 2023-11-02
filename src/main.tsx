@@ -6,17 +6,20 @@ import "./index.scss"
 
 import App from "./App.tsx"
 
-import AuthContext from "./store/context/authContext.tsx"
+import AuthProvider from "./store/context/authContext.tsx"
+import AppSettingsProvider from "./store/context/appSettingsContext.tsx"
 import TypingSettingsContext from "./store/context/typingSettingsContext.tsx"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AuthContext>
-      <TypingSettingsContext>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </TypingSettingsContext>
-    </AuthContext>
+    <AuthProvider>
+      <AppSettingsProvider>
+        <TypingSettingsContext>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </TypingSettingsContext>
+      </AppSettingsProvider>
+    </AuthProvider>
   </React.StrictMode>
 )

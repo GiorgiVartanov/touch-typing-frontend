@@ -14,6 +14,7 @@ const LearnPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   // const [error, setErrorMessage] = useState()
+
   const [data, setData] = useState<LessonResponseType | null>({
     Beginner: [],
     Intermediate: [],

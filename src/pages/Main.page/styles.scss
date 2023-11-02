@@ -1,4 +1,3 @@
-@import "../../variables";
 @import "../../animations.scss";
 
 .main-page {
@@ -34,16 +33,16 @@
       a {
         max-width: 100%;
         padding: 1.25rem 1rem;
-        background-color: $secondary-color-dimmer;
+        background-color: var(--secondary-color);
 
         &.main-button {
-          background-color: $primary-color;
+          background-color: var(--primary-color);
         }
 
         &:hover,
         &:active {
-          box-shadow: 0px 0px 3px 1px $primary-color;
-          text-shadow: 0px 0px 2px white;
+          box-shadow: 0px 0px 3px 1px var(--primary-color);
+          // text-shadow: 0px 0px 2px var(--text-color);
           opacity: 1;
         }
 
@@ -54,7 +53,8 @@
         }
 
         span {
-          opacity: 0.6;
+          // opacity: 0.6;
+          color: var(--slightly-weak-text-color);
           font-size: 0.85rem;
           line-height: 0.85rem;
           font-weight: 300;
@@ -65,7 +65,7 @@
   }
 }
 
-@media screen and (max-width: $width-xsm) {
+@media screen and (max-width: var(--width-xsm)) {
   .main-page {
     .hero {
       .options {

@@ -7,6 +7,7 @@ import { LessonType } from "../../types/lesson.types"
 import ajax from "../../services/ajax"
 
 import Typer from "../../components/Typer/Typer"
+import Loading from "../../components/Loading/Loading"
 
 const LessonPage = () => {
   const { id } = useParams()
@@ -27,7 +28,7 @@ const LessonPage = () => {
     setIsLoading(false)
   }, [id])
 
-  if (isLoading || !data) return <div>Loading...</div>
+  if (isLoading || !data) return <Loading />
 
   const { title, description, level, text } = data
 

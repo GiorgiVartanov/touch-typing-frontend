@@ -1,4 +1,3 @@
-@import "../../variables.scss";
 @import "../../animations.scss";
 
 .lesson-list-page {
@@ -21,7 +20,7 @@
       margin-left: auto;
 
       .lesson-stat-list {
-        background-color: $dark-gray;
+        background-color: var(--secondary-background-color);
         height: 444px;
         width: 100%;
         padding: 0.5rem;
@@ -41,10 +40,10 @@
 
           .lesson-stat-list-button {
             text-align: left;
-            transition: 200ms ease-in-out 300ms;
+            // transition: 200ms ease-in-out 300ms;
 
             &.active {
-              color: $primary-color;
+              color: var(--primary-color);
             }
 
             span {
@@ -80,7 +79,7 @@
 
         .lesson-card {
           padding: 0.5rem;
-          background-color: $dark-gray;
+          background-color: var(--secondary-background-color);
           display: flex;
           flex-direction: row;
           gap: 1rem;
@@ -131,7 +130,7 @@
   }
 }
 
-@media screen and (max-width: $width-sm) {
+@media screen and (max-width: var(--width-sm)) {
   .lesson-list-page {
     .lesson-card-list {
       .lesson-card {

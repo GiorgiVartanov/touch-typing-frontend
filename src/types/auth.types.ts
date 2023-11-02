@@ -2,7 +2,7 @@ import { CommunityType } from "./community.types"
 import { LessonType, PvPMatchType } from "./lesson.types"
 import { AchievementType } from "./achievement.types"
 import { TypingSettingsInterface } from "./typingSettings.types"
-import { SettingsInterface } from "./settings.types"
+import { AppSettingsInterface } from "./appSettings.types"
 
 export interface loginCredentialsInterface {
   username: string
@@ -52,5 +52,5 @@ export type userType = {
     completed: LessonType[]
   }
   typingSettings: TypingSettingsInterface
-  settings: SettingsInterface
+  appSettings: AppSettingsInterface
 }

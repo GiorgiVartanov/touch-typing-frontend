@@ -1,13 +1,13 @@
 import ajax from "./ajax"
 
-export const saveTypingSetting = (
-  typingSettingToChange: string,
+export const saveAppSetting = (
+  appSettingToChange: string,
   value: string | number | boolean,
   token: string
 ) =>
   ajax.post(
-    "/typingsettings",
-    { typingSettingToChange, value },
+    "/appsettings",
+    { appSettingToChange, value },
     {
       headers: {
         Authorization: `Bearer ${token}`,

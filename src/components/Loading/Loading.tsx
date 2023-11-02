@@ -1,7 +1,11 @@
 import "./styles.scss"
 
-// it can be changed to skeletons latter
+// is shown when user is waiting for a data to be fetched
 const Loading = () => {
-  return <div>Loading...</div>
+  return (
+    <div className="loading">
+      <div className="spinner"></div>
+    </div>
+  )
 }
 export default Loading

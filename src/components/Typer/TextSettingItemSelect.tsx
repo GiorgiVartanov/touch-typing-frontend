@@ -14,7 +14,7 @@ const TextSettingItemSelect = ({ message, field, selectedValue, values, changeSe
         value={selectedValue}
         onChange={(e) => changeSetting(field, e.target.value)}
       >
-        {values.map((value) => (
+        {values?.map((value) => (
           <option
             key={value}
             value={value}

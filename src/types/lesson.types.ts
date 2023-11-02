@@ -8,13 +8,15 @@ export type PvPMatchType = {
   text: string
 }
 
+export type DifficultyLevelType = "Beginner" | "Intermediate" | "Expert" | "Advanced" | "none"
+
 export type LessonType = {
   _id: string
   image?: string
   title: string
   description: string
   approximateDuration: number
-  level: "Beginner" | "Intermediate" | "Expert" | "Advanced"
+  level: DifficultyLevelType
   text: string
 }
 

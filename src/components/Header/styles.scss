@@ -1,5 +1,3 @@
-@import "../../variables";
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -9,7 +7,7 @@
   width: 100%;
   margin: 0 auto;
   position: fixed;
-  background-color: $secondary-color;
+  background-color: var(--background-color);
   z-index: 100;
   left: 50%;
   transform: translateX(-50%);
@@ -19,12 +17,48 @@
       font-size: 1.5rem;
 
       &.active {
-        color: white;
+        color: var(--text-color);
       }
     }
   }
 
   nav {
+    .change-theme-button {
+      background-color: var(--secondary-color);
+      // display: grid;
+      // position: relative;
+      height: 1.75rem;
+      width: 3.5rem;
+      border-radius: 10px;
+      margin-right: 1.5rem;
+      padding: 0;
+      align-content: center;
+      transition: all 200ms ease-in-out;
+
+      .theme-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+        transition: all 200ms ease-in-out;
+
+        // justify-content: end;
+
+        &.theme-Dark {
+          transform: translateX(0);
+        }
+
+        &.theme-Light {
+          transform: translateX(2rem);
+        }
+
+        .moon-icon,
+        .sun-icon {
+          height: 1.5rem;
+          width: 1.5rem;
+          fill: var(--text-color);
+        }
+      }
+    }
+
     ul {
       display: flex;
       gap: 0.5rem;

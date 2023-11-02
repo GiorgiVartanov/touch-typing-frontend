@@ -1,5 +1,3 @@
-@import "variables";
-
 :root {
   font-family: Poppins, system-ui, sans-serif;
   line-height: 1.5;
@@ -8,14 +6,56 @@
   box-sizing: border-box;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: $secondary-color;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --error-color: #ca3f3f;
+
+  --width-xsm: 420px;
+  --width-sm: 640px;
+  --width-md: 768px;
+  --width-lg: 1024px;
+  --width-xl: 1280px;
+  --width-2xl: 1536px;
+  --width-3xl: 1720px;
+}
+
+// light theme
+html:not(.dark) {
+  --primary-color: #937ef1;
+  --secondary-color: #dfdfdf;
+  --background-color: #f3f3f3;
+  --secondary-background-color: #e0e4e9;
+  --text-color: #1d1c1b;
+  --slightly-weak-text-color: #41403f;
+  --weaker-text-color: #8b8b8b;
+}
+
+// dark theme
+.dark {
+  --primary-color: #7c66db;
+  --secondary-color: #3a3837;
+  --background-color: #1d1c1b;
+  --secondary-background-color: #1f2020;
+  --text-color: white;
+  --slightly-weak-text-color: rgb(201, 201, 201);
+  --weaker-text-color: #747474;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
 }
 
 // styles reset

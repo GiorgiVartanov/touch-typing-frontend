@@ -99,9 +99,11 @@ const AuthProvider = ({ children }: Props) => {
   }
 
   const logoutUser = () => {
-    localStorage.removeItem("user")
-    localStorage.removeItem("token")
-    localStorage.setItem("isLoggedIn", JSON.stringify(false))
+    // localStorage.removeItem("user")
+    // localStorage.removeItem("token")
+    // localStorage.setItem("isLoggedIn", JSON.stringify(false))
+
+    localStorage.clear() // removes everything from localstorage
 
     dispatch(setIsLoggedIn(false))
     dispatch(setToken(null))

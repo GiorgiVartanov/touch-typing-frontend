@@ -1,5 +1,3 @@
-@import "variables";
-
 html,
 body,
 #root {
@@ -26,7 +24,7 @@ a {
   transition: all ease-in-out 200ms;
 
   &.active {
-    color: $primary-color;
+    color: var(--primary-color);
   }
 
   &:hover {

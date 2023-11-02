@@ -1,6 +1,7 @@
 import { useState, useRef } from "react"
 
 import { useOnClickOutside } from "../../hooks/useOnClickOutside"
+import { TypingSettingItemInterface } from "../../types/typingSettings.types"
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 // import { FontType } from "../../types/typingSettings.types"
 
@@ -14,7 +15,7 @@ const TextSettings = () => {
     amountOfShownLines,
     alignText,
     fontSize,
-    lineSpacing,
+    lineHeight,
     letterSpacing,
     changeSetting,
   } = useTypingSettingsStore()
@@ -30,6 +31,51 @@ const TextSettings = () => {
   const handleCloseSettings = () => {
     setIsOpen(false)
   }
+
+  const settings: TypingSettingItemInterface[] = [
+    {
+      message: "font",
+      field: "selectedFont",
+      values: typingSettingsOptions.fontOptions,
+      selectedValue: selectedFont,
+      changeSetting: changeSetting,
+    },
+    {
+      message: "lines",
+      field: "amountOfShownLines",
+      values: typingSettingsOptions.amountOfShownLinesOptions,
+      selectedValue: amountOfShownLines,
+      changeSetting: changeSetting,
+    },
+    {
+      message: "align text",
+      field: "alignText",
+      values: typingSettingsOptions.alignTextOptions,
+      selectedValue: alignText,
+      changeSetting: changeSetting,
+    },
+    {
+      message: "font size",
+      field: "fontSize",
+      values: typingSettingsOptions.fontSizeOptions,
+      selectedValue: fontSize,
+      changeSetting: changeSetting,
+    },
+    {
+      message: "line height",
+      field: "lineHeight",
+      values: typingSettingsOptions.lineHeightOptions,
+      selectedValue: lineHeight,
+      changeSetting: changeSetting,
+    },
+    {
+      message: "letter spacing",
+      field: "letterSpacing",
+      values: typingSettingsOptions.letterSpacingOptions,
+      selectedValue: letterSpacing,
+      changeSetting: changeSetting,
+    },
+  ]
 
   const renderSettingsMenu = () => {
     return (
@@ -48,49 +94,16 @@ const TextSettings = () => {
               <div>+</div>
             </button>
           </div>
-
-          <TextSettingItemSelect
-            message={"font"}
-            field="selectedFont"
-            values={typingSettingsOptions.fontOptions}
-            selectedValue={selectedFont}
-            changeSetting={changeSetting}
-          />
-          <TextSettingItemSelect
-            message={"lines"}
-            field="amountOfShownLines"
-            values={typingSettingsOptions.amountOfShownLinesOptions}
-            selectedValue={amountOfShownLines}
-            changeSetting={changeSetting}
-          />
-          <TextSettingItemSelect
-            message={"align text"}
-            field="alignText"
-            values={typingSettingsOptions.alignTextOptions}
-            selectedValue={alignText}
-            changeSetting={changeSetting}
-          />
-          <TextSettingItemSelect
-            message={"font size"}
-            field="fontSize"
-            values={typingSettingsOptions.fontSizeOptions}
-            selectedValue={fontSize}
-            changeSetting={changeSetting}
-          />
-          <TextSettingItemSelect
-            message={"line spacing"}
-            field="lineSpacing"
-            values={typingSettingsOptions.lineSpacingOptions}
-            selectedValue={lineSpacing}
-            changeSetting={changeSetting}
-          />
-          <TextSettingItemSelect
-            message={"letter spacing"}
-            field="letterSpacing"
-            values={typingSettingsOptions.letterSpacingOptions}
-            selectedValue={letterSpacing}
-            changeSetting={changeSetting}
-          />
+          {settings.map((setting) => (
+            <TextSettingItemSelect
+              message={setting.message}
+              field={setting.field}
+              values={setting.values}
+              selectedValue={setting.selectedValue}
+              changeSetting={setting.changeSetting}
+              key={setting.field}
+            />
+          ))}
         </div>
       </>
     )

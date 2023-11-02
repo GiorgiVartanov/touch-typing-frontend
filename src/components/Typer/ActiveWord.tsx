@@ -6,10 +6,11 @@ interface Props {
   word: string
   goToNextWord: (correctLetters: (0 | 1 | 2)[]) => void
   isLastWord: boolean
+  wordSeparator: string
   style?: React.CSSProperties
 }
 
-const ActiveWord = ({ word, goToNextWord, isLastWord, style }: Props) => {
+const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0)
@@ -19,6 +20,7 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, style }: Props) => {
 
   const handleKeyPress = (e: KeyboardEvent) => {
     const pressedKey = e.key
+
     // ignores certain keys that should not trigger any action
     if (
       [
@@ -52,13 +54,21 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, style }: Props) => {
         "Shift",
         "Control",
       ].includes(pressedKey)
-    )
+    ) {
       return
+    }
+
+    // if user is at the end of a word they can press on enter or space to go the the next word, or on backspace to go back
+    if (currentLetterIndex === word.length && !["Enter", " ", "Backspace"].includes(pressedKey)) {
+      return
+    }
+
     // if user presses on space key
-    if (e.key === " ") {
+    if (e.key === " " || e.key === "Tab") {
       e.preventDefault()
       // default action of pressing on space key is to scroll down
     }
+
     // if user presses on Backspace together with Ctrl
     if (e.key === "Backspace" && e.ctrlKey) {
       // Prevent the default behavior of backspace/delete
@@ -68,6 +78,7 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, style }: Props) => {
       setCurrentLetterIndex(0)
       return
     }
+
     // if the user presses Backspace and they are not on the first character of a word, move back one letter
     if (pressedKey === "Backspace" && currentLetterIndex > 0) {
       setCurrentLetterIndex((prevState) => prevState - 1)
@@ -79,15 +90,19 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, style }: Props) => {
       })
       return
     }
+
     if (pressedKey === "Backspace") return
     // if user presses on space and they have types last character, they will be moved to the next word
+
     if (pressedKey === " " && currentLetterIndex > word.length - 1) {
       goToNextWord(correctLetters)
     }
+
     // if it's the last word and the user has typed the last letter, move to the next word
     if (isLastWord && currentLetterIndex === word.length - 1) {
       goToNextWord(correctLetters.map((letter) => (letter === 0 ? 2 : letter)))
     }
+
     // if user presses on Enter or Tab, they are automatically moved to the next word
     if (["Enter", "Tab"].includes(pressedKey)) {
       // if user has not typed any letters of the word
@@ -136,7 +151,7 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, style }: Props) => {
       style={style}
       className="word"
     >
-      {word.split("").map((letter, index) => (
+      {[...word.split(""), "\u00a0" + wordSeparator + "\u00a0"].map((letter, index) => (
         <Letter
           key={index}
           letter={letter}

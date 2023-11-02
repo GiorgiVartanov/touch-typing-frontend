@@ -6,9 +6,10 @@ import TextSettings from "./TextSettings"
 
 interface Props {
   text: string
+  wordSeparator?: string
 }
 
-const Typer = ({ text }: Props) => {
+const Typer = ({ text, wordSeparator = "" }: Props) => {
   const textArray = text.split(" ") // change it latter
 
   return (
@@ -16,7 +17,10 @@ const Typer = ({ text }: Props) => {
       <div className="typing-panel">
         <TextSettings />
       </div>
-      <Text text={textArray} />
+      <Text
+        text={textArray}
+        wordSeparator={wordSeparator}
+      />
     </div>
   )
 }

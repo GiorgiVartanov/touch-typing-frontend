@@ -15,15 +15,11 @@ import ActiveWord from "./ActiveWord"
 
 interface Props {
   text: string[]
-  // correctLetterColor?: string
-  // correctLetterBackground?: string
-  // incorrectLetterColor?: string
-  // incorrectLetterBackground?: string
+  wordSeparator?: string // space
 }
 
-const Text = ({ text }: Props) => {
-  const { selectedFont, fontSize, amountOfShownLines, lineSpacing, letterSpacing } =
-    useTypingSettingsStore()
+const Text = ({ text, wordSeparator = "" }: Props) => {
+  const { selectedFont, fontSize, lineHeight, letterSpacing, alignText } = useTypingSettingsStore()
 
   // const containerHeight = `${amountOfShownLines * lineSpacing}rem`
 
@@ -46,20 +42,27 @@ const Text = ({ text }: Props) => {
     })
   }
 
-  console.log(selectedFont, fontSize, amountOfShownLines, lineSpacing, letterSpacing)
-
   return (
     <div
       autoFocus={true}
-      style={
-        {
-          // fontSize: `${fontSize}rem`,
-          // lineHeight: `${lineSpacing}rem`,
-          // gap: `${lineSpacing}rem`,
-          // margin: `${lineSpacing}rem 0 0 0`,
-          // maxHeight: containerHeight,
-        }
-      }
+      // applies text settings
+      style={{
+        fontSize: `${fontSize === "Auto" ? "1.25rem" : `${fontSize}px`}`,
+        lineHeight: `${lineHeight === "Auto" ? "1.25rem" : `${lineHeight}px`}`,
+        letterSpacing: `${letterSpacing}px`,
+        justifyContent: (() => {
+          switch (alignText) {
+            case "left":
+              return "start"
+            case "center":
+              return "center"
+            case "right":
+              return "end"
+            default:
+              return "start"
+          }
+        })() as "start" | "center" | "end",
+      }}
       className={`text font-${selectedFont}`}
     >
       {text.map((word, index) => {
@@ -70,6 +73,7 @@ const Text = ({ text }: Props) => {
               word={word}
               goToNextWord={goToNextWord}
               isLastWord={index === text.length - 1}
+              wordSeparator={wordSeparator}
             />
           )
         } else {
@@ -78,6 +82,7 @@ const Text = ({ text }: Props) => {
               key={index}
               word={word}
               correctLetters={correctLetters[index]}
+              wordSeparator={wordSeparator}
             />
           )
         }

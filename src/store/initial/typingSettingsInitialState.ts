@@ -1,40 +1,34 @@
-import { FontType, TypingSettingsInterface } from "../../types/typingSettings.types"
+import {
+  FontType,
+  AmountOfShownLinesType,
+  AlignTextType,
+  FontSizeType,
+  LineHeightType,
+  LetterSpacingType,
+  TypingSettingsInterface,
+} from "../../types/typingSettings.types"
 
 const selectedFont: FontType | null = localStorage.getItem("selectedFont") as FontType
-const amountOfShownLines: number | null = Number(localStorage.getItem("amountOfShownLines"))
-const alignText: "Left" | "Center" | "Right" | null = localStorage.getItem("alignText") as
-  | "Left"
-  | "Center"
-  | "Right"
-const fontSize: number | null = Number(localStorage.getItem("fontSize"))
-const lineSpacing: number | null = Number(localStorage.getItem("lineSpacing"))
-const letterSpacing: number | null = Number(localStorage.getItem("letterSpacing"))
-
-// export interface TyperState {
-//   selectedFont: FontType
-//   amountOfShownLines: number
-//   alignText: "Left" | "Center" | "Right"
-//   fontSize: number
-//   lineSpacing: number
-//   letterSpacing: number
-// }
+const amountOfShownLines: AmountOfShownLinesType | null = localStorage.getItem(
+  "amountOfShownLines"
+) as AmountOfShownLinesType
+const alignText: AlignTextType | null = localStorage.getItem("alignText") as AlignTextType
+const fontSize: FontSizeType | null = localStorage.getItem("fontSize") as FontSizeType
+const lineHeight: LineHeightType | null = localStorage.getItem("lineHeight") as LineHeightType
+const letterSpacing: LetterSpacingType | null = localStorage.getItem(
+  "letterSpacing"
+) as LetterSpacingType
 
 export interface TyperFunctions {
   setFetchedSettings: (settings: TypingSettingsInterface) => void
   changeSetting: (settingName: string, value: string | number) => void
-  // selectFont: (font: FontType) => void
-  // selectAmountOfShownLines: (amount: number) => void
-  // selectTextAlignment: (newAlignment: "Left" | "Center" | "Right") => void
-  // selectFontSize: (size: number) => void
-  // selectLineSpacing: (spacing: number) => void
-  // selectLetterSpacing: (spacing: number) => void
 }
 
-export const initialState: TypingSettingsInterface = {
+export const typingSettingsInitialState: TypingSettingsInterface = {
   selectedFont: selectedFont || "sans",
-  amountOfShownLines: amountOfShownLines || 4,
+  amountOfShownLines: amountOfShownLines || "5",
   alignText: alignText || "Left",
-  fontSize: fontSize || 1.25,
-  lineSpacing: lineSpacing || 1.75,
-  letterSpacing: letterSpacing || 0,
+  fontSize: fontSize || "Auto",
+  lineHeight: lineHeight || "Auto",
+  letterSpacing: letterSpacing || "0",
 }

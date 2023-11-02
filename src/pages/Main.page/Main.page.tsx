@@ -17,15 +17,15 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    // Update the showHeroKeyboard state when the window is resized
+    // updates the showHeroKeyboard state when the window is resized
     const handleResize = () => {
       setShowHeroKeyboard(window.innerWidth >= 1000)
     }
 
-    // Add a listener for the window resize event
+    // adds a listener for the window resize event
     window.addEventListener("resize", handleResize)
 
-    // Remove the listener when the component unmounts
+    // removes the listener when the component unmounts
     return () => {
       window.removeEventListener("resize", handleResize)
     }

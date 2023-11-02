@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom"
 
 import { useAuthStore } from "../../store/context/authContext"
 
+import ChangeTheme from "./ChangeTheme"
+
 import "./styles.scss"
 
 const Header = () => {
@@ -16,6 +18,9 @@ const Header = () => {
       </h1>
       <nav>
         <ul>
+          <li>
+            <ChangeTheme />
+          </li>
           {isLoggedIn ? (
             <>
               <li>

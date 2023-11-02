@@ -101,7 +101,7 @@ const HeroKeyboard = ({ activeKeys }: Props) => {
       <div className="keyboard-container">
         <div className="container">{renderKeyboard()}</div>
         <div className="select-layout-buttons">
-          <button
+          {/* <button
             onClick={() => {
               setCurrentLayout("geo-eng")
             }}
@@ -114,7 +114,7 @@ const HeroKeyboard = ({ activeKeys }: Props) => {
             }}
           >
             eng
-          </button>
+          </button> */}
           {/* <button
             onClick={() => {
               setCurrentLayout("geo")
