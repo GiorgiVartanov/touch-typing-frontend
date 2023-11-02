@@ -1,5 +1,4 @@
-// import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
-// import { TypingSettingsActions } from "../../store/reducers/typingSettingsReducers"
+import "./styles.scss"
 
 import Text from "./Text"
 import TextSettings from "./TextSettings"
@@ -13,7 +12,7 @@ const Typer = ({ text, wordSeparator = "" }: Props) => {
   const textArray = text.split(" ") // change it latter
 
   return (
-    <div className="typing-component">
+    <div className="typer">
       <div className="typing-panel">
         <TextSettings />
       </div>

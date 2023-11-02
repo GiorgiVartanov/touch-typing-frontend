@@ -46,8 +46,12 @@
               color: var(--primary-color);
             }
 
-            span {
-              opacity: 0.25;
+            .lesson-tag {
+              color: var(--slightly-weak-text-color);
+            }
+
+            .lessons-amount {
+              color: var(--weaker-text-color);
             }
           }
         }

@@ -18,6 +18,7 @@ export type LessonType = {
   approximateDuration: number
   level: DifficultyLevelType
   text: string
+  wordSeparator?: string
 }
 
 export type LessonResponseType = {

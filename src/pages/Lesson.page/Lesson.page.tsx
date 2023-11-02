@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 import "./styles.scss"
 
@@ -30,17 +30,23 @@ const LessonPage = () => {
 
   if (isLoading || !data) return <Loading />
 
-  const { title, description, level, text } = data
+  const { title, description, level, text, wordSeparator } = data
 
   return (
     <div className="page lesson-page">
       <div className="description">
         <h2>
-          {title} <span>{level}</span>
+          {title}
+          <Link to={`../learn/${level}`}>
+            <span>{level}</span>
+          </Link>
         </h2>
         <p>{description}</p>
       </div>
-      <Typer text={text} />
+      <Typer
+        text={text}
+        wordSeparator={wordSeparator}
+      />
     </div>
   )
 }

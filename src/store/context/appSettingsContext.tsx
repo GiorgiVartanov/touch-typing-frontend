@@ -118,10 +118,11 @@ const AppSettingsProvider = ({ children }: Props) => {
     }
   }
 
+  // changes passed setting to the passed value
   const changeSetting = (
     settingName: string,
     newValue: string | number | boolean,
-    saveOnServer: boolean = true
+    saveOnServer: boolean = true // if true it will save setting on a server, if false it wont
   ) => {
     if (!newValue) return
 

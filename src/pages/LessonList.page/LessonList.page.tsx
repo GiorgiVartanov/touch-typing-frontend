@@ -12,7 +12,7 @@ import Loading from "../../components/Loading/Loading"
 
 const LearnPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   // const [error, setErrorMessage] = useState()
 
   const [data, setData] = useState<LessonResponseType | null>({
@@ -73,7 +73,14 @@ const LearnPage = () => {
             name="Advanced"
           />
         </div>
-        <LessonStats />
+        <LessonStats
+          lessonsAmount={{
+            Beginner: data.Beginner.length,
+            Intermediate: data.Intermediate.length,
+            Expert: data.Expert.length,
+            Advanced: data.Advanced.length,
+          }}
+        />
       </div>
     </div>
   )

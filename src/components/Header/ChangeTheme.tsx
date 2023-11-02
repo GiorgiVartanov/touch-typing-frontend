@@ -80,6 +80,7 @@ const ChangeTheme = () => {
       name="change-theme"
       onClick={handleOnClick}
       className="change-theme-button"
+      aria-label="change theme"
     >
       <div className={`theme-icon theme-${preferredTheme}`}>
         {preferredTheme === "Dark" ? (

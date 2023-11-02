@@ -1,8 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 // fixed issue with importing svg file as a component
 
-import "./styles.scss"
-
 import { useState } from "react"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
@@ -15,7 +13,7 @@ import ActiveWord from "./ActiveWord"
 
 interface Props {
   text: string[]
-  wordSeparator?: string // space
+  wordSeparator?: string // string that will be printed between every word
 }
 
 const Text = ({ text, wordSeparator = "" }: Props) => {

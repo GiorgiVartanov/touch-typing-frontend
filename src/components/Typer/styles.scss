@@ -2,8 +2,10 @@
 
 @import "../../animations.scss";
 
-.typing-component {
+.typer {
   margin-top: 0.5rem;
+  max-width: 720px;
+  margin: 0 auto;
 
   .typing-panel {
     margin: 1rem 0;
@@ -30,8 +32,6 @@
   line-height: 1.75rem;
   position: relative;
   transition: 0.2s ease-out;
-  max-width: 720px;
-  margin: 0 auto;
 
   textarea {
     position: absolute;
@@ -41,6 +41,12 @@
     width: 100%;
     resize: none;
     opacity: 0;
+  }
+
+  .word-separator-holder {
+    .word-separator-spacing {
+      // opacity: 0.5;
+    }
   }
 
   .word {

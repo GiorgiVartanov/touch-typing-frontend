@@ -90,8 +90,9 @@ const TextSettings = () => {
             <button
               onClick={handleCloseSettings}
               className="close-settings"
+              aria-label="close settings"
             >
-              <div>+</div>
+              <div>+</div> {/* change to some svg latter */}
             </button>
           </div>
           {settings.map((setting) => (
@@ -116,6 +117,7 @@ const TextSettings = () => {
       <button
         onClick={handleOpenSettings}
         className="settings-button"
+        aria-label="open settings"
       >
         <SettingsIcon
           fill="gray"

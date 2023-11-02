@@ -4,8 +4,28 @@ import { DifficultyLevelType } from "../../types/lesson.types"
 
 import LessonStatItem from "./LessonStatItem"
 
-const LessonStats = () => {
-  const [currentView, setCurrentView] = useState<DifficultyLevelType>("none")
+interface Props {
+  lessonsAmount: {
+    Beginner: number
+    Intermediate: number
+    Advanced: number
+    Expert: number
+  }
+}
+
+const LessonStats = ({ lessonsAmount }: Props) => {
+  const calculateFirstLevel = () => {
+    // returns difficulty of a first level
+
+    if (lessonsAmount.Beginner > 0) return "Beginner"
+    if (lessonsAmount.Intermediate > 0) return "Intermediate"
+    if (lessonsAmount.Advanced > 0) return "Advanced"
+    if (lessonsAmount.Expert > 0) return "Expert"
+
+    return "Beginner"
+  }
+
+  const [currentView, setCurrentView] = useState<DifficultyLevelType>(calculateFirstLevel)
 
   const checkViewport = () => {
     const elements = [
@@ -15,7 +35,7 @@ const LessonStats = () => {
       { name: "Expert", element: document.getElementById("Expert") },
     ]
 
-    const elementInViewElement = elements.find((element) => {
+    const elementInView = elements.find((element) => {
       if (element?.element) {
         const rect = element.element.getBoundingClientRect()
         return (
@@ -28,28 +48,18 @@ const LessonStats = () => {
       return false
     })
 
-    if (!elementInViewElement) return false
+    if (!elementInView) return false
 
-    const elementId = elementInViewElement.name as DifficultyLevelType
+    const elementId = elementInView.name as DifficultyLevelType
 
     setCurrentView(elementId)
-
-    // const element = document.getElementById(id)
-    // if (element) {
-    //   const rect = element.getBoundingClientRect()
-    //   setIsInView(
-    //     rect.top <= window.innerHeight - 140 &&
-    //       rect.bottom >= 140 &&
-    //       rect.left <= window.innerWidth &&
-    //       rect.right >= 0
-    //   )
-    // }
   }
 
   const handleScrollToElement = (elementId: string) => {
     const element = document.getElementById(elementId)
+
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" })
+      element.scrollIntoView({ behavior: "smooth", block: "start" })
     }
   }
 
@@ -71,28 +81,28 @@ const LessonStats = () => {
             name="Beginner"
             isInView={currentView === "Beginner"}
             finishedLessons={0}
-            amountOfLessons={0}
+            amountOfLessons={lessonsAmount.Beginner}
             onClick={handleScrollToElement}
           />
           <LessonStatItem
             name="Intermediate"
             isInView={currentView === "Intermediate"}
             finishedLessons={0}
-            amountOfLessons={0}
+            amountOfLessons={lessonsAmount.Intermediate}
             onClick={handleScrollToElement}
           />
           <LessonStatItem
             name="Expert"
             isInView={currentView === "Expert"}
             finishedLessons={0}
-            amountOfLessons={0}
+            amountOfLessons={lessonsAmount.Expert}
             onClick={handleScrollToElement}
           />
           <LessonStatItem
             name="Advanced"
             isInView={currentView === "Advanced"}
             finishedLessons={0}
-            amountOfLessons={0}
+            amountOfLessons={lessonsAmount.Advanced}
             onClick={handleScrollToElement}
           />
         </div>
