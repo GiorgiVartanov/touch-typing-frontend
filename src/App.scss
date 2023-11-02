@@ -21,7 +21,7 @@ body,
 
 a {
   padding: 0.25rem;
-  transition: all ease-in-out 200ms;
+  transition: opacity ease-in-out 200ms;
 
   &.active {
     color: var(--primary-color);

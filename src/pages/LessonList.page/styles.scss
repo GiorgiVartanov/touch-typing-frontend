@@ -90,10 +90,9 @@
           box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
           min-height: 200px;
           width: 100%;
-          opacity: 0;
-          animation: slideInFromLeft 500ms ease-in-out forwards;
-          // transition: 200ms ease-in-out;
-          transition: background-color ease-in-out 5000ms;
+          // opacity: 0;
+          // animation: slideInFromLeft 500ms ease-in-out forwards;
+          // transition: 10ms ease-in-out;
 
           img {
             object-fit: cover;
