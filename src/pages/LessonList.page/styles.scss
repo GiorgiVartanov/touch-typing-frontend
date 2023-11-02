@@ -92,7 +92,7 @@
           width: 100%;
           opacity: 0;
           animation: slideInFromLeft 500ms ease-in-out forwards;
-          transition: 0.2s ease-in-out;
+          // transition: 200ms ease-in-out;
 
           img {
             object-fit: cover;
