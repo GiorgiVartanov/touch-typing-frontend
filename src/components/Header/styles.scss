@@ -33,12 +33,12 @@
       margin-right: 1.5rem;
       padding: 0;
       align-content: center;
-      transition: all 200ms ease-in-out;
+      // transition: all 200ms ease-in-out;
 
       .theme-icon {
         height: 1.5rem;
         width: 1.5rem;
-        // transition: all 200ms ease-in-out;
+        transition: transform 200ms ease-in-out;
 
         // justify-content: end;
 

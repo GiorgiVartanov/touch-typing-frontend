@@ -3,6 +3,7 @@
 
 import { useEffect } from "react"
 
+import { useAuthStore } from "../../store/context/authContext"
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
 import { ThemeType } from "../../types/appSettings.types"
 
@@ -12,6 +13,7 @@ import MoonIcon from "../../assets/icons/moon-solid.svg?react"
 // renders a button to change theme
 const ChangeTheme = () => {
   const { preferredTheme, changeSetting } = useAppSettingsStore()
+  const { isLoggedIn } = useAuthStore()
 
   // sets theme to dark
   const handleSetDarkTheme = () => {
@@ -67,13 +69,24 @@ const ChangeTheme = () => {
   }
 
   useEffect(() => {
-    // runs when preferred theme was changed by ether:
-    //   user logged in
-    //   user logged out
-    //   user registered
-
-    handleThemeChange(preferredTheme)
-  }, [preferredTheme])
+    switch (preferredTheme) {
+      case "Dark":
+        document.documentElement.classList.add("dark")
+        break
+      case "Light":
+        document.documentElement.classList.remove("dark")
+        break
+      case "System Default":
+        if (window.matchMedia("(prefers-color-scheme: dark)")) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.remove("dark")
+        }
+        break
+      default:
+        document.documentElement.classList.add("dark")
+    }
+  }, [isLoggedIn, preferredTheme])
 
   return (
     <button

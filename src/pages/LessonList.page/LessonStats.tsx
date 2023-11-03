@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
 import { DifficultyLevelType } from "../../types/lesson.types"
 
@@ -105,6 +106,7 @@ const LessonStats = ({ lessonsAmount }: Props) => {
             amountOfLessons={lessonsAmount.Advanced}
             onClick={handleScrollToElement}
           />
+          <Link to="../fake">fake words (will be moved somewhere else)</Link>
         </div>
       </div>
     </div>

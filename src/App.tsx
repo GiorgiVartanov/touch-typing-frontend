@@ -15,6 +15,7 @@ import PracticePage from "./pages/Practice.page/Practice.page"
 import PageNotFoundPage from "./pages/PageNotFound.page/PageNotFound.page"
 import ProfilePage from "./pages/Profile.page/Profile.page"
 import CommunitiesPage from "./pages/Communities.page/Communities.page"
+import FakeWordsPage from "./pages/FakeWords.page/FakeWords"
 
 // components
 import Header from "./components/Header/Header"
@@ -48,6 +49,10 @@ const App = () => {
         <Route
           path="/learn"
           element={<LessonListPage />}
+        />
+        <Route
+          path="/fake"
+          element={<FakeWordsPage />}
         />
         <Route
           path="/lesson/:id"

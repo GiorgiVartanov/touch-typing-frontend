@@ -1,7 +1,7 @@
 /// <reference types="vite-plugin-svgr/client" />
 // fixed issue with importing svg file as a component
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 
@@ -39,6 +39,11 @@ const Text = ({ text, wordSeparator = "" }: Props) => {
       }
     })
   }
+
+  useEffect(() => {
+    setCurrentWordIndex(0)
+    setCorrectLetters([])
+  }, [text])
 
   return (
     <div

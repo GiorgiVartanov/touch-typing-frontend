@@ -46,6 +46,21 @@ html:not(.dark) {
   --weaker-text-color: #747474;
 }
 
+@media (prefers-color-scheme: dark) {
+  /* Dark theme styles */
+  html {
+    --primary-color: #7c66db;
+    --secondary-color: #3a3837;
+    --background-color: #1d1c1b;
+    --secondary-background-color: #1f2020;
+    --text-color: white;
+    --slightly-weak-text-color: rgb(201, 201, 201);
+    --weaker-text-color: #747474;
+  }
+
+  /* Add other dark theme styles as needed */
+}
+
 body {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -191,6 +206,9 @@ button,
 input {
   font-family: inherit;
   color: inherit;
+  background-color: inherit;
+  border: none;
+  outline: none;
 }
 
 // @media (prefers-color-scheme: light) {
