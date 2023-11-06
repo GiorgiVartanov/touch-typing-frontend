@@ -10,13 +10,18 @@ import {
   setIsError,
   setRegisterErrorMessage,
   setLoginErrorMessage,
+  setInitialAppSettings,
+  setInitialTypingSettings,
 } from "../actions/authActions"
+import { defaultTheme, defaultLanguage } from "../initial/appSettingsInitial"
 
 import { login, register } from "../../services/authServices"
 import authReducer from "../reducers/authReducers"
 import { initialState } from "../initial/authInitialState"
 import { AuthState, AuthFunctions } from "../initial/authInitialState"
+
 // import { useTypingSettingsStore } from "./typingSettingsContext"
+// import { useAppSettingsStore } from "./appSettingsContext"
 
 const AuthContext = createContext<AuthState & AuthFunctions>({} as AuthState & AuthFunctions)
 
@@ -32,21 +37,25 @@ interface Props {
 
 const AuthProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
-  // const { setFetchedSettings } = useTypingSettingsStore()
+  // const { setTypingSettings, resetTypingSettings } = useTypingSettingsStore()
+  // const { setAppSettings, resetAppSettings } = useAppSettingsStore()
 
   const registerUser = async (userData: registerCredentialsInterface) => {
     try {
       dispatch(setIsLoading(true))
 
       const data = await register(userData)
-      const { user, token } = data.data
-      // const typerSettings = user.typerSettings
+      const { user, typingSettings, appSettings, token } = data.data
 
-      // setFetchedSettings(typerSettings)
+      // resetTypingSettings()
+      // resetAppSettings()
 
       dispatch(setUser(user))
       dispatch(setToken(token))
       dispatch(setIsLoggedIn(true))
+
+      dispatch(setInitialTypingSettings(typingSettings))
+      dispatch(setInitialAppSettings(appSettings))
 
       localStorage.setItem("user", JSON.stringify(user))
       localStorage.setItem("token", token)
@@ -59,6 +68,7 @@ const AuthProvider = ({ children }: Props) => {
       if (error instanceof AxiosError) {
         dispatch(setRegisterErrorMessage((error?.response?.data as AxiosErrorResponse)?.message))
       } else {
+        console.log(error)
         dispatch(setRegisterErrorMessage("unexpected error"))
       }
 
@@ -70,8 +80,11 @@ const AuthProvider = ({ children }: Props) => {
     try {
       dispatch(setIsLoading(true))
 
+      // resetTypingSettings()
+      // resetAppSettings()
+
       const data = await login(userData)
-      const { user, token } = data.data
+      const { user, typingSettings, appSettings, token } = data.data
       // const typerSettings = user.typerSettings
 
       // setFetchedSettings(typerSettings)
@@ -79,6 +92,9 @@ const AuthProvider = ({ children }: Props) => {
       dispatch(setUser(user))
       dispatch(setToken(token))
       dispatch(setIsLoggedIn(true))
+
+      dispatch(setInitialTypingSettings(typingSettings))
+      dispatch(setInitialAppSettings(appSettings))
 
       localStorage.setItem("user", JSON.stringify(user))
       localStorage.setItem("token", token)
@@ -91,6 +107,7 @@ const AuthProvider = ({ children }: Props) => {
       if (error instanceof AxiosError) {
         dispatch(setLoginErrorMessage((error?.response?.data as AxiosErrorResponse)?.message))
       } else {
+        console.log(error)
         dispatch(setRegisterErrorMessage("unexpected error"))
       }
 
@@ -108,6 +125,12 @@ const AuthProvider = ({ children }: Props) => {
     dispatch(setIsLoggedIn(false))
     dispatch(setToken(null))
     dispatch(setUser(null))
+
+    // dispatch(setInitialTypingSettings({}))
+    dispatch(setInitialAppSettings({ theme: defaultTheme, language: defaultLanguage }))
+
+    // resetTypingSettings()
+    // resetAppSettings()
   }
 
   const store = {

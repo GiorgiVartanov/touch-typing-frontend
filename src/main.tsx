@@ -8,17 +8,17 @@ import App from "./App.tsx"
 
 import AuthProvider from "./store/context/authContext.tsx"
 import AppSettingsProvider from "./store/context/appSettingsContext.tsx"
-import TypingSettingsContext from "./store/context/typingSettingsContext.tsx"
+import TypingSettingsProvider from "./store/context/typingSettingsContext.tsx"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
       <AppSettingsProvider>
-        <TypingSettingsContext>
+        <TypingSettingsProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
-        </TypingSettingsContext>
+        </TypingSettingsProvider>
       </AppSettingsProvider>
     </AuthProvider>
   </React.StrictMode>

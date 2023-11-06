@@ -9,6 +9,9 @@ interface Props {
   debounceDelay?: number // in milliseconds
 }
 
+// renders search bar
+// changes passed value using passed handleTextChange function
+// can debounce value's change (for example, user types something, but value will get changed only after debounceDelay time)
 const SearchBar = ({
   value = "",
   handleTextChange,
@@ -33,7 +36,7 @@ const SearchBar = ({
     startSearch()
   }
 
-  // starts search 1 seconds after user ends typing
+  // starts search debounceDelay milliseconds after user ends typing
   useEffect(() => {
     if (!debounce) {
       startSearch()

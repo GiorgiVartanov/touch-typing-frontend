@@ -1,4 +1,6 @@
 import { userType } from "../../types/auth.types"
+import { AppSettingsState } from "../../types/appSettings.types"
+import { TypingSettingsState } from "../../types/typingSettings.types"
 
 import {
   SET_USER,
@@ -8,6 +10,8 @@ import {
   SET_ERROR,
   SET_REGISTER_ERROR_MESSAGE,
   SET_LOGIN_ERROR_MESSAGE,
+  SET_INITIAL_APP_SETTINGS,
+  SET_INITIAL_TYPING_SETTINGS,
 } from "../actions/authActions"
 import { AuthState } from "../initial/authInitialState"
 
@@ -19,6 +23,8 @@ export type AuthAction =
   | { type: typeof SET_ERROR; payload: boolean }
   | { type: typeof SET_REGISTER_ERROR_MESSAGE; payload: string }
   | { type: typeof SET_LOGIN_ERROR_MESSAGE; payload: string }
+  | { type: typeof SET_INITIAL_APP_SETTINGS; payload: AppSettingsState }
+  | { type: typeof SET_INITIAL_TYPING_SETTINGS; payload: TypingSettingsState }
 
 const authReducer = (state: AuthState, action: AuthAction) => {
   switch (action.type) {
@@ -36,6 +42,10 @@ const authReducer = (state: AuthState, action: AuthAction) => {
       return { ...state, registerErrorMessage: action.payload }
     case SET_LOGIN_ERROR_MESSAGE:
       return { ...state, loginErrorMessage: action.payload }
+    case SET_INITIAL_APP_SETTINGS:
+      return { ...state, initialAppSettings: action.payload }
+    case SET_INITIAL_TYPING_SETTINGS:
+      return { ...state, initialTypingSettings: action.payload }
     default:
       return state
   }

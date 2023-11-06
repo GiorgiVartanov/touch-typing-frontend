@@ -9,7 +9,8 @@ interface Props {
   style?: React.CSSProperties
 }
 
-// returns a word, is rerendered only if any of its props is changed
+// renders a word
+// it uses useMemo, so it's rerendered only when any of its props are changed (actually it is rerendered when it's parent rerenders. calculations (list of Letter components) are cached, so next time they will get rendered faster )
 const Word = ({ word, correctLetters, wordSeparator, style }: Props) => {
   const memoizedWord = useMemo(() => {
     return (

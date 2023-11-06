@@ -1,16 +1,23 @@
 import { createContext, useContext, useReducer, useEffect } from "react"
 
 import {
-  setSelectedFont,
-  setAmountOfShownLines,
-  setAlignText,
-  setFontSize,
-  setLineHeight,
-  setLetterSpacing,
+  setFontAction,
+  setAmountOfShownLinesAction,
+  setAlignTextAction,
+  setFontSizeAction,
+  setLineHeightAction,
+  setLetterSpacingAction,
 } from "../actions/typingSettingsActions"
 import typingSettingsReducer from "../reducers/typingSettingsReducers"
-import { typingSettingsInitialState } from "../initial/typingSettingsInitialState"
-import { TyperFunctions } from "../initial/typingSettingsInitialState"
+import {
+  typingSettingsInitialState,
+  defaultFont,
+  defaultAmountOfShownLines,
+  defaultAlignText,
+  defaultFontSize,
+  defaultLetterSpacing,
+  defaultLineHeight,
+} from "../initial/typingSettingsInitialState"
 import {
   FontType,
   AmountOfShownLinesType,
@@ -19,20 +26,22 @@ import {
   LineHeightType,
   LetterSpacingType,
   TypingSettingsOptionsInterface,
+  TypingSettingsActions,
 } from "../../types/typingSettings.types"
-import { TypingSettingsInterface } from "../../types/typingSettings.types"
+import { TypingSettingsState } from "../../types/typingSettings.types"
 import { saveTypingSetting } from "../../services/typingSettingsServices"
+
 import { useAuthStore } from "./authContext"
 // import { AxiosError } from "axios"
 
-interface TypingSettingsListInterface {
-  typingSettingsOptions: TypingSettingsOptionsInterface
-}
+// interface TypingSettingsOptionsState {
+//   typingSettingsOptions: TypingSettingsOptionsInterface
+// }
 
 interface ContextInterface
-  extends TypingSettingsInterface,
-    TyperFunctions,
-    TypingSettingsListInterface {}
+  extends TypingSettingsState,
+    TypingSettingsActions,
+    TypingSettingsOptionsInterface {}
 
 const TypingSettingsContext = createContext<ContextInterface>({} as ContextInterface)
 
@@ -49,116 +58,139 @@ interface Props {
 const TypingSettingsProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(typingSettingsReducer, typingSettingsInitialState)
 
-  const { token, user } = useAuthStore()
+  const { token, isLoggedIn, initialTypingSettings } = useAuthStore()
 
-  const typingSettingsOptions: TypingSettingsOptionsInterface = {
-    fontOptions: ["sans", "serif"],
-    amountOfShownLinesOptions: ["3", "4", "5", "6", "7"],
-    alignTextOptions: ["left", "center", "right"],
-    fontSizeOptions: ["Auto", "8", "9", "10", "11", "12", "14", "18", "24", "30", "36"],
-    lineHeightOptions: ["Auto", "8", "9", "10", "11", "12", "14", "18", "24", "30", "36"],
-    letterSpacingOptions: ["0", "1", "2", "3", "4", "5", "6"],
+  const fontOptions = ["sans", "serif"] as FontType[]
+  const amountOfShownLinesOptions = ["3", "4", "5", "6", "7"] as AmountOfShownLinesType[]
+  const alignTextOptions = ["left", "center", "right"] as AlignTextType[]
+  const fontSizeOptions = [
+    "Auto",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "14",
+    "18",
+    "24",
+    "30",
+    "36",
+  ] as FontSizeType[]
+  const lineHeightOptions = [
+    "Auto",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "14",
+    "18",
+    "24",
+    "30",
+    "36",
+  ] as LineHeightType[]
+  const letterSpacingOptions = ["0", "1", "2", "3", "4", "5", "6"] as LetterSpacingType[]
+
+  // saves a setting both in localStorage and on the server (if saveOnServer is true or token is available)
+  const saveSetting = (
+    typingSettingToChange: string,
+    value: string | number | boolean,
+    saveOnServer: boolean
+  ) => {
+    localStorage.setItem(typingSettingToChange, value.toString())
+
+    if (!token || !saveOnServer) return
+
+    saveTypingSetting(typingSettingToChange, value, token)
   }
 
-  // this function is called in a useEffect bellow after user is updated (registered/logged in), it sets settings to the one on user object (I am not sure if its a best practice, I may change it latter)
-  const setFetchedSettings = () => {
-    if (!user || !token) return
-
-    const savedTypingSettings = user.typingSettings
-
-    changeSetting("selectedFont", savedTypingSettings.selectedFont as FontType, false)
-    changeSetting(
-      "amountOfShownLinesSetting",
-      savedTypingSettings.amountOfShownLines as AmountOfShownLinesType,
-      false
-    )
-    changeSetting("alignText", savedTypingSettings.alignText as AlignTextType, false)
-    changeSetting("lineHeight", savedTypingSettings.lineHeight as LineHeightType, false)
-    changeSetting("lineHeight", savedTypingSettings.lineHeight as LineHeightType, false)
-    changeSetting("letterSpacing", savedTypingSettings.letterSpacing as LetterSpacingType, false)
+  // sets multiple typing settings
+  const setTypingSettings = (settings: TypingSettingsState, saveOnServer: boolean = true) => {
+    setFont(settings.font, saveOnServer)
+    setAmountOfShownLines(settings.amountOfShownLines, saveOnServer)
+    setAlignText(settings.alignText, saveOnServer)
+    setFontSize(settings.fontSize, saveOnServer)
+    setLineHeight(settings.lineHeight, saveOnServer)
+    setLetterSpacing(settings.letterSpacing, saveOnServer)
   }
 
-  const setDefaultSettings = () => {
-    changeSetting("selectedFont", typingSettingsInitialState.selectedFont as FontType, false)
-    changeSetting(
-      "amountOfShownLinesSetting",
-      typingSettingsInitialState.amountOfShownLines as AmountOfShownLinesType,
-      false
-    )
-    changeSetting("alignText", typingSettingsInitialState.alignText as AlignTextType, false)
-    changeSetting("lineHeight", typingSettingsInitialState.lineHeight as LineHeightType, false)
-    changeSetting("lineHeight", typingSettingsInitialState.lineHeight as LineHeightType, false)
-    changeSetting(
-      "letterSpacing",
-      typingSettingsInitialState.letterSpacing as LetterSpacingType,
-      false
-    )
+  const setFont = (newValue: FontType, saveOnServer: boolean = true) => {
+    // saves font to the localStorage and on a server (if user is logged in)
+    saveSetting("font", newValue, saveOnServer)
+    // changes font on the reducer state
+    dispatch(setFontAction(newValue))
   }
 
-  const saveSettingToLocalstorage = (settingName: string, newValue: string | number | boolean) => {
-    localStorage.setItem(settingName, newValue.toString())
-  }
-
-  const saveSettingOnServer = (settingName: string, newValue: string | number | boolean) => {
-    if (!token) return
-
-    try {
-      saveTypingSetting(settingName, newValue, token)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const dispatchSetting = (settingName: string, newValue: string | number | boolean) => {
-    switch (settingName) {
-      case "selectedFont":
-        dispatch(setSelectedFont(newValue as FontType))
-        break
-      case "amountOfShownLines":
-        dispatch(setAmountOfShownLines(newValue as AmountOfShownLinesType))
-        break
-      case "alignText":
-        dispatch(setAlignText(newValue as AlignTextType))
-        break
-      case "fontSize":
-        dispatch(setFontSize(newValue as FontSizeType))
-        break
-      case "lineHeight":
-        dispatch(setLineHeight(newValue as LineHeightType))
-        break
-      case "letterSpacing":
-        dispatch(setLetterSpacing(newValue as LetterSpacingType))
-        break
-      default:
-        break
-    }
-  }
-
-  const changeSetting = (
-    settingName: string,
-    newValue: string | number | boolean,
+  const setAmountOfShownLines = (
+    newValue: AmountOfShownLinesType,
     saveOnServer: boolean = true
   ) => {
-    if (!newValue) return
-
-    saveSettingToLocalstorage(settingName, newValue)
-    dispatchSetting(settingName, newValue)
-
-    if (!saveOnServer) return
-
-    saveSettingOnServer(settingName, newValue)
+    saveSetting("amountOfShownLines", newValue, saveOnServer)
+    dispatch(setAmountOfShownLinesAction(newValue))
   }
 
+  const setAlignText = (newValue: AlignTextType, saveOnServer: boolean = true) => {
+    saveSetting("alignText", newValue, saveOnServer)
+    dispatch(setAlignTextAction(newValue))
+  }
+
+  const setFontSize = (newValue: FontSizeType, saveOnServer: boolean = true) => {
+    saveSetting("fontSize", newValue, saveOnServer)
+    dispatch(setFontSizeAction(newValue))
+  }
+
+  const setLineHeight = (newValue: LineHeightType, saveOnServer: boolean = true) => {
+    saveSetting("lineHeight", newValue, saveOnServer)
+    dispatch(setLineHeightAction(newValue))
+  }
+
+  const setLetterSpacing = (newValue: LetterSpacingType, saveOnServer: boolean = true) => {
+    saveSetting("letterSpacing", newValue, saveOnServer)
+    dispatch(setLetterSpacingAction(newValue))
+  }
+
+  // resets typing settings
+  const resetTypingSettings = () => {
+    setTypingSettings({
+      font: defaultFont,
+      amountOfShownLines: defaultAmountOfShownLines,
+      alignText: defaultAlignText,
+      fontSize: defaultFontSize,
+      lineHeight: defaultLineHeight,
+      letterSpacing: defaultLetterSpacing,
+    })
+  }
+
+  // is used to change settings back to default when user logs out / log in.
+  // it works, but it's probably an anti-pattern, it would be better to use one global store (combine appSettingsContext, authContext and typingSettingsContext) for everything, so it will be possible to call resetAppSettings() inside logout/login/register functions of AuthStore.
   useEffect(() => {
-    if (user) setFetchedSettings()
-    else setDefaultSettings()
-  }, [user])
+    if (isLoggedIn) {
+      setTypingSettings(initialTypingSettings, false)
+    } else {
+      resetTypingSettings()
+    }
+  }, [isLoggedIn, initialTypingSettings])
 
   const store = {
     ...state,
-    typingSettingsOptions,
-    setFetchedSettings,
-    changeSetting,
+    //
+    fontOptions,
+    amountOfShownLinesOptions,
+    alignTextOptions,
+    fontSizeOptions,
+    lineHeightOptions,
+    letterSpacingOptions,
+    //
+    setTypingSettings,
+    //
+    setFont,
+    setAmountOfShownLines,
+    setAlignText,
+    setFontSize,
+    setLineHeight,
+    setLetterSpacing,
+    //
+    resetTypingSettings,
   }
 
   return <TypingSettingsContext.Provider value={store}>{children}</TypingSettingsContext.Provider>

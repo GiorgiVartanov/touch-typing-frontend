@@ -3,6 +3,17 @@ import {
   registerCredentialsInterface,
   loginCredentialsInterface,
 } from "../../types/auth.types"
+import { AppSettingsState } from "../../types/appSettings.types"
+import { TypingSettingsState } from "../../types/typingSettings.types"
+import { defaultTheme, defaultLanguage } from "./appSettingsInitial"
+import {
+  defaultFont,
+  defaultAlignText,
+  defaultAmountOfShownLines,
+  defaultFontSize,
+  defaultLetterSpacing,
+  defaultLineHeight,
+} from "./typingSettingsInitialState"
 
 const user: userType | null = JSON.parse(localStorage.getItem("user") || "{}")
 const token: string | null = localStorage.getItem("token")
@@ -16,6 +27,8 @@ export interface AuthState {
   isError: boolean
   registerErrorMessage: string | null
   loginErrorMessage: string | null
+  initialAppSettings: AppSettingsState
+  initialTypingSettings: TypingSettingsState
 }
 
 export interface AuthFunctions {
@@ -32,4 +45,13 @@ export const initialState: AuthState = {
   isError: false,
   registerErrorMessage: null,
   loginErrorMessage: null,
+  initialAppSettings: { theme: defaultTheme, language: defaultLanguage },
+  initialTypingSettings: {
+    font: defaultFont,
+    alignText: defaultAlignText,
+    amountOfShownLines: defaultAmountOfShownLines,
+    fontSize: defaultFontSize,
+    letterSpacing: defaultLetterSpacing,
+    lineHeight: defaultLineHeight,
+  },
 }

@@ -1,30 +1,18 @@
 import { createContext, useContext, useReducer, useEffect } from "react"
 
-import {
-  setPreferredTheme,
-  setPreferredLanguage,
-  setProfileVisibility,
-  setFavoriteLayout,
-  setPreferredTypingLanguage,
-} from "../actions/appSettingsActions"
-import {
-  PreferredLanguageType,
-  ThemeType,
-  LayoutType,
-  PreferredTypingLanguageType,
-} from "../../types/appSettings.types"
+import { setThemeAction, setLanguageAction } from "../actions/appSettingsActions"
+import { LanguageType, ThemeType } from "../../types/appSettings.types"
 import appSettingsReducer from "../reducers/appSettingsReducer"
-import { appSettingsInitialState } from "../initial/appSettingsInitial"
-import { AppSettingsInterface } from "../../types/appSettings.types"
+import {
+  appSettingsInitialState,
+  defaultTheme,
+  defaultLanguage,
+} from "../initial/appSettingsInitial"
+import { AppSettingsState, AppSettingsActions } from "../../types/appSettings.types"
 import { useAuthStore } from "./authContext"
 import { saveAppSetting } from "../../services/appSettingsServices"
 
-interface AppSettingsListInterface {}
-
-interface ContextInterface extends AppSettingsInterface, AppSettingsListInterface {
-  setFetchedSettings: (settings: AppSettingsInterface) => void
-  changeSetting: (settingName: string, value: string | number | boolean) => void
-}
+interface ContextInterface extends AppSettingsState, AppSettingsActions {}
 
 const AppSettingsContext = createContext<ContextInterface>({} as ContextInterface)
 
@@ -37,112 +25,63 @@ interface Props {
 const AppSettingsProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(appSettingsReducer, appSettingsInitialState)
 
-  const { token, user } = useAuthStore()
+  const { token, isLoggedIn, initialAppSettings } = useAuthStore()
 
-  // this function is called in a useEffect bellow after user is updated (registered/logged in), it sets settings to the one on user object (I am not sure if its a best practice, I may change it latter)
-  const setFetchedSettings = () => {
-    if (!user || !token) return
-
-    const savedAppSettings = user.appSettings
-
-    changeSetting("preferredTheme", savedAppSettings.preferredTheme as ThemeType, false)
-    changeSetting(
-      "preferredLanguage",
-      savedAppSettings.preferredLanguage as PreferredLanguageType,
-      false
-    )
-    changeSetting("isProfilePublic", savedAppSettings.isProfilePublic as boolean, false)
-    changeSetting("favoriteLayout", savedAppSettings.favoriteLayout as LayoutType, false)
-    changeSetting(
-      "preferredTypingLanguage",
-      savedAppSettings.preferredLanguage as PreferredTypingLanguageType,
-      false
-    )
-  }
-
-  // also, not sure about that
-  const setDefaultSettings = () => {
-    changeSetting("preferredTheme", appSettingsInitialState.preferredTheme as ThemeType, false)
-    changeSetting(
-      "preferredLanguage",
-      appSettingsInitialState.preferredLanguage as PreferredLanguageType,
-      false
-    )
-    changeSetting("isProfilePublic", appSettingsInitialState.isProfilePublic as boolean, false)
-    changeSetting("favoriteLayout", appSettingsInitialState.favoriteLayout as LayoutType, false)
-    changeSetting(
-      "preferredTypingLanguage",
-      appSettingsInitialState.preferredLanguage as PreferredTypingLanguageType,
-      false
-    )
-  }
-
-  // saves passed setting in a localstorage
-  const saveSettingToLocalstorage = (settingName: string, newValue: string | number | boolean) => {
-    localStorage.setItem(settingName, newValue.toString())
-  }
-
-  // saves passed setting on a backend
-  const saveSettingOnServer = (settingName: string, newValue: string | number | boolean) => {
-    // debouncing will be implemented latter, so the request to the backend will be sent if user has not changed setting in a ~10 seconds, it would prevent server from getting unnecessary request if someone decides to "play" with settings
-
-    if (!token) return
-
-    try {
-      saveAppSetting(settingName, newValue, token)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // saves passed setting in a store
-  const dispatchSetting = (settingName: string, newValue: string | number | boolean) => {
-    switch (settingName) {
-      case "preferredTheme":
-        dispatch(setPreferredTheme(newValue as ThemeType))
-        break
-      case "preferredLanguage":
-        dispatch(setPreferredLanguage(newValue as PreferredLanguageType))
-        break
-      case "isProfilePublic":
-        dispatch(setProfileVisibility(newValue as boolean))
-        break
-      case "favoriteLayout":
-        dispatch(setFavoriteLayout(newValue as LayoutType))
-        break
-      case "preferredTypingLanguage":
-        dispatch(setPreferredTypingLanguage(newValue as PreferredTypingLanguageType))
-        break
-      default:
-        break
-    }
-  }
-
-  // changes passed setting to the passed value
-  const changeSetting = (
-    settingName: string,
-    newValue: string | number | boolean,
-    saveOnServer: boolean = true // if true it will save setting on a server, if false it wont
+  // saves a setting both in localStorage and on the server (if saveOnServer is true or token is available)
+  const saveSetting = (
+    appSettings: string,
+    value: string | number | boolean,
+    saveOnServer: boolean = true
   ) => {
-    if (!newValue) return
+    localStorage.setItem(appSettings, value.toString())
 
-    saveSettingToLocalstorage(settingName, newValue)
-    dispatchSetting(settingName, newValue)
+    if (!token || !saveOnServer) return
 
-    if (!saveOnServer) return
-
-    saveSettingOnServer(settingName, newValue)
+    saveAppSetting(appSettings, value, token)
   }
 
+  // sets multiple app settings
+  const setAppSettings = (
+    settings: AppSettingsState = { theme: defaultTheme, language: defaultLanguage },
+    saveOnServer: boolean = true
+  ) => {
+    // saves theme to the localStorage and on a server (if user is logged in)
+    setTheme(settings.theme, saveOnServer)
+    // changes theme on the reducer state
+    setLanguage(settings.language, saveOnServer)
+  }
+
+  const setTheme = (newValue: ThemeType, saveOnServer: boolean = true) => {
+    saveSetting("theme", newValue, saveOnServer)
+    dispatch(setThemeAction(newValue))
+  }
+
+  const setLanguage = (newValue: LanguageType, saveOnServer: boolean = true) => {
+    saveSetting("language", newValue, saveOnServer)
+    dispatch(setLanguageAction(newValue))
+  }
+
+  // resets all settings to default values
+  const resetAppSettings = () => {
+    setAppSettings()
+  }
+
+  // is used to change settings back to default when user logs out / log in.
+  // it works, but it's probably an anti-pattern, it would be better to use one global store (combine appSettingsContext, authContext and typingSettingsContext) for everything, so it will be possible to call resetAppSettings() inside logout/login/register functions of AuthStore.
   useEffect(() => {
-    if (user) setFetchedSettings()
-    else setDefaultSettings()
-  }, [user])
+    if (isLoggedIn) {
+      setAppSettings(initialAppSettings, false)
+    } else {
+      resetAppSettings()
+    }
+  }, [isLoggedIn, initialAppSettings])
 
   const store = {
     ...state,
-    setFetchedSettings,
-    changeSetting,
+    setAppSettings,
+    setTheme,
+    setLanguage,
+    resetAppSettings,
   }
 
   return <AppSettingsContext.Provider value={store}>{children}</AppSettingsContext.Provider>

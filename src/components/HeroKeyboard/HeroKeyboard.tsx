@@ -49,7 +49,7 @@ const HeroKeyboard = ({ activeKeys }: Props) => {
 
     setTimeout(() => {
       setPressedKeys((prevState) => prevState.filter((key) => key !== newKey))
-    }, 500)
+    }, 1000)
   }
 
   const handleKeyPress = (event: KeyboardEvent) => {

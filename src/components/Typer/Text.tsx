@@ -11,13 +11,15 @@ import { useTypingSettingsStore } from "../../store/context/typingSettingsContex
 import Word from "./Word"
 import ActiveWord from "./ActiveWord"
 
+const textAlignValues = { left: "start", center: "center", right: "end" }
+
 interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
 }
 
 const Text = ({ text, wordSeparator = "" }: Props) => {
-  const { selectedFont, fontSize, lineHeight, letterSpacing, alignText } = useTypingSettingsStore()
+  const { font, fontSize, lineHeight, letterSpacing, alignText } = useTypingSettingsStore()
 
   // const containerHeight = `${amountOfShownLines * lineSpacing}rem`
 
@@ -28,7 +30,7 @@ const Text = ({ text, wordSeparator = "" }: Props) => {
   const goToNextWord = (correctLetters: (0 | 1 | 2)[]) => {
     // 0 - letter was not typed yet
     // 1 - letter was typed incorrectly
-    // 2- letter was typed correctly
+    // 2 - letter was typed correctly
 
     setCurrentWordIndex((prevState) => prevState + 1)
     setCorrectLetters((prevState) => {
@@ -53,20 +55,9 @@ const Text = ({ text, wordSeparator = "" }: Props) => {
         fontSize: `${fontSize === "Auto" ? "1.25rem" : `${fontSize}px`}`,
         lineHeight: `${lineHeight === "Auto" ? "1.25rem" : `${lineHeight}px`}`,
         letterSpacing: `${letterSpacing}px`,
-        justifyContent: (() => {
-          switch (alignText) {
-            case "left":
-              return "start"
-            case "center":
-              return "center"
-            case "right":
-              return "end"
-            default:
-              return "start"
-          }
-        })() as "start" | "center" | "end",
+        justifyContent: textAlignValues[alignText],
       }}
-      className={`text font-${selectedFont}`}
+      className={`text font-${font}`}
     >
       {text.map((word, index) => {
         if (index === currentWordIndex) {

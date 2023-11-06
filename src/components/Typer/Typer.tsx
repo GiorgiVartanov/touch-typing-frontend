@@ -8,6 +8,8 @@ interface Props {
   wordSeparator?: string
 }
 
+// renders typing settings
+// renders Text with the passed word separator (thing between words, usually space but any string may be passed)
 const Typer = ({ text, wordSeparator = "" }: Props) => {
   const textArray = text.split(" ") // change it latter
 

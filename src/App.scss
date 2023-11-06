@@ -10,6 +10,34 @@ body,
   display: flex;
   flex-direction: column;
 
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: color, background-color 200ms ease-in-out;
+
+  --error-color: #ca3f3f;
+
+  // light theme
+  &:not(.dark) {
+    --primary-color: #937ef1;
+    --secondary-color: #dfdfdf;
+    --background-color: #f3f3f3;
+    --secondary-background-color: #e0e4e9;
+    --text-color: #1d1c1b;
+    --slightly-weak-text-color: #141413;
+    --weaker-text-color: #8b8b8b;
+  }
+
+  // dark theme
+  &.dark {
+    --primary-color: #7c66db;
+    --secondary-color: #3a3837;
+    --background-color: #1d1c1b;
+    --secondary-background-color: #1f2020;
+    --text-color: white;
+    --slightly-weak-text-color: rgb(241, 241, 241);
+    --weaker-text-color: #747474;
+  }
+
   .page {
     padding: 0.5rem 1rem;
     max-width: 1280px;
@@ -31,3 +59,15 @@ a {
     opacity: 0.8;
   }
 }
+
+// @media (prefers-color-scheme: dark) {
+//   .App {
+//     --primary-color: #7c66db;
+//     --secondary-color: #3a3837;
+//     --background-color: #1d1c1b;
+//     --secondary-background-color: #1f2020;
+//     --text-color: white;
+//     --slightly-weak-text-color: rgb(201, 201, 201);
+//     --weaker-text-color: #747474;
+//   }
+// }

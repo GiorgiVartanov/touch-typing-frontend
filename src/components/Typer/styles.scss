@@ -43,10 +43,8 @@
     opacity: 0;
   }
 
-  .word-separator-holder {
-    .word-separator-spacing {
-      // opacity: 0.5;
-    }
+  .word-separator {
+    margin: 0 0.5rem;
   }
 
   .word {
@@ -108,7 +106,7 @@
   z-index: 20;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   background-color: var(--secondary-background-color);
-  padding: 0 0.75rem 1rem;
+  padding: 0.5rem;
   animation: fadeIn 0.2s;
   animation-fill-mode: forwards;
   z-index: 200;
@@ -118,30 +116,21 @@
 
   animation: slideInFromTop 200ms ease-in-out forwards;
 
-  .typing-settings-bar {
-    display: flex;
-    justify-content: space-between;
-    opacity: 0.5;
-    margin-top: 0.25rem;
+  .close-message {
+    position: absolute;
+    left: 0;
+    bottom: -2rem;
+    font-size: 0.9rem;
+    opacity: 0.3;
+    cursor: default;
+    width: 100%;
+    text-align: center;
+  }
 
-    .close-settings {
-      // position: absolute;
-      // top: -0.25rem;
-      // right: -0.25rem;
-      // transition: 0.2s ease-in-out;
-
-      div {
-        user-select: none;
-        transform: rotate(45deg);
-        // padding: 0rem 0.5rem;
-        font-size: 24px;
-        line-height: 24px;
-      }
-
-      &:hover {
-        color: var(--error-color);
-      }
-    }
+  .reset-settings-button {
+    margin-top: auto;
+    color: var(--weaker-text-color);
+    width: fit-content;
   }
 
   .text-setting-select {

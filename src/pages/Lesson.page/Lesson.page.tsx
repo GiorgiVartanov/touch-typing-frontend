@@ -9,6 +9,7 @@ import ajax from "../../services/ajax"
 import Typer from "../../components/Typer/Typer"
 import Loading from "../../components/Loading/Loading"
 
+// page
 const LessonPage = () => {
   const { id } = useParams()
 

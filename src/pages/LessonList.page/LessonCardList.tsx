@@ -8,6 +8,9 @@ interface Props {
   name: string
 }
 
+// renders multiple LessonCards in a list
+// renders name (difficulty) of lessons
+// gives id to it, it will be used to scroll to this element
 const LessonCardList = ({ lessonList, id, name }: Props) => {
   if (lessonList.length === 0) return <div></div> // change it latter
 

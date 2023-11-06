@@ -36,8 +36,8 @@ export interface TypingSettingsOptionsInterface {
   letterSpacingOptions: LetterSpacingType[]
 }
 
-export interface TypingSettingsInterface {
-  selectedFont: FontType
+export interface TypingSettingsState {
+  font: FontType
   amountOfShownLines: AmountOfShownLinesType
   alignText: AlignTextType
   fontSize: FontSizeType
@@ -47,8 +47,18 @@ export interface TypingSettingsInterface {
 
 export interface TypingSettingItemInterface {
   message: string
-  field: string
   values: string[] | number[]
   selectedValue: string | number
-  changeSetting: (settingName: string, value: string | number) => void
+  changeSetting: (value: string | number) => void
+}
+
+export interface TypingSettingsActions {
+  setTypingSettings: (settings: TypingSettingsState) => void
+  setFont: (newValue: FontType) => void
+  setAmountOfShownLines: (newValue: AmountOfShownLinesType) => void
+  setAlignText: (newValue: AlignTextType) => void
+  setFontSize: (newValue: FontSizeType) => void
+  setLineHeight: (newValue: LineHeightType) => void
+  setLetterSpacing: (newValue: LetterSpacingType) => void
+  resetTypingSettings: () => void
 }

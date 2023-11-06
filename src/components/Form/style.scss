@@ -20,10 +20,11 @@ form {
   }
 
   .error-list {
-    .error {
-      color: var(--error-color);
-      font-size: 0.85rem;
-    }
+  }
+
+  .error {
+    color: var(--error-color);
+    font-size: 0.85rem;
   }
 
   button {

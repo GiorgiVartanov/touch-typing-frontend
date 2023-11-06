@@ -34,6 +34,7 @@
         max-width: 100%;
         padding: 1.25rem 1rem;
         background-color: var(--secondary-color);
+        transition: 200ms ease-in-out;
 
         &.main-button {
           background-color: var(--primary-color);

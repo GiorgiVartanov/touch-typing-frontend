@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom"
 // styles
 import "./App.scss"
 
+import { useAppSettingsStore } from "./store/context/appSettingsContext"
+
 // pages
 import MainPage from "./pages/Main.page/Main.page"
 import LoginPage from "./pages/Login.page/Login.page"
@@ -22,8 +24,17 @@ import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
 
 const App = () => {
+  const { theme } = useAppSettingsStore()
+
+  let themeToApply = ""
+
+  if (theme === "Dark") themeToApply = "dark"
+  else if (theme === "Light") themeToApply = "light"
+  else if (window.matchMedia("(prefers-color-scheme: dark)")) themeToApply = "dark"
+  else themeToApply = "light"
+
   return (
-    <div className="App">
+    <div className={`App ${themeToApply}`}>
       <Header />
       <Routes>
         <Route

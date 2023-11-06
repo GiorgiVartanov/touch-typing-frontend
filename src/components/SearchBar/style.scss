@@ -12,6 +12,7 @@
     background-color: var(--background-color);
     z-index: 100;
     position: fixed;
+    transition: background-color 200ms ease-in-out;
 
     .search-bar {
       max-width: 960px;

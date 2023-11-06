@@ -7,6 +7,7 @@
   // background-color: pink;
   display: grid;
   place-content: center;
+  pointer-events: none;
 
   .spinner {
     height: 60px;

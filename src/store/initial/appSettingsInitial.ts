@@ -1,26 +1,12 @@
-import {
-  ThemeType,
-  PreferredLanguageType,
-  LayoutType,
-  AppSettingsInterface,
-  PreferredTypingLanguageType,
-} from "../../types/appSettings.types"
+import { ThemeType, LanguageType, AppSettingsState } from "../../types/appSettings.types"
 
-const preferredTheme: ThemeType | null = localStorage.getItem("preferredTheme") as ThemeType
-const preferredLanguage: PreferredLanguageType | null = localStorage.getItem(
-  "preferredLanguage"
-) as PreferredLanguageType
-const isProfilePublic: boolean = localStorage.getItem("isProfilePublic") === "true"
-const favoriteLayout: LayoutType =
-  (localStorage.getItem("favoriteLayout") as LayoutType) || "QWERTY"
-const preferredTypingLanguage: PreferredTypingLanguageType | null = localStorage.getItem(
-  "preferredTypingLanguage"
-) as PreferredTypingLanguageType
+const theme: ThemeType | null = localStorage.getItem("theme") as ThemeType
+const language: LanguageType | null = localStorage.getItem("language") as LanguageType
 
-export const appSettingsInitialState: AppSettingsInterface = {
-  preferredTheme: preferredTheme || "System Default",
-  preferredLanguage: preferredLanguage || "Geo",
-  isProfilePublic: isProfilePublic || true,
-  favoriteLayout: favoriteLayout || "QWERTY",
-  preferredTypingLanguage: preferredTypingLanguage || "Geo",
+export const defaultTheme = "System Default"
+export const defaultLanguage = "Geo"
+
+export const appSettingsInitialState: AppSettingsState = {
+  theme: theme || defaultTheme,
+  language: language || defaultLanguage,
 }

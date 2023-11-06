@@ -6,13 +6,17 @@ interface Props {
   onClick: (id: string) => void
 }
 
+// shows name (difficulty) with amount of its lessons and current user's completed lessons in this section
+// if amount of lessons is 0 it will be inactive
 const LessonStatItem = ({ name, isInView, finishedLessons, amountOfLessons, onClick }: Props) => {
   return (
     <button
       onClick={() => {
         onClick(name)
       }}
-      className={`lesson-stat-list-button ${isInView ? "active" : ""}`}
+      className={`lesson-stat-list-button ${isInView ? "active" : ""} ${
+        amountOfLessons === 0 ? "empty" : ""
+      }`}
     >
       <span className="lesson-tag">#</span> {name}{" "}
       <span className="lessons-amount">

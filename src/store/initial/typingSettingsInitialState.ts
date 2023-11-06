@@ -5,10 +5,10 @@ import {
   FontSizeType,
   LineHeightType,
   LetterSpacingType,
-  TypingSettingsInterface,
+  TypingSettingsState,
 } from "../../types/typingSettings.types"
 
-const selectedFont: FontType | null = localStorage.getItem("selectedFont") as FontType
+const font: FontType | null = localStorage.getItem("font") as FontType
 const amountOfShownLines: AmountOfShownLinesType | null = localStorage.getItem(
   "amountOfShownLines"
 ) as AmountOfShownLinesType
@@ -19,16 +19,18 @@ const letterSpacing: LetterSpacingType | null = localStorage.getItem(
   "letterSpacing"
 ) as LetterSpacingType
 
-export interface TyperFunctions {
-  setFetchedSettings: (settings: TypingSettingsInterface) => void
-  changeSetting: (settingName: string, value: string | number) => void
-}
+export const defaultFont = "sans"
+export const defaultAmountOfShownLines = "5"
+export const defaultAlignText = "left"
+export const defaultFontSize = "Auto"
+export const defaultLineHeight = "Auto"
+export const defaultLetterSpacing = "0"
 
-export const typingSettingsInitialState: TypingSettingsInterface = {
-  selectedFont: selectedFont || "sans",
-  amountOfShownLines: amountOfShownLines || "5",
-  alignText: alignText || "Left",
-  fontSize: fontSize || "Auto",
-  lineHeight: lineHeight || "Auto",
-  letterSpacing: letterSpacing || "0",
+export const typingSettingsInitialState: TypingSettingsState = {
+  font: font || defaultFont,
+  amountOfShownLines: amountOfShownLines || defaultAmountOfShownLines,
+  alignText: alignText || defaultAlignText,
+  fontSize: fontSize || defaultFontSize,
+  lineHeight: lineHeight || defaultLineHeight,
+  letterSpacing: letterSpacing || defaultLetterSpacing,
 }

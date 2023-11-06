@@ -9,6 +9,8 @@ interface Props extends LessonType {
   style: React.CSSProperties
 }
 
+// shows lesson image, title and description
+// redirects to the lesson page when clicked
 const LessonCard = ({
   image,
   title,

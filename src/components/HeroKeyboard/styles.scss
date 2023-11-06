@@ -47,6 +47,8 @@
       background: var(--secondary-background-color);
       box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 
+      transition: color, background-color 750ms ease-in-out;
+
       .row {
         display: flex;
         width: 100%;
@@ -69,7 +71,7 @@
           opacity: 0;
           animation: fadeIn 1000ms ease-in-out forwards;
 
-          transition: background-color ease-in-out 500ms;
+          transition: color, background-color ease-in-out 750ms;
           font-weight: 600;
 
           user-select: none;
@@ -81,7 +83,7 @@
             background-color: var(--primary-color);
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), rgba(100, 100, 111, 0.2) 0px 6px 24px;
             // text-shadow: 0px 0px 2px var(--text-color);
-            transition: background-color ease-in-out 0.3s;
+            // transition: background-color ease-in-out 0.3s;
           }
 
           span {

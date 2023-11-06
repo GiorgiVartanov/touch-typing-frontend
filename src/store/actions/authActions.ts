@@ -1,4 +1,6 @@
 import { userType } from "../../types/auth.types"
+import { TypingSettingsState } from "../../types/typingSettings.types"
+import { AppSettingsState } from "../../types/appSettings.types"
 
 export const SET_USER = "SET_USER"
 export const SET_TOKEN = "SET_TOKEN"
@@ -7,6 +9,8 @@ export const SET_LOADING = "SET_LOADING"
 export const SET_ERROR = "SET_ERROR"
 export const SET_REGISTER_ERROR_MESSAGE = "SET_REGISTER_ERROR_MESSAGE"
 export const SET_LOGIN_ERROR_MESSAGE = "SET_LOGIN_ERROR_MESSAGE"
+export const SET_INITIAL_APP_SETTINGS = "SET_INITIAL_APP_SETTINGS"
+export const SET_INITIAL_TYPING_SETTINGS = "SET_INITIAL_TYPING_SETTINGS"
 
 export const setUser = (
   user: userType | null
@@ -53,4 +57,18 @@ export const setLoginErrorMessage = (
 ): { type: typeof SET_LOGIN_ERROR_MESSAGE; payload: string } => ({
   type: SET_LOGIN_ERROR_MESSAGE,
   payload: errorMessage,
+})
+
+export const setInitialAppSettings = (
+  initialAppSettings: AppSettingsState
+): { type: typeof SET_INITIAL_APP_SETTINGS; payload: AppSettingsState } => ({
+  type: SET_INITIAL_APP_SETTINGS,
+  payload: initialAppSettings,
+})
+
+export const setInitialTypingSettings = (
+  initialTypingSettings: TypingSettingsState
+): { type: typeof SET_INITIAL_TYPING_SETTINGS; payload: TypingSettingsState } => ({
+  type: SET_INITIAL_TYPING_SETTINGS,
+  payload: initialTypingSettings,
 })

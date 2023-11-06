@@ -14,9 +14,10 @@ interface Props {
   }
 }
 
+// renders list of lesson stats (amount of lessons in a difficulty)
 const LessonStats = ({ lessonsAmount }: Props) => {
   const calculateFirstLevel = () => {
-    // returns difficulty of a first level
+    // returns difficulty of a first level, so it will be set to active immediately
 
     if (lessonsAmount.Beginner > 0) return "Beginner"
     if (lessonsAmount.Intermediate > 0) return "Intermediate"
@@ -26,8 +27,10 @@ const LessonStats = ({ lessonsAmount }: Props) => {
     return "Beginner"
   }
 
+  // currently active (visible) difficulty
   const [currentView, setCurrentView] = useState<DifficultyLevelType>(calculateFirstLevel)
 
+  // checks which element is currently in view
   const checkViewport = () => {
     const elements = [
       { name: "Beginner", element: document.getElementById("Beginner") },
@@ -56,6 +59,7 @@ const LessonStats = ({ lessonsAmount }: Props) => {
     setCurrentView(elementId)
   }
 
+  // scrolls to the element with a passed id
   const handleScrollToElement = (elementId: string) => {
     const element = document.getElementById(elementId)
 
@@ -64,6 +68,7 @@ const LessonStats = ({ lessonsAmount }: Props) => {
     }
   }
 
+  // listens to scroll, runs checkViewport() when user scrolls
   useEffect(() => {
     checkViewport()
 

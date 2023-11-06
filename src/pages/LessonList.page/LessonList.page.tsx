@@ -10,6 +10,7 @@ import LessonStats from "./LessonStats"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import Loading from "../../components/Loading/Loading"
 
+// page
 const LearnPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(true)

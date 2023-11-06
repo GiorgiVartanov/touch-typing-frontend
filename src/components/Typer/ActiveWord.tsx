@@ -81,6 +81,7 @@ const usedKeys = [
   "თ",
   "ჩ",
   "ძ",
+  "ჟ",
   "Enter",
   "Backspace",
   " ",
@@ -156,7 +157,7 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style }: Pr
       goToNextWord(correctLetters.map((letter) => (letter === 0 ? 2 : letter)))
     }
 
-    // if user presses on Enter or Tab, they are automatically moved to the next word
+    // if user presses on Enter , they are automatically moved to the next word
     if (["Enter"].includes(pressedKey)) {
       // if user has not typed any letters of the word
       if (!correctLetters.includes(1) && !correctLetters.includes(2)) return

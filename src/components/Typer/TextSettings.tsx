@@ -8,20 +8,40 @@ import { useTypingSettingsStore } from "../../store/context/typingSettingsContex
 import SettingsIcon from "../../assets/icons/gear.svg?react"
 import TextSettingItemSelect from "./TextSettingItemSelect"
 
+// renders setting button, clicking on this button will open text settings
+// in setting menu user can change settings
+// if user is logged in, settings will be changed for their account
+// if user is not logged in, settings will get changed locally (for now they will get changed back to default if page is refreshed, but it will stay letter)
 const TextSettings = () => {
   const {
-    typingSettingsOptions,
-    selectedFont,
+    // all available values for each setting (they will be options in select)
+    fontOptions,
+    amountOfShownLinesOptions,
+    alignTextOptions,
+    fontSizeOptions,
+    lineHeightOptions,
+    letterSpacingOptions,
+    // function to set each setting
+    setFont,
+    setAmountOfShownLines,
+    setAlignText,
+    setFontSize,
+    setLineHeight,
+    setLetterSpacing,
+    // value of each setting
+    font,
     amountOfShownLines,
     alignText,
     fontSize,
     lineHeight,
     letterSpacing,
-    changeSetting,
+    // function to reset setting (set them back to default)
+    resetTypingSettings,
   } = useTypingSettingsStore()
 
   const settingsRef = useRef<HTMLDivElement>(null)
 
+  // if true settings are open, if false they are closed
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleOpenSettings = () => {
@@ -35,48 +55,43 @@ const TextSettings = () => {
   const settings: TypingSettingItemInterface[] = [
     {
       message: "font",
-      field: "selectedFont",
-      values: typingSettingsOptions.fontOptions,
-      selectedValue: selectedFont,
-      changeSetting: changeSetting,
+      values: fontOptions,
+      selectedValue: font,
+      changeSetting: setFont,
     },
     {
       message: "lines",
-      field: "amountOfShownLines",
-      values: typingSettingsOptions.amountOfShownLinesOptions,
+      values: amountOfShownLinesOptions,
       selectedValue: amountOfShownLines,
-      changeSetting: changeSetting,
+      changeSetting: setAmountOfShownLines,
     },
     {
       message: "align text",
-      field: "alignText",
-      values: typingSettingsOptions.alignTextOptions,
+      values: alignTextOptions,
       selectedValue: alignText,
-      changeSetting: changeSetting,
+      changeSetting: setAlignText,
     },
     {
       message: "font size",
-      field: "fontSize",
-      values: typingSettingsOptions.fontSizeOptions,
+      values: fontSizeOptions,
       selectedValue: fontSize,
-      changeSetting: changeSetting,
+      changeSetting: setFontSize,
     },
     {
       message: "line height",
-      field: "lineHeight",
-      values: typingSettingsOptions.lineHeightOptions,
+      values: lineHeightOptions,
       selectedValue: lineHeight,
-      changeSetting: changeSetting,
+      changeSetting: setLineHeight,
     },
     {
       message: "letter spacing",
-      field: "letterSpacing",
-      values: typingSettingsOptions.letterSpacingOptions,
+      values: letterSpacingOptions,
       selectedValue: letterSpacing,
-      changeSetting: changeSetting,
+      changeSetting: setLetterSpacing,
     },
   ]
 
+  // renders setting menu
   const renderSettingsMenu = () => {
     return (
       <>
@@ -85,31 +100,33 @@ const TextSettings = () => {
           ref={settingsRef}
           className="settings-window"
         >
-          <div className="typing-settings-bar">
-            <div>typing settings</div>
-            <button
-              onClick={handleCloseSettings}
-              className="close-settings"
-              aria-label="close settings"
-            >
-              <div>+</div> {/* change to some svg latter */}
-            </button>
-          </div>
           {settings.map((setting) => (
             <TextSettingItemSelect
               message={setting.message}
-              field={setting.field}
+              changeSetting={setting.changeSetting}
               values={setting.values}
               selectedValue={setting.selectedValue}
-              changeSetting={setting.changeSetting}
-              key={setting.field}
+              key={setting.message}
             />
           ))}
+          <button
+            className="reset-settings-button"
+            onClick={resetTypingSettings}
+          >
+            reset settings
+          </button>
+          <p
+            className="close-message"
+            onClick={handleCloseSettings}
+          >
+            click anywhere on a screen to close
+          </p>
         </div>
       </>
     )
   }
 
+  // runs handleCloseSettings function when user clicks outside of component with settingsRef (settings menu)
   useOnClickOutside(settingsRef, handleCloseSettings)
 
   return (

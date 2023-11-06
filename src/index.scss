@@ -1,7 +1,7 @@
 :root {
-  font-family: Poppins, system-ui, sans-serif;
-  line-height: 1.5;
+  font-family: Poppins, sans-serif, system-ui;
   font-weight: 400;
+  font-display: block;
 
   box-sizing: border-box;
 
@@ -13,8 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --error-color: #ca3f3f;
-
   --width-xsm: 420px;
   --width-sm: 640px;
   --width-md: 768px;
@@ -22,43 +20,6 @@
   --width-xl: 1280px;
   --width-2xl: 1536px;
   --width-3xl: 1720px;
-}
-
-// light theme
-html:not(.dark) {
-  --primary-color: #937ef1;
-  --secondary-color: #dfdfdf;
-  --background-color: #f3f3f3;
-  --secondary-background-color: #e0e4e9;
-  --text-color: #1d1c1b;
-  --slightly-weak-text-color: #41403f;
-  --weaker-text-color: #8b8b8b;
-}
-
-// dark theme
-.dark {
-  --primary-color: #7c66db;
-  --secondary-color: #3a3837;
-  --background-color: #1d1c1b;
-  --secondary-background-color: #1f2020;
-  --text-color: white;
-  --slightly-weak-text-color: rgb(201, 201, 201);
-  --weaker-text-color: #747474;
-}
-
-@media (prefers-color-scheme: dark) {
-  /* Dark theme styles */
-  html {
-    --primary-color: #7c66db;
-    --secondary-color: #3a3837;
-    --background-color: #1d1c1b;
-    --secondary-background-color: #1f2020;
-    --text-color: white;
-    --slightly-weak-text-color: rgb(201, 201, 201);
-    --weaker-text-color: #747474;
-  }
-
-  /* Add other dark theme styles as needed */
 }
 
 body {
@@ -178,14 +139,15 @@ a {
   color: inherit;
 }
 
-button {
+button,
+a {
   border: none;
   outline: hone;
   background-color: transparent;
   font: inherit;
 
   cursor: pointer;
-  transition: all ease-in-out 200ms;
+  // transition: all ease-in-out 200ms;
 
   &:hover {
     opacity: 0.8;
