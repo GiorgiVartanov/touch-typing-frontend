@@ -85,7 +85,7 @@ const FakeWordsPage = () => {
   }, [letter, amount, minAmountOfSyllables, maxAmountOfSyllables])
 
   // returns Loading component while data is fetching
-  // returns error message if data was not fetched
+  // returns error message if data was not fetched (due to some error)
   const renderTyper = () => {
     if (isLoading || !fetchedText) return <Loading />
 

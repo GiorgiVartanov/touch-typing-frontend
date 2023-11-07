@@ -86,6 +86,16 @@ const usedKeys = [
   "Backspace",
   " ",
   "",
+  ",",
+  ".",
+  "-",
+  "_",
+  "(",
+  ")",
+  "[",
+  "]",
+  "{",
+  "}",
 ]
 
 interface Props {
@@ -205,14 +215,16 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style }: Pr
       style={style}
       className="word"
     >
-      {[...word.split(""), "\u00a0" + wordSeparator + "\u00a0"].map((letter, index) => (
-        <Letter
-          key={index}
-          letter={letter}
-          isCurrentLetter={index === currentLetterIndex}
-          isCorrect={correctLetters[index]}
-        />
-      ))}
+      {[...word.split(""), isLastWord ? "" : "\u00a0" + wordSeparator + "\u00a0"].map(
+        (letter, index) => (
+          <Letter
+            key={index}
+            letter={letter}
+            isCurrentLetter={index === currentLetterIndex}
+            isCorrect={correctLetters[index]}
+          />
+        )
+      )}
     </div>
   )
 }

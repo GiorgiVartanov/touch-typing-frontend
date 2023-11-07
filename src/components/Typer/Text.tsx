@@ -23,7 +23,7 @@ const Text = ({ text, wordSeparator = "" }: Props) => {
 
   // const containerHeight = `${amountOfShownLines * lineSpacing}rem`
 
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const [currentWordIndex, setCurrentWordIndex] = useState<number>(0)
   const [correctLetters, setCorrectLetters] = useState<(0 | 1 | 2)[][]>([])
 
   // goes to the next word
@@ -76,6 +76,7 @@ const Text = ({ text, wordSeparator = "" }: Props) => {
               key={index}
               word={word}
               correctLetters={correctLetters[index]}
+              isLastWord={index === text.length - 1}
               wordSeparator={wordSeparator}
             />
           )
