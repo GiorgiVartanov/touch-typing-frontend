@@ -98,8 +98,6 @@ const FakeWordsPage = () => {
     if (isError) {
       return <div>Something went wrong, check browser console for more detailed information</div>
     }
-
-    console.log(typerMode);
     
     return typerMode == "D" ? (
       <Typer wordSeparator="•" text={fetchedText} />
