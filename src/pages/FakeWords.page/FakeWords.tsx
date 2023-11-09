@@ -4,8 +4,13 @@ import ajax from "../../services/ajax"
 
 import Typer from "../../components/Typer/Typer"
 import Loading from "../../components/Loading/Loading"
+import ReinforcementTyper from "../../components/ReinforcementTyper/ReinforcementTyper"
+
+// Default and Reinforcement modes
+type Mode = "D" | "R" 
 
 // options for selects
+const typerModes = ["D", "R"]
 const georgianLetters = [
   "ა",
   "ბ",
@@ -51,10 +56,11 @@ const maxAmountOfSyllablesOptions = [1, 2, 3, 4, 5]
 // fetches text with selected params
 // renders them in a Typer component
 const FakeWordsPage = () => {
+  const [typerMode, setTyperMode] = useState<Mode>("D")
   const [letter, setLetter] = useState<string>("ა")
-  const [amount, setAmount] = useState<number>(100)
+  const [amount, setAmount] = useState<number>(5)
   const [minAmountOfSyllables, setMinAmountOfSyllables] = useState<number>(1)
-  const [maxAmountOfSyllables, setMaxAmountOfSyllables] = useState<number>(5)
+  const [maxAmountOfSyllables, setMaxAmountOfSyllables] = useState<number>(1)
 
   const [fetchedText, setFetchedText] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -82,7 +88,7 @@ const FakeWordsPage = () => {
     }
 
     setIsLoading(false)
-  }, [letter, amount, minAmountOfSyllables, maxAmountOfSyllables])
+  }, [typerMode, letter, amount, minAmountOfSyllables, maxAmountOfSyllables])
 
   // returns Loading component while data is fetching
   // returns error message if data was not fetched
@@ -93,11 +99,12 @@ const FakeWordsPage = () => {
       return <div>Something went wrong, check browser console for more detailed information</div>
     }
 
-    return (
-      <Typer
-        wordSeparator="•"
-        text={fetchedText}
-      />
+    console.log(typerMode);
+    
+    return typerMode == "D" ? (
+      <Typer wordSeparator="•" text={fetchedText} />
+    ) : (
+      <ReinforcementTyper wordSeparator="•" text={fetchedText} />
     )
   }
 
@@ -105,11 +112,24 @@ const FakeWordsPage = () => {
     <div className="page fake-words-page">
       <div className="select-list">
         <label>
-          letter:
+          mode:
           <select
-            value={letter}
-            onChange={(e) => setLetter(e.target.value)}
+            value={typerMode}
+            onChange={(e) => setTyperMode(e.target.value as Mode)}
           >
+            {typerModes.map((mode) => (
+              <option 
+                key={mode} 
+                value={mode}
+              >
+                {mode}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          letter:
+          <select value={letter} onChange={(e) => setLetter(e.target.value)}>
             {georgianLetters.map((letter) => (
               <option
                 key={letter}

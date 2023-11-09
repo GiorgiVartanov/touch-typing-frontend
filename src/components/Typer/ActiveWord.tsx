@@ -94,9 +94,10 @@ interface Props {
   isLastWord: boolean
   wordSeparator: string
   style?: React.CSSProperties
+  className?: string
 }
 
-const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style }: Props) => {
+const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, className }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0)
@@ -203,7 +204,7 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style }: Pr
   return (
     <div
       style={style}
-      className="word"
+      className={`word ${className}`}
     >
       {[...word.split(""), "\u00a0" + wordSeparator + "\u00a0"].map((letter, index) => (
         <Letter

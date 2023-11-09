@@ -58,6 +58,14 @@
       }
     }
 
+    // for reinforcement typer
+    &:is(.penalty-word) {
+      color: var(--penalty-word-yellow);
+      .letter:last-child {
+        color: var(--weaker-text-color);
+      }
+    }
+
     .letter {
       transition: all 0.3s ease;
 

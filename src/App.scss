@@ -25,8 +25,9 @@ body,
     --text-color: #1d1c1b;
     --slightly-weak-text-color: #141413;
     --weaker-text-color: #8b8b8b;
+    --penalty-word-yellow: #ffae00;
   }
-
+  
   // dark theme
   &.dark {
     --primary-color: #7c66db;
@@ -36,6 +37,7 @@ body,
     --text-color: white;
     --slightly-weak-text-color: rgb(241, 241, 241);
     --weaker-text-color: #747474;
+    --penalty-word-yellow: #F5E856
   }
 
   .page {
