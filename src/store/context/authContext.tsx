@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react"
+import { createContext, useContext, useEffect, useReducer } from "react"
 import { AxiosError } from "axios"
 
 import { loginCredentialsInterface, registerCredentialsInterface } from "../../types/auth.types"
@@ -133,11 +133,32 @@ const AuthProvider = ({ children }: Props) => {
     // resetAppSettings()
   }
 
+  const checkTokenExpiration = () => {
+    const isLoggedIn = state.isLoggedIn
+
+    if (!isLoggedIn) return
+
+    const currentDate = Number(new Date())
+    const tokenExpirationDate = state.tokenExpirationDate
+
+    if (!tokenExpirationDate) return
+
+    if (currentDate >= tokenExpirationDate) {
+      logoutUser()
+      console.log("your session token has expired")
+    }
+  }
+
+  useEffect(() => {
+    checkTokenExpiration()
+  }, [])
+
   const store = {
     ...state,
     registerUser,
     loginUser,
     logoutUser,
+    // checkTokenExpiration,
   }
 
   return <AuthContext.Provider value={store}>{children}</AuthContext.Provider>

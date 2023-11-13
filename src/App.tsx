@@ -18,6 +18,9 @@ import PageNotFoundPage from "./pages/PageNotFound.page/PageNotFound.page"
 import ProfilePage from "./pages/Profile.page/Profile.page"
 import CommunitiesPage from "./pages/Communities.page/Communities.page"
 import FakeWordsPage from "./pages/FakeWords.page/FakeWords"
+import SettingsPage from "./pages/Settings.page/Settings.page"
+import LeaderboardsPage from "./pages/Leaderboards.page/Leaderboards.page"
+import NotificationsPage from "./pages/Notifications.page/Notifications.page"
 
 // components
 import Header from "./components/Header/Header"
@@ -84,6 +87,18 @@ const App = () => {
         <Route
           path="/communities"
           element={<CommunitiesPage />}
+        />
+        <Route
+          path="/leaderboards"
+          element={<LeaderboardsPage />}
+        />
+        <Route
+          path="/notifications"
+          element={<NotificationsPage />}
+        />
+        <Route
+          path="/settings"
+          element={<SettingsPage />}
         />
         <Route
           path="/*"

@@ -12,64 +12,41 @@ body,
 
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: color, background-color 200ms ease-in-out;
+  transition: color, background-color 200ms var(--animation-function);
 
   --error-color: #ca3f3f;
+  --large-font-size: 1.5rem;
+  --animation-function: cubic-bezier(0.36, 0.56, 0.52, 0.97);
 
   // light theme
   &:not(.dark) {
-    --primary-color: #937ef1;
-    --secondary-color: #dfdfdf;
-    --background-color: #f3f3f3;
-    --secondary-background-color: #e0e4e9;
-    --text-color: #1d1c1b;
+    --primary-color: rgb(165, 150, 233);
+    --secondary-color: #afbac5;
+    --background-color: #ffffff;
+    --secondary-background-color: #e3e8f0;
+    --text-color: #0b1a33;
     --slightly-weak-text-color: #141413;
     --weaker-text-color: #8b8b8b;
     --penalty-word-yellow: #ffae00;
   }
-  
+
   // dark theme
   &.dark {
     --primary-color: #7c66db;
-    --secondary-color: #3a3837;
-    --background-color: #1d1c1b;
-    --secondary-background-color: #1f2020;
-    --text-color: white;
+    --secondary-color: #484c4e;
+    --background-color: #1f2124;
+    --secondary-background-color: rgb(38, 41, 44);
+    --text-color: #e2e6eb;
     --slightly-weak-text-color: rgb(241, 241, 241);
-    --weaker-text-color: #747474;
-    --penalty-word-yellow: #F5E856
+    --weaker-text-color: rgb(75, 80, 87);
+    --penalty-word-yellow: #f5e856;
   }
 
   .page {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     max-width: 1280px;
     width: 100%;
     margin: 4rem auto;
     flex: 1;
   }
 }
-
-a {
-  padding: 0.25rem;
-  transition: opacity ease-in-out 200ms;
-
-  &.active {
-    color: var(--primary-color);
-  }
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
-// @media (prefers-color-scheme: dark) {
-//   .App {
-//     --primary-color: #7c66db;
-//     --secondary-color: #3a3837;
-//     --background-color: #1d1c1b;
-//     --secondary-background-color: #1f2020;
-//     --text-color: white;
-//     --slightly-weak-text-color: rgb(201, 201, 201);
-//     --weaker-text-color: #747474;
-//   }
-// }

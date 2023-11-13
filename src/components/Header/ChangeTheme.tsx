@@ -1,6 +1,3 @@
-/// <reference types="vite-plugin-svgr/client" />
-// fixed issue with importing svg file as a component
-
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
 // import { ThemeType } from "../../types/appSettings.types"
 

@@ -1,0 +1,71 @@
+.settings-page {
+  .settings-section {
+    border-bottom: 1px solid var(--secondary-color);
+    padding: 1rem 0;
+    max-width: 960px;
+    margin: auto;
+
+    .section-title {
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
+    }
+
+    .settings-list {
+      display: flex;
+      flex-direction: column;
+      // gap: 0.75rem;
+
+      .setting-item {
+        &.radio-setting-item {
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
+
+          // gap: 0.25rem;
+
+          .radio-setting {
+            display: flex;
+            gap: 0.5rem;
+            transition: all var(--animation-function) 200ms;
+            padding: 0.25rem 2rem 0.25rem 0.25rem;
+            cursor: pointer;
+
+            input {
+              cursor: pointer;
+            }
+
+            &:hover {
+              opacity: 0.85;
+              gap: 0.75rem;
+            }
+          }
+        }
+
+        &.select-setting-item {
+          padding: 0.25rem;
+          display: flex;
+          justify-content: space-between;
+
+          .setting-select {
+            padding: 0.25rem 1rem;
+            width: 100%;
+            max-width: 240px;
+            font-family: inherit;
+            transition: all var(--animation-function) 300ms;
+            background-color: var(--secondary-background-color);
+            border: none;
+            outline: none;
+
+            // &:hover {
+            //   background-color: var(--secondary-background-color);
+            //   padding: 0.25rem 1rem 0.25rem 1.25rem;
+            // }
+
+            .setting-select-option {
+            }
+          }
+        }
+      }
+    }
+  }
+}

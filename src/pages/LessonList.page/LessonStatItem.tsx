@@ -18,7 +18,8 @@ const LessonStatItem = ({ name, isInView, finishedLessons, amountOfLessons, onCl
         amountOfLessons === 0 ? "empty" : ""
       }`}
     >
-      <span className="lesson-tag">#</span> {name}{" "}
+      <span className="lesson-tag">#</span>
+      <span className="lesson-name">{name}</span>
       <span className="lessons-amount">
         ({finishedLessons}/{amountOfLessons})
       </span>

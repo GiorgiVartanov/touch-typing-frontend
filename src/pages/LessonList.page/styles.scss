@@ -29,11 +29,7 @@
         position: fixed; // sticky was not working
         top: 9rem;
         align-self: flex-start;
-
-        .empty {
-          opacity: 0.5;
-          cursor: default;
-        }
+        transition: all 300ms var(--animation-function);
 
         .lesson-stat-list-buttons {
           height: 100%;
@@ -43,10 +39,43 @@
           gap: 0.5rem;
           font-size: 0.9rem;
 
+          .empty {
+            opacity: 0.5;
+            cursor: default;
+
+            &:hover {
+              .lesson-tag {
+                padding-left: 0 !important;
+              }
+              .lesson-name {
+                padding-left: 0 !important;
+              }
+              .lessons-amount {
+                padding-left: 0 !important;
+              }
+            }
+          }
+
           .lesson-stat-list-button {
             text-align: left;
-            // transition: 200ms ease-in-out 300ms;
-            transition: all 200ms ease-in-out;
+            display: flex;
+            gap: 0.25rem;
+
+            span {
+              transition: all 300ms var(--animation-function);
+            }
+
+            &:hover {
+              .lesson-tag {
+                padding-left: 0.25rem;
+              }
+              .lesson-name {
+                padding-left: 0.5rem;
+              }
+              .lessons-amount {
+                padding-left: 0.135rem;
+              }
+            }
 
             &.active {
               color: var(--primary-color);
@@ -101,9 +130,13 @@
           min-height: 200px;
           width: 100%;
           opacity: 0;
+          transition: all 300ms var(--animation-function);
 
-          animation: slideInFromLeft 500ms ease-in-out forwards;
-          // transition: 10ms ease-in-out;
+          animation: slideInFromLeft 500ms var(--animation-function) forwards;
+
+          &:hover {
+            filter: opacity(85%);
+          }
 
           img {
             object-fit: cover;

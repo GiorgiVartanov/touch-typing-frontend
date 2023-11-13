@@ -18,11 +18,13 @@ import {
 const user: userType | null = JSON.parse(localStorage.getItem("user") || "{}")
 const token: string | null = localStorage.getItem("token")
 const isLoggedIn: boolean | null = JSON.parse(localStorage.getItem("isLoggedIn") || "false")
+const tokenExpirationDate: number | null = Number(localStorage.getItem("tokenExpirationDate"))
 
 export interface AuthState {
   isLoggedIn: boolean
   user: userType | null
   token: string | null
+  tokenExpirationDate: number | null
   isLoading: boolean
   isError: boolean
   registerErrorMessage: string | null
@@ -35,12 +37,14 @@ export interface AuthFunctions {
   registerUser: (credentials: registerCredentialsInterface) => Promise<void>
   loginUser: (credentials: loginCredentialsInterface) => Promise<void>
   logoutUser: () => void
+  // checkTokenExpiration: () => void
 }
 
 export const initialState: AuthState = {
   isLoggedIn: isLoggedIn || false,
   user: user || null,
   token: token || null,
+  tokenExpirationDate: tokenExpirationDate || null,
   isLoading: false,
   isError: false,
   registerErrorMessage: null,
