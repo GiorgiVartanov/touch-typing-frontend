@@ -112,6 +112,7 @@ const LessonStats = ({ lessonsAmount }: Props) => {
             onClick={handleScrollToElement}
           />
           <Link to="../fake">fake words (will be moved somewhere else)</Link>
+          <Link to="../incremental">incremental learning(first draft)</Link>
         </div>
       </div>
     </div>

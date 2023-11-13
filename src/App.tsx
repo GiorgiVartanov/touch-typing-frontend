@@ -22,6 +22,7 @@ import FakeWordsPage from "./pages/FakeWords.page/FakeWords"
 // components
 import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
+import IncrementalLearningPage from "./pages/IncrementalLearning.page/IncrementalLearning.page"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -64,6 +65,10 @@ const App = () => {
         <Route
           path="/fake"
           element={<FakeWordsPage />}
+        />
+        <Route 
+          path="/incremental"
+          element={<IncrementalLearningPage />}
         />
         <Route
           path="/lesson/:id"

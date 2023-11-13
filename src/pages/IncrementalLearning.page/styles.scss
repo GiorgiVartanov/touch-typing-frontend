@@ -1,0 +1,29 @@
+.incremental-learning-page {
+  .letters-diplay-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+    margin-top: 150px;
+    gap: 3px;
+
+    .letter {
+      font-family: monospace;
+      background-color: var(--secondary-color);
+      width: 1.6rem;
+      height: 2.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      &:is(.activated-learning-letter) {
+        background-color: var(--primary-color);
+      }
+
+      &:is(.active-learning-letter) {
+        border: dotted 2px var(--secondary-color);
+      }
+    }
+  }
+}
