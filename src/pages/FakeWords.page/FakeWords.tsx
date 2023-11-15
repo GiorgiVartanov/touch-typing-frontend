@@ -7,45 +7,12 @@ import Loading from "../../components/Loading/Loading"
 import ReinforcementTyper from "../../components/ReinforcementTyper/ReinforcementTyper"
 
 // Default and Reinforcement modes
-type Mode = "D" | "R" 
+type Mode = "D" | "R" | "S"
 
 // options for selects
-const typerModes = ["D", "R"]
-const georgianLetters = [
-  "ა",
-  "ბ",
-  "გ",
-  "დ",
-  "ე",
-  "ვ",
-  "ზ",
-  "თ",
-  "ი",
-  "კ",
-  "ლ",
-  "მ",
-  "ნ",
-  "ო",
-  "პ",
-  "ჟ",
-  "რ",
-  "ს",
-  "ტ",
-  "უ",
-  "ფ",
-  "ქ",
-  "ღ",
-  "ყ",
-  "შ",
-  "ჩ",
-  "ც",
-  "ძ",
-  "წ",
-  "ჭ",
-  "ხ",
-  "ჯ",
-  "ჰ",
-]
+const typerModes = ["D", "R", "S"]
+const georgianLetters = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ".split("")
+
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100]
 const minAmountOfSyllablesOptions = [1, 2, 3, 4, 5]
 const maxAmountOfSyllablesOptions = [1, 2, 3, 4, 5]
@@ -74,9 +41,11 @@ const FakeWordsPage = () => {
 
     try {
       const fetchLesson = async () => {
-        const response = await ajax.get(
-          `/lesson/fakewords?letter=${letter}&amount=${amount}&minAmountOfSyllables=${minAmountOfSyllables}&maxAmountOfSyllables=${maxAmountOfSyllables}`
-        )
+        const response = (typerMode === "S") ?
+        //I use variable "minAmountOfSyllables" as a variable "level," because I don't want to create too many variables....
+        await ajax.get(`/lesson/fakewords?letter=${letter}&amount=${amount}&minAmountOfSyllables=${minAmountOfSyllables-1}&maxAmountOfSyllables=${maxAmountOfSyllables-1}&whatAreYouAskingFor=NGRAMS`)
+        : 
+        await ajax.get(`/lesson/fakewords?letter=${letter}&amount=${amount}&minAmountOfSyllables=${minAmountOfSyllables}&maxAmountOfSyllables=${maxAmountOfSyllables}`)
 
         setFetchedText(response.data.data)
       }
@@ -99,10 +68,10 @@ const FakeWordsPage = () => {
       return <div>Something went wrong, check browser console for more detailed information</div>
     }
     
-    return typerMode == "D" ? (
-      <Typer wordSeparator="•" text={fetchedText} />
-    ) : (
+    return typerMode === "R" ? (
       <ReinforcementTyper wordSeparator="•" text={fetchedText} />
+      ) : (
+      <Typer wordSeparator="•" text={fetchedText} />
     )
   }
 
@@ -155,36 +124,42 @@ const FakeWordsPage = () => {
           </select>
         </label>
         <label>
-          min syllables:
+          {typerMode === "S" ? "level:" : "min syllables:"}
           <select
             value={minAmountOfSyllables}
             onChange={(e) => setMinAmountOfSyllables(Number(e.target.value))}
           >
-            {minAmountOfSyllablesOptions.map((number) => (
-              <option
-                key={number}
-                value={number}
-              >
-                {number}
-              </option>
-            ))}
+            {minAmountOfSyllablesOptions.map((number) => {
+              return (
+                number < 5 || typerMode != "S" ? 
+                <option
+                  key={number}
+                  value={number}
+                >
+                  {number}
+                </option>
+                :<></>
+            )})}
           </select>
         </label>
         <label htmlFor="maxAmountOfSyllables">
-          max syllables:
+        {typerMode === "S" ? "subLevel:" : "max syllables:"}
           <select
             name="maxAmountOfSyllables"
             value={maxAmountOfSyllables}
             onChange={(e) => setMaxAmountOfSyllables(Number(e.target.value))}
           >
-            {maxAmountOfSyllablesOptions.map((number) => (
-              <option
-                key={number}
-                value={number}
-              >
-                {number}
-              </option>
-            ))}
+            {maxAmountOfSyllablesOptions.map((number) => {
+              return (
+                number < 5 || typerMode != "S" ? 
+                <option
+                  key={number}
+                  value={number}
+                >
+                  {number}
+                </option>
+                :<></>
+            )})}
           </select>
         </label>
       </div>
