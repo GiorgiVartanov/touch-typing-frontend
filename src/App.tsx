@@ -25,6 +25,7 @@ import NotificationsPage from "./pages/Notifications.page/Notifications.page"
 // components
 import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
+import AssessLevelPage from "./pages/AssessLevel.page/AssessLevel.page"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -83,6 +84,10 @@ const App = () => {
         <Route
           path="/practice"
           element={<PracticePage />}
+        />
+        <Route
+          path="/assessment"
+          element={<AssessLevelPage/>}
         />
         <Route
           path="/communities"
