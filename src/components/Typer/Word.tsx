@@ -4,7 +4,7 @@ import Letter from "./Letter"
 
 interface Props {
   word: string
-  correctLetters?: (0 | 1 | 2)[]
+  lettersStatuses?: (0 | 1 | 2)[]
   wordSeparator: string
   style?: React.CSSProperties
   className?: string
@@ -12,7 +12,7 @@ interface Props {
 
 // renders a word
 // it uses useMemo, so it's rerendered only when any of its props are changed (actually it is rerendered when it's parent rerenders. calculations (list of Letter components) are cached, so next time they will get rendered faster )
-const Word = ({ word, correctLetters, wordSeparator, style, className }: Props) => {
+const Word = ({ word, lettersStatuses, wordSeparator, style, className }: Props) => {
   const memoizedWord = useMemo(() => {
     return (
       <div
@@ -24,12 +24,12 @@ const Word = ({ word, correctLetters, wordSeparator, style, className }: Props) 
             key={index}
             letter={letter}
             isCurrentLetter={false}
-            isCorrect={correctLetters?.[index]}
+            isCorrect={lettersStatuses?.[index]}
           />
         ))}
       </div>
     )
-  }, [word, correctLetters, wordSeparator, style])
+  }, [word, lettersStatuses, wordSeparator, style])
 
   return memoizedWord
 }

@@ -1,7 +1,7 @@
 /// <reference types="vite-plugin-svgr/client" />
 // fixed issue with importing svg file as a component
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 
@@ -16,35 +16,40 @@ const textAlignValues = { left: "start", center: "center", right: "end" }
 interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
+  finishHandler?: (lettersStatuses:(0 | 1 | 2)[][], startTime : Date | null) => void
 }
 
-const Text = ({ text, wordSeparator = "" }: Props) => {
+const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) => {
   const { font, fontSize, lineHeight, letterSpacing, alignText } = useTypingSettingsStore()
-
+  const startTime = useRef<Date | null>(null);
+  
   // const containerHeight = `${amountOfShownLines * lineSpacing}rem`
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
-  const [correctLetters, setCorrectLetters] = useState<(0 | 1 | 2)[][]>([])
+  const [lettersStatuses, setLettersStatuses] = useState<(0 | 1 | 2)[][]>([])
 
   // goes to the next word
-  const goToNextWord = (correctLetters: (0 | 1 | 2)[]) => {
+  const goToNextWord = (wordLetterStatuses: (0 | 1 | 2)[]) => {
     // 0 - letter was not typed yet
     // 1 - letter was typed incorrectly
     // 2 - letter was typed correctly
 
     setCurrentWordIndex((prevState) => prevState + 1)
-    setCorrectLetters((prevState) => {
+    setLettersStatuses((prevState) => {
       if (prevState) {
-        return [...prevState, correctLetters]
+        return [...prevState, wordLetterStatuses]
       } else {
-        return [correctLetters]
+        return [wordLetterStatuses]
       }
     })
+
+    if(currentWordIndex + 1 === text.length && finishHandler)
+      finishHandler([...lettersStatuses, wordLetterStatuses], startTime.current)
   }
 
   useEffect(() => {
     setCurrentWordIndex(0)
-    setCorrectLetters([])
+    setLettersStatuses([])
   }, [text])
 
   return (
@@ -68,6 +73,7 @@ const Text = ({ text, wordSeparator = "" }: Props) => {
               goToNextWord={goToNextWord}
               isLastWord={index === text.length - 1}
               wordSeparator={wordSeparator}
+              startTime = {startTime}
             />
           )
         } else {
@@ -75,7 +81,7 @@ const Text = ({ text, wordSeparator = "" }: Props) => {
             <Word
               key={index}
               word={word}
-              correctLetters={correctLetters[index]}
+              lettersStatuses={lettersStatuses[index]}
               wordSeparator={wordSeparator}
             />
           )

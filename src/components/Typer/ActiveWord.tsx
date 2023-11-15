@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, MutableRefObject } from "react"
 
 import Letter from "./Letter"
 
@@ -90,22 +90,26 @@ const usedKeys = [
 
 interface Props {
   word: string
-  goToNextWord: (correctLetters: (0 | 1 | 2)[]) => void
+  goToNextWord: (lettersStatuses: (0 | 1 | 2)[]) => void
   isLastWord: boolean
   wordSeparator: string
   style?: React.CSSProperties
   className?: string
+  startTime?: MutableRefObject<Date | null>
 }
 
-const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, className }: Props) => {
+const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, className, startTime }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0)
-  const [correctLetters, setCorrectLetters] = useState<(0 | 1 | 2)[]>(
+  const [lettersStatuses, setLettersStatuses] = useState<(0 | 1 | 2)[]>(
     Array.from({ length: word.length }, () => 0)
   )
 
   const handleKeyPress = (e: KeyboardEvent) => {
+    if(startTime?.current === null) 
+      startTime.current = new Date()
+
     const pressedKey = e.key
 
     // ignores certain keys that should not trigger any action
@@ -128,8 +132,8 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, clas
     if (e.key === "Backspace" && e.ctrlKey) {
       // Prevent the default behavior of backspace/delete
       e.preventDefault()
-      // Remove the whole word by resetting the correctLetters and currentLetterIndex
-      setCorrectLetters(Array.from({ length: word.length }, () => 0))
+      // Remove the whole word by resetting the lettersStatuses and currentLetterIndex
+      setLettersStatuses(Array.from({ length: word.length }, () => 0))
       setCurrentLetterIndex(0)
       return
     }
@@ -138,7 +142,7 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, clas
     if (pressedKey === "Backspace" && currentLetterIndex > 0) {
       setCurrentLetterIndex((prevState) => prevState - 1)
       // marks erased character as letter that was not typed (0)
-      setCorrectLetters((prevState) => {
+      setLettersStatuses((prevState) => {
         const savedPrevState = prevState
         savedPrevState[currentLetterIndex - 1] = 0
         return savedPrevState
@@ -150,30 +154,30 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, clas
     // if user presses on space and they have types last character, they will be moved to the next word
 
     if (pressedKey === " " && currentLetterIndex > word.length - 1) {
-      goToNextWord(correctLetters)
+      goToNextWord(lettersStatuses)
     }
 
     // if it's the last word and the user has typed the last letter, move to the next word
     if (isLastWord && currentLetterIndex === word.length - 1) {
-      goToNextWord(correctLetters.map((letter) => (letter === 0 ? 2 : letter)))
+      goToNextWord(lettersStatuses.map((letter) => (letter === 0 ? 2 : letter)))
     }
 
     // if user presses on Enter , they are automatically moved to the next word
     if (["Enter"].includes(pressedKey)) {
       // if user has not typed any letters of the word
-      if (!correctLetters.includes(1) && !correctLetters.includes(2)) return
-      goToNextWord(correctLetters.map((letter) => (letter === 0 ? 1 : letter)))
+      if (!lettersStatuses.includes(1) && !lettersStatuses.includes(2)) return
+      goToNextWord(lettersStatuses.map((letter) => (letter === 0 ? 1 : letter)))
     } else {
       if (pressedKey === word[currentLetterIndex]) {
         // if the pressed character is correct, mark it as correct (2)
-        setCorrectLetters((prevState) => {
+        setLettersStatuses((prevState) => {
           const savedPrevState = prevState
           savedPrevState[currentLetterIndex] = 2
           return savedPrevState
         })
       } else {
         // if the pressed character is incorrect, mark it as incorrect (1)
-        setCorrectLetters((prevState) => {
+        setLettersStatuses((prevState) => {
           const savedPrevState = prevState
           savedPrevState[currentLetterIndex] = 1
           return savedPrevState
@@ -211,7 +215,7 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, clas
           key={index}
           letter={letter}
           isCurrentLetter={index === currentLetterIndex}
-          isCorrect={correctLetters[index]}
+          isCorrect={lettersStatuses[index]}
         />
       ))}
     </div>
