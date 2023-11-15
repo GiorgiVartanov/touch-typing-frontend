@@ -9,15 +9,18 @@ import App from "./App.tsx"
 import AuthProvider from "./store/context/authContext.tsx"
 import AppSettingsProvider from "./store/context/appSettingsContext.tsx"
 import TypingSettingsProvider from "./store/context/typingSettingsContext.tsx"
+import PlayProvider from "./store/context/playContext.tsx"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
       <AppSettingsProvider>
         <TypingSettingsProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <PlayProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </PlayProvider>
         </TypingSettingsProvider>
       </AppSettingsProvider>
     </AuthProvider>

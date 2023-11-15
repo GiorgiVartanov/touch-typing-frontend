@@ -25,6 +25,7 @@ import NotificationsPage from "./pages/Notifications.page/Notifications.page"
 // components
 import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
+import Match from "./pages/Play.page/Match.tsx"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -75,6 +76,10 @@ const App = () => {
         <Route
           path="/play"
           element={<PlayPage />}
+        />
+        <Route
+          path="/play/:id"
+          element={<Match />}
         />
         <Route
           path="/profile/:username"
