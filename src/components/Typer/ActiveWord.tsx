@@ -98,7 +98,15 @@ interface Props {
   startTime?: MutableRefObject<Date | null>
 }
 
-const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, className, startTime }: Props) => {
+const ActiveWord = ({
+  word,
+  goToNextWord,
+  isLastWord,
+  wordSeparator,
+  style,
+  className,
+  startTime,
+}: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0)
@@ -107,8 +115,7 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, clas
   )
 
   const handleKeyPress = (e: KeyboardEvent) => {
-    if(startTime?.current === null) 
-      startTime.current = new Date()
+    if (startTime?.current === null) startTime.current = new Date()
 
     const pressedKey = e.key
 
@@ -210,14 +217,16 @@ const ActiveWord = ({ word, goToNextWord, isLastWord, wordSeparator, style, clas
       style={style}
       className={`word ${className}`}
     >
-      {[...word.split(""), "\u00a0" + wordSeparator + "\u00a0"].map((letter, index) => (
-        <Letter
-          key={index}
-          letter={letter}
-          isCurrentLetter={index === currentLetterIndex}
-          isCorrect={lettersStatuses[index]}
-        />
-      ))}
+      {[...word.split(""), isLastWord ? "" : "\u00a0" + wordSeparator + "\u00a0"].map(
+        (letter, index) => (
+          <Letter
+            key={index}
+            letter={letter}
+            isCurrentLetter={index === currentLetterIndex}
+            isCorrect={lettersStatuses[index]}
+          />
+        )
+      )}
     </div>
   )
 }
