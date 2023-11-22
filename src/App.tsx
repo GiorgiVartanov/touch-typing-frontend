@@ -26,6 +26,9 @@ import NotificationsPage from "./pages/Notifications.page/Notifications.page"
 import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
 import AssessLevelPage from "./pages/AssessLevel.page/AssessLevel.page"
+import Match from "./pages/Play.page/Match"
+import GameHistorical from "./pages/Play.page/GameList/GameHistorical"
+import GameHistoricalList from "./pages/Play.page/GameList/GameHistoricalList"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -81,6 +84,14 @@ const App = () => {
           path="/play/:id"
           element={<Match />}
         />
+        <Route
+          path="/game"
+          element={<GameHistoricalList/>}
+        />
+        <Route
+          path="/game/:id"
+          element={<GameHistorical/>}
+        />        
         <Route
           path="/profile/:username"
           element={<ProfilePage />}

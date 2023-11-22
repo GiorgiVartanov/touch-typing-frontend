@@ -7,6 +7,7 @@ export interface PlayState {
     users: string[];
     game_id?: string;
     games: GameStateList;
+    match_finished?: boolean;
 }
 
 export interface PlayActions {
@@ -15,4 +16,6 @@ export interface PlayActions {
     CreateGame: (text: string, time_limit: number, user_limit: number) => void;
     JoinGame: (gid: string) => void;
     LeaveGame: (game_id: string) => void;
+    ModifyMatch: (currentWordIndex: number) => void;
+    NotifyFinish: (user_wpm: number) => void;
 }

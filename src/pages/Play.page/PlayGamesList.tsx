@@ -11,8 +11,9 @@ const PlayGamesList = ({games, onClick}: Props) => {
         <div className="game-list">
             <h2>list of games:</h2>
             {
-                Object.keys(games).map(key=>
+                Object.keys(games).map((key,ind)=>
                     <PlayGameCard
+                        key={ind}
                         game={games[key]}
                         game_key={key}
                         onClick={onClick}

@@ -8,7 +8,8 @@ export const UPDATE_USERS  = "UPDATE_USERS"
 export const REMOVE_USER   = "REMOVE_USER"
 export const UPDATE_GAMEID   = "UPDATE_GAMEID"
 export const UPDATE_GAMES  = "UPDATE_GAMES"
-
+export const UPDATE_MATCH  = "UPDATE_MATCH"
+export const UPDATE_MATCH_FINISHED  = "UPDATE_MATCH_FINISHED"
 
 export const updateSocket = (
     socket: Socket
@@ -50,4 +51,18 @@ export const updateGames = (
 ) : {type: typeof UPDATE_GAMES; payload: GameStateList} => ({
     type: UPDATE_GAMES,
     payload: games,
+})
+
+export const updateMatch = (
+    users_progress: {[uid:string]: number} | undefined
+) : {type: typeof UPDATE_MATCH; payload: {[uid:string]: number} | undefined} => ({
+    type: UPDATE_MATCH,
+    payload: users_progress,
+})
+
+export const finishMatch = (
+    match_finished: boolean
+) : {type: typeof UPDATE_MATCH_FINISHED; payload: boolean} => ({
+    type: UPDATE_MATCH_FINISHED,
+    payload: match_finished,
 })

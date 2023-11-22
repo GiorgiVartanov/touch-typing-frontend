@@ -3,7 +3,7 @@ import { useSocket } from '../../hooks/useSocket';
 import { PlayActions, PlayState } from '../../types/play.types';
 import { playInitialState } from '../initial/playInitialState';
 import { PlayReducer } from '../reducers/playReducers';
-import { removeUser, updateGameId, updateGames, updateSocket, updateUID, updateUsers } from '../actions/playActions';
+import { finishMatch, removeUser, updateGameId, updateGames, updateMatch, updateSocket, updateUID, updateUsers } from '../actions/playActions';
 import Loading from '../../components/Loading/Loading';
 import { GameStateList } from '../../types/game.types';
 
@@ -66,7 +66,7 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
 
         socket.io.on('reconnect_failed', () => {
             console.info('Reconnection failure.');
-            alert('We are unable to connect you to the chat service.  Please make sure your internet connection is stable or try again later.');
+            alert('We are unable to connect you to the play service. Please make sure your internet connection is stable or try again later.');
         });
 
         socket.on('game_added', (games: GameStateList) => {
@@ -77,6 +77,19 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
         socket.on('game_modified', (games: GameStateList) => {            
             console.log('game has been modified')
             PlayDispatch(updateGames(games));
+        })
+
+        socket.on('match_modified', (games: GameStateList) => {
+            console.log("match has been modified");
+            console.log(games)
+            PlayDispatch(updateGames(games));
+        })
+
+        socket.on('match_finished', (games: GameStateList) => {
+            console.log("match has finished");
+            console.log(games)
+            PlayDispatch(updateGames(games))
+            PlayDispatch(finishMatch(true))
         })
     };
 
@@ -101,8 +114,9 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
             text, 
             time_limit, 
             user_limit, 
-            async (game_id: string, games:  GameStateList) => {
-                console.info('game has successfully been created! callback');
+            undefined,
+            async (game_id: string, games: GameStateList) => {
+                console.info('the game has successfully been created! callback');
                 PlayDispatch(updateGameId(game_id));
                 PlayDispatch(updateGames(games));
             }
@@ -110,19 +124,31 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
     }
 
     const JoinGame = async(game_id: string) => {
-        console.info("joining a game");
-        socket.emit('join_game', game_id, async (game_id: string) => {
-            console.log("game joined callback")
+        console.info("joining the game");
+        socket.emit('join_game', game_id, undefined, async () => {
             PlayDispatch(updateGameId(game_id))
+            console.log("game joined callback")
         });
     }
 
     const LeaveGame = async(game_id: string) => {
-        console.info("leaving a game");
+        console.info("leaving the game");
+        PlayDispatch(updateGameId(undefined))
+        if(PlayState.match_finished)
+            PlayDispatch(finishMatch(false))
         socket.emit('leave_game', game_id, async () => {
-            console.info("dispatching from LeaveGame");
-            PlayDispatch(updateGameId(undefined))
+            console.info("left the game");            
         })
+    }
+
+    const ModifyMatch = async(currentWordIndex: number) => {
+        console.log("notifying other players about current progress");
+        socket.emit('modify_match', PlayState.game_id, currentWordIndex, async ()=>{});
+    }
+
+    const NotifyFinish = async(user_wpm: number) => {
+        console.log("Notifying everyone about your finish");
+        socket.emit('user_finish', user_wpm, PlayState.game_id, async ()=>{});
     }
 
     if (loading) return <Loading/>;
@@ -134,6 +160,8 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
         CreateGame,
         JoinGame,
         LeaveGame,
+        ModifyMatch,
+        NotifyFinish,
     }
 
     return <PlayContext.Provider value={store}>{children}</PlayContext.Provider>;

@@ -14,11 +14,11 @@ interface gameProps {
 const initialGameProps = {
   text: "საზოგადოდ, ტექსტის მეტი არჩევანი ექნებათ",
   time_limit: 30, 
-  user_limit: 3,
+  user_limit: 2,
 }
 
 const PlayPage = () => {
-  const {uid, users, game_id, games, CreateGame, JoinGame} = usePlayStore()
+  const {users, game_id, games, CreateGame, JoinGame} = usePlayStore()
   const [params, setParams] = useState<gameProps>(initialGameProps);
   const [showModal, setShowModal] = useState<boolean>(false)
   const navigate = useNavigate();
@@ -27,14 +27,17 @@ const PlayPage = () => {
     JoinGame(game_id);
   }
 
-  if(game_id){
-    navigate(`./${game_id}`)
-  }
+  //here should work without [game_id], right? couldn't make it work...
+  useEffect(()=>{
+    console.log(games)
+    if(game_id)
+      navigate(`./${game_id}`)  
+  }, [game_id])
+
 
   return (
     <>
       {
-        // game_id !== undefined ? <Match/> :
         <div className="page play">
           <h2 className="play-head">Active users: {users.length}</h2>
           <div className="play-body">
@@ -46,6 +49,9 @@ const PlayPage = () => {
               {/*აქ იქნება gameSetting Modal*/}
               <Button onClick={() => CreateGame(params.text, params.time_limit, params.user_limit)}>
                 create a game
+              </Button>
+              <Button onClick={()=>navigate("../game")}>
+                Game History
               </Button>
             </div>
           </div>
