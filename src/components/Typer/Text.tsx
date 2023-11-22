@@ -16,13 +16,15 @@ const textAlignValues = { left: "start", center: "center", right: "end" }
 interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
-  finishHandler?: (lettersStatuses:(0 | 1 | 2)[][], startTime : Date | null) => void
+  finishHandler?: (lettersStatuses: (0 | 1 | 2)[][], startTime: Date | null) => void
 }
 
 const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) => {
   const { font, fontSize, lineHeight, letterSpacing, alignText } = useTypingSettingsStore()
-  const startTime = useRef<Date | null>(null);
-  
+  const startTime = useRef<Date | null>(null)
+
+  const textLength = text.length
+
   // const containerHeight = `${amountOfShownLines * lineSpacing}rem`
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
@@ -43,7 +45,7 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) =>
       }
     })
 
-    if(currentWordIndex + 1 === text.length && finishHandler)
+    if (currentWordIndex + 1 === text.length && finishHandler)
       finishHandler([...lettersStatuses, wordLetterStatuses], startTime.current)
   }
 
@@ -71,9 +73,9 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) =>
               key={index}
               word={word}
               goToNextWord={goToNextWord}
-              isLastWord={index === text.length - 1}
+              isLastWord={index === textLength - 1}
               wordSeparator={wordSeparator}
-              startTime = {startTime}
+              startTime={startTime}
             />
           )
         } else {
@@ -82,6 +84,7 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) =>
               key={index}
               word={word}
               lettersStatuses={lettersStatuses[index]}
+              isLastWord={index === textLength - 1}
               wordSeparator={wordSeparator}
             />
           )
