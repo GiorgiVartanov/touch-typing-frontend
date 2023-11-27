@@ -53,22 +53,26 @@ const Match = () => {
                     <Button
                         onClick={()=>leaveGame()}
                     >
-                        Leave the game
+                        Leave
                     </Button>
                 </>
                 :
-                <div>
-                    {game.gul[uid].has_finished === true ? <></> : <h1>The game has started. Good luck!</h1>}
+                <>
+                    {game.gul[uid].has_finished === true ? <></> : <h1 className="head">The game has started. Good luck!</h1>}
                     {
                         Object.keys(game.gul).map((uid, ind)=>{
-                            return <h1 key={ind}>
-                                { game.gul[uid].username }
-                                { game.gul[uid].WPM !== -1 ?
-                                    game.gul[uid].has_finished ? " WPM: " : " Progress: "
-                                    :" Disconnected: " }
-                                { game.gul[uid].WPM.toFixed(2) }
-                                { game.gul[uid].has_finished ? "" : "%" }
-                            </h1>
+                            return <div key={ind} className="list">
+                                <h1 key={1}>
+                                    { game.gul[uid].username }
+                                </h1>
+                                <h1 key={2}>
+                                    { game.gul[uid].WPM !== -1 ?
+                                        game.gul[uid].has_finished ? " WPM: " : " Progress: "
+                                        :" Disconnected: " }
+                                    { game.gul[uid].WPM.toFixed(2) }
+                                    { game.gul[uid].has_finished ? "" : "%" }
+                                </h1>
+                            </div>
                         })
                     }
                     { game.gul[uid].has_finished === true? 
@@ -78,7 +82,7 @@ const Match = () => {
                         ModifyMatch={ModifyMatch}
                         text={game.text}
                     />}
-                </div>
+                </>
             }
         </div>
     )

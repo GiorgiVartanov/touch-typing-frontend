@@ -7,7 +7,7 @@ import { finishMatch, removeUser, updateGameId, updateGames, updateMatch, update
 import Loading from '../../components/Loading/Loading';
 import { GameStateList } from '../../types/game.types';
 
-const SERVER_URL = "http://localhost:5000" //env variables has "/api" as a suffix and that's a problem...
+const SERVER_URL = "http://localhost:5000" //env variable has "/api" as a suffix and that's a problem...
 
 interface ContextInterface extends PlayState, PlayActions {}
 
@@ -85,10 +85,11 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
             PlayDispatch(updateGames(games));
         })
 
-        socket.on('match_finished', (games: GameStateList) => {
+        socket.on('match_finished', (params: {games: GameStateList, game_id: string}) => {
             console.log("match has finished");
-            console.log(games)
-            PlayDispatch(updateGames(games))
+            console.log(params.games)
+            PlayDispatch(updateGames(params.games))
+            PlayDispatch(updateGameId(params.game_id)) //game_id turns from uuid to mongoose.Types.ObjectId
             PlayDispatch(finishMatch(true))
         })
     };

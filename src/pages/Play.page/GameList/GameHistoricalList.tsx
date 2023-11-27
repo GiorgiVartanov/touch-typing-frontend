@@ -5,28 +5,27 @@ import { GameState } from "../../../types/game.types"
 import GameHistoricalCard from "./GameHistoricalCard"
 import { useNavigate } from "react-router-dom"
 import Button from "../../../components/Form/Button"
+import SearchBar from "../../../components/SearchBar/SearchBar"
 
-export interface GameDatabase extends GameState {
-    guid: string,
-}
 
 const GameHistoricalList = () => {
-    const [games, setGames] = useState<GameDatabase[] | null>(null)
+    const [games, setGames] = useState<GameState[] | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)  
+    const [userSearch, setUserSearch] = useState<string>("");
     const navigate = useNavigate()
 
     useEffect(() => {
         setIsLoading(true)
-
-            const fetchLesson = async () => {
-            const response = await ajax.get('/game')
+        console.log(userSearch);
+        const fetchLesson = async () => {
+            const response = await ajax.get(`/game?username=${userSearch}`)
 
             setGames(response.data)
         }
         fetchLesson()
 
         setIsLoading(false)
-    }, [])
+    }, [userSearch])
 
     if (isLoading || !games) return <Loading />
 
@@ -34,23 +33,33 @@ const GameHistoricalList = () => {
         navigate("./"+game_id);
     }
 
-    return (<div className="page play-body">
-        <div>
-        {games.map((game,ind)=>{
-            return (
-                <GameHistoricalCard
-                    game={game}
-                    onClick={onClick}
-                    key={ind}
-                />
-            )
-        })}
-        </div>
-        <div>
-            <Button onClick={()=>navigate("../play")}>
-                Back
-            </Button>
-        </div>
+    const handleTextChange = (newText: string) => {
+        setUserSearch(newText)
+    }    
+
+    return (<div className="page game-body">
+        <SearchBar
+            value={userSearch}
+            handleTextChange={handleTextChange}
+        />
+        <div className="game-body-main">
+            <div className="game-body-main-list">
+                {games.slice(0).reverse().map((game,ind)=>{ //newer games first
+                    return (
+                        <GameHistoricalCard
+                            game={game}
+                            onClick={onClick}
+                            key={ind}
+                        />
+                    )
+                })}
+            </div>
+            <div className="back">
+                <Button onClick={()=>navigate("../play")}>
+                    Back
+                </Button>
+            </div>
+        </div>        
     </div>)
 }
 

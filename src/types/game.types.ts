@@ -1,5 +1,6 @@
 //to be upgraded... has been updated
 export interface GameState {
+    _id: string,
     gul: Match,
     text: string, 
     time_limit: number, 

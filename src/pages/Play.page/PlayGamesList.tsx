@@ -9,7 +9,7 @@ interface Props{
 const PlayGamesList = ({games, onClick}: Props) => {
     return (
         <div className="game-list">
-            <h2>list of games:</h2>
+            <h2>list of active games:</h2>
             {
                 Object.keys(games).map((key,ind)=>
                     <PlayGameCard
