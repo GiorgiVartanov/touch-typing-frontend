@@ -2,21 +2,23 @@ import { useState, useEffect } from "react"
 
 import "./styles.scss"
 
-import { LessonResponseType } from "../../types/lesson.types"
+import { LessonsApiResponse } from "../../types/typing.types"
 import ajax from "../../services/ajax"
 
 import LessonCardList from "./LessonCardList"
 import LessonStats from "./LessonStats"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import Loading from "../../components/Loading/Loading"
+import AddNewLessonModal from "./AddNewLessonModal"
 
 // page
 const LearnPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   // const [error, setErrorMessage] = useState()
 
-  const [data, setData] = useState<LessonResponseType | null>({
+  const [data, setData] = useState<LessonsApiResponse | null>({
     Beginner: [],
     Intermediate: [],
     Advanced: [],
@@ -42,6 +44,16 @@ const LearnPage = () => {
     setSearchValue(newText)
   }
 
+  // opens modal
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+  }
+
+  // closes modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
   if (isLoading || !data) return <Loading />
 
   return (
@@ -50,28 +62,31 @@ const LearnPage = () => {
         value={searchValue}
         handleTextChange={handleTextChange}
       />
-
+      <AddNewLessonModal
+        isVisible={isModalOpen}
+        closeModal={handleCloseModal}
+      />
       <div className="lesson-page-body">
         <div className="lesson-lists">
           <LessonCardList
             lessonList={data?.Beginner}
             id="Beginner"
-            name="Beginner"
+            sectionName="Beginner"
           />
           <LessonCardList
             lessonList={data?.Intermediate}
             id="Intermediate"
-            name="Intermediate"
+            sectionName="Intermediate"
           />
           <LessonCardList
             lessonList={data?.Expert}
             id="Expert"
-            name="Expert"
+            sectionName="Expert"
           />
           <LessonCardList
             lessonList={data?.Advanced}
             id="Advanced"
-            name="Advanced"
+            sectionName="Advanced"
           />
         </div>
         <LessonStats
@@ -81,6 +96,7 @@ const LearnPage = () => {
             Expert: data.Expert.length,
             Advanced: data.Advanced.length,
           }}
+          openModal={handleOpenModal}
         />
       </div>
     </div>

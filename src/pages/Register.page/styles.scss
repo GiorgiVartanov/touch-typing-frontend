@@ -2,6 +2,13 @@
   display: grid;
   place-content: center;
 
+  .auth-message {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    margin: 1rem auto;
+    text-decoration: underline;
+  }
+
   .error {
     color: var(--primary-color);
   }

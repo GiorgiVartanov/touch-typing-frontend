@@ -1,8 +1,4 @@
-import {
-  userType,
-  registerCredentialsInterface,
-  loginCredentialsInterface,
-} from "../../types/auth.types"
+import { UserData, User, RegisterCredentials, LoginCredentials } from "../../types/auth.types"
 import { AppSettingsState } from "../../types/appSettings.types"
 import { TypingSettingsState } from "../../types/typingSettings.types"
 import { defaultTheme, defaultLanguage } from "./appSettingsInitial"
@@ -15,14 +11,14 @@ import {
   defaultLineHeight,
 } from "./typingSettingsInitialState"
 
-const user: userType | null = JSON.parse(localStorage.getItem("user") || "{}")
+const user: UserData | null = JSON.parse(localStorage.getItem("user") || "{}")
 const token: string | null = localStorage.getItem("token")
 const isLoggedIn: boolean | null = JSON.parse(localStorage.getItem("isLoggedIn") || "false")
 const tokenExpirationDate: number | null = Number(localStorage.getItem("tokenExpirationDate"))
 
 export interface AuthState {
   isLoggedIn: boolean
-  user: userType | null
+  user: UserData | null
   token: string | null
   tokenExpirationDate: number | null
   isLoading: boolean
@@ -34,8 +30,8 @@ export interface AuthState {
 }
 
 export interface AuthFunctions {
-  registerUser: (credentials: registerCredentialsInterface) => Promise<void>
-  loginUser: (credentials: loginCredentialsInterface) => Promise<void>
+  registerUser: (credentials: RegisterCredentials) => Promise<void>
+  loginUser: (credentials: LoginCredentials) => Promise<void>
   logoutUser: () => void
   // checkTokenExpiration: () => void
 }

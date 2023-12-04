@@ -28,17 +28,27 @@
       .separate {
         display: flex;
         gap: 0.75rem;
+        width: auto;
       }
 
       a {
         max-width: 100%;
-        padding: 1.25rem 1rem;
-        background-color: var(--secondary-background-color);
+        padding: 1rem 0.75rem;
+        // background-color: var(--secondary-background-color);
         transition: 400ms var(--animation-function);
+        // box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 0 4px 1px transparent;
         box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 0 4px 1px transparent;
+        border-radius: 10px;
+        border: 1px solid var(--secondary-color);
+        width: 360px;
+        background-color: var(--secondary-background-color);
 
         &.main-button {
           background-color: var(--primary-color);
+
+          span {
+            color: var(--text-color);
+          }
         }
 
         &:hover,
@@ -49,16 +59,16 @@
         }
 
         p {
-          font-size: 1.35rem;
+          font-weight: bold;
+          font-size: 1.5rem;
           line-height: 1.5rem;
-          font-weight: 600;
         }
 
         span {
           // opacity: 0.6;
-          color: var(--slightly-weak-text-color);
-          font-size: 0.85rem;
-          line-height: 0.85rem;
+          font-weight: 200;
+          color: var(--accent-color);
+          font-size: 0.9rem;
           font-weight: 300;
           white-space: nowrap;
         }

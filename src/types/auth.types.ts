@@ -1,44 +1,43 @@
 import { CommunityType } from "./community.types"
-import { LessonType, PvPMatchType } from "./lesson.types"
+import { HistoryItem, Lesson } from "./typing.types"
 import { AchievementType } from "./achievement.types"
 
-export interface loginCredentialsInterface {
+export interface LoginCredentials {
   username: string
   password: string
 }
 
-export interface registerCredentialsInterface {
+export interface RegisterCredentials {
   username: string
   password: string
   confirmPassword: string
 }
 
-export interface registerCredentialsErrorInterface {
+export interface RegisterCredentialsError {
   usernameError: string[] | []
   passwordError: string[] | []
   confirmPasswordError: string[] | []
 }
 
-export interface loginCredentialsErrorInterface {
+export interface LoginCredentialsError {
   usernameError: string[] | []
   passwordError: string[] | []
 }
 
-export type userIdType = {
-  username: string
-  _id: string
-}
-
-export type userType = {
+export interface User {
   _id: string
   username: string
   rating: number
+}
+
+export interface UserData extends User {
   biography: string
   accountType: "User" | "Admin"
   guild?: CommunityType
-  friends: userIdType[]
+  friends: User[]
+  followers: User[]
+  following: User[]
   completedAchievements: AchievementType[]
-  pvpHistory: PvPMatchType[]
   lessons: {
     stats: {
       beginner: number
@@ -46,7 +45,7 @@ export type userType = {
       expert: number
       advanced: number
     }
-    history: LessonType[]
-    completed: LessonType[]
+    history: HistoryItem[]
+    completed: Lesson[]
   }
 }

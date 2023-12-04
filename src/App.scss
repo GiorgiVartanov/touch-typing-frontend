@@ -12,7 +12,7 @@ body,
 
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: color, background-color 200ms var(--animation-function);
+  transition: color, background-color 300ms var(--animation-function);
 
   --error-color: #ca3f3f;
   --large-font-size: 1.5rem;
@@ -32,13 +32,16 @@ body,
 
   // dark theme
   &.dark {
-    --primary-color: #7c66db;
-    --secondary-color: #484c4e;
+    --primary-color: rgb(121, 111, 212);
+    --secondary-color: #4b5057;
+    --accent-color: #b4b5bb;
     --background-color: #1f2124;
     --secondary-background-color: rgb(38, 41, 44);
     --text-color: #e2e6eb;
+    --weak-text-color: #b4b5bb;
     --slightly-weak-text-color: rgb(241, 241, 241);
-    --weaker-text-color: rgb(75, 80, 87);
+    --weaker-text-color: #666b71;
+    // --weaker-text-color: rgb(75, 80, 87);
     --penalty-word-yellow: #f5e856;
   }
 
@@ -46,7 +49,7 @@ body,
     padding: 0.5rem;
     max-width: 1280px;
     width: 100%;
-    margin: 4rem auto;
+    margin: 4.5rem auto;
     flex: 1;
   }
 }

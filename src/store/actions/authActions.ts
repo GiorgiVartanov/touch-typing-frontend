@@ -1,4 +1,4 @@
-import { userType } from "../../types/auth.types"
+import { User } from "../../types/auth.types"
 import { TypingSettingsState } from "../../types/typingSettings.types"
 import { AppSettingsState } from "../../types/appSettings.types"
 
@@ -11,10 +11,9 @@ export const SET_REGISTER_ERROR_MESSAGE = "SET_REGISTER_ERROR_MESSAGE"
 export const SET_LOGIN_ERROR_MESSAGE = "SET_LOGIN_ERROR_MESSAGE"
 export const SET_INITIAL_APP_SETTINGS = "SET_INITIAL_APP_SETTINGS"
 export const SET_INITIAL_TYPING_SETTINGS = "SET_INITIAL_TYPING_SETTINGS"
+export const SET_TOKEN_EXPIRATION_DATE = "SET_TOKEN_EXPIRATION_DATE"
 
-export const setUser = (
-  user: userType | null
-): { type: typeof SET_USER; payload: userType | null } => ({
+export const setUser = (user: User | null): { type: typeof SET_USER; payload: User | null } => ({
   type: SET_USER,
   payload: user,
 })
@@ -71,4 +70,11 @@ export const setInitialTypingSettings = (
 ): { type: typeof SET_INITIAL_TYPING_SETTINGS; payload: TypingSettingsState } => ({
   type: SET_INITIAL_TYPING_SETTINGS,
   payload: initialTypingSettings,
+})
+
+export const setTokenExpirationDate = (
+  tokenExpirationDate: number
+): { type: typeof SET_TOKEN_EXPIRATION_DATE; payload: number } => ({
+  type: SET_TOKEN_EXPIRATION_DATE,
+  payload: tokenExpirationDate,
 })

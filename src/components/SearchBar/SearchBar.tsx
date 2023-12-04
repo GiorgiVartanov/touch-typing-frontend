@@ -55,7 +55,7 @@ const SearchBar = ({
       <div className="search-bar-holder">
         <input
           className="search-bar"
-          placeholder="search..."
+          placeholder="search"
           value={searchValue}
           onChange={handleOnChange}
           onKeyDown={handleOnKeyDown}

@@ -1,44 +1,37 @@
 .search-wrapper {
   height: 2.5rem;
-  max-width: 960px;
+  max-width: 1280px;
   // width: calc(100% - 2rem);
-  margin: 0 auto;
+  // margin: 0 auto;
   width: 100%;
   position: relative;
+  transition: 300ms var(--animation-function);
 
   .search-bar-holder {
     width: 100%;
-    max-width: 960px;
-    height: 4.5rem;
-    margin-left: -1rem;
+    max-width: 1280px;
+    height: 5rem;
+    margin-top: -1rem;
+    // margin-left: -1rem;
     background-color: var(--background-color);
     z-index: 100;
     position: fixed;
-    transition: background-color 200ms var(--animation-function);
+
+    transition: 300ms var(--animation-function);
 
     .search-bar {
-      max-width: 960px;
-      width: calc(100% - 2rem);
+      max-width: calc(1280px - 1rem);
+      width: calc(100% - 1rem);
+      border-radius: 10px;
+      border: 1px solid var(--secondary-color);
       background-color: var(--secondary-background-color);
-      // transition: all ease-in-out 500ms;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      // outline: 1rem solid var(--background-color);
       padding: 0.5rem 0;
       text-align: center;
-      // transition: ease-in-out 200ms;
-      position: fixed; // sticky was not working
+      position: fixed; // sticky was not working 😢
       top: 5.5rem;
-      left: 50%;
       align-self: flex-start;
-      transform: translateX(-50%);
       z-index: 100;
-      transition: background 300ms var(--animation-function);
-      // transition: background-color ease-in-out 500ms;
-
-      // &:focus {
-      //   top: 5rem;
-      //   padding: 0.75rem 0;
-      // }
+      transition: 300ms var(--animation-function);
     }
   }
 }

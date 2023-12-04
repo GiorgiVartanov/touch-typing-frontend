@@ -12,6 +12,7 @@ import {
   SET_LOGIN_ERROR_MESSAGE,
   SET_INITIAL_APP_SETTINGS,
   SET_INITIAL_TYPING_SETTINGS,
+  SET_TOKEN_EXPIRATION_DATE,
 } from "../actions/authActions"
 import { AuthState } from "../initial/authInitialState"
 
@@ -25,6 +26,7 @@ export type AuthAction =
   | { type: typeof SET_LOGIN_ERROR_MESSAGE; payload: string }
   | { type: typeof SET_INITIAL_APP_SETTINGS; payload: AppSettingsState }
   | { type: typeof SET_INITIAL_TYPING_SETTINGS; payload: TypingSettingsState }
+  | { type: typeof SET_TOKEN_EXPIRATION_DATE; payload: number }
 
 const authReducer = (state: AuthState, action: AuthAction) => {
   switch (action.type) {
@@ -46,6 +48,8 @@ const authReducer = (state: AuthState, action: AuthAction) => {
       return { ...state, initialAppSettings: action.payload }
     case SET_INITIAL_TYPING_SETTINGS:
       return { ...state, initialTypingSettings: action.payload }
+    case SET_TOKEN_EXPIRATION_DATE:
+      return { ...state, tokenExpirationDate: action.payload }
     default:
       return state
   }

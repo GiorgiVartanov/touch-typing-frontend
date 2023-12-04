@@ -1,10 +1,8 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 import "./styles.scss"
-import {
-  registerCredentialsInterface,
-  registerCredentialsErrorInterface,
-} from "../../types/auth.types"
+import { RegisterCredentials, RegisterCredentialsError } from "../../types/auth.types"
 import { useAuthStore } from "../../store/context/authContext"
 
 import Form from "../../components/Form/Form"
@@ -16,13 +14,13 @@ const RegisterPage = () => {
 
   // const navigate = useNavigate()
 
-  const [credentials, setCredentials] = useState<registerCredentialsInterface>({
+  const [credentials, setCredentials] = useState<RegisterCredentials>({
     username: "",
     password: "",
     confirmPassword: "",
   })
 
-  const [credentialsError, setCredentialsError] = useState<registerCredentialsErrorInterface>({
+  const [credentialsError, setCredentialsError] = useState<RegisterCredentialsError>({
     usernameError: [],
     passwordError: [],
     confirmPasswordError: [],
@@ -144,6 +142,12 @@ const RegisterPage = () => {
         <Button>register</Button>
         {registerErrorMessage ? <div className="error">{registerErrorMessage}</div> : ""}
       </Form>
+      <Link
+        to="../login"
+        className="auth-message"
+      >
+        Already have account? Log In
+      </Link>
     </div>
   )
 }

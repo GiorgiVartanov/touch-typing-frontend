@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
-import { DifficultyLevelType } from "../../types/lesson.types"
+import { DifficultyLevel } from "../../types/typing.types"
+import { useAuthStore } from "../../store/context/authContext"
 
 import LessonStatItem from "./LessonStatItem"
+import CardOptions from "../../components/Card/CardOptions"
 
 interface Props {
   lessonsAmount: {
@@ -12,10 +14,14 @@ interface Props {
     Advanced: number
     Expert: number
   }
+  openModal: () => void
 }
 
 // renders list of lesson stats (amount of lessons in a difficulty)
-const LessonStats = ({ lessonsAmount }: Props) => {
+const LessonStats = ({ lessonsAmount, openModal }: Props) => {
+  const { user } = useAuthStore()
+  const accountType = user?.accountType
+
   const calculateFirstLevel = () => {
     // returns difficulty of a first level, so it will be set to active immediately
 
@@ -28,7 +34,7 @@ const LessonStats = ({ lessonsAmount }: Props) => {
   }
 
   // currently active (visible) difficulty
-  const [currentView, setCurrentView] = useState<DifficultyLevelType>(calculateFirstLevel)
+  const [currentView, setCurrentView] = useState<DifficultyLevel>(calculateFirstLevel)
 
   // checks which element is currently in view
   const checkViewport = () => {
@@ -54,7 +60,7 @@ const LessonStats = ({ lessonsAmount }: Props) => {
 
     if (!elementInView) return false
 
-    const elementId = elementInView.name as DifficultyLevelType
+    const elementId = elementInView.name as DifficultyLevel
 
     setCurrentView(elementId)
   }
@@ -80,42 +86,47 @@ const LessonStats = ({ lessonsAmount }: Props) => {
   }, [])
 
   return (
-    <div className="lesson-stats">
-      <div className="lesson-stat-list">
-        <div className="lesson-stat-list-buttons">
-          <LessonStatItem
-            name="Beginner"
-            isInView={currentView === "Beginner"}
-            finishedLessons={0}
-            amountOfLessons={lessonsAmount.Beginner}
-            onClick={handleScrollToElement}
-          />
-          <LessonStatItem
-            name="Intermediate"
-            isInView={currentView === "Intermediate"}
-            finishedLessons={0}
-            amountOfLessons={lessonsAmount.Intermediate}
-            onClick={handleScrollToElement}
-          />
-          <LessonStatItem
-            name="Expert"
-            isInView={currentView === "Expert"}
-            finishedLessons={0}
-            amountOfLessons={lessonsAmount.Expert}
-            onClick={handleScrollToElement}
-          />
-          <LessonStatItem
-            name="Advanced"
-            isInView={currentView === "Advanced"}
-            finishedLessons={0}
-            amountOfLessons={lessonsAmount.Advanced}
-            onClick={handleScrollToElement}
-          />
-          <Link to="../fake">fake words (will be moved somewhere else)</Link>
-          <Link to="../assessment">Assess your level</Link>
-        </div>
+    <CardOptions
+      after={
+        <>
+          <button>Quick Start</button>
+          {accountType === "Admin" ? <button onClick={openModal}>Add New Lesson</button> : null}
+        </>
+      }
+    >
+      <div className="lesson-stat-list-buttons">
+        <LessonStatItem
+          name="Beginner"
+          isInView={currentView === "Beginner"}
+          finishedLessons={0}
+          amountOfLessons={lessonsAmount.Beginner}
+          onClick={handleScrollToElement}
+        />
+        <LessonStatItem
+          name="Intermediate"
+          isInView={currentView === "Intermediate"}
+          finishedLessons={0}
+          amountOfLessons={lessonsAmount.Intermediate}
+          onClick={handleScrollToElement}
+        />
+        <LessonStatItem
+          name="Expert"
+          isInView={currentView === "Expert"}
+          finishedLessons={0}
+          amountOfLessons={lessonsAmount.Expert}
+          onClick={handleScrollToElement}
+        />
+        <LessonStatItem
+          name="Advanced"
+          isInView={currentView === "Advanced"}
+          finishedLessons={0}
+          amountOfLessons={lessonsAmount.Advanced}
+          onClick={handleScrollToElement}
+        />
+        <Link to="../fake">fake words (will be moved somewhere else)</Link>
+        <Link to="../assessment">Assess your level</Link>
       </div>
-    </div>
+    </CardOptions>
   )
 }
 export default LessonStats

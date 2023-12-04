@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from "react"
 import { AxiosError } from "axios"
 
-import { loginCredentialsInterface, registerCredentialsInterface } from "../../types/auth.types"
+import { LoginCredentials, RegisterCredentials } from "../../types/auth.types"
 import {
   setUser,
   setToken,
@@ -12,6 +12,7 @@ import {
   setLoginErrorMessage,
   setInitialAppSettings,
   setInitialTypingSettings,
+  setTokenExpirationDate,
 } from "../actions/authActions"
 import { defaultTheme, defaultLanguage } from "../initial/appSettingsInitial"
 
@@ -40,7 +41,7 @@ const AuthProvider = ({ children }: Props) => {
   // const { setTypingSettings, resetTypingSettings } = useTypingSettingsStore()
   // const { setAppSettings, resetAppSettings } = useAppSettingsStore()
 
-  const registerUser = async (userData: registerCredentialsInterface) => {
+  const registerUser = async (userData: RegisterCredentials) => {
     try {
       dispatch(setIsLoading(true))
 
@@ -57,9 +58,14 @@ const AuthProvider = ({ children }: Props) => {
       dispatch(setInitialTypingSettings(typingSettings))
       dispatch(setInitialAppSettings(appSettings))
 
+      const expirationDate = Number(new Date()) + 24 * 60 * 60 * 1000
+
+      dispatch(setTokenExpirationDate(expirationDate))
+
       localStorage.setItem("user", JSON.stringify(user))
       localStorage.setItem("token", token)
       localStorage.setItem("isLoggedIn", JSON.stringify(true))
+      localStorage.setItem("tokenExpirationDate", JSON.stringify(expirationDate))
 
       dispatch(setIsLoading(false))
     } catch (error) {
@@ -76,7 +82,7 @@ const AuthProvider = ({ children }: Props) => {
     }
   }
 
-  const loginUser = async (userData: loginCredentialsInterface) => {
+  const loginUser = async (userData: LoginCredentials) => {
     try {
       dispatch(setIsLoading(true))
 
@@ -96,9 +102,14 @@ const AuthProvider = ({ children }: Props) => {
       dispatch(setInitialTypingSettings(typingSettings))
       dispatch(setInitialAppSettings(appSettings))
 
+      const expirationDate = Number(new Date()) + 24 * 60 * 60 * 1000
+
+      dispatch(setTokenExpirationDate(expirationDate))
+
       localStorage.setItem("user", JSON.stringify(user))
       localStorage.setItem("token", token)
       localStorage.setItem("isLoggedIn", JSON.stringify(true))
+      localStorage.setItem("tokenExpirationDate", JSON.stringify(expirationDate))
 
       dispatch(setIsLoading(false))
     } catch (error) {
@@ -140,6 +151,8 @@ const AuthProvider = ({ children }: Props) => {
 
     const currentDate = Number(new Date())
     const tokenExpirationDate = state.tokenExpirationDate
+
+    console.log(isLoggedIn, tokenExpirationDate, currentDate)
 
     if (!tokenExpirationDate) return
 

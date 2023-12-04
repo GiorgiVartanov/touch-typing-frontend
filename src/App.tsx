@@ -26,6 +26,7 @@ import NotificationsPage from "./pages/Notifications.page/Notifications.page"
 import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
 import AssessLevelPage from "./pages/AssessLevel.page/AssessLevel.page"
+import Footer from "./components/Footer/Footer"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -87,7 +88,7 @@ const App = () => {
         />
         <Route
           path="/assessment"
-          element={<AssessLevelPage/>}
+          element={<AssessLevelPage />}
         />
         <Route
           path="/communities"
@@ -110,6 +111,7 @@ const App = () => {
           element={<PageNotFoundPage />}
         />
       </Routes>
+      <Footer />
     </div>
   )
 }

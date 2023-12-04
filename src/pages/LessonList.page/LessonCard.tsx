@@ -1,46 +1,38 @@
-import { Link } from "react-router-dom"
-
-import { LessonType } from "../../types/lesson.types"
 import calculateTime from "../../util/calculateTime"
 
-import defaultLessonImage from "../../assets/image.png"
+import Card from "../../components/Card/Card"
 
-interface Props extends LessonType {
+interface Props {
+  title: string
+  description: string
+  approximateDuration: number
+  level: string
+  _id: string
+  className?: string
   style: React.CSSProperties
 }
 
 // shows lesson image, title and description
 // redirects to the lesson page when clicked
 const LessonCard = ({
-  image,
   title,
   description,
   approximateDuration,
   level,
   _id,
+  className = "",
   style,
 }: Props) => {
   return (
-    <Link
+    <Card
       to={`/lesson/${_id}`}
-      className={`lesson-card`}
+      title={title}
+      description={description}
+      bottomLeft={calculateTime(approximateDuration)}
+      bottomRight={level}
+      className={`lesson-card ${className}`}
       style={style}
-    >
-      <img
-        src={image || defaultLessonImage}
-        alt={title}
-      />
-      <div className="lesson-information">
-        <div>
-          <h4 className="lesson-title">{title}</h4>
-          <p>{description}</p>
-        </div>
-        <div className="lesson-short-info">
-          <span>{calculateTime(approximateDuration)}</span>
-          <span>{level}</span>
-        </div>
-      </div>
-    </Link>
+    />
   )
 }
 export default LessonCard
