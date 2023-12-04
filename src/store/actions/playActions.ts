@@ -10,6 +10,7 @@ export const UPDATE_GAMEID   = "UPDATE_GAMEID"
 export const UPDATE_GAMES  = "UPDATE_GAMES"
 export const UPDATE_MATCH  = "UPDATE_MATCH"
 export const UPDATE_MATCH_FINISHED  = "UPDATE_MATCH_FINISHED"
+export const UPDATE_USERNAME = "UPDATE_USERNAME"
 
 export const updateSocket = (
     socket: Socket
@@ -65,4 +66,11 @@ export const finishMatch = (
 ) : {type: typeof UPDATE_MATCH_FINISHED; payload: boolean} => ({
     type: UPDATE_MATCH_FINISHED,
     payload: match_finished,
+})
+
+export const updateUsername = (
+    username: string
+) : {type: typeof UPDATE_USERNAME; payload: string} => ({
+    type: UPDATE_USERNAME,
+    payload: username,
 })

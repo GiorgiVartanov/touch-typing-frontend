@@ -5,9 +5,10 @@ interface Props {
     game: GameState
     game_key: string
     onClick: (key: string) => void
+    option: boolean
 }
 
-const PlayGameCard = ({game, game_key, onClick} : Props) => {
+const PlayGameCard = ({game, game_key, onClick, option} : Props) => {
     return (
     <div className="game-card">
         <p>time limit: {game.time_limit}</p>
@@ -15,7 +16,7 @@ const PlayGameCard = ({game, game_key, onClick} : Props) => {
         <div className="game-card-bottom">
             <p>users: {game.active_players}/{game.user_limit}</p>
             <Button onClick={()=>onClick(game_key)}>
-                Join
+                {option?"Spectate":"Join"}
             </Button>
         </div>
     </div>

@@ -4,6 +4,7 @@ import { GameStateList } from "./game.types";
 export interface PlayState {
     socket: Socket | undefined;
     uid: string;
+    username?: string
     users: string[];
     game_id?: string;
     games: GameStateList;

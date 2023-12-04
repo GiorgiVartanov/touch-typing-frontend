@@ -11,12 +11,11 @@ import SearchBar from "../../../components/SearchBar/SearchBar"
 const GameHistoricalList = () => {
     const [games, setGames] = useState<GameState[] | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)  
-    const [userSearch, setUserSearch] = useState<string>("");
+    const [userSearch, setUserSearch] = useState<string>(""); //has to be saved when navigating...
     const navigate = useNavigate()
 
     useEffect(() => {
         setIsLoading(true)
-        console.log(userSearch);
         const fetchLesson = async () => {
             const response = await ajax.get(`/game?username=${userSearch}`)
 

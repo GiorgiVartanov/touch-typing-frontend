@@ -8,6 +8,7 @@ export interface GameState {
     date: Date,
     has_started?: boolean,
     active_players: number,
+    spectators: { [uid: string] : string },
 }
 
 export interface GameStateList {

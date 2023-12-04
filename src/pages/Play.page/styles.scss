@@ -67,25 +67,6 @@
             border-radius:8px;
         }
     }
-    .textGen{
-        width: 100%;
-        margin: 5px auto;
-        label{
-            display: flex;
-            justify-content: space-between;
-            gap: 0.5rem;
-            white-space: nowrap;
-            text-align: center;
-            align-items: center;
-            select {
-                background-color: var(--secondary-background-color);
-                padding: 0.25rem 0.5rem;
-                font-size: 1rem;
-                width: 4rem;
-                border-radius: 8px;
-            }
-        }
-    }
 }
 .play-body{
     max-width: 960px;
@@ -99,11 +80,26 @@
     background: green;
 }
 .game-list{
+    min-width: 80%;
     display: flex;
     justify-content:start;
     flex-direction: column;
     gap: 0.75rem;
     flex-grow: 1;
+    .options{
+        display: flex;
+        gap: 0.75em;
+        button {
+            border-radius: 8px;
+            padding: 8px;
+            background-color: var(--secondary-background-color) !important;
+            
+        }
+        .active {
+            background-color: var(--tertiary-background-color) !important;
+        }
+    }
+   
 
     .game-card{
         padding: 0.5rem;
@@ -114,8 +110,6 @@
         box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         border-radius: 10px;
         min-height: 120px;
-        width: 100%;
-        opacity: 0;
         justify-content: start;
         width: 75%;
         justify-content: space-between;
@@ -307,4 +301,8 @@
             }
         }
     }
+}
+
+.active-background{
+    background-color: var(--tertiary-background-color) !important;
 }

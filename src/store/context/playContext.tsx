@@ -3,9 +3,10 @@ import { useSocket } from '../../hooks/useSocket';
 import { PlayActions, PlayState } from '../../types/play.types';
 import { playInitialState } from '../initial/playInitialState';
 import { PlayReducer } from '../reducers/playReducers';
-import { finishMatch, removeUser, updateGameId, updateGames, updateMatch, updateSocket, updateUID, updateUsers } from '../actions/playActions';
+import { finishMatch, removeUser, updateGameId, updateGames, updateSocket, updateUID, updateUsername, updateUsers } from '../actions/playActions';
 import Loading from '../../components/Loading/Loading';
 import { GameStateList } from '../../types/game.types';
+import { useAuthStore } from './authContext';
 
 const SERVER_URL = "http://localhost:5000" //env variable has "/api" as a suffix and that's a problem...
 
@@ -26,6 +27,7 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
 
     const [PlayState, PlayDispatch] = useReducer(PlayReducer, playInitialState);
     const [loading, setLoading] = useState(true);
+    const {user, token} = useAuthStore()
     // console.log("PlayProvider: ", PlayState)
     useEffect(() => {
         socket.connect();
@@ -92,18 +94,24 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
             PlayDispatch(updateGameId(params.game_id)) //game_id turns from uuid to mongoose.Types.ObjectId
             PlayDispatch(finishMatch(true))
         })
+
+        socket.on("already_connected", () => {
+            console.log("already connected from a different tab")
+            PlayDispatch(updateUsername("-1")); //Reserved username, lazy to add another boolean variable...
+        })
     };
 
     const SendHandshake = async () => {
         console.info('Sending handshake to server ...');
 
-        socket.emit('handshake', async (uid: string, users: string[], game_id: string | undefined, games:  GameStateList) => {
+        socket.emit('handshake', token, user?.username, async (username: string, uid: string, users: string[], game_id: string | undefined, games:  GameStateList) => {
             console.info('User handshake callback message received');
             PlayDispatch(updateUsers(users));
             PlayDispatch(updateUID(uid));
             if(game_id)
                 PlayDispatch(updateGameId(game_id));
             PlayDispatch(updateGames(games));
+            PlayDispatch(updateUsername(username)) //Random usernames for guests...
         });
 
         setLoading(false);
@@ -115,7 +123,6 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
             text, 
             time_limit, 
             user_limit, 
-            undefined,
             async (game_id: string, games: GameStateList) => {
                 console.info('the game has successfully been created! callback');
                 PlayDispatch(updateGameId(game_id));
@@ -126,7 +133,7 @@ const PlayProvider: React.FunctionComponent<Props> = ({children} : Props) => {
 
     const JoinGame = async(game_id: string) => {
         console.info("joining the game");
-        socket.emit('join_game', game_id, undefined, async () => {
+        socket.emit('join_game', game_id, async () => {
             PlayDispatch(updateGameId(game_id))
             console.log("game joined callback")
         });

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 
 const Match = () => {
-    const {uid, game_id, games, LeaveGame, ModifyMatch, NotifyFinish, match_finished} = usePlayStore()
+    const {uid, username, game_id, games, LeaveGame, ModifyMatch, NotifyFinish, match_finished} = usePlayStore()
     const navigate = useNavigate();
 
     //If user navigates away from the match, he automatically disconnects... (couldn't make the "useLocation" work... probably something wrong with the playContext)
@@ -21,7 +21,7 @@ const Match = () => {
         }
     }, [match_finished])
 
-    if(game_id === undefined || games[game_id] === undefined || games[game_id].gul[uid] === undefined)        
+    if(game_id === undefined || games[game_id] === undefined || (games[game_id].gul[uid] === undefined && games[game_id].spectators[uid] === undefined))     
         return <div className="page"><h1>Unauthorized</h1></div>
 
     //deletes user to game info from the database, and goes to the play page...
@@ -58,10 +58,11 @@ const Match = () => {
                 </>
                 :
                 <>
-                    {game.gul[uid].has_finished === true ? <></> : <h1 className="head">The game has started. Good luck!</h1>}
+                    <h1>spectators: {Object.keys(game.spectators).length}</h1>
+                    {game.gul[uid] === undefined || game.gul[uid].has_finished === true ? <></> : <h1 className="head">The game has started. Good luck!</h1>}
                     {
                         Object.keys(game.gul).map((uid, ind)=>{
-                            return <div key={ind} className="list">
+                            return <div key={ind} className={(game.gul[uid].username===username?"active-background":"")+ " list"}>
                                 <h1 key={1}>
                                     { game.gul[uid].username }
                                 </h1>
@@ -75,7 +76,7 @@ const Match = () => {
                             </div>
                         })
                     }
-                    { game.gul[uid].has_finished === true? 
+                    { game.gul[uid] === undefined || game.gul[uid].has_finished === true ? 
                     <Button onClick={()=>leaveGame()}>Leave the game</Button>:
                     <TyperPlay
                         finishHandler={finishHandler}
