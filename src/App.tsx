@@ -27,8 +27,8 @@ import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
 import AssessLevelPage from "./pages/AssessLevel.page/AssessLevel.page"
 import Match from "./pages/Play.page/Match"
-import GameHistorical from "./pages/Play.page/GameList/GameHistorical"
-import GameHistoricalList from "./pages/Play.page/GameList/GameHistoricalList"
+import MatchHistorical from "./pages/Play.page/MatchList/MatchHistorical"
+import MatchHistoricalList from "./pages/Play.page/MatchList/MatchHistoricalList"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -85,12 +85,12 @@ const App = () => {
           element={<Match />}
         />
         <Route
-          path="/game"
-          element={<GameHistoricalList/>}
+          path="/match"
+          element={<MatchHistoricalList/>}
         />
         <Route
-          path="/game/:id"
-          element={<GameHistorical/>}
+          path="/match/:id"
+          element={<MatchHistorical/>}
         />        
         <Route
           path="/profile/:username"

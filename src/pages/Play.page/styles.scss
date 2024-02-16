@@ -32,7 +32,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 300px;
+        width: 400px;
     }
     .please-work > * {
         width: 100%;
@@ -58,15 +58,6 @@
             margin-top: 8px;
         }
     }
-    .but{
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-        button{
-            padding: 3px 8px;   
-            border-radius:8px;
-        }
-    }
 }
 .play-body{
     max-width: 960px;
@@ -79,7 +70,7 @@
     border: 2px solid greenyellow;
     background: green;
 }
-.game-list{
+.match-list{
     min-width: 80%;
     display: flex;
     justify-content:start;
@@ -101,7 +92,7 @@
     }
    
 
-    .game-card{
+    .match-card{
         padding: 0.5rem;
         background-color: var(--secondary-background-color);
         display: flex;
@@ -134,7 +125,7 @@
             font-size: 16px;
             margin-top: 0;
         }
-        .game-card-bottom{
+        .match-card-bottom{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -155,7 +146,19 @@
     flex-direction: column;
     padding: 10px;
     .head{
-        margin-bottom: 15px;
+        margin-bottom: 8px;
+    }
+    .spectators{
+        background-color: var(--secondary-background-color);
+        padding: 5px;
+        border-radius: 5px;
+        margin-bottom: 8px;
+    }
+    .timer {
+        margin-bottom: 10px;
+        background-color: var(--secondary-background-color);
+        padding: 5px;
+        border-radius: 5px;
     }
     .list{
         background-color: var(--secondary-background-color);
@@ -231,24 +234,24 @@
                 margin: 3px;
                 border-radius: 10px;
                 padding: 10px;
-                min-width: 75%;                
+                width: 125%;              
             }
         }
     }
 }
 
-.game-body{
+.match-body{
     display: flex;
     align-items: center;
     flex-direction: column;
-    .game-body-main{
+    .match-body-main{
         margin-top: 40px;
         display: flex;
         width: 100%;
         max-width: 960px;
         justify-content: space-between;
         padding: 0 15px;        
-        .game-body-main-list{
+        .match-body-main-list{
             display: flex;
             justify-content: start;
             align-items: start;
@@ -256,7 +259,7 @@
             flex-direction: column;
             gap: 0.75rem;
             flex-grow: 1;
-            .game-card{
+            .match-card{
                 padding: 0.5rem;
                 background-color: var(--secondary-background-color);
                 border-radius: 10px;
@@ -277,7 +280,7 @@
                     display: flex;
                     justify-content: space-between;
                 }
-                .game-card-bottom{
+                .match-card-bottom{
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
@@ -297,7 +300,7 @@
                 font-size: 20px;
                 font-weight: 300;
                 border-radius: 8px;    
-                padding: 3px 10px;
+                padding: 3px 10px;                
             }
         }
     }

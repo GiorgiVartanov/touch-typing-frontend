@@ -1,13 +1,27 @@
 import { useEffect, useState } from "react";
-import FakeWordsForm from "./FakeWordsForm"
+import FakeWordsForm, { TextRequestFake } from "./FakeWordsForm"
 import Loading from "../Loading/Loading";
-import CorpusForm from "./CorpusForm";
-import ByHand from "./ByHand";
+import CorpusForm, { TextRequestWord } from "./CorpusForm";
+import Form from "../../components/Form/Form";
+import Input from "../../components/Form/Input";
 
 import "./styles.scss"
+import Button from "../Form/Button";
 
-type TextGenMode = "F" | "C" | "H" //FakeWords, Corpus, Hand (by hand)
-const TextGenModes = ["F", "C", "H"]
+type TextGenMode = "FakeWords" | "CorpusWords" //FakeWords, Corpus Words, 
+const TextGenModes = ["FakeWords", "CorpusWords"]
+
+interface matchProps {
+    text: string,
+    time_limit: number, 
+    user_limit: number,
+}
+
+const initialMatchProps : matchProps = {
+    text: "",
+    time_limit: 30, 
+    user_limit: 2,
+}
 
 export interface Props {
     setFetchedData: (data: string) => void,
@@ -16,50 +30,110 @@ export interface Props {
 }
 
 interface FormProps {
-    textChangeHandler: (data: string) => void
+    CreateMatch: (req: TextRequestFake | TextRequestWord, time_limit: number, user_limit: number) => void,
+    setShowModal: (val: boolean) => void,
 }
 
-const DataForm = ({textChangeHandler} : FormProps) => {
-    const [textGenerationMode, setTextGenerationMode] = useState<TextGenMode>("F");
+const DataForm = ({CreateMatch, setShowModal} : FormProps) => {
+    const [textGenerationMode, setTextGenerationMode] = useState<TextGenMode>("FakeWords");
+    const [textRequest, setTextRequest] = useState<TextRequestFake | TextRequestWord>();
     const [fetchedData, setFetchedData] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
-    
+    const [create, setCreate] = useState<boolean>(false);
+    const [params, setParams] = useState<matchProps>(initialMatchProps);
+
     if(loading) return <Loading/>
     if(error) return <div>Something went wrong, check browser console for more detailed information</div>
 
-    useEffect(()=>{
-        textChangeHandler(fetchedData)
-    }, [fetchedData])
+    const submitHandler = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setCreate(true) //CreateMatch(params.text, params.time_limit, params.user_limit) //text.params property isn't updated right away :@
+    }
 
-    return (
-        <div className="textGen">
-            <label>
-                Generation Options:
-                <select
-                    value={textGenerationMode}
-                    onChange={(e) => setTextGenerationMode(e.target.value as TextGenMode)}
-                >
-                    {
-                    TextGenModes.map(mode=>(
-                        <option 
-                            key={mode}
-                            value={mode}
-                            >
-                            {mode}
-                        </option>
-                        )
-                    )
-                    }
-                </select>
-            </label>
-            {
-                textGenerationMode === "F" ? <FakeWordsForm {...{setFetchedData, setLoading, setError}}/>
-                : textGenerationMode === "C" ? <CorpusForm {...{setFetchedData, setLoading, setError}}/>
-                : <ByHand {...{setFetchedData}}/>
+    useEffect(() => {
+        if(create===true){
+            if (textRequest != undefined){
+                CreateMatch(textRequest, params.time_limit, params.user_limit)
+                setCreate(false)
             }
-            <p>{fetchedData}</p>
-        </div>
+        }
+    }, [create])
+
+    const handleUserLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setParams((prevState) => (
+        {
+            text: prevState.text,
+            user_limit: Number(e.target.value),
+            time_limit: prevState.time_limit,
+        }
+        ))
+    }
+    
+    const handleTimeLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setParams((prevState) => (
+        {
+            text: prevState.text,
+            user_limit: prevState.user_limit,
+            time_limit: Number(e.target.value),
+        }
+        ))
+    }
+    
+    return (
+        <Form onSubmit={submitHandler}>
+            <div className="basic">
+            <h2 key={1}>user limit:</h2>
+            <Input
+                name = "user_limit"
+                onChange={handleUserLimitChange}
+                value={String(params.user_limit)}
+            />
+            <h2 key={2}>time limit:</h2>
+            <Input
+                name = "time_limit"
+                onChange={handleTimeLimitChange}
+                value={String(params.time_limit)}
+            />
+            </div>
+            <div className="textGen">
+                <label>
+                    Text Generation Options:
+                    <select
+                        value={textGenerationMode}
+                        onChange={(e) => setTextGenerationMode(e.target.value as TextGenMode)}
+                    >
+                        {
+                        TextGenModes.map(mode=>(
+                            <option 
+                                key={mode}
+                                value={mode}
+                                >
+                                {mode}
+                            </option>
+                            )
+                        )
+                        }
+                    </select>
+                </label>
+                {
+                    textGenerationMode === "FakeWords" ? <FakeWordsForm {...{setFetchedData, setLoading, setError, setTextRequest}}/>
+                    : textGenerationMode === "CorpusWords" ? <CorpusForm {...{setFetchedData, setLoading, setError, setTextRequest}}/> : <></>
+                }                
+                <div className="but">
+                    <Button onClick={()=>setShowModal(false)} {...{type:"button"}}>
+                    Back
+                    </Button>
+                    <Button {...{type: "submit"}}>
+                    Create
+                    </Button>              
+                </div>
+                <div className="example">
+                    <p>example text:</p>
+                    <p>{fetchedData}</p>
+                </div>
+            </div>            
+        </Form>      
     )
 }
 

@@ -7,7 +7,19 @@ const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100]
 const minAmountOfSyllablesOptions = [1, 2, 3, 4, 5]
 const maxAmountOfSyllablesOptions = [1, 2, 3, 4, 5]
 
-const FakeWordsForm = ({setFetchedData, setLoading, setError}: Props) => {
+export interface TextRequestFake {
+    type?: string,
+    letter: string,
+    amount: number,
+    minAmountOfSyllables: number,
+    maxAmountOfSyllables: number,
+}
+
+interface fakeWordsProps extends Props {
+    setTextRequest: (req: TextRequestFake) => void,
+}
+
+const FakeWordsForm = ({setFetchedData, setLoading, setError, setTextRequest}: fakeWordsProps) => {
     const [letter, setLetter] = useState<string>("ა")
     const [amount, setAmount] = useState<number>(5)
     const [minAmountOfSyllables, setMinAmountOfSyllables] = useState<number>(1)
@@ -39,6 +51,16 @@ const FakeWordsForm = ({setFetchedData, setLoading, setError}: Props) => {
         
         if(setLoading)
             setLoading(false)
+
+        setTextRequest(
+            {
+                type: "FakeWords",
+                letter: letter,
+                amount: amount,
+                minAmountOfSyllables: minAmountOfSyllables,
+                maxAmountOfSyllables: maxAmountOfSyllables,
+            } 
+        )
     }, [letter, amount, minAmountOfSyllables, maxAmountOfSyllables])
 
     return (

@@ -3,7 +3,16 @@ import ajax from "../../services/ajax"
 import { Props } from "./DataForm"
 import Input from "../Form/Input"
 
-const CorpusForm = ({setFetchedData, setLoading, setError}: Props) => {
+export interface TextRequestWord {
+  type?: string,
+  amount: Number,
+}
+
+interface CorpusFormProps extends Props {
+  setTextRequest: (req: TextRequestWord) => void,
+}
+
+const CorpusForm = ({setFetchedData, setLoading, setError, setTextRequest}: CorpusFormProps) => {
     const [amount, setAmount] = useState<Number>(10)
 
     useEffect(() => {
@@ -33,6 +42,11 @@ const CorpusForm = ({setFetchedData, setLoading, setError}: Props) => {
         
         if(setLoading)
             setLoading(false)
+
+        setTextRequest({
+          type: 'CorpusWords',
+          amount: amount
+        })
     }, [amount])
 
     return <div className="corpus">

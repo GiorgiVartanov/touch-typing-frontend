@@ -1,13 +1,13 @@
 import { Socket } from "socket.io-client"
-import { GameStateList } from "../../types/game.types"
+import { MatchStateList } from "../../types/match.types"
 
 
 export const UPDATE_SOCKET = "UPDATE_SOCKET"
 export const UPDATE_UID    = "UPDATE_UID"
 export const UPDATE_USERS  = "UPDATE_USERS"
 export const REMOVE_USER   = "REMOVE_USER"
-export const UPDATE_GAMEID   = "UPDATE_GAMEID"
-export const UPDATE_GAMES  = "UPDATE_GAMES"
+export const UPDATE_MATCHID   = "UPDATE_MATCHID"
+export const UPDATE_MATCHES  = "UPDATE_MATCHES"
 export const UPDATE_MATCH  = "UPDATE_MATCH"
 export const UPDATE_MATCH_FINISHED  = "UPDATE_MATCH_FINISHED"
 export const UPDATE_USERNAME = "UPDATE_USERNAME"
@@ -40,18 +40,18 @@ export const removeUser = (
     payload: user
 })
 
-export const updateGameId = (
-    game_id : string | undefined
-) : {type: typeof UPDATE_GAMEID; payload: string | undefined} => ({
-    type: UPDATE_GAMEID,
-    payload: game_id,
+export const updateMatchId = (
+    match_id : string | undefined
+) : {type: typeof UPDATE_MATCHID; payload: string | undefined} => ({
+    type: UPDATE_MATCHID,
+    payload: match_id,
 })
 
-export const updateGames = (
-    games: GameStateList
-) : {type: typeof UPDATE_GAMES; payload: GameStateList} => ({
-    type: UPDATE_GAMES,
-    payload: games,
+export const updateMatches = (
+    matches: MatchStateList
+) : {type: typeof UPDATE_MATCHES; payload: MatchStateList} => ({
+    type: UPDATE_MATCHES,
+    payload: matches,
 })
 
 export const updateMatch = (
