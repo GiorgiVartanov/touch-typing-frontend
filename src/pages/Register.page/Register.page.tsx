@@ -1,35 +1,50 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 import "./styles.scss"
-import {
-  registerCredentialsInterface,
-  registerCredentialsErrorInterface,
-} from "../../types/auth.types"
+import { RegisterCredentials, RegisterCredentialsError } from "../../types/auth.types"
 import { useAuthStore } from "../../store/context/authContext"
 
 import Form from "../../components/Form/Form"
 import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
 
+const minPasswordLength = 8
+const maxPasswordLength = 24
+const minUsernameLength = 3
+const maxUsernameLength = 20
+
 const RegisterPage = () => {
   const { registerUser, registerErrorMessage } = useAuthStore()
 
-  // const navigate = useNavigate()
-
-  const [credentials, setCredentials] = useState<registerCredentialsInterface>({
+  const [credentials, setCredentials] = useState<RegisterCredentials>({
     username: "",
     password: "",
     confirmPassword: "",
   })
 
-  const [credentialsError, setCredentialsError] = useState<registerCredentialsErrorInterface>({
+  const [credentialsError, setCredentialsError] = useState<RegisterCredentialsError>({
     usernameError: [],
     passwordError: [],
     confirmPasswordError: [],
   })
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCredentialsError({ usernameError: [], passwordError: [], confirmPasswordError: [] })
+    if (e.target.value.length > maxUsernameLength) {
+      // setCredentialsError((prevState) => ({
+      //   usernameError: [`username should be shorter than ${maxUsernameLength}`],
+      //   passwordError: prevState.passwordError,
+      //   confirmPasswordError: prevState.confirmPasswordError,
+      // }))
+
+      return
+    }
+
+    setCredentialsError((prevState) => ({
+      usernameError: [],
+      passwordError: prevState.passwordError,
+      confirmPasswordError: prevState.confirmPasswordError,
+    }))
 
     setCredentials((prevState) => ({
       username: e.target.value,
@@ -39,7 +54,21 @@ const RegisterPage = () => {
   }
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCredentialsError({ usernameError: [], passwordError: [], confirmPasswordError: [] })
+    if (e.target.value.length > maxPasswordLength) {
+      // setCredentialsError((prevState) => ({
+      //   usernameError: prevState.usernameError,
+      //   passwordError: [`password should be shorter than ${maxPasswordLength}`],
+      //   confirmPasswordError: prevState.confirmPasswordError,
+      // }))
+
+      return
+    }
+
+    setCredentialsError((prevState) => ({
+      usernameError: prevState.usernameError,
+      passwordError: [],
+      confirmPasswordError: prevState.confirmPasswordError,
+    }))
 
     setCredentials((prevState) => ({
       username: prevState.username,
@@ -49,7 +78,11 @@ const RegisterPage = () => {
   }
 
   const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCredentialsError({ usernameError: [], passwordError: [], confirmPasswordError: [] })
+    setCredentialsError((prevState) => ({
+      usernameError: prevState.usernameError,
+      passwordError: prevState.passwordError,
+      confirmPasswordError: [],
+    }))
 
     setCredentials((prevState) => ({
       username: prevState.username,
@@ -63,60 +96,58 @@ const RegisterPage = () => {
 
     setCredentialsError({ usernameError: [], passwordError: [], confirmPasswordError: [] })
 
-    if (credentials.username.length < 8)
-      setCredentialsError((prevState) => ({
-        usernameError: [...prevState.usernameError, "username too short"],
-        passwordError: prevState.passwordError,
-        confirmPasswordError: prevState.confirmPasswordError,
-      }))
+    const usernameErrors: string[] = []
+    const passwordErrors: string[] = []
+    const confirmPasswordErrors: string[] = []
 
-    if (credentials.username.length > 24)
-      setCredentialsError((prevState) => ({
-        usernameError: [...prevState.usernameError, "username too long"],
-        passwordError: prevState.passwordError,
-        confirmPasswordError: prevState.confirmPasswordError,
-      }))
+    if (credentials.username.length === 0) {
+      usernameErrors.push("this field should not be empty")
+    }
 
-    if (credentials.username.length < 6)
-      setCredentialsError((prevState) => ({
-        usernameError: prevState.usernameError,
-        passwordError: [...prevState.passwordError, "password too short"],
-        confirmPasswordError: prevState.confirmPasswordError,
-      }))
+    if (credentials.username.length < minUsernameLength && credentials.username.length !== 0) {
+      usernameErrors.push(`username should be longer than ${minUsernameLength} characters`)
+    }
 
-    if (credentials.username.length > 40)
-      setCredentialsError((prevState) => ({
-        usernameError: prevState.usernameError,
-        passwordError: [...prevState.passwordError, "password too long"],
-        confirmPasswordError: prevState.confirmPasswordError,
-      }))
+    if (credentials.username.length > maxUsernameLength) {
+      usernameErrors.push(`username should be shorter than ${maxUsernameLength} characters`)
+    }
 
-    if (credentials.password !== credentials.confirmPassword)
-      setCredentialsError((prevState) => ({
-        usernameError: prevState.usernameError,
-        passwordError: [...prevState.passwordError, "passwords do not match"],
-        confirmPasswordError: [...prevState.confirmPasswordError, "passwords do not match"],
-      }))
+    if (credentials.password.length === 0) {
+      passwordErrors.push("this field should not be empty")
+    }
+
+    if (credentials.password.length < minPasswordLength && credentials.password.length !== 0) {
+      passwordErrors.push(`password should be longer than ${minUsernameLength} characters`)
+    }
+
+    if (credentials.password.length > maxPasswordLength) {
+      passwordErrors.push(`password should be shorter than ${minUsernameLength} characters`)
+    }
+
+    if (credentials.password !== credentials.confirmPassword) {
+      confirmPasswordErrors.push("passwords do not match")
+    }
+
+    if (credentials.confirmPassword.length === 0) {
+      confirmPasswordErrors.push("this field should not be empty")
+    }
 
     if (
-      credentialsError.usernameError.length > 0 ||
-      credentialsError.passwordError.length > 0 ||
-      credentialsError.confirmPasswordError.length > 0 ||
-      credentials.username.length === 0 ||
-      credentials.password.length === 0 ||
-      credentials.confirmPassword.length == 0
+      usernameErrors.length > 0 ||
+      passwordErrors.length > 0 ||
+      confirmPasswordErrors.length > 0
     ) {
+      setCredentialsError({
+        usernameError: usernameErrors,
+        passwordError: passwordErrors,
+        confirmPasswordError: confirmPasswordErrors,
+      })
+
       return
     }
 
     registerUser(credentials)
   }
-
-  // useEffect(() => {
-  //   if (isLoggedIn) navigate("/")
-  // }, [isLoggedIn, navigate])
-
-  // console.log(registerErrorMessage)
 
   return (
     <div className="page register-page">
@@ -125,25 +156,35 @@ const RegisterPage = () => {
           name="username"
           value={credentials.username}
           onChange={handleUsernameChange}
-          errors={credentialsError.usernameError}
+          errors={[...registerErrorMessage.usernameError, ...credentialsError.usernameError]}
         />
         <Input
           name="password"
           type="password"
+          isVisibilityChangeable={false}
           value={credentials.password}
           onChange={handlePasswordChange}
-          errors={credentialsError.passwordError}
+          errors={[...registerErrorMessage.passwordError, ...credentialsError.passwordError]}
         />
         <Input
           name="confirm password"
           type="password"
+          isVisibilityChangeable={false}
           value={credentials.confirmPassword}
           onChange={handleConfirmPasswordChange}
-          errors={credentialsError.confirmPasswordError}
+          errors={[
+            ...registerErrorMessage.confirmPasswordError,
+            ...credentialsError.confirmPasswordError,
+          ]}
         />
-        <Button>register</Button>
-        {registerErrorMessage ? <div className="error">{registerErrorMessage}</div> : ""}
+        <Button className="cta-button">register</Button>
       </Form>
+      <Link
+        to="../login"
+        className="auth-message"
+      >
+        Already have account? Log In
+      </Link>
     </div>
   )
 }

@@ -2,31 +2,10 @@ import { useState, useEffect } from "react"
 
 import "./styles.scss"
 
-const layouts: { name: string; keys: string[][] }[] = [
-  {
-    name: "geo-eng",
-    keys: [
-      ["qქ", "wწ", "eე", "rრღ", "tტთ", "yყ", "uუ", "iი", "oო", "pპ"],
-      ["aა", "sსშ", "dდ", "fფ", "gგ", "hჰ", "jჯჟ", "kკ", "lლ"],
-      ["zზძ", "xხ", "cცჩ", "vვ", "bბ", "nნ", "mმ"],
-    ],
-  },
-  {
-    name: "eng",
-    keys: [
-      ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-      ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-      ["z", "x", "c", "v", "b", "n", "m"],
-    ],
-  },
-  {
-    name: "geo",
-    keys: [
-      ["ღ", "ჯ", "უ", "კ", "ე", "ნ", "გ", "შ", "წ", "ზ", "ხ", "ც"],
-      ["ფ", "ძ", "ვ", "თ", "ა", "პ", "რ", "ო", "ლ", "დ", "ჟ"],
-      ["ჭ", "ჩ", "ყ", "ს", "მ", "ი", "ტ", "ქ", "გ", "ჰ"],
-    ],
-  },
+const layout = [
+  ["qქ", "wწ", "eე", "rრღ", "tტთ", "yყ", "uუ", "iი", "oო", "pპ"],
+  ["aა", "sსშ", "dდ", "fფ", "gგ", "hჰ", "jჯჟ", "kკ", "lლ"],
+  ["zზძ", "xხ", "cცჩ", "vვ", "bბ", "nნ", "mმ"],
 ]
 
 interface Props {
@@ -34,13 +13,10 @@ interface Props {
 }
 
 const HeroKeyboard = ({ activeKeys }: Props) => {
-  const [currentLayout, setCurrentLayout] = useState<string>("geo-eng")
   const [pressedKeys, setPressedKeys] = useState<string[]>([])
 
   const renderKeyboard = () => {
-    const layoutToRender = layouts.find((layout) => layout.name === currentLayout)?.keys
-
-    return layoutToRender?.map((row, index) => renderRow(row, index))
+    return layout.map((row, index) => renderRow(row, index))
   }
 
   // adds pressed key to the array of active keys for 500ms, then removes it
@@ -97,32 +73,12 @@ const HeroKeyboard = ({ activeKeys }: Props) => {
   }
 
   return (
-    <div className="keyboard">
+    <div
+      className="keyboard"
+      aria-label="Visual Keyboard"
+    >
       <div className="keyboard-container">
         <div className="container">{renderKeyboard()}</div>
-        <div className="select-layout-buttons">
-          {/* <button
-            onClick={() => {
-              setCurrentLayout("geo-eng")
-            }}
-          >
-            geo-en
-          </button>
-          <button
-            onClick={() => {
-              setCurrentLayout("eng")
-            }}
-          >
-            eng
-          </button> */}
-          {/* <button
-            onClick={() => {
-              setCurrentLayout("geo")
-            }}
-          >
-            geo
-          </button> */}
-        </div>
       </div>
     </div>
   )

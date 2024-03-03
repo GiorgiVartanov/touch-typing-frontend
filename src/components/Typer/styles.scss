@@ -24,12 +24,10 @@
 .text {
   display: flex;
   flex-wrap: wrap;
-  font-size: 1.25rem;
+  font-size: 1rem;
   user-select: none;
-  // gap: 0.75rem;
-  line-height: 1.75rem;
-  position: relative;
   transition: 0.2s ease-out;
+  line-height: 1.25rem;
 
   textarea {
     position: absolute;
@@ -47,12 +45,12 @@
 
   .word {
     // color: rgb(143, 143, 143);
-    color: var(--weaker-text-color);
-    margin: 0.25rem 0;
+    color: var(--typing-text-unwritten);
+    // margin: 0.25rem 0;
 
     &:not(.active-word) {
       .incorrect-letter {
-        color: rgb(197, 56, 56) !important;
+        color: var(--typing-text-incorrect) !important;
       }
     }
 
@@ -65,111 +63,35 @@
     }
 
     .letter {
-      transition: all 0.3s ease;
+      // transition: 300ms var(--animation-function);
+
+      &.last-letter {
+        width: 0.5rem;
+        display: inline-block;
+      }
 
       &.active-letter {
         // color: var(--slightly-weak-text-color);
         text-decoration: underline;
-        text-decoration-color: var(--slightly-weak-text-color);
+        text-decoration-color: var(--typing-text-unwritten);
         text-underline-offset: 4px;
-        position: relative;
+        // position: relative;
       }
 
       &.correct-letter {
-        color: var(--text-color);
+        color: var(--typing-text-correct);
       }
 
       &.incorrect-letter {
-        color: var(--error-color);
+        color: var(--typing-text-incorrect);
 
-        animation: shake 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        animation: shake 300ms var(--animation-function);
       }
     }
   }
 }
-// }
 
-.settings-background {
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--secondary-color);
-  opacity: 0.5;
-  position: absolute;
-  top: 0;
-  right: 0;
-  backdrop-filter: blur(100px);
-  z-index: 250;
-}
-
-.settings-window {
-  position: absolute;
-  height: 300px;
-  max-width: 400px;
-  width: calc(100% - 2rem);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  background-color: var(--secondary-background-color);
-  padding: 0.5rem;
-  animation: fadeIn 0.2s;
-  animation-fill-mode: forwards;
-  z-index: 250;
-  display: flex;
-  gap: 0.5rem;
-  flex-direction: column;
-
-  animation: slideInFromTop 200ms ease-in-out forwards;
-
-  .close-message {
-    position: absolute;
-    left: 0;
-    bottom: -2rem;
-    font-size: 0.9rem;
-    opacity: 0.3;
-    cursor: default;
-    width: 100%;
-    text-align: center;
-  }
-
-  .reset-settings-button {
-    margin-top: auto;
-    color: var(--weaker-text-color);
-    width: fit-content;
-  }
-
-  .text-setting-select {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: space-between;
-
-    select {
-      padding: 0 0.5rem;
-      width: 7rem;
-      outline: none;
-      border: none;
-      background-color: var(--secondary-color);
-
-      option {
-        font-family: inherit;
-        border: none;
-      }
-    }
-  }
-
-  .font-options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-
-    label {
-      user-select: none;
-      cursor: pointer;
-    }
-  }
-}
-
+// english fonts
 .font-poppins {
   font-family: Poppins, serif;
 }
@@ -186,12 +108,57 @@
   font-family: "Times New Roman", serif;
 }
 
+// georgian fonts from google
 .font-sans {
   font-family: "Noto Sans Georgian", sans-serif;
 }
 
 .font-serif {
   font-family: "Noto Serif Georgian", serif;
+}
+
+// georgian fonts from fonts.ge
+@font-face {
+  font-family: cursive-geo;
+  src: url(../../assets/fonts/3d_unicode.ttf);
+}
+@font-face {
+  font-family: sanet-geo;
+  src: url(../../assets/fonts/alk-sanet.ttf);
+}
+
+// georgian fonts from enagramm.com
+@font-face {
+  font-family: mta;
+  src: url(../../assets/fonts/grigolia_mta.ttf);
+}
+@font-face {
+  font-family: kolheti;
+  src: url(../../assets/fonts/kolheti.ttf);
+}
+@font-face {
+  font-family: tchveuli;
+  src: url(../../assets/fonts/tchveul.ttf);
+}
+
+// fonts as classes
+.font-cursive {
+  font-family: cursive-geo;
+}
+.font-sanet {
+  font-family: sanet-geo;
+}
+.font-cursive {
+  font-family: cursive-geo;
+}
+.font-mta {
+  font-family: mta;
+}
+.font-kolheti {
+  font-family: kolheti;
+}
+.font-tchveuli {
+  font-family: tchveuli;
 }
 
 @keyframes fadeIn {

@@ -1,7 +1,8 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 import "./styles.scss"
-import { loginCredentialsInterface, loginCredentialsErrorInterface } from "../../types/auth.types"
+import { LoginCredentials, LoginCredentialsError } from "../../types/auth.types"
 import { useAuthStore } from "../../store/context/authContext"
 
 import Form from "../../components/Form/Form"
@@ -9,21 +10,27 @@ import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
 
 const LoginPage = () => {
-  const { loginUser, loginErrorMessage } = useAuthStore()
+  const { loginUser, loginErrorMessage, resetLoginPasswordError, resetLoginUsernameError } =
+    useAuthStore()
 
-  // const navigate = useNavigate()
-
-  const [credentials, setCredentials] = useState<loginCredentialsInterface>({
+  const [credentials, setCredentials] = useState<LoginCredentials>({
     username: "",
     password: "",
   })
 
-  const [credentialsError, setCredentialsError] = useState<loginCredentialsErrorInterface>({
+  const [credentialsError, setCredentialsError] = useState<LoginCredentialsError>({
     usernameError: [],
     passwordError: [],
   })
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCredentialsError((prevState) => ({
+      usernameError: [],
+      passwordError: prevState.passwordError,
+    }))
+
+    resetLoginUsernameError()
+
     setCredentials((prevState) => ({
       username: e.target.value,
       password: prevState.password,
@@ -31,16 +38,48 @@ const LoginPage = () => {
   }
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCredentialsError((prevState) => ({
+      usernameError: prevState.usernameError,
+      passwordError: [],
+    }))
+
+    resetLoginPasswordError()
+
     setCredentials((prevState) => ({
       username: prevState.username,
       password: e.target.value,
     }))
   }
 
+  const handleLogIn = async (credentials: LoginCredentials) => {
+    // FIX HERE !!!!!!!
+
+    await loginUser(credentials)
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    loginUser(credentials)
+    const usernameErrors: string[] = []
+    const passwordErrors: string[] = []
+
+    if (credentials.username.length === 0) {
+      usernameErrors.push("this field should not be empty")
+    }
+
+    if (credentials.password.length === 0) {
+      passwordErrors.push("this field should not be empty")
+    }
+
+    if (usernameErrors.length > 0 || passwordErrors.length > 0) {
+      setCredentialsError({
+        usernameError: usernameErrors,
+        passwordError: passwordErrors,
+      })
+      return
+    }
+
+    handleLogIn(credentials)
   }
 
   // useEffect(() => {
@@ -54,16 +93,23 @@ const LoginPage = () => {
           name="username"
           value={credentials.username}
           onChange={handleUsernameChange}
+          errors={[...loginErrorMessage.usernameError, ...credentialsError.usernameError]}
         />
         <Input
           name="password"
           type="password"
           value={credentials.password}
           onChange={handlePasswordChange}
+          errors={[...loginErrorMessage.passwordError, ...credentialsError.passwordError]}
         />
-        <Button>log in</Button>
-        {loginErrorMessage ? <div className="error">{loginErrorMessage}</div> : ""}
+        <Button className="cta-button">log in</Button>
       </Form>
+      <Link
+        to="../register"
+        className="auth-message"
+      >
+        Don't have account yet? Register
+      </Link>
     </div>
   )
 }

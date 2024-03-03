@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useReducer } from "react"
 import { AxiosError } from "axios"
 
-import { loginCredentialsInterface, registerCredentialsInterface } from "../../types/auth.types"
+import {
+  LoginCredentials,
+  RegisterCredentials,
+  LoginCredentialsError,
+  RegisterCredentialsError,
+} from "../../types/auth.types"
 import {
   setUser,
   setToken,
@@ -10,24 +15,15 @@ import {
   setIsError,
   setRegisterErrorMessage,
   setLoginErrorMessage,
-  setInitialAppSettings,
-  setInitialTypingSettings,
+  setTokenExpirationDate,
 } from "../actions/authActions"
-import { defaultTheme, defaultLanguage } from "../initial/appSettingsInitial"
 
 import { login, register } from "../../services/authServices"
 import authReducer from "../reducers/authReducers"
 import { initialState } from "../initial/authInitialState"
 import { AuthState, AuthFunctions } from "../initial/authInitialState"
 
-// import { useTypingSettingsStore } from "./typingSettingsContext"
-// import { useAppSettingsStore } from "./appSettingsContext"
-
 const AuthContext = createContext<AuthState & AuthFunctions>({} as AuthState & AuthFunctions)
-
-interface AxiosErrorResponse extends AxiosError {
-  message: string
-}
 
 export const useAuthStore = () => useContext(AuthContext)
 
@@ -37,15 +33,13 @@ interface Props {
 
 const AuthProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
-  // const { setTypingSettings, resetTypingSettings } = useTypingSettingsStore()
-  // const { setAppSettings, resetAppSettings } = useAppSettingsStore()
 
-  const registerUser = async (userData: registerCredentialsInterface) => {
+  const registerUser = async (userData: RegisterCredentials) => {
     try {
       dispatch(setIsLoading(true))
 
       const data = await register(userData)
-      const { user, typingSettings, appSettings, token } = data.data
+      const { user, token } = data.data
 
       // resetTypingSettings()
       // resetAppSettings()
@@ -54,65 +48,113 @@ const AuthProvider = ({ children }: Props) => {
       dispatch(setToken(token))
       dispatch(setIsLoggedIn(true))
 
-      dispatch(setInitialTypingSettings(typingSettings))
-      dispatch(setInitialAppSettings(appSettings))
+      const expirationDate = Number(new Date()) + 24 * 60 * 60 * 1000
+
+      dispatch(setTokenExpirationDate(expirationDate))
 
       localStorage.setItem("user", JSON.stringify(user))
       localStorage.setItem("token", token)
       localStorage.setItem("isLoggedIn", JSON.stringify(true))
+      localStorage.setItem("tokenExpirationDate", JSON.stringify(expirationDate))
 
       dispatch(setIsLoading(false))
     } catch (error) {
       dispatch(setIsError(true))
 
       if (error instanceof AxiosError) {
-        dispatch(setRegisterErrorMessage((error?.response?.data as AxiosErrorResponse)?.message))
+        const errorMessage = error?.response?.data as RegisterCredentialsError
+
+        dispatch(setRegisterErrorMessage(errorMessage))
       } else {
-        console.log(error)
-        dispatch(setRegisterErrorMessage("unexpected error"))
+        console.error(error)
       }
 
       dispatch(setIsLoading(false))
     }
   }
 
-  const loginUser = async (userData: loginCredentialsInterface) => {
+  const resetRegisterUsernameError = () => {
+    dispatch(
+      setRegisterErrorMessage({
+        usernameError: [],
+        passwordError: state.registerErrorMessage.passwordError,
+        confirmPasswordError: state.registerErrorMessage.confirmPasswordError,
+      })
+    )
+  }
+
+  const resetRegisterPasswordError = () => {
+    dispatch(
+      setRegisterErrorMessage({
+        usernameError: [],
+        passwordError: [],
+        confirmPasswordError: state.registerErrorMessage.confirmPasswordError,
+      })
+    )
+  }
+
+  const resetRegisterConfirmPasswordError = () => {
+    dispatch(
+      setRegisterErrorMessage({
+        usernameError: state.registerErrorMessage.usernameError,
+        passwordError: state.registerErrorMessage.passwordError,
+        confirmPasswordError: [],
+      })
+    )
+  }
+
+  const loginUser = async (userData: LoginCredentials) => {
     try {
       dispatch(setIsLoading(true))
 
-      // resetTypingSettings()
-      // resetAppSettings()
-
       const data = await login(userData)
-      const { user, typingSettings, appSettings, token } = data.data
-      // const typerSettings = user.typerSettings
-
-      // setFetchedSettings(typerSettings)
+      const { user, token } = data.data
 
       dispatch(setUser(user))
       dispatch(setToken(token))
       dispatch(setIsLoggedIn(true))
 
-      dispatch(setInitialTypingSettings(typingSettings))
-      dispatch(setInitialAppSettings(appSettings))
+      const expirationDate = Number(new Date()) + 24 * 60 * 60 * 1000
+
+      dispatch(setTokenExpirationDate(expirationDate))
 
       localStorage.setItem("user", JSON.stringify(user))
       localStorage.setItem("token", token)
       localStorage.setItem("isLoggedIn", JSON.stringify(true))
+      localStorage.setItem("tokenExpirationDate", JSON.stringify(expirationDate))
 
       dispatch(setIsLoading(false))
     } catch (error) {
       dispatch(setIsError(true))
 
       if (error instanceof AxiosError) {
-        dispatch(setLoginErrorMessage((error?.response?.data as AxiosErrorResponse)?.message))
+        const errorMessage = error?.response?.data as LoginCredentialsError
+
+        dispatch(setLoginErrorMessage(errorMessage))
       } else {
-        console.log(error)
-        dispatch(setRegisterErrorMessage("unexpected error"))
+        console.error(error)
       }
 
       dispatch(setIsLoading(false))
     }
+  }
+
+  const resetLoginUsernameError = () => {
+    dispatch(
+      setLoginErrorMessage({
+        usernameError: [],
+        passwordError: state.loginErrorMessage.passwordError,
+      })
+    )
+  }
+
+  const resetLoginPasswordError = () => {
+    dispatch(
+      setLoginErrorMessage({
+        usernameError: state.loginErrorMessage.usernameError,
+        passwordError: [],
+      })
+    )
   }
 
   const logoutUser = () => {
@@ -125,12 +167,20 @@ const AuthProvider = ({ children }: Props) => {
     dispatch(setIsLoggedIn(false))
     dispatch(setToken(null))
     dispatch(setUser(null))
+  }
 
-    // dispatch(setInitialTypingSettings({}))
-    dispatch(setInitialAppSettings({ theme: defaultTheme, language: defaultLanguage }))
+  // redo
+  const addUserToSentFriendRequests = (friendUsername: string) => {
+    const currentUser = state.user
 
-    // resetTypingSettings()
-    // resetAppSettings()
+    if (!currentUser) return
+
+    console.log(currentUser)
+
+    currentUser.sentFriendRequests.push(friendUsername)
+    localStorage.setItem("user", JSON.stringify(currentUser))
+
+    dispatch(setUser(currentUser))
   }
 
   const checkTokenExpiration = () => {
@@ -140,6 +190,8 @@ const AuthProvider = ({ children }: Props) => {
 
     const currentDate = Number(new Date())
     const tokenExpirationDate = state.tokenExpirationDate
+
+    console.log(isLoggedIn, tokenExpirationDate, currentDate)
 
     if (!tokenExpirationDate) return
 
@@ -156,9 +208,14 @@ const AuthProvider = ({ children }: Props) => {
   const store = {
     ...state,
     registerUser,
+    resetRegisterUsernameError,
+    resetRegisterPasswordError,
+    resetRegisterConfirmPasswordError,
     loginUser,
+    resetLoginUsernameError,
+    resetLoginPasswordError,
     logoutUser,
-    // checkTokenExpiration,
+    addUserToSentFriendRequests,
   }
 
   return <AuthContext.Provider value={store}>{children}</AuthContext.Provider>

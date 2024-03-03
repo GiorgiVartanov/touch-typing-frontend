@@ -11,8 +11,6 @@ import { useTypingSettingsStore } from "../../store/context/typingSettingsContex
 import Word from "./Word"
 import ActiveWord from "./ActiveWord"
 
-const textAlignValues = { left: "start", center: "center", right: "end" }
-
 interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
@@ -20,7 +18,7 @@ interface Props {
 }
 
 const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) => {
-  const { font, fontSize, lineHeight, letterSpacing, alignText } = useTypingSettingsStore()
+  const { font, fontSize } = useTypingSettingsStore()
   const startTime = useRef<Date | null>(null)
 
   const textLength = text.length
@@ -54,15 +52,49 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) =>
     setLettersStatuses([])
   }, [text])
 
+  const calculateFontSize = () => {
+    switch (fontSize) {
+      case "small":
+        return "0.75rem"
+      case "medium":
+        return "1rem"
+      case "large":
+        return "1.25rem"
+      case "extra large":
+        return "1.5rem"
+      default:
+        return "1.5rem"
+    }
+  }
+
+  const calculateLineHeight = () => {
+    switch (fontSize) {
+      case "small":
+        return "1.2"
+      case "medium":
+        return "1.25"
+      case "large":
+        return "1.2"
+      case "extra large":
+        return "1.2"
+      default:
+        return "1.3"
+    }
+  }
+
+  // const lineHeight = 1.25 // Set the line height factor based on your design
+  // const amountOfShownLines = 5 // Set the desired number of lines to be shown
+
+  // const containerHeight = `${amountOfShownLines * parseFloat(calculateFontSize()) * lineHeight}rem`
+
   return (
     <div
       autoFocus={true}
-      // applies text settings
       style={{
-        fontSize: `${fontSize === "Auto" ? "1.25rem" : `${fontSize}px`}`,
-        lineHeight: `${lineHeight === "Auto" ? "1.25rem" : `${lineHeight}px`}`,
-        letterSpacing: `${letterSpacing}px`,
-        justifyContent: textAlignValues[alignText],
+        fontSize: calculateFontSize(),
+        lineHeight: calculateLineHeight(),
+        // maxHeight: containerHeight,
+        // overflow: "hidden",
       }}
       className={`text font-${font}`}
     >

@@ -1,5 +1,3 @@
-@import "../../animations.scss";
-
 .keyboard {
   // position: absolute;
   transform: rotate3d(1, 2, 2, -5deg);
@@ -18,24 +16,6 @@
     justify-content: center;
     margin-top: 15px;
 
-    animation: levitate 2s alternate infinite ease-in-out;
-
-    .select-layout-buttons {
-      position: absolute;
-      bottom: -0.75rem;
-      right: -2.5rem;
-      display: flex;
-      gap: 0.25rem;
-      opacity: 0.5;
-
-      button {
-        background-color: var(--secondary-background-color);
-        border-radius: 0.25rem;
-        font-size: 0.85rem;
-        padding: 0.25rem 0.5rem;
-      }
-    }
-
     .container {
       padding: 20px 20px;
       display: flex;
@@ -43,11 +23,7 @@
       max-width: 980px;
       justify-content: center;
       align-items: center;
-      border-radius: 7px;
-      background: var(--secondary-background-color);
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-
-      transition: color, background-color 750ms ease-in-out;
+      transition: color, background-color 300ms ease-in-out;
 
       .row {
         display: flex;
@@ -56,39 +32,32 @@
         align-items: center;
 
         .key {
-          // display: flex;
           position: relative;
-          width: 50px;
-          height: 50px;
+          width: 55px;
+          height: 55px;
           margin: 5px;
           justify-content: center;
           flex-direction: column;
           align-items: center;
-          background-color: var(--secondary-color);
-          border-radius: 4px;
+          background-color: var(--secondary-background-color);
+          border-radius: 5px;
           color: var(--text-color);
-
+          box-shadow: 0 4px 6px -1px var(--shadow-color), 0 0 4px 1px transparent;
           opacity: 0;
-          animation: fadeIn 1000ms var(--animation-function) forwards;
-
-          transition: color, background-color ease-in-out 750ms;
+          animation: fadeIn 300ms var(--animation-function) forwards, levitate 5000ms infinite;
+          transition: all var(--animation-function) 300ms;
           font-weight: 600;
 
           user-select: none;
-          // text-shadow: 0px 0px 0px var(--text-color);
-          box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1),
-            rgba(100, 100, 111, 0.2) 0px 6px 18px 0px;
 
           &.active {
-            background-color: var(--primary-color);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), rgba(100, 100, 111, 0.2) 0px 6px 24px;
-            // text-shadow: 0px 0px 2px var(--text-color);
-            // transition: background-color ease-in-out 0.3s;
+            background-color: var(--secondary-background-color-active);
+            box-shadow: 0 6px 14px 6px var(--shadow-color);
           }
 
           span {
             position: absolute;
-            font-size: 0.85rem;
+            font-size: 1rem;
           }
 
           &.children-1 {
@@ -104,10 +73,10 @@
               left: 7px;
             }
             span:nth-child(2) {
-              bottom: 2px;
+              bottom: 3px;
               right: 7px;
-              color: var(var(--slightly-weak-text-color));
-              font-weight: 300;
+              color: var(--accent-color);
+              font-weight: 400;
             }
           }
           &.children-3 {
@@ -117,16 +86,16 @@
               left: 7px;
             }
             span:nth-child(2) {
-              bottom: 2px;
+              bottom: 3px;
               right: 7px;
-              color: var(var(--slightly-weak-text-color));
-              font-weight: 300;
+              color: var(--accent-color);
+              font-weight: 400;
             }
             span:nth-child(3) {
               top: 2px;
               right: 7px;
-              color: var(var(--slightly-weak-text-color));
-              font-weight: 300;
+              color: var(--accent-color);
+              font-weight: 400;
             }
           }
         }
@@ -142,22 +111,27 @@
 .row:nth-of-type(3) {
   position: relative;
   right: 25px;
-  // margin-right: 50px;
 }
 
 @keyframes levitate {
   0% {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transform: translateY(0) translateX(0);
+    // filter: hue-rotate(1);
+  }
+  50% {
+    transform: translateY(-7px) translateX(-7px);
   }
   100% {
-    transform: translateY(10px);
-    box-shadow: 0 16px 24px -8px rgb(0 0 0 / 0.2), 0 6px 12px -4px rgb(0 0 0 / 0.2);
+    transform: translateY(0) translateX(0);
+    // filter: hue-rotate(360deg); // RGB keyboard
   }
 }
 
-// @for $i from 1 through 10 {
-//   .row .key:nth-child(#{$i}n) {
-//     animation-delay: #{$i * 0.5}s;
-//   }
-// }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

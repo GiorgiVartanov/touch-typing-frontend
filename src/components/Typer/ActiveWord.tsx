@@ -14,6 +14,23 @@ const usedKeys = [
   "9",
   "0",
   "=",
+  "+",
+  "-",
+  "_",
+  "!",
+  "@",
+  "#",
+  "$",
+  "%",
+  "^",
+  "&",
+  "*",
+  "(",
+  ")",
+  "[",
+  "]",
+  "{",
+  "}",
   "q",
   "w",
   "e",
@@ -86,6 +103,32 @@ const usedKeys = [
   "Backspace",
   " ",
   "",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
 ]
 
 interface Props {
@@ -223,6 +266,7 @@ const ActiveWord = ({
             key={index}
             letter={letter}
             isCurrentLetter={index === currentLetterIndex}
+            isLastLetter={index === word.length}
             isCorrect={lettersStatuses[index]}
           />
         )

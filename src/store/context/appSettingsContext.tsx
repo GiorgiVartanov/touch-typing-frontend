@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect } from "react"
+import { createContext, useContext, useReducer } from "react"
 
 import { setThemeAction, setLanguageAction } from "../actions/appSettingsActions"
 import { LanguageType, ThemeType } from "../../types/appSettings.types"
@@ -8,11 +8,15 @@ import {
   defaultTheme,
   defaultLanguage,
 } from "../initial/appSettingsInitial"
-import { AppSettingsState, AppSettingsActions } from "../../types/appSettings.types"
+import {
+  AppSettingsState,
+  AppSettingsActions,
+  AppSettingsOptions,
+} from "../../types/appSettings.types"
 import { useAuthStore } from "./authContext"
 import { saveAppSetting } from "../../services/appSettingsServices"
 
-interface ContextInterface extends AppSettingsState, AppSettingsActions {}
+interface ContextInterface extends AppSettingsState, AppSettingsActions, AppSettingsOptions {}
 
 const AppSettingsContext = createContext<ContextInterface>({} as ContextInterface)
 
@@ -25,10 +29,10 @@ interface Props {
 const AppSettingsProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(appSettingsReducer, appSettingsInitialState)
 
-  const { token, isLoggedIn, initialAppSettings } = useAuthStore()
+  const { token } = useAuthStore()
 
   const themeOptions = ["System Default", "Dark", "Light"] as ThemeType[]
-  const languageOptions = ["Geo"] as LanguageType[]
+  const languageOptions = ["Geo", "Eng"] as LanguageType[]
 
   // saves a setting both in localStorage and on the server (if saveOnServer is true or token is available)
   const saveSetting = (
@@ -69,26 +73,13 @@ const AppSettingsProvider = ({ children }: Props) => {
     setAppSettings()
   }
 
-  // is used to change settings back to default when user logs out / log in.
-  // it works, but it's probably an anti-pattern, it would be better to use one global store (combine appSettingsContext, authContext and typingSettingsContext) for everything, so it will be possible to call resetAppSettings() inside logout/login/register functions of AuthStore.
-  useEffect(() => {
-    if (isLoggedIn) {
-      setAppSettings(initialAppSettings, false)
-    } else {
-      resetAppSettings()
-    }
-  }, [isLoggedIn, initialAppSettings])
-
   const store = {
     ...state,
-    //
     themeOptions,
     languageOptions,
-    //
     setAppSettings,
     setTheme,
     setLanguage,
-    //
     resetAppSettings,
   }
 

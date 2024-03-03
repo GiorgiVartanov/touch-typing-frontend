@@ -5,6 +5,13 @@ body,
   overflow-x: hidden;
 }
 
+body {
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .App {
   min-height: 100vh;
   display: flex;
@@ -12,43 +19,111 @@ body,
 
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: color, background-color 200ms var(--animation-function);
+  transition: color, background-color 300ms var(--animation-function);
 
-  --error-color: #ca3f3f;
+  --red-color: #ca3f3f;
+  --success-color: #27bd47; // change
   --large-font-size: 1.5rem;
   --animation-function: cubic-bezier(0.36, 0.56, 0.52, 0.97);
+  --border-radius: 0.5rem;
+
+  --small-screen: 576px;
+  --medium-screen: 768px;
+  --large-screen: 1200px;
+
+  background-repeat: no-repeat;
+  background-size: cover;
 
   // light theme
   &:not(.dark) {
-    --primary-color: rgb(165, 150, 233);
-    --secondary-color: #afbac5;
-    --background-color: #ffffff;
-    --secondary-background-color: #e3e8f0;
-    --text-color: #0b1a33;
-    --slightly-weak-text-color: #141413;
-    --weaker-text-color: #8b8b8b;
-    --penalty-word-yellow: #ffae00;
-    --tertiary-background-color: #becee6; //Please approve  o_O  ^_^  O_o
+    --primary-color: rgb(87, 82, 180);
+    // --complementary-color: #8780e4;
+    --cta-color: #9792eb;
+    --cta-color-active: #a9a5f5;
+    --secondary-color: #4b5057;
+
+    --accent-color: #1c1b1d;
+    --accent-color-dim: #575358;
+
+    --shadow-color: rgb(0 0 0 / 0.1);
+    --warning-color: #d43737;
+    // --warning-color: #ee6868;
+
+    --background-color: #e3e8f0;
+    --background-color-transparent: #e3e8f0c9;
+
+    --secondary-background-color: #ffffff;
+    --secondary-background-color-active: #f6f7fd;
+
+    --text-color: #1f1e24;
+
+    --typing-text-unwritten: #586579;
+    --typing-text-incorrect: rgb(197, 56, 56);
+    --typing-text-correct: #1f1e24;
+
+    --penalty-word-yellow: #f5e856;
+
+    background: var(--background-color);
   }
 
   // dark theme
   &.dark {
-    --primary-color: #7c66db;
-    --secondary-color: #484c4e;
-    --background-color: #1f2124;
-    --secondary-background-color: rgb(38, 41, 44);
+    --primary-color: #817dd8;
+    // --complementary-color: #706cb9;
+    --cta-color: #706cb9;
+    --cta-color-active: #8c87e7;
+    --secondary-color: #4b5057;
+
+    --accent-color: #ffffff;
+    --accent-color-dim: #c8c4ca;
+
+    --shadow-color: rgb(0 0 0 / 0.2);
+    --warning-color: #ca3f3f;
+
+    --background-color: #262533;
+    --background-color-transparent: #262533c2;
+
+    --secondary-background-color: #44435a;
+    --secondary-background-color-active: #555470;
+
     --text-color: #e2e6eb;
-    --slightly-weak-text-color: rgb(241, 241, 241);
-    --weaker-text-color: rgb(75, 80, 87);
+
+    --typing-text-unwritten: #828282;
+    --typing-text-incorrect: rgb(197, 56, 56);
+    --typing-text-correct: #e2e6eb;
+
     --penalty-word-yellow: #f5e856;
-    --tertiary-background-color: #273649; //Please approve  O:  ^_*  :()
+
+    background: var(--background-color);
   }
 
   .page {
     padding: 0.5rem;
     max-width: 1280px;
     width: 100%;
-    margin: 4rem auto;
+    margin: 4.5rem auto;
     flex: 1;
   }
+
+  .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: var(--accent-color);
+    transition: 300ms var(--animation-function);
+  }
+
+  .fetch-error-message {
+    text-align: center;
+    margin: 2rem;
+  }
+}
+
+// overriding toastify colors
+
+:root {
+  --toastify-text-color-light: #1f1e24;
+  --toastify-text-color-dark: #e2e6eb;
+
+  --toastify-color-light: #ffffff;
+  --toastify-color-dark: #44435a;
 }
