@@ -8,11 +8,13 @@ interface Props {
 const Select = ({ name, value, options, onChange }: Props) => {
   return (
     <div className="select-wrapper">
+      <label htmlFor="">{name}</label>
       <select
         id={name}
         name={name}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        className="border"
       >
         {options.map((option) => (
           <option

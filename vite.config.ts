@@ -13,15 +13,17 @@ export default defineConfig({
       manifest: {
         icons: [
           {
-            // icon of a website, will be used as an icon when user download this app
+            // icon of a website, is used as an app icon when user downloads this app
             src: "/icon.svg",
             sizes: "512x512",
             type: "image/svg+xml",
             purpose: "any maskable",
           },
         ],
-        background_color: "#121212",
-        theme_color: "#121212",
+        name: "Touch Typing Learning Platform",
+        short_name: "Touch Typing",
+        background_color: "#817dd8",
+        theme_color: "#817dd8",
       },
       workbox: {
         runtimeCaching: [

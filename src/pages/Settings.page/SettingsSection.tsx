@@ -1,4 +1,3 @@
-import RadioSetting from "./RadioSetting"
 import SelectSetting from "./SelectSetting"
 
 interface Props {
@@ -8,25 +7,23 @@ interface Props {
     selectedValue: any
     valueOptions: any[]
     selectValue: (newValue: any) => void
-    settingType: string
   }[]
+  children?: React.ReactNode
 }
 
-const SettingsSection = ({ sectionTitle, settingsList }: Props) => {
+// setting page section
+const SettingsSection = ({ sectionTitle, settingsList, children }: Props) => {
   return (
     <section className="settings-section">
       <h3 className="section-title">{sectionTitle}</h3>
       <div className="settings-list">
         {settingsList.map((setting, index) => (
           <div key={index}>
-            {setting.settingType === "radio" ? (
-              <RadioSetting {...setting} />
-            ) : (
-              <SelectSetting {...setting} />
-            )}
+            <SelectSetting {...setting} />
           </div>
         ))}
       </div>
+      {children}
     </section>
   )
 }

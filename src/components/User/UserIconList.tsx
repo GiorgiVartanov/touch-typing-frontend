@@ -3,16 +3,17 @@ import { User } from "../../types/auth.types"
 import UserIcon from "./UserIcon"
 
 interface Props {
-  userList: User[]
+  userList: string[]
 }
 
 const UserIconList = ({ userList }: Props) => {
   return (
     <div className="user-list">
-      {userList.map((user) => (
+      {userList.map((user, index) => (
         <UserIcon
-          key={user.username}
-          username={user.username}
+          key={user}
+          username={user}
+          style={{ animationDelay: `${index * 0.05}s` }}
         />
       ))}
     </div>

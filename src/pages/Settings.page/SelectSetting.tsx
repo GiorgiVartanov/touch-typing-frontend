@@ -5,6 +5,7 @@ interface Props {
   selectValue: (newValue: string | number | boolean) => void
 }
 
+// select element where user can select typing setting
 const SelectSetting = ({ name, selectedValue, valueOptions, selectValue }: Props) => {
   return (
     <label
@@ -25,7 +26,7 @@ const SelectSetting = ({ name, selectedValue, valueOptions, selectValue }: Props
             value={option.toString()}
             className="setting-select-option"
           >
-            {option.toString()}
+            {option}
           </option>
         ))}
       </select>

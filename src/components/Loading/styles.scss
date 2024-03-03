@@ -13,8 +13,19 @@
     height: 60px;
     width: 60px;
     border: 10px solid transparent;
-    border-left: 10px solid var(--primary-color);
+    border-left: 10px solid var(--secondary-background-color);
     border-radius: 100%;
     animation: spin 750ms linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    // filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    // filter: hue-rotate(1800deg);
   }
 }

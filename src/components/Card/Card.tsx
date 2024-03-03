@@ -9,7 +9,7 @@ interface Props {
   bottomLeft: string
   bottomRight: string
   className?: string
-  style: React.CSSProperties
+  style?: React.CSSProperties
 }
 
 const Card = ({
@@ -21,14 +21,20 @@ const Card = ({
   className = "",
   style,
 }: Props) => {
+  const renderDescription = () => {
+    if (description.length > 100) return description.slice(0, 100) + "..."
+
+    return description
+  }
+
   return (
     <Link
       to={to}
-      className={`card ${className}`}
+      className={`shadow border card ${className}`}
       style={style}
     >
       <h3 className="title">{title}</h3>
-      <p className="description">{description}</p>
+      <p className="description">{renderDescription()}</p>
       <div className="card-bottom">
         <div className="bottom-left">{bottomLeft}</div>
         <div className="bottom-right">{bottomRight}</div>

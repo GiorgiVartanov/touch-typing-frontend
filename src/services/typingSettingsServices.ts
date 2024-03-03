@@ -14,3 +14,10 @@ export const saveTypingSetting = (
       },
     }
   )
+
+export const getTypingSettings = (token: string) =>
+  ajax.get("/typingsettings", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })

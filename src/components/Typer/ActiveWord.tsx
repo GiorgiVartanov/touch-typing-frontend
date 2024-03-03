@@ -266,6 +266,7 @@ const ActiveWord = ({
             key={index}
             letter={letter}
             isCurrentLetter={index === currentLetterIndex}
+            isLastLetter={index === word.length}
             isCorrect={lettersStatuses[index]}
           />
         )

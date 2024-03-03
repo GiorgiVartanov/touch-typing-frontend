@@ -1,162 +1,260 @@
-import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
-import ajax from "../../services/ajax"
+import { useParams, NavLink, Link, Outlet } from "react-router-dom"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { toast } from "react-toastify"
 
-import SettingsIcon from "../../assets/icons/gear.svg?react"
-import AddUserIcon from "../../assets/icons/user-plus-solid.svg?react"
-import RemoveUserIcon from "../../assets/icons/user-minus-solid.svg?react"
+import SettingIcon from "../../assets/icons/gear.svg?react"
+import AddUserIcon from "../../assets/icons/user-plus.svg?react"
+import RemoveUserIcon from "../../assets/icons/user-minus.svg?react"
+import HistoryIcon from "../../assets/icons/history.svg?react"
+// import BlockUserIcon from "../../assets/icons/user-slash.svg?react"
+import FriendListIcon from "../../assets/icons/user-group.svg?react"
 
 import "./styles.scss"
 
 import { useAuthStore } from "../../store/context/authContext"
+import { sendFriendRequest, removeFriend } from "../../services/friendRequestServices"
+import { getUser } from "../../services/authServices"
 import { User } from "../../types/auth.types"
 
 import UserIcon from "../../components/User/UserIcon"
-import UserList from "../../components/User/UserList"
+import Button from "../../components/Form/Button"
+import Loading from "../../components/Loading/Loading"
 
+// profile page
 const ProfilePage = () => {
-  const { username } = useParams()
-  const { isLoggedIn, user, token } = useAuthStore()
+  const { username: pageOwnerUsername } = useParams()
+  const { isLoggedIn, user, token, addUserToSentFriendRequests } = useAuthStore()
+  const queryClient = useQueryClient()
 
   const currentUserUsername = user?.username
 
-  const [friends, setFriends] = useState<User[]>([])
-  const [followers, setFollowers] = useState<User[]>([])
-  const [followings, setFollowings] = useState<User[]>([])
+  // function to fetch user for a current page
+  const fetchUser = async () => {
+    if (!pageOwnerUsername) return
 
-  const [isLoadingFriends, setIsLoadingFriends] = useState<boolean>(false)
-  const [isLoadingFollowers, setIsLoadingFollowers] = useState<boolean>(false)
-  const [isLoadingFollows, setIsLoadingFollows] = useState<boolean>(false)
+    const response = await getUser(pageOwnerUsername)
 
-  useEffect(() => {
-    setIsLoadingFriends(true)
-    setIsLoadingFollowers(true)
-    setIsLoadingFollows(true)
-
-    const fetchFriends = async () => {
-      const fetchedFriends = await ajax.get(`/friendship/friends/${username}`)
-
-      setFriends(fetchedFriends.data.data)
-      setIsLoadingFriends(false)
-    }
-    const fetchFollowers = async () => {
-      const fetchedFollowers = await ajax.get(`/friendship/followers/${username}`)
-
-      setFollowers(fetchedFollowers.data.data)
-      setIsLoadingFollowers(false)
-    }
-    const fetchFollowings = async () => {
-      const fetchedFollowings = await ajax.get(`/friendship/followings/${username}`)
-
-      setFollowings(fetchedFollowings.data.data)
-      setIsLoadingFollows(false)
-    }
-
-    fetchFriends()
-    fetchFollowers()
-    fetchFollowings()
-  }, [username])
-
-  if (!username || !followers || !friends) {
-    return <div>user with this username does not exist</div>
+    return response.data
   }
 
-  const followUser = () => {
-    ajax.post(
-      `/friendship/follow/${username}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  // fetched user
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["profile", pageOwnerUsername],
+    queryFn: fetchUser,
+    staleTime: 1000000,
+  })
+
+  // mutation to unfriend user
+  const removeFriendMutation = useMutation({
+    mutationFn: () => {
+      if (!token || !pageOwnerUsername) throw new Error("no token")
+
+      return removeFriend(pageOwnerUsername, token)
+    },
+    mutationKey: ["removeFriend"],
+    onMutate: async () => {
+      const pageOwner = queryClient.getQueryData<{ data: User }>([
+        "profile",
+        pageOwnerUsername,
+      ])?.data
+
+      const currentUser = queryClient.getQueryData<{ data: User }>([
+        "profile",
+        currentUserUsername,
+      ])?.data
+
+      if (!pageOwner) return
+
+      const updatedPageOwner = {
+        ...pageOwner,
+        friends: pageOwner.friends.filter((friend) => friend !== currentUserUsername),
       }
+      queryClient.cancelQueries({ queryKey: ["profile", pageOwnerUsername] })
+      queryClient.setQueryData(["profile", pageOwnerUsername], { data: updatedPageOwner })
+
+      if (!currentUser) return
+
+      const updatedCurrentUser = {
+        ...currentUser,
+        friends: currentUser.friends.filter((friend) => friend !== pageOwnerUsername),
+      }
+      queryClient.cancelQueries({ queryKey: ["profile", currentUserUsername] })
+      queryClient.setQueryData(["profile", currentUserUsername], { data: updatedCurrentUser })
+    },
+    onSuccess: () => {
+      toast.success("you have successfully removed friend")
+    },
+    onError: (error) => {
+      // ADD SOMETHING HERE
+      toast.error(error?.message || "something went wrong")
+    },
+  })
+
+  // function to send a friend request
+  const handleSendFriendRequest = async () => {
+    if (!pageOwnerUsername || !token) return
+
+    toast.success("you successfully sent friend request")
+
+    addUserToSentFriendRequests(pageOwnerUsername)
+    sendFriendRequest(pageOwnerUsername, token)
+  }
+
+  // function to unfriend user
+  const handleRemoveFriend = async () => {
+    if (!pageOwnerUsername || !token) return
+    removeFriendMutation.mutate()
+  }
+
+  // if user does not exist
+  if (!pageOwnerUsername) {
+    return <div className="fetch-error-message">user with this username does not exist</div>
+  }
+
+  // renders right side of user buttons
+  const renderLeftButtons = () => {
+    return (
+      <>
+        <NavLink
+          to="./friends"
+          className="user-action-button tooltip"
+          data-tooltip="friends"
+        >
+          <FriendListIcon className="icon" />
+        </NavLink>
+        <NavLink
+          to="./"
+          className="user-action-button tooltip"
+          data-tooltip="history"
+        >
+          <HistoryIcon className="icon" />
+        </NavLink>
+        {/* <NavLink
+          to="./history"
+          className="user-action-button tooltip"
+          data-tooltip="history"
+        >
+          <HistoryIcon className="icon" />
+        </NavLink> */}
+      </>
     )
   }
 
-  const unfollowUser = () => {
-    ajax.post(
-      `/friendship/unfollow/${username}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-  }
-
-  const renderFollowButton = () => {
-    if (!isLoggedIn) return
-
-    const followersUsernames = followers.map((follower) => follower?.username)
-
-    if (currentUserUsername && followersUsernames.includes(currentUserUsername)) {
+  // renders left side of user buttons
+  const renderRightButtons = (isOwnPage: boolean, isFriend: boolean) => {
+    // renders buttons for page owner
+    const renderRightButtonsForSelf = () => {
       return (
-        <button onClick={unfollowUser}>
-          <RemoveUserIcon />
-        </button>
-      )
-    } else {
-      return (
-        <button onClick={followUser}>
-          <AddUserIcon />
-        </button>
+        <>
+          <Link
+            to="../settings"
+            className="user-action-button tooltip"
+            data-tooltip="settings"
+          >
+            <SettingIcon className="icon" />
+          </Link>
+        </>
       )
     }
+
+    // renders buttons for page owner's friends
+    const renderRightButtonsForFriend = () => {
+      return (
+        <>
+          <Button
+            onClick={handleRemoveFriend}
+            className="user-action-button tooltip"
+            data-tooltip="unfriend"
+          >
+            <RemoveUserIcon className="icon" />
+          </Button>
+        </>
+      )
+    }
+
+    const renderRightButtonsForUserWhoSentFriendRequest = () => {
+      const handleOnClick = () => {
+        // toast.dismiss() // it will remove other toasts
+        toast.warning("you have already sent friend request to this user")
+      }
+
+      return (
+        <>
+          <Button
+            onClick={handleOnClick}
+            className="user-action-button tooltip"
+            data-tooltip="already sent"
+            disabled={true}
+          >
+            <AddUserIcon className="icon" />
+          </Button>
+        </>
+      )
+    }
+
+    // renders buttons for other users
+    const renderRightButtonsForUser = () => {
+      return (
+        <>
+          <Button
+            onClick={handleSendFriendRequest}
+            className="user-action-button tooltip"
+            data-tooltip="add friend"
+          >
+            <AddUserIcon className="icon" />
+          </Button>
+        </>
+      )
+    }
+
+    // renders buttons for guest users
+    const renderRightButtonsForGuest = () => {
+      return <></>
+    }
+
+    if (isOwnPage) return renderRightButtonsForSelf()
+    if (isFriend) return renderRightButtonsForFriend()
+    if (user?.sentFriendRequests?.includes(pageOwnerUsername))
+      return renderRightButtonsForUserWhoSentFriendRequest()
+    if (isLoggedIn) return renderRightButtonsForUser()
+    return renderRightButtonsForGuest()
   }
 
-  return (
-    <div className="page profile-page">
-      <div className="user-information">
+  // renders user data
+  const renderUserData = () => {
+    if (isLoading) return <Loading />
+
+    if (error) {
+      console.log(error)
+      return <div className="fetch-error-message">{error?.message}</div>
+    }
+
+    if (!data?.data) return <div className="fetch-error-message">something went wrong</div>
+
+    const { username, friends } = data.data
+
+    const isOwnPage = username === currentUserUsername
+    const isFriend = friends?.includes(currentUserUsername)
+
+    return (
+      <div className="profile-user-data">
         <div className="user-actions">
-          <UserIcon
-            username={username}
-            includeName={true}
-          />
-          <div className="user-actions-buttons">
-            {currentUserUsername !== username ? (
-              renderFollowButton()
-            ) : (
-              <button>
-                <SettingsIcon />
-              </button>
-            )}
+          <div className="profile-buttons-left">{renderLeftButtons()}</div>
+          <div className="profile-page-icon">
+            <UserIcon
+              username={username}
+              includeName={false}
+            />
+            <p className="username">{username}</p>
           </div>
+          <div className="profile-buttons-right">{renderRightButtons(isOwnPage, isFriend)}</div>
         </div>
-        {friends.length > 0 || isLoadingFriends ? (
-          <div>
-            <h2>
-              {username === currentUserUsername ? "your" : username + "`s"}
-              <span>friends</span>
-            </h2>
-            <UserList users={friends} />
-          </div>
-        ) : (
-          ""
-        )}
-        {followers.length > 0 || isLoadingFollowers ? (
-          <div>
-            <h2>
-              {username === currentUserUsername ? "your" : username + "`s"} <span>followers</span>
-            </h2>
-            <UserList users={followers} />
-          </div>
-        ) : (
-          ""
-        )}
-        {followings.length > 0 || isLoadingFollows ? (
-          <div>
-            <h2>
-              {username === currentUserUsername ? "your" : username + "`s"} <span>follows</span>
-            </h2>
-            <UserList users={followings} />
-          </div>
-        ) : (
-          ""
-        )}
+        <Outlet />
       </div>
-      <div className="user-posts-wrapper"></div>
-    </div>
-  )
+    )
+  }
+
+  return <div className="page profile-page">{renderUserData()}</div>
 }
+
 export default ProfilePage

@@ -1,8 +1,8 @@
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
 // import { ThemeType } from "../../types/appSettings.types"
 
-import SunIcon from "../../assets/icons/sun-solid.svg?react"
-import MoonIcon from "../../assets/icons/moon-solid.svg?react"
+import SunIcon from "../../assets/icons/sun.svg?react"
+import MoonIcon from "../../assets/icons/moon.svg?react"
 
 // renders a button to change theme
 const ChangeTheme = () => {

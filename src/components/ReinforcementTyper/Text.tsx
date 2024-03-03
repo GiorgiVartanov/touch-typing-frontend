@@ -1,50 +1,49 @@
 /// <reference types="vite-plugin-svgr/client" />
 
-import { useState, useEffect } from "react";
-import { useTypingSettingsStore } from "../../store/context/typingSettingsContext";
+import { useState, useEffect } from "react"
+import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 
-import Word from "../Typer/Word";
-import ActiveWord from "../Typer/ActiveWord";
+import Word from "../Typer/Word"
+import ActiveWord from "../Typer/ActiveWord"
 
-const textAlignValues = { left: "start", center: "center", right: "end" };
+const textAlignValues = { left: "start", center: "center", right: "end" }
 
 interface Props {
-  words: string[];
-  wordSeparator?: string;
+  words: string[]
+  wordSeparator?: string
 }
 
-const Text = ({ words, wordSeparator = ""}: Props) => {
-  const [text, setText] = useState(words);
-  const { font, fontSize, lineHeight, letterSpacing, alignText } =
-    useTypingSettingsStore();
+const Text = ({ words, wordSeparator = "" }: Props) => {
+  const [text, setText] = useState(words)
+  const { font, fontSize, lineHeight, letterSpacing, alignText } = useTypingSettingsStore()
 
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [correctLetters, setCorrectLetters] = useState<(0 | 1 | 2)[][]>([]);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const [correctLetters, setCorrectLetters] = useState<(0 | 1 | 2)[][]>([])
 
-  const originalTextLength = words.length;
-  
+  const originalTextLength = words.length
+
   const goToNextWord = (correctLetters: (0 | 1 | 2)[]) => {
     // 0 - letter was not typed yet
     // 1 - letter was typed incorrectly
     // 2 - letter was typed correctly
 
-    setCurrentWordIndex((prevState) => prevState + 1);
+    setCurrentWordIndex((prevState) => prevState + 1)
     setCorrectLetters((prevState) => {
       if (prevState) {
-        return [...prevState, correctLetters];
+        return [...prevState, correctLetters]
       } else {
-        return [correctLetters];
+        return [correctLetters]
       }
-    });
+    })
 
     if (correctLetters.includes(1)) {
-      setText((prev) => [...prev, text[currentWordIndex]]);
+      setText((prev) => [...prev, text[currentWordIndex]])
     }
-  };
+  }
 
   useEffect(() => {
-    setCorrectLetters((prev) => [...prev]);
-  }, [text]);
+    setCorrectLetters((prev) => [...prev])
+  }, [text])
 
   return (
     <div
@@ -67,9 +66,9 @@ const Text = ({ words, wordSeparator = ""}: Props) => {
               goToNextWord={goToNextWord}
               isLastWord={index === text.length - 1}
               wordSeparator={wordSeparator}
-              className={(index >= originalTextLength) ? "penalty-word" : ""}
+              className={index >= originalTextLength ? "penalty-word" : ""}
             />
-          );
+          )
         } else {
           return (
             <Word
@@ -77,12 +76,12 @@ const Text = ({ words, wordSeparator = ""}: Props) => {
               word={word}
               correctLetters={correctLetters[index]}
               wordSeparator={wordSeparator}
-              className={(index >= originalTextLength) ? "penalty-word" : ""}
+              className={index >= originalTextLength ? "penalty-word" : ""}
             />
-          );
+          )
         }
       })}
     </div>
-  );
-};
-export default Text;
+  )
+}
+export default Text

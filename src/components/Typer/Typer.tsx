@@ -6,7 +6,7 @@ import Text from "./Text"
 interface Props {
   text: string
   wordSeparator?: string
-  finishHandler?: (lettersStatuses:(0 | 1 | 2)[][], startTime : Date | null) => void
+  finishHandler?: (lettersStatuses: (0 | 1 | 2)[][], startTime: Date | null) => void
 }
 
 // renders typing settings
@@ -16,7 +16,6 @@ const Typer = ({ text, wordSeparator = "", finishHandler = undefined }: Props) =
 
   return (
     <div className="typer">
-      <div className="typing-panel">{/* <TextSettings /> */}</div>
       <Text
         text={textArray}
         wordSeparator={wordSeparator}

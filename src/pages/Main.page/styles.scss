@@ -1,4 +1,4 @@
-@import "../../animations.scss";
+// @import "../../animations.scss";
 
 .main-page {
   position: relative;
@@ -10,7 +10,7 @@
     justify-content: center;
     width: 100%;
     gap: 5rem;
-    top: 50%;
+    top: 52.5%;
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -23,7 +23,7 @@
       flex-direction: column;
       gap: 0.75rem;
 
-      animation: fadeIn 200ms ease-in-out;
+      // animation: appear 200ms var(--animation-function);
 
       .separate {
         display: flex;
@@ -32,39 +32,53 @@
       }
 
       a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         max-width: 100%;
-        padding: 1rem 0.75rem;
-        // background-color: var(--secondary-background-color);
-        transition: 400ms var(--animation-function);
-        // box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 0 4px 1px transparent;
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 0 4px 1px transparent;
-        border-radius: 10px;
-        border: 1px solid var(--secondary-color);
+        padding: 0 0.75rem;
+        transition: 300ms var(--animation-function);
         width: 360px;
+        height: 76px;
         background-color: var(--secondary-background-color);
-
-        &.main-button {
-          background-color: var(--primary-color);
-
-          span {
-            color: var(--text-color);
-          }
-        }
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        box-shadow: 0 2px 4px -1px var(--shadow-color);
+        border-radius: var(--border-radius);
 
         &:hover,
         &:active {
-          box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 0 4px 1px var(--primary-color);
-          // text-shadow: 0px 0px 2px var(--text-color);
-          opacity: 1;
+          background-color: var(--secondary-background-color-active);
+          // filter: brightness(var(--action-brightness));
+          box-shadow: 0 2px 6px 1px var(--shadow-color);
+        }
+
+        &.main-button {
+          color: var(--cta-color);
+
+          // border: 2px solid var(--accent-color);
+
+          span {
+            color: var(--cta-color);
+          }
+
+          &:hover,
+          &:active {
+            box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1);
+            color: var(--cta-color-active);
+          }
         }
 
         p {
+          transition: color 300ms var(--animation-function);
           font-weight: bold;
           font-size: 1.5rem;
           line-height: 1.5rem;
         }
 
         span {
+          transition: color 300ms var(--animation-function);
           // opacity: 0.6;
           font-weight: 200;
           color: var(--accent-color);
@@ -100,5 +114,14 @@
         }
       }
     }
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

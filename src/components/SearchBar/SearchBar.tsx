@@ -51,17 +51,13 @@ const SearchBar = ({
   }, [searchValue, debounce])
 
   return (
-    <div className="search-wrapper">
-      <div className="search-bar-holder">
-        <input
-          className="search-bar"
-          placeholder="search"
-          value={searchValue}
-          onChange={handleOnChange}
-          onKeyDown={handleOnKeyDown}
-        />
-      </div>
-    </div>
+    <input
+      className="border shadow-focus search-bar"
+      placeholder="search"
+      value={searchValue}
+      onChange={handleOnChange}
+      onKeyDown={handleOnKeyDown}
+    />
   )
 }
 export default SearchBar

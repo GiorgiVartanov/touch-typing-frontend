@@ -37,36 +37,38 @@ const MainPage = () => {
         {showHeroKeyboard ? <HeroKeyboard activeKeys={activeKeys} /> : ""}
         <div className="options">
           <Link
-            className="main-button"
-            to="learn"
+            className="border shadow"
+            to="lessons"
             onMouseEnter={() => {
-              handleOnButtonHover("learn")
+              handleOnButtonHover("lessons")
             }}
             onMouseLeave={handleOnMouseLeave}
           >
-            <p>Learn</p>
+            <p>Lessons</p>
             <span>learn typing by completing tasks</span>
           </Link>
           <Link
             to="play"
             onMouseEnter={() => {
-              handleOnButtonHover("play online")
+              handleOnButtonHover("online competition")
             }}
             onMouseLeave={handleOnMouseLeave}
+            className="border shadow"
           >
-            <p>Play Online</p>
+            <p>Competition</p>
             <span>challenge other people</span>
           </Link>
           <div className="separate">
             <Link
-              to="communities"
+              to="games"
               onMouseEnter={() => {
-                handleOnButtonHover("communities")
+                handleOnButtonHover("games")
               }}
               onMouseLeave={handleOnMouseLeave}
+              className="border shadow"
             >
-              <p>Communities</p>
-              <span>Socialize</span>
+              <p>Games</p>
+              <span>play games</span>
             </Link>
             <Link
               to="practice"
@@ -74,9 +76,10 @@ const MainPage = () => {
                 handleOnButtonHover("practice")
               }}
               onMouseLeave={handleOnMouseLeave}
+              className="border shadow"
             >
               <p>Practice</p>
-              <span>Practice typing</span>
+              <span>type texts</span>
             </Link>
           </div>
         </div>

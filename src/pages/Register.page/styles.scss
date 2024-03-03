@@ -2,11 +2,22 @@
   display: grid;
   place-content: center;
 
+  form {
+    input {
+      background-color: var(--secondary-background-color);
+    }
+  }
+
   .auth-message {
     color: var(--accent-color);
-    font-size: 0.9rem;
-    margin: 1rem auto;
-    text-decoration: underline;
+    font-size: 0.75rem;
+    opacity: 0.75;
+    margin: 0.25rem auto;
+    transition: 300ms var(--animation-function);
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .error {

@@ -1,55 +1,55 @@
-.assessment{
+.assessment {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  h1 {
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    text-align: center;
+    padding: 6px;
+  }
+  .linker {
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    text-align: center;
+    padding-top: 6.6px; //Golden Ratio o_O
+    color: aquamarine;
+  }
+  .assess-message {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    h1 {
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        text-align: center;
-        padding: 6px;
+    justify-content: center;
+    align-items: center;
+    .result {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
-    .linker{
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        text-align: center;
-        padding-top: 6.6px; //Golden Ratio o_O
-        color:aquamarine;
+    .stats {
+      display: flex;
+      width: 680px;
+      justify-content: space-between;
+      margin: 15px 0;
     }
-    .assess-message{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        .result {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .stats{
-            display: flex;
-            width: 680px;
-            justify-content: space-between;
-            margin: 15px 0;
-        }
-        .button {
-            padding:10px;
-            background: rgb(74, 71, 71);            
-            border-radius: 10px;
-            margin-top:20px;
-        }
-        .letter {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 30px;
-            border-radius: 10px;
-        }
-        .wrong-letters{
-            display: flex;        
-            justify-content: center;
-            align-items: center;
-            gap:0.75rem;
-            margin-bottom: 20px;
-        }
-    }   
+    .button {
+      padding: 10px;
+      background: rgb(74, 71, 71);
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .letter {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      border-radius: 10px;
+    }
+    .wrong-letters {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 20px;
+    }
+  }
 }

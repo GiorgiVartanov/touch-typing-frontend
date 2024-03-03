@@ -1,4 +1,4 @@
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   className?: string
   onClick?: () => void
@@ -8,7 +8,7 @@ const Button = ({ children, className = "", onClick, ...rest }: Props) => {
   return (
     <button
       onClick={onClick}
-      className={`button ${className}`}
+      className={`shadow border button ${className}`}
       {...rest}
     >
       {children}

@@ -1,95 +1,260 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
+import { useState, useEffect, useRef } from "react"
+import { createPortal } from "react-dom"
 
 import { useAuthStore } from "../../store/context/authContext"
+import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 
-import ProfileIcon from "../../assets/icons/user-solid.svg?react"
+import ProfileIcon from "../../assets/icons/user.svg?react"
 import SettingsIcon from "../../assets/icons/gear.svg?react"
-import LogoutIcon from "../../assets/icons/right-from-bracket-solid.svg?react"
-import LoginIcon from "../../assets/icons/right-to-bracket-solid.svg?react"
-import KeyboardIcon from "../../assets/icons/keyboard-regular.svg?react"
-import UserGroupIcon from "../../assets/icons/user-group-solid.svg?react"
-import GlobeIcon from "../../assets/icons/globe-solid.svg?react"
-import LaptopIcon from "../../assets/icons/laptop-solid.svg?react"
-import TrophyIcon from "../../assets/icons/trophy-solid.svg?react"
-import BellIcon from "../../assets/icons/bell-solid.svg?react"
+import LogoutIcon from "../../assets/icons/arrow-right-from-bracket.svg?react"
+// import LoginIcon from "../../assets/icons/right-to-bracket-solid.svg?react"
+import KeyboardIcon from "../../assets/icons/keyboard.svg?react"
+import UserGroupIcon from "../../assets/icons/user-group.svg?react"
+import GlobeIcon from "../../assets/icons/globe.svg?react"
+import LaptopIcon from "../../assets/icons/laptop.svg?react"
+import TrophyIcon from "../../assets/icons/trophy.svg?react"
+import BellIcon from "../../assets/icons/bell.svg?react"
+import MenuIcon from "../../assets/icons/menu.svg?react"
+import GamepadIcon from "../../assets/icons/gamepad.svg?react"
 
 import ChangeTheme from "./ChangeTheme"
 import DropDownItem from "./DropDownItem"
 import DropDownMenu from "./DropDownMenu"
 import NavItem from "./NavItem"
+import ScrollToTop from "./ScrollToTop"
+import ConfirmModal from "../Modal/ConfirmModal"
+import Button from "../Form/Button"
+import NotificationsAmount from "./NotificationsAmount"
 
 import "./styles.scss"
 
 const Header = () => {
-  const { isLoggedIn, logoutUser, user } = useAuthStore()
+  const navRef = useRef<HTMLElement>(null)
+
+  const navigate = useNavigate()
+
+  const { isLoggedIn, logoutUser, user, token } = useAuthStore()
+
+  const [previousScrollPosition, setPreviousScrollPosition] = useState<number>(0)
+  const [isVisible, setIsVisible] = useState<boolean>(true)
+  const [isOnTop, setIsOnTop] = useState<boolean>(true)
+  const [showScrollToTopButton, setScrollToTopButton] = useState<boolean>(false)
+  const [isConfirmLogoutModalVisible, setIsConfirmLogoutModalVisible] = useState<boolean>(false)
+
+  const [isNavigationOpen, setIsNavigationOpen] = useState<boolean>(false)
 
   const username = user?.username
 
-  return (
-    <header className="header">
-      <h1>
-        <NavLink to="/">keyboard</NavLink>
-      </h1>
-      <nav>
+  const handleLogout = () => {
+    setIsConfirmLogoutModalVisible(true)
+  }
+
+  const closeLogoutConfirmationModal = () => {
+    setIsConfirmLogoutModalVisible(false)
+  }
+
+  const handleCloseNavigation = () => {
+    setIsNavigationOpen(false)
+  }
+
+  const handleNavigationToggle = () => {
+    setIsNavigationOpen((prevState) => !prevState)
+  }
+
+  useEffect(() => {
+    // fix latter
+
+    const handleScroll = () => {
+      const currentScrollPosition = window.scrollY
+
+      setIsVisible(currentScrollPosition < previousScrollPosition)
+      setIsOnTop(currentScrollPosition < 30)
+      setScrollToTopButton(currentScrollPosition > 600)
+
+      setPreviousScrollPosition(currentScrollPosition)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [previousScrollPosition])
+
+  useOnClickOutside(navRef, handleCloseNavigation)
+
+  const renderAuthenticatedNavigation = () => (
+    <NavItem icon={username || "profile"}>
+      <DropDownMenu>
+        <DropDownItem
+          icon={<ProfileIcon />}
+          closeNavigation={handleCloseNavigation}
+        >
+          <NavLink to={`/profile/${username}/`}>profile</NavLink>
+        </DropDownItem>
+        <DropDownItem
+          icon={<BellIcon />}
+          closeNavigation={handleCloseNavigation}
+        >
+          <NavLink
+            to={`/notifications`}
+            className="notifications-link"
+          >
+            {token ? <NotificationsAmount token={token} /> : null}notifications
+          </NavLink>
+        </DropDownItem>
+        <DropDownItem
+          icon={<LogoutIcon />}
+          className="logout-button"
+        >
+          <button onClick={handleLogout}>log out</button>
+        </DropDownItem>
+      </DropDownMenu>
+    </NavItem>
+  )
+
+  const renderGuestNavigation = () => (
+    <>
+      <NavItem
+        icon={<NavLink to={`/register`}>register</NavLink>}
+        closeNavigation={handleCloseNavigation}
+      />
+      <NavItem
+        icon={<NavLink to={`/login`}>log in</NavLink>}
+        closeNavigation={handleCloseNavigation}
+      />
+    </>
+  )
+
+  const renderConfirmLogoutModal = () => {
+    const appElement = document.querySelector(".App")
+
+    if (!appElement) return
+
+    return createPortal(
+      <ConfirmModal
+        closeModal={closeLogoutConfirmationModal}
+        isVisible={isConfirmLogoutModalVisible}
+        text="are you sure you want to log out?"
+        buttons={
+          <>
+            <Button
+              className="positive"
+              onClick={closeLogoutConfirmationModal}
+            >
+              stay
+            </Button>
+            <Button
+              onClick={() => {
+                logoutUser()
+                closeLogoutConfirmationModal()
+                navigate("/login")
+              }}
+              className="negative"
+            >
+              log out
+            </Button>
+          </>
+        }
+      />,
+      appElement
+    )
+  }
+
+  const renderGoToTopButton = () => {
+    const appElement = document.querySelector(".App")
+
+    if (!appElement) return
+
+    return createPortal(<ScrollToTop isVisible={showScrollToTopButton} />, appElement)
+  }
+
+  const renderNavigation = () => {
+    return (
+      <nav className={isNavigationOpen ? "nav-shown" : "nav-hidden"}>
         <ul className="nav">
-          <ChangeTheme />
+          <li className="nav-item">
+            <ChangeTheme />
+          </li>
           <NavItem icon="learn">
             <DropDownMenu>
-              <DropDownItem icon={<LaptopIcon />}>
-                <NavLink to={`/learn`}>lessons</NavLink>
+              <DropDownItem
+                icon={<LaptopIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
+                <NavLink to={`/lessons`}>Lessons</NavLink>
               </DropDownItem>
-              <DropDownItem icon={<GlobeIcon />}>
-                <NavLink to={`/play`}>play online</NavLink>
+              <DropDownItem
+                icon={<GlobeIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
+                <NavLink to={`/play`}>competition</NavLink>
               </DropDownItem>
-              <DropDownItem icon={<KeyboardIcon />}>
+              <DropDownItem
+                icon={<KeyboardIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
                 <NavLink to={`/practice`}>practice</NavLink>
+              </DropDownItem>
+              <DropDownItem
+                icon={<GamepadIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
+                <NavLink to={`/games`}>games</NavLink>
               </DropDownItem>
             </DropDownMenu>
           </NavItem>
-          {isLoggedIn ? (
-            <>
-              <NavItem icon={username || "profile"}>
-                <DropDownMenu>
-                  <DropDownItem icon={<ProfileIcon />}>
-                    <NavLink to={`/profile/${username}`}>profile</NavLink>
-                  </DropDownItem>
-                  <DropDownItem icon={<BellIcon />}>
-                    <NavLink to={`/notifications`}>notifications</NavLink>
-                  </DropDownItem>
-                  <DropDownItem icon={<UserGroupIcon />}>
-                    <NavLink to={`/communities`}>communities</NavLink>
-                  </DropDownItem>
-                  <DropDownItem icon={<TrophyIcon />}>
-                    <NavLink to={`/leaderboards`}>leaderboards</NavLink>
-                  </DropDownItem>
-                  <DropDownItem icon={<SettingsIcon />}>
-                    <NavLink to={`/settings`}>settings</NavLink>
-                  </DropDownItem>
-                  <DropDownItem
-                    icon={<LogoutIcon />}
-                    className="logout-button"
-                  >
-                    <button onClick={logoutUser}>log out</button>
-                  </DropDownItem>
-                </DropDownMenu>
-              </NavItem>
-            </>
-          ) : (
-            <>
-              <NavItem icon={"log in"}>
-                <DropDownMenu>
-                  <DropDownItem icon={<ProfileIcon />}>
-                    <NavLink to={`/register`}>register</NavLink>
-                  </DropDownItem>
-                  <DropDownItem icon={<LoginIcon />}>
-                    <NavLink to={`/login`}>log in</NavLink>
-                  </DropDownItem>
-                </DropDownMenu>
-              </NavItem>
-            </>
-          )}
+          <NavItem icon="other">
+            <DropDownMenu>
+              <DropDownItem
+                icon={<UserGroupIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
+                <NavLink to={`/social`}>social</NavLink>
+              </DropDownItem>
+              <DropDownItem
+                icon={<TrophyIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
+                <NavLink to={`/leaderboards`}>leaderboards</NavLink>
+              </DropDownItem>
+              <DropDownItem
+                icon={<SettingsIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
+                <NavLink to={`/settings`}>settings</NavLink>
+              </DropDownItem>
+            </DropDownMenu>
+          </NavItem>
+          {isLoggedIn ? renderAuthenticatedNavigation() : renderGuestNavigation()}
         </ul>
       </nav>
+    )
+  }
+
+  return (
+    <header
+      ref={navRef}
+      className={`header ${isVisible ? "header-visible" : "header-hidden "} ${
+        isOnTop ? "header-top" : "header-not-top"
+      }`}
+    >
+      {renderGoToTopButton()}
+      {renderConfirmLogoutModal()}
+
+      <div className="header-content">
+        <h1>
+          <NavLink to="/">Touch Typing</NavLink>
+        </h1>
+        <button
+          className="menu-button"
+          onClick={handleNavigationToggle}
+        >
+          <MenuIcon />
+        </button>
+        {renderNavigation()}
+      </div>
     </header>
   )
 }

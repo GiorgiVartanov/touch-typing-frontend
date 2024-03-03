@@ -1,9 +1,14 @@
-export type LanguageType = "Eng" | "Geo"
+export type LanguageType = "Geo" | "Eng"
 export type ThemeType = "System Default" | "Dark" | "Light"
 
 export interface AppSettingsState {
   language: LanguageType
   theme: ThemeType
+}
+
+export interface AppSettingsOptions {
+  languageOptions: LanguageType[]
+  themeOptions: ThemeType[]
 }
 
 export interface AppSettingsActions {
