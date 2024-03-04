@@ -10,7 +10,6 @@ import { useTypingSettingsStore } from "../../store/context/typingSettingsContex
 
 import Word from "../Typer/Word"
 import ActiveWord from "../Typer/ActiveWord"
-import calculateAccuracy from "../../util/calculateAccuracy"
 
 const textAlignValues = { left: "start", center: "center", right: "end" }
 
@@ -35,7 +34,7 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
   const totalSymbols = useRef<number>(text.join("").length)
 
   // goes to the next word
-  const goToNextWord = (wordLetterStatuses: (0 | 1 | 2)[]) => {
+  const goToNextWord = async (wordLetterStatuses: (0 | 1 | 2)[]) => {
     // 0 - letter was not typed yet
     // 1 - letter was typed incorrectly
     // 2 - letter was typed correctly
@@ -50,7 +49,7 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
     })
 
     accuracy.current += wordLetterStatuses.reduce((prev: number, curr)=>prev+Number(curr===2), 0)
-    ModifyMatch(accuracy.current/totalSymbols.current*100);
+    await ModifyMatch(accuracy.current/totalSymbols.current*100);
 
     if (currentWordIndex + 1 === text.length && finishHandler) 
       finishHandler([...lettersStatuses, wordLetterStatuses], startTime.current)

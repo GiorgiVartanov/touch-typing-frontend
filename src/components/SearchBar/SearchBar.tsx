@@ -7,6 +7,7 @@ interface Props {
   handleTextChange: (newText: string) => void
   debounce?: boolean
   debounceDelay?: number // in milliseconds
+  placeholder?: string
 }
 
 // renders search bar
@@ -17,6 +18,7 @@ const SearchBar = ({
   handleTextChange,
   debounce = true,
   debounceDelay = 1000,
+  placeholder = "search...",
 }: Props) => {
   const [searchValue, setSearchValue] = useState<string>(value)
 
@@ -58,6 +60,17 @@ const SearchBar = ({
       onChange={handleOnChange}
       onKeyDown={handleOnKeyDown}
     />
+    <div className="search-wrapper">
+      <div className="search-bar-holder">
+        <input
+          className="search-bar"
+          placeholder={placeholder}
+          value={searchValue}
+          onChange={handleOnChange}
+          onKeyDown={handleOnKeyDown}
+        />
+      </div>
+    </div>
   )
 }
 export default SearchBar

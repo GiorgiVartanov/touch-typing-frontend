@@ -4,5 +4,5 @@ export const playInitialState: PlayState = {
     socket: undefined,
     uid: '',
     users: [],
-    games: {},
+    matches: {},
 };

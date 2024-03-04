@@ -13,15 +13,18 @@ import { PlayReducer } from "../reducers/playReducers"
 import {
   finishMatch,
   removeUser,
-  updateGameId,
-  updateGames,
-  // updateMatch,
+  updateMatchId,
+  updateMatches,
   updateSocket,
   updateUID,
+  updateUsername,
   updateUsers,
 } from "../actions/playActions"
 import Loading from "../../components/Loading/Loading"
-import { GameStateList } from "../../types/game.types"
+import { MatchStateList } from "../../types/match.types"
+import { useAuthStore } from "./authContext"
+import { TextRequestFake } from "../../components/DataForm/FakeWordsForm"
+import { TextRequestWord } from "../../components/DataForm/CorpusForm"
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL
 
@@ -42,13 +45,17 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
 
   const [PlayState, PlayDispatch] = useReducer(PlayReducer, playInitialState)
   const [loading, setLoading] = useState(true)
-  // console.log("PlayProvider: ", PlayState)
+  const { user, token } = useAuthStore()
+
   useEffect(() => {
+    if (socket.connected) {
+      socket.disconnect()
+    }
     socket.connect()
     PlayDispatch(updateSocket(socket))
     StartListeners()
     SendHandshake()
-  }, [])
+  }, [user])
 
   const StartListeners = () => {
     /** Messages */
@@ -58,12 +65,15 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
     })
 
     /** Messages */
-    socket.on("user_disconnected", (params: { uid: string; games: GameStateList | undefined }) => {
-      console.info("User disconnected message received")
-      PlayDispatch(removeUser(params.uid))
-      console.log(params)
-      if (params.games) PlayDispatch(updateGames(params.games))
-    })
+    socket.on(
+      "user_disconnected",
+      (params: { uid: string; matches: MatchStateList | undefined }) => {
+        console.info("User disconnected message received")
+        PlayDispatch(removeUser(params.uid))
+        console.log(params)
+        if (params.matches) PlayDispatch(updateMatches(params.matches))
+      }
+    )
 
     /** Connection / reconnection listeners */
     socket.io.on("reconnect", (attempt) => {
@@ -86,28 +96,37 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
       )
     })
 
-    socket.on("game_added", (games: GameStateList) => {
-      console.log("game_added event listened")
-      PlayDispatch(updateGames(games))
+    socket.on("match_added", (matches: MatchStateList) => {
+      console.log("match_added event listened")
+      PlayDispatch(updateMatches(matches))
     })
 
-    socket.on("game_modified", (games: GameStateList) => {
-      console.log("game has been modified")
-      PlayDispatch(updateGames(games))
+    socket.on("matches_modified", (matches: MatchStateList) => {
+      console.log("matches have been modified")
+      PlayDispatch(updateMatches(matches))
     })
 
-    socket.on("match_modified", (games: GameStateList) => {
+    socket.on("match_modified", (matches: MatchStateList) => {
       console.log("match has been modified")
-      console.log(games)
-      PlayDispatch(updateGames(games))
+      console.log(matches)
+      PlayDispatch(updateMatches(matches))
     })
 
-    socket.on("match_finished", (params: { games: GameStateList; game_id: string }) => {
+    socket.on("match_finished", (params: { matches: MatchStateList; match_id: string }) => {
       console.log("match has finished")
-      console.log(params.games)
-      PlayDispatch(updateGames(params.games))
-      PlayDispatch(updateGameId(params.game_id)) //game_id turns from uuid to mongoose.Types.ObjectId
+      console.log(params.matches)
+      PlayDispatch(updateMatches(params.matches))
+      PlayDispatch(updateMatchId(params.match_id)) //match_id turns from uuid to mongoose.Types.ObjectId
       PlayDispatch(finishMatch(true))
+    })
+
+    socket.on("already_connected", () => {
+      console.log("already connected from a different tab")
+      PlayDispatch(updateUsername("-1")) //Reserved username, lazy to add another boolean variable...
+    })
+
+    socket.on("force_finish", () => {
+      console.log("forcing users to finish")
     })
   }
 
@@ -116,59 +135,71 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
 
     socket.emit(
       "handshake",
-      async (uid: string, users: string[], game_id: string | undefined, games: GameStateList) => {
+      token,
+      user?.username,
+      async (
+        username: string,
+        uid: string,
+        users: string[],
+        match_id: string | undefined,
+        matches: MatchStateList
+      ) => {
         console.info("User handshake callback message received")
         PlayDispatch(updateUsers(users))
         PlayDispatch(updateUID(uid))
-        if (game_id) PlayDispatch(updateGameId(game_id))
-        PlayDispatch(updateGames(games))
+        if (match_id) PlayDispatch(updateMatchId(match_id))
+        PlayDispatch(updateMatches(matches))
+        PlayDispatch(updateUsername(username)) //Random usernames for guests...
       }
     )
 
     setLoading(false)
   }
 
-  const CreateGame = async (text: string, time_limit: number, user_limit: number) => {
-    console.info("trying to create a game")
+  const CreateMatch = async (
+    req: TextRequestFake | TextRequestWord,
+    time_limit: number,
+    user_limit: number
+  ) => {
+    console.info("trying to create a match")
     socket.emit(
-      "create_game",
-      text,
+      "create_match",
+      req,
       time_limit,
       user_limit,
-      undefined,
-      async (game_id: string, games: GameStateList) => {
-        console.info("the game has successfully been created! callback")
-        PlayDispatch(updateGameId(game_id))
-        PlayDispatch(updateGames(games))
+      async (match_id: string, matches: MatchStateList) => {
+        console.info("the match has successfully been created! callback")
+        PlayDispatch(updateMatchId(match_id))
+        PlayDispatch(updateMatches(matches))
       }
     )
   }
 
-  const JoinGame = async (game_id: string) => {
-    console.info("joining the game")
-    socket.emit("join_game", game_id, undefined, async () => {
-      PlayDispatch(updateGameId(game_id))
-      console.log("game joined callback")
+  const JoinMatch = async (match_id: string) => {
+    console.info("joining the match")
+    socket.emit("join_match", match_id, async () => {
+      PlayDispatch(updateMatchId(match_id))
+      console.log("match joined callback")
     })
   }
 
-  const LeaveGame = async (game_id: string) => {
-    console.info("leaving the game")
-    PlayDispatch(updateGameId(undefined))
+  const LeaveMatch = async (match_id: string) => {
+    console.info("leaving the match")
+    PlayDispatch(updateMatchId(undefined))
     if (PlayState.match_finished) PlayDispatch(finishMatch(false))
-    socket.emit("leave_game", game_id, async () => {
-      console.info("left the game")
+    socket.emit("leave_match", match_id, async () => {
+      console.info("left the match")
     })
   }
 
   const ModifyMatch = async (currentWordIndex: number) => {
     console.log("notifying other players about current progress")
-    socket.emit("modify_match", PlayState.game_id, currentWordIndex, async () => {})
+    socket.emit("modify_match", PlayState.match_id, currentWordIndex, async () => {})
   }
 
   const NotifyFinish = async (user_wpm: number) => {
     console.log("Notifying everyone about your finish")
-    socket.emit("user_finish", user_wpm, PlayState.game_id, async () => {})
+    socket.emit("user_finish", user_wpm, PlayState.match_id, async () => {})
   }
 
   if (loading) return <Loading />
@@ -177,9 +208,9 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
     ...PlayState,
     StartListeners,
     SendHandshake,
-    CreateGame,
-    JoinGame,
-    LeaveGame,
+    CreateMatch,
+    JoinMatch,
+    LeaveMatch,
     ModifyMatch,
     NotifyFinish,
   }
