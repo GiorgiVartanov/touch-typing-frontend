@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { TextRequestWord } from "../components/Form/Data/CorpusForm";
 import { TextRequestFake } from "../components/Form/Data/FakeWordsForm";
+=======
+import { TextRequestWord } from "../components/DataForm/CorpusForm";
+import { TextRequestFake } from "../components/DataForm/FakeWordsForm";
+>>>>>>> 530e685fd4dd5c1846fa71f11a193ff13a8d4ade
 
 //to be upgraded... has been updated
 export interface MatchState {
