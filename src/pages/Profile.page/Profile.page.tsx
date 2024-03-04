@@ -82,11 +82,11 @@ const ProfilePage = () => {
       queryClient.setQueryData(["profile", currentUserUsername], { data: updatedCurrentUser })
     },
     onSuccess: () => {
-      toast.success("you have successfully removed friend")
+      toast.success("Friend successfully removed")
     },
     onError: (error) => {
       // ADD SOMETHING HERE
-      toast.error(error?.message || "something went wrong")
+      toast.error(error?.message || "Something went wrong")
     },
   })
 
@@ -94,7 +94,7 @@ const ProfilePage = () => {
   const handleSendFriendRequest = async () => {
     if (!pageOwnerUsername || !token) return
 
-    toast.success("you successfully sent friend request")
+    toast.success("Friend request successfully sent")
 
     addUserToSentFriendRequests(pageOwnerUsername)
     sendFriendRequest(pageOwnerUsername, token)
@@ -175,7 +175,7 @@ const ProfilePage = () => {
     const renderRightButtonsForUserWhoSentFriendRequest = () => {
       const handleOnClick = () => {
         // toast.dismiss() // it will remove other toasts
-        toast.warning("you have already sent friend request to this user")
+        toast.warning("Friend request to this user was already sent")
       }
 
       return (

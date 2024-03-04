@@ -150,7 +150,7 @@ const NotificationsPage = () => {
       if (error instanceof AxiosError) {
         toast.error(`${error?.response?.data.message}`)
       } else {
-        toast.error(`something went wrong`)
+        toast.error(`Something went wrong`)
       }
     },
   })
@@ -211,7 +211,7 @@ const NotificationsPage = () => {
       if (error instanceof AxiosError) {
         toast.error(`${error?.response?.data.message}`)
       } else {
-        toast.error(`something went wrong`)
+        toast.error(`Something went wrong`)
       }
     },
   })
