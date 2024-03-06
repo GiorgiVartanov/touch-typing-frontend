@@ -8,14 +8,12 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 import ProfileIcon from "../../assets/icons/user.svg?react"
 import SettingsIcon from "../../assets/icons/gear.svg?react"
 import LogoutIcon from "../../assets/icons/arrow-right-from-bracket.svg?react"
-// import LoginIcon from "../../assets/icons/right-to-bracket-solid.svg?react"
 import KeyboardIcon from "../../assets/icons/keyboard.svg?react"
 import UserGroupIcon from "../../assets/icons/user-group.svg?react"
 import GlobeIcon from "../../assets/icons/globe.svg?react"
 import LaptopIcon from "../../assets/icons/laptop.svg?react"
 import TrophyIcon from "../../assets/icons/trophy.svg?react"
 import BellIcon from "../../assets/icons/bell.svg?react"
-import MenuIcon from "../../assets/icons/menu.svg?react"
 import GamepadIcon from "../../assets/icons/gamepad.svg?react"
 
 import ChangeTheme from "./ChangeTheme"
@@ -84,48 +82,58 @@ const Header = () => {
 
   useOnClickOutside(navRef, handleCloseNavigation)
 
-  const renderAuthenticatedNavigation = () => (
-    <NavItem icon={username || "profile"}>
-      <DropDownMenu>
-        <DropDownItem
-          icon={<ProfileIcon />}
-          closeNavigation={handleCloseNavigation}
-        >
-          <NavLink to={`/profile/${username}/`}>profile</NavLink>
-        </DropDownItem>
-        <DropDownItem
-          icon={<BellIcon />}
-          closeNavigation={handleCloseNavigation}
-        >
-          <NavLink
-            to={`/notifications`}
-            className="notifications-link"
+  const renderAuthenticatedNavigation = () => {
+    return (
+      <NavItem icon={username || "profile"}>
+        <DropDownMenu>
+          <DropDownItem
+            icon={<ProfileIcon />}
+            closeNavigation={handleCloseNavigation}
           >
-            {token ? <NotificationsAmount token={token} /> : null}notifications
-          </NavLink>
-        </DropDownItem>
-        <DropDownItem
-          icon={<LogoutIcon />}
-          className="logout-button"
-        >
-          <button onClick={handleLogout}>log out</button>
-        </DropDownItem>
-      </DropDownMenu>
-    </NavItem>
-  )
+            <NavLink to={`/profile/${username}/`}>profile</NavLink>
+          </DropDownItem>
+          <DropDownItem
+            icon={<BellIcon />}
+            closeNavigation={handleCloseNavigation}
+          >
+            <NavLink
+              to={`/notifications`}
+              className="notifications-link"
+            >
+              {token ? <NotificationsAmount token={token} /> : null}notifications
+            </NavLink>
+          </DropDownItem>
+          <DropDownItem
+            icon={<LogoutIcon />}
+            className="logout-button"
+          >
+            <button onClick={handleLogout}>log out</button>
+          </DropDownItem>
+        </DropDownMenu>
+      </NavItem>
+    )
+  }
 
-  const renderGuestNavigation = () => (
-    <>
-      <NavItem
-        icon={<NavLink to={`/register`}>register</NavLink>}
-        closeNavigation={handleCloseNavigation}
-      />
-      <NavItem
-        icon={<NavLink to={`/login`}>log in</NavLink>}
-        closeNavigation={handleCloseNavigation}
-      />
-    </>
-  )
+  const renderGuestNavigation = () => {
+    return (
+      <>
+        <NavLink
+          to={`/register`}
+          className="nav-item nav-item-link"
+          onClick={handleCloseNavigation}
+        >
+          register
+        </NavLink>
+        <NavLink
+          to={`/login`}
+          className="nav-item nav-item-link"
+          onClick={handleCloseNavigation}
+        >
+          log in
+        </NavLink>
+      </>
+    )
+  }
 
   const renderConfirmLogoutModal = () => {
     const appElement = document.querySelector(".App")
@@ -248,10 +256,12 @@ const Header = () => {
           <NavLink to="/">Touch Typing</NavLink>
         </h1>
         <button
-          className="menu-button"
+          className={`menu-button ${isNavigationOpen ? "navigation-open" : ""}`}
           onClick={handleNavigationToggle}
         >
-          <MenuIcon />
+          <div className="menu-button-line"></div>
+          <div className="menu-button-line"></div>
+          <div className="menu-button-line"></div>
         </button>
         {renderNavigation()}
       </div>

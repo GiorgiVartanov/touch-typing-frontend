@@ -102,17 +102,18 @@ form {
       right: 0;
       top: 0;
       height: 100%;
-      transition: 300ms var(--animation-function);
+      transition: background-color 300ms var(--animation-function),
+        color 300ms var(--animation-function);
       padding: 0 0.75rem;
       display: flex;
       align-items: center;
-      background-color: var(--secondary-background-color);
+      background-color: transparent;
       border-radius: 0 calc(var(--border-radius) - 0.15rem) calc(var(--border-radius) - 0.15rem) 0;
 
       .eye-icon {
         height: 1.5rem;
         width: 1.5rem;
-        transition: 300ms var(--animation-function);
+        transition: color 300ms var(--animation-function);
         fill: var(--accent-color-dim);
       }
 
@@ -137,7 +138,8 @@ form {
       transform: translateY(-50%);
       left: 0.5rem;
       pointer-events: none;
-      transition: 300ms var(--animation-function);
+      transition: transform 300ms var(--animation-function),
+        font-size 300ms var(--animation-function);
       color: var(--warning-color);
 
       &.active {
@@ -151,7 +153,7 @@ form {
       background-color: var(--secondary-background-color);
       width: 300px;
       display: block;
-      transition: 300ms var(--animation-function);
+      // transition: 300ms var(--animation-function);
       border-radius: var(--border-radius);
 
       &:focus {
@@ -176,7 +178,8 @@ form {
 .button {
   background-color: var(--secondary-background-color);
   padding: 0.5rem;
-  transition: all 300ms var(--animation-function);
+  transition: background-color 300ms var(--animation-function),
+    color 300ms var(--animation-function);
   box-shadow: 0 2px 4px -1px var(--shadow-color);
   border-radius: var(--border-radius);
 

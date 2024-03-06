@@ -1,6 +1,7 @@
 // packages
 import { Routes, Route } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
+import { useEffect } from "react"
 
 // styles
 import "./App.scss"
@@ -46,6 +47,11 @@ const App = () => {
   else if (theme === "Light") themeToApply = "light"
   else if (window.matchMedia("(prefers-color-scheme: dark)")) themeToApply = "dark"
   else themeToApply = "light"
+
+  useEffect(() => {
+    document.documentElement.classList.remove("dark", "light")
+    document.documentElement.classList.add(themeToApply)
+  }, [themeToApply])
 
   return (
     <div className={`App ${themeToApply}`}>
