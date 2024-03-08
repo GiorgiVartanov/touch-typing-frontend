@@ -9,4 +9,11 @@ export const register = (userData: RegisterCredentials) => ajax.post("/auth/regi
 export const login = (userData: LoginCredentials) => ajax.post("/auth/login", userData)
 
 // fetches data for a passed user
-export const getUser = (username: string) => ajax.get(`/user/${username}`)
+export const getUser = (username: string) => {
+  return ajax.get(`/user/${username}`)
+}
+
+// fetches users whose username matches searchValue
+export const getUsers = (searchValue: string) => {
+  return ajax.get(`/user/search?username=${searchValue}`)
+}

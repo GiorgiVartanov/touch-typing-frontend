@@ -21,7 +21,7 @@
     box-shadow: 0 2px 4px -1px var(--shadow-color);
 
     opacity: 0;
-    transform: scale(0) translate(-25%, -25%);
+    // transform: scale(0) translate(-25%, -25%);
 
     animation: fadeInScale 300ms var(--animation-function) forwards;
 
@@ -33,60 +33,18 @@
     &:active {
       background-color: var(--secondary-background-color-active);
     }
-
-    .title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      position: relative;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      // &:hover {
-      //   &:after {
-      //     content: "";
-      //     position: absolute;
-      //     top: -1rem;
-      //     left: 0;
-      //   }
-      // }
-    }
-    .description {
-      color: var(--weak-text-color);
-      font-weight: 300;
-      margin-bottom: auto;
-
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      -webkit-line-clamp: 3;
-      text-overflow: ellipsis;
-    }
-    .card-bottom {
-      margin-top: auto;
-      display: flex;
-      justify-content: space-between;
-      color: var(--weak-text-color);
-      margin-top: 1rem;
-      font-weight: 300;
-
-      .bottom-left,
-      .bottom-right {
-        margin-top: auto;
-      }
-    }
   }
 }
 
 @keyframes fadeInScale {
   0% {
     opacity: 0;
-    transform: scale(0) translate(-25%, -25%);
+    // transform: scale(0.5) translate(0, 0);
+    // transform: scale(0) translate(-25%, -25%);
   }
   100% {
     opacity: 1;
-    transform: scale(1) translate(0, 0);
+    // transform: scale(1) translate(0, 0);
   }
 }
 

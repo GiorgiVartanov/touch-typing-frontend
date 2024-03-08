@@ -51,7 +51,6 @@ const NotificationCard = ({
   selectAsOpen,
   isOpen,
 }: Props) => {
-
   // renders buttons for a selected notification (notification can be selected only if it has a "pending" status)
   const renderFriendRequestButtons = () => {
     if (status !== "pending" || !onAccept || !onDecline) return
@@ -74,6 +73,18 @@ const NotificationCard = ({
     )
   }
 
+  const renderUserIcon = () => {
+    return (
+      <div className="notification-sender">
+        <UserIcon
+          className="notification-icon"
+          username={sender}
+        />
+        <p className="username">{sender}</p>
+      </div>
+    )
+  }
+
   return (
     <div
       onClick={() => {
@@ -83,16 +94,7 @@ const NotificationCard = ({
         isOpen && status === "pending" ? "notification-open" : ""
       }`}
     >
-      <div className="notification-sender">
-        <UserIcon
-          className="notification-icon"
-          smallNameSize
-          username={sender}
-          onClick={(e) => {
-            e.stopPropagation()
-          }}
-        />
-      </div>
+      {renderUserIcon()}
       <div className="notification-content">
         <p className="notification-text">{text}</p>
         {status === "accepted" ? <p className="notification-accepted">accepted</p> : null}

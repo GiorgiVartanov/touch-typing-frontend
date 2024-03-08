@@ -44,13 +44,12 @@ form {
       color: var(--text-color);
       box-shadow: 0 2px 4px -1px var(--shadow-color);
       transition: all 300ms var(--animation-function);
-      resize: vertical;
+      resize: none;
       min-height: 3rem;
       border-radius: var(--border-radius);
 
-      // &:focus {
-      //   box-shadow: 0 4px 4px -1px var(--shadow-color);
-      // }
+      scrollbar-color: var(--accent-color) var(--background-color);
+      scrollbar-width: thin;
     }
   }
 

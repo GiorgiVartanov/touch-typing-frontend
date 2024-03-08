@@ -71,6 +71,7 @@
     max-width: 960px;
     width: 100%;
     margin: 0;
+    flex: 1;
 
     .textarea-text {
       height: 200px;
@@ -78,6 +79,10 @@
 
     .textarea-description {
       height: 120px;
+    }
+
+    .add-new-text-button {
+      margin-top: auto !important;
     }
   }
 
@@ -173,6 +178,40 @@
       .text-card-list {
         .text-card {
           height: 11.25rem;
+
+          .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .description {
+            color: var(--weak-text-color);
+            font-weight: 300;
+            margin-bottom: auto;
+
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            text-overflow: ellipsis;
+          }
+          .card-bottom {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            color: var(--weak-text-color);
+            margin-top: 1rem;
+            font-weight: 300;
+
+            .bottom-left,
+            .bottom-right {
+              margin-top: auto;
+            }
+          }
         }
       }
     }
