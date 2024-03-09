@@ -3,6 +3,10 @@ import ajax from "../../../services/ajax"
 import { Props } from "./DataForm"
 import Input from "../../Form/Input"
 
+export interface TextRequestWord {
+  type?: string,
+  amount: Number,
+}
 
 interface CorpusFormProps extends Props {
   setTextRequest: (req: TextRequestWord) => void,
