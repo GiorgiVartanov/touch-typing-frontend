@@ -36,3 +36,28 @@ export const getPracticeTexts = (
 export const getPracticeText = (id: string) => {
   return ajax.get(`/practice/${id}`)
 }
+
+export const postPracticeText = (
+  title: string,
+  description: string,
+  level: string,
+  text: string,
+  // author: string = "Unknown",
+  // publishedOn: string,
+  token: string
+) => {
+  return ajax.post(
+    "practice/create",
+    {
+      title: title,
+      description: description,
+      level: level,
+      text: text,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+}

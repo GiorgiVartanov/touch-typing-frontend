@@ -1,0 +1,50 @@
+.social-page {
+  .friend-suggestions {
+    margin-bottom: 2.5rem;
+
+    .friend-suggestions-users {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .social-page-user-card-list {
+    display: grid;
+    grid-template-columns: repeat(1fr, 6) !important;
+  }
+}
+
+@media screen and (min-width: 280px) and (max-width: 479px) {
+  .social-page-user-card-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 679px) {
+  .social-page-user-card-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 680px) and (max-width: 879px) {
+  .social-page-user-card-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 880px) and (max-width: 1079px) {
+  .social-page-user-card-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (min-width: 1080px) and (max-width: 1279px) {
+  .social-page-user-card-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .social-page-user-card-list {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

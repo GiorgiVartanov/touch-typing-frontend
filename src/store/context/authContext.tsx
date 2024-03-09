@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react"
 import { AxiosError } from "axios"
+import { toast } from "react-toastify"
 
 import {
   LoginCredentials,
@@ -191,13 +192,12 @@ const AuthProvider = ({ children }: Props) => {
     const currentDate = Number(new Date())
     const tokenExpirationDate = state.tokenExpirationDate
 
-    console.log(isLoggedIn, tokenExpirationDate, currentDate)
-
     if (!tokenExpirationDate) return
 
     if (currentDate >= tokenExpirationDate) {
       logoutUser()
-      console.log("your session token has expired")
+
+      toast.warning("your session token has expired, please log in again")
     }
   }
 

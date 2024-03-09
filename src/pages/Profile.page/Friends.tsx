@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getUser } from "../../services/authServices"
 
 import Loading from "../../components/Loading/Loading"
-import UserIconList from "../../components/User/UserIconList"
+import UserCardList from "../../components/User/UserCardList"
 
 // user's friends
 const Friends = () => {
@@ -35,12 +35,12 @@ const Friends = () => {
 
     const { friends } = data.data
 
-    // if user has not friends
+    // if user has no friends
     if (!friends || friends.length === 0) {
       return <div className="fetch-error-message">its empty here</div>
     }
 
-    return <UserIconList userList={friends} />
+    return <UserCardList userList={friends} />
   }
 
   return (

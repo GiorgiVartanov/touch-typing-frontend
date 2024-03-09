@@ -69,3 +69,11 @@ export const declineFriendRequest = (notificationId: string, token: string) => {
 export const getFriends = (username: string) => {
   return ajax.get(`/friends/list/${username}`)
 }
+
+export const getFriendsSuggestions = (token: string) => {
+  return ajax.get(`/friends/suggestions`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
