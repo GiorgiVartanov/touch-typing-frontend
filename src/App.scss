@@ -64,6 +64,8 @@ body {
     --penalty-word-yellow: #f5e856;
 
     background: var(--background-color);
+    --tertiary-background-color: #becee6; 
+    --green-adjusted: rgb(133, 187, 133);
   }
 
   // dark theme
@@ -95,6 +97,8 @@ body {
     --penalty-word-yellow: #f5e856;
 
     background: var(--background-color);
+    --tertiary-background-color: #273649; 
+    --green-adjusted: rgb(11, 59, 11);
   }
 
   .page {

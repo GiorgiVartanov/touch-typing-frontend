@@ -54,10 +54,6 @@ const PlayPage = () => {
           <div className="page play">
             <h2 className="play-head">Active users: {users.length}</h2>
             <div className="play-body">
-              <PlayMatchesList
-                matches={matches}
-                onClick={clickHandler}
-              />
               <div className="play-create">
                 {/*აქ იქნება matchSetting Modal*/}
                 <Button onClick={clickCreateMatchHandler}>
@@ -67,6 +63,11 @@ const PlayPage = () => {
                   Match History
                 </Button>
               </div>
+              <PlayMatchesList
+                matches={matches}
+                onClick={clickHandler}
+              />
+              
             </div>
           </div>
         }      

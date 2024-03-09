@@ -7,19 +7,23 @@
 .play{
     .play-head{
         opacity: 0.5;
+        margin-bottom: 8px;
     }
     .play-create{
         display: flex;
         align-items: center;
-        justify-content: start;
-        flex-direction: column;
-        width: 20%;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 100%;
         .button{
             font-size:18px;
             padding: 10px;        
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            border-radius: 18px;
-            margin-top: 30px;
+            border-radius: 8px;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            min-width: 180px;
+            background-color: var(--green-adjusted);
         }
     }
     
@@ -66,26 +70,34 @@
     margin: 0 auto;
     display: flex;
     gap: 0.75rem;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
 }
 .div {
     border: 2px solid greenyellow;
     background: green;
 }
 .match-list{
-    min-width: 80%;
+    min-width: 100%;
     display: flex;
-    justify-content:start;
+    
+    align-items: center;
     flex-direction: column;
     gap: 0.75rem;
     flex-grow: 1;
     .options{
         display: flex;
-        gap: 0.75em;
+        width: 100%;
+        justify-content: space-between;
         button {
             border-radius: 8px;
             padding: 8px;
             background-color: var(--secondary-background-color) !important;
-            
+            min-width: 180px;
+            font-size: large;
+            margin-bottom: 15px;
         }
         .active {
             background-color: var(--tertiary-background-color) !important;
@@ -238,6 +250,9 @@
                 width: 125%;              
             }
         }
+        .history-text{
+            margin-top: 10px;
+        }
     }
 }
 
@@ -255,7 +270,7 @@
         .match-body-main-list{
             display: flex;
             justify-content: start;
-            align-items: start;
+            align-items: center;
             
             flex-direction: column;
             gap: 0.75rem;
@@ -296,7 +311,10 @@
                 }
             }
         }
+        position: relative;
         .back{
+            position: absolute;
+            right: 0;
             .button{
                 font-size: 20px;
                 font-weight: 300;
