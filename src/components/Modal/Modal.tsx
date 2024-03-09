@@ -27,8 +27,6 @@ const Modal = ({
 
   useOnClickOutside(modalRef, closeModal)
 
-  // if (!isVisible) return
-
   return (
     <>
       <div

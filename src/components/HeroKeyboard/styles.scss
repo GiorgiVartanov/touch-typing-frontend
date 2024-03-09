@@ -23,7 +23,8 @@
       max-width: 980px;
       justify-content: center;
       align-items: center;
-      transition: color, background-color 300ms ease-in-out;
+      transition: color 300ms var(--animation-function),
+        background-color 300ms var(--animation-function);
 
       .row {
         display: flex;
@@ -45,7 +46,8 @@
           box-shadow: 0 4px 6px -1px var(--shadow-color), 0 0 4px 1px transparent;
           opacity: 0;
           animation: fadeIn 300ms var(--animation-function) forwards, levitate 5000ms infinite;
-          transition: all var(--animation-function) 300ms;
+          transition: background-color 300ms var(--animation-function),
+            box-shadow 300ms var(--animation-function);
           font-weight: 600;
 
           user-select: none;

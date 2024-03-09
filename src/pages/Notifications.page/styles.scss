@@ -57,7 +57,8 @@
     // align-items: center;
     height: 5rem;
     position: relative;
-    transition: 300ms var(--animation-function);
+    transition: background-color 300ms var(--animation-function),
+      opacity 300ms var(--animation-function), height 300ms var(--animation-function);
     cursor: pointer;
 
     &.notification-resolved {
