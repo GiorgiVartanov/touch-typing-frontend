@@ -8,7 +8,7 @@ import EytSlashIcon from "../../assets/icons/eye-slash.svg?react"
 interface Props {
   name: string
   placeholder?: string
-  type?: "text" | "password"
+  type?: "text" | "password" | "number"
   value: string | number
   isVisibilityChangeable?: boolean
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
