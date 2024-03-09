@@ -22,6 +22,7 @@ export default defineConfig({
         ],
         name: "Touch Typing Learning Platform",
         short_name: "Touch Typing",
+        display: "minimal-ui",
         background_color: "#817dd8",
         theme_color: "#817dd8",
       },
