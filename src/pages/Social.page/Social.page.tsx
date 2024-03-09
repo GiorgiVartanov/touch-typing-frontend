@@ -3,19 +3,16 @@ import { useQuery } from "@tanstack/react-query"
 
 import "./styles.scss"
 
-import { useAuthStore } from "../../store/context/authContext"
+// import { useAuthStore } from "../../store/context/authContext"
 import { getUsers } from "../../services/authServices"
 
 import SearchBar from "../../components/SearchBar/SearchBar"
-import FriendSuggestions from "./FriendSuggestions"
-import UserIconList from "../../components/User/UserIconList"
+// import FriendSuggestions from "./FriendSuggestions"
 import Loading from "../../components/Loading/Loading"
-import UserCard from "../../components/User/UserCard"
-import CardList from "../../components/Card/CardList"
 import UserCardList from "../../components/User/UserCardList"
 
 const SocialPage = () => {
-  const { user } = useAuthStore()
+  // const { user } = useAuthStore()
 
   const [searchValue, setSearchValue] = useState<string>("")
 
