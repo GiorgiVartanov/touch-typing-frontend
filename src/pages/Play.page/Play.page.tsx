@@ -30,7 +30,6 @@ const PlayPage = () => {
 
   //here should work without [match_id], right? (since match_id comes from PlayStore) couldn't make it work...
   useEffect(()=>{
-    console.log(matches)
     if(match_id)
       navigate(`./${match_id}`)  
   }, [match_id])
