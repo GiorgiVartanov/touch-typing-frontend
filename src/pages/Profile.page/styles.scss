@@ -40,7 +40,8 @@
       width: 2.5rem;
       display: block;
       background-color: var(--secondary-background-color);
-      transition: background-color 300ms var(--animation-function),
+      transition:
+        background-color 300ms var(--animation-function),
         border 300ms var(--animation-function);
       border-radius: var(--border-radius);
       display: flex;

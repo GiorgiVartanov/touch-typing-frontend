@@ -33,8 +33,11 @@
   padding: 0.5rem 0.75rem;
   border-radius: var(--border-radius);
   box-shadow: 0 2px 0 0 var(--shadow-color);
-  transition: transform 300ms var(--animation-function), box-shadow 300ms var(--animation-function),
-    opacity 300ms var(--animation-function), visibility 300ms var(--animation-function);
+  transition:
+    transform 300ms var(--animation-function),
+    box-shadow 300ms var(--animation-function),
+    opacity 300ms var(--animation-function),
+    visibility 300ms var(--animation-function);
 
   // will-change: transform;
 

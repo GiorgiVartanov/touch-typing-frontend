@@ -101,7 +101,8 @@ form {
       right: 0;
       top: 0;
       height: 100%;
-      transition: background-color 300ms var(--animation-function),
+      transition:
+        background-color 300ms var(--animation-function),
         color 300ms var(--animation-function);
       padding: 0 0.75rem;
       display: flex;
@@ -137,7 +138,8 @@ form {
       transform: translateY(-50%);
       left: 0.5rem;
       pointer-events: none;
-      transition: transform 300ms var(--animation-function),
+      transition:
+        transform 300ms var(--animation-function),
         font-size 300ms var(--animation-function);
       color: var(--warning-color);
 
@@ -177,7 +179,8 @@ form {
 .button {
   background-color: var(--secondary-background-color);
   padding: 0.5rem;
-  transition: background-color 300ms var(--animation-function),
+  transition:
+    background-color 300ms var(--animation-function),
     color 300ms var(--animation-function);
   box-shadow: 0 2px 4px -1px var(--shadow-color);
   border-radius: var(--border-radius);
