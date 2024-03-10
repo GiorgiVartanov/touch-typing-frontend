@@ -37,7 +37,8 @@
         justify-content: center;
         max-width: 100%;
         padding: 0 0.75rem;
-        transition: background-color 300ms var(--animation-function),
+        transition:
+          background-color 300ms var(--animation-function),
           box-shadow 300ms var(--animation-function);
         width: 360px;
         height: 76px;

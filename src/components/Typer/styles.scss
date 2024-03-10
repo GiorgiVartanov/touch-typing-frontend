@@ -26,7 +26,9 @@
   flex-wrap: wrap;
   font-size: 1rem;
   user-select: none;
-  transition: font-size 300ms var(--animation-function), color 300ms var(--animation-function),
+  transition:
+    font-size 300ms var(--animation-function),
+    color 300ms var(--animation-function),
     line-height 300ms var(--animation-function);
 
   // transition: font-size 300ms var(--animation-function);

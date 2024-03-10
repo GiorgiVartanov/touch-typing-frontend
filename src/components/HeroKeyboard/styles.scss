@@ -23,7 +23,8 @@
       max-width: 980px;
       justify-content: center;
       align-items: center;
-      transition: color 300ms var(--animation-function),
+      transition:
+        color 300ms var(--animation-function),
         background-color 300ms var(--animation-function);
 
       .row {
@@ -43,10 +44,15 @@
           background-color: var(--secondary-background-color);
           border-radius: 5px;
           color: var(--text-color);
-          box-shadow: 0 4px 6px -1px var(--shadow-color), 0 0 4px 1px transparent;
+          box-shadow:
+            0 4px 6px -1px var(--shadow-color),
+            0 0 4px 1px transparent;
           opacity: 0;
-          animation: fadeIn 300ms var(--animation-function) forwards, levitate 5000ms infinite;
-          transition: background-color 300ms var(--animation-function),
+          animation:
+            fadeIn 300ms var(--animation-function) forwards,
+            levitate 5000ms infinite;
+          transition:
+            background-color 300ms var(--animation-function),
             box-shadow 300ms var(--animation-function);
           font-weight: 600;
 

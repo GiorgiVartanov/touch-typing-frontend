@@ -46,7 +46,8 @@
     nav {
       .change-theme-button {
         background-color: var(--secondary-background-color);
-        transition: background-color 300ms var(--animation-function),
+        transition:
+          background-color 300ms var(--animation-function),
           color 300ms var(--animation-function);
         height: 1.75rem;
         width: 3.5rem;
@@ -115,7 +116,9 @@
 
           .nav-item-children {
             .dropdown-menu {
-              transition: opacity 300ms var(--animation-function), max-height 300ms linear,
+              transition:
+                opacity 300ms var(--animation-function),
+                max-height 300ms linear,
                 visibility 300ms var(--animation-function);
 
               background-color: var(--secondary-background-color);
@@ -164,7 +167,8 @@
               .arrow-left,
               .arrow-right {
                 display: block;
-                transition: background-color 300ms var(--animation-function),
+                transition:
+                  background-color 300ms var(--animation-function),
                   transform 300ms var(--animation-function);
                 height: 0.5rem;
                 width: 0.15rem;
@@ -446,7 +450,8 @@
           &.nav-item-link {
             padding: 1rem !important;
             align-items: end;
-            transition: background-color 300ms var(--animation-function),
+            transition:
+              background-color 300ms var(--animation-function),
               padding 300ms var(--animation-function);
 
             &:hover,
@@ -474,7 +479,9 @@
             width: 100% !important;
 
             .dropdown-menu {
-              transition: opacity 300ms var(--animation-function), max-height 300ms linear,
+              transition:
+                opacity 300ms var(--animation-function),
+                max-height 300ms linear,
                 visibility 300ms var(--animation-function);
 
               width: 100% !important;
@@ -639,8 +646,10 @@
       height: 0.25rem;
       width: 2rem;
       background-color: var(--accent-color);
-      transition: transform 300ms var(--animation-function),
-        background-color 300ms var(--animation-function), opacity 300ms var(--animation-function);
+      transition:
+        transform 300ms var(--animation-function),
+        background-color 300ms var(--animation-function),
+        opacity 300ms var(--animation-function);
     }
 
     &.navigation-open {

@@ -19,7 +19,9 @@ body {
 
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: color, background-color 300ms var(--animation-function);
+  transition:
+    color,
+    background-color 300ms var(--animation-function);
 
   --red-color: #ca3f3f;
   --success-color: #27bd47; // change
@@ -64,7 +66,7 @@ body {
     --penalty-word-yellow: #f5e856;
 
     background: var(--background-color);
-    --tertiary-background-color: #becee6; 
+    --tertiary-background-color: #becee6;
     --green-adjusted: rgb(133, 187, 133);
   }
 
@@ -97,7 +99,7 @@ body {
     --penalty-word-yellow: #f5e856;
 
     background: var(--background-color);
-    --tertiary-background-color: #273649; 
+    --tertiary-background-color: #273649;
     --green-adjusted: rgb(11, 59, 11);
   }
 
