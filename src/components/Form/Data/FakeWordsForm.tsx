@@ -39,7 +39,7 @@ const FakeWordsForm = ({
     try {
       const fetchLesson = async () => {
         const response = await ajax.get(
-          `/util/fakewords?letter=${letter}&amount=${amount}&minAmountOfSyllables=${minAmountOfSyllables}&maxAmountOfSyllables=${maxAmountOfSyllables}`
+          `/practice/fakewords?letter=${letter}&amount=${amount}&minAmountOfSyllables=${minAmountOfSyllables}&maxAmountOfSyllables=${maxAmountOfSyllables}`
         )
 
         setFetchedData(response.data.data)

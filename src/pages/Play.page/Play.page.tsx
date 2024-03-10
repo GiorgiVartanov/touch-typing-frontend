@@ -35,7 +35,7 @@ const PlayPage = () => {
   // Modal component for creating a match
   const CreateMatchModal = () => {
     return (
-      <div className="page modal">
+      <div className="page play-modal">
         <div className="please-work">
           <DataForm {...{ CreateMatch, setShowModal }} />
         </div>
