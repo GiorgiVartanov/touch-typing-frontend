@@ -1,9 +1,9 @@
-import Button from "../../../components/Form/Button";
-import { MatchState } from "../../../types/match.types";
+import Button from "../../../components/Form/Button"
+import { MatchState } from "../../../types/match.types"
 
 interface Props {
-  match: MatchState;
-  onClick: (key: string) => void;
+  match: MatchState
+  onClick: (key: string) => void
 }
 
 const MatchHistoricalCard = ({ match, onClick }: Props) => {
@@ -13,11 +13,7 @@ const MatchHistoricalCard = ({ match, onClick }: Props) => {
         <p>time limit: {match.time_limit} seconds</p>
         <p>user limit: {match.user_limit}</p>
       </div>
-      <p>
-        {match.text.length > 100
-          ? match.text.slice(0, 100) + "..."
-          : match.text}
-      </p>
+      <p>{match.text.length > 100 ? match.text.slice(0, 100) + "..." : match.text}</p>
       {/* if we want to show the text generation type, instead of the text */}
       {/* <p>
         {match.request ? "text generation type: " + match.request.type : ""}
@@ -27,7 +23,7 @@ const MatchHistoricalCard = ({ match, onClick }: Props) => {
         <Button onClick={() => onClick(match._id)}>View</Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MatchHistoricalCard;
+export default MatchHistoricalCard

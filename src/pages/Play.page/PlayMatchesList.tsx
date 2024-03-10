@@ -1,15 +1,15 @@
-import { useState } from "react";
-import Button from "../../components/Form/Button";
-import { MatchStateList } from "../../types/match.types";
-import PlayMatchCard from "./PlayMatchesCard";
+import { useState } from "react"
+import Button from "../../components/Form/Button"
+import { MatchStateList } from "../../types/match.types"
+import PlayMatchCard from "./PlayMatchesCard"
 
 interface Props {
-  matches: MatchStateList;
-  onClick: (key: string) => void;
+  matches: MatchStateList
+  onClick: (key: string) => void
 }
 
 const PlayMatchesList = ({ matches, onClick }: Props) => {
-  const [option, setOption] = useState<boolean>(false);
+  const [option, setOption] = useState<boolean>(false)
   return (
     <div className="match-list">
       <div className="options">
@@ -40,7 +40,7 @@ const PlayMatchesList = ({ matches, onClick }: Props) => {
           />
         ))}
     </div>
-  );
-};
+  )
+}
 
-export default PlayMatchesList;
+export default PlayMatchesList
