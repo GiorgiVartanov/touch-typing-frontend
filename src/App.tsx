@@ -33,7 +33,6 @@ import History from "./pages/Profile.page/History"
 // components
 import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
-import AssessLevelPage from "./pages/AssessLevel.page/AssessLevel.page"
 import Match from "./pages/Play.page/Match"
 import MatchHistorical from "./pages/Play.page/MatchList/MatchHistorical"
 import MatchHistoricalList from "./pages/Play.page/MatchList/MatchHistoricalList"
@@ -130,10 +129,6 @@ const App = () => {
             element={<Friends />}
           />
         </Route>
-        <Route
-          path="/assessment"
-          element={<AssessLevelPage />}
-        />
         <Route
           path="/leaderboards"
           element={<LeaderboardsPage />}
