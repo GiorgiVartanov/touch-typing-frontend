@@ -44,7 +44,7 @@ const PlayPage = () => {
   }
 
   return (
-    <>
+    <div className="playPage">
       {showModal ? (
         CreateMatchModal()
       ) : (
@@ -63,7 +63,7 @@ const PlayPage = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
