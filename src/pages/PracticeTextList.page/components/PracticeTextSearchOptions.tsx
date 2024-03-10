@@ -57,7 +57,7 @@ const PracticeTextSearchOptions = ({
           options={["Any", "Easy", "Intermediate", "Normal", "Hard", "Expert", "Advanced"]}
           onChange={(selectedLevel) => handleValueChange("level", selectedLevel as DifficultyLevel)}
         />
-        <Button className="submit-button">Start Search</Button>
+        <Button className="submit-button cta-button">Start Search</Button>
       </Form>
     </Modal>
   )

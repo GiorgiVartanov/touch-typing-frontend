@@ -1,4 +1,4 @@
-import { User } from "../../types/auth.types"
+import "./style.scss"
 
 import UserIcon from "./UserIcon"
 
@@ -8,7 +8,7 @@ interface Props {
 
 const UserIconList = ({ userList }: Props) => {
   return (
-    <div className="user-list">
+    <div className="user-icon-list">
       {userList.map((user, index) => (
         <UserIcon
           key={user}

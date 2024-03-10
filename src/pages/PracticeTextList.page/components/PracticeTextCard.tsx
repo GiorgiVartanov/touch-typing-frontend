@@ -21,16 +21,24 @@ const PracticeTextCard = ({
   className = "",
   style,
 }: Props) => {
+  const renderDescription = () => {
+    if (description.length > 100) return description.slice(0, 100) + "..."
+
+    return description
+  }
   return (
     <Card
       to={`/practice/${_id}`}
-      title={title}
-      description={description}
-      bottomLeft={author === "Unknown" ? "" : author}
-      bottomRight={level}
       className={`text-card ${className}`}
       style={style}
-    />
+    >
+      <h3 className="title">{title}</h3>
+      <p className="description">{renderDescription()}</p>
+      <div className="card-bottom">
+        <div className="bottom-left">{author === "Unknown" ? "" : author}</div>
+        <div className="bottom-right">{level}</div>
+      </div>
+    </Card>
   )
 }
 

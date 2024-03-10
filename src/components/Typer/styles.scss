@@ -26,8 +26,10 @@
   flex-wrap: wrap;
   font-size: 1rem;
   user-select: none;
-  transition: 0.2s ease-out;
-  line-height: 1.25rem;
+  transition: font-size 300ms var(--animation-function), color 300ms var(--animation-function),
+    line-height 300ms var(--animation-function);
+
+  // transition: font-size 300ms var(--animation-function);
 
   textarea {
     position: absolute;
@@ -44,9 +46,7 @@
   }
 
   .word {
-    // color: rgb(143, 143, 143);
     color: var(--typing-text-unwritten);
-    // margin: 0.25rem 0;
 
     &:not(.active-word) {
       .incorrect-letter {
@@ -63,19 +63,15 @@
     }
 
     .letter {
-      // transition: 300ms var(--animation-function);
-
       &.last-letter {
         width: 0.5rem;
         display: inline-block;
       }
 
       &.active-letter {
-        // color: var(--slightly-weak-text-color);
         text-decoration: underline;
         text-decoration-color: var(--typing-text-unwritten);
         text-underline-offset: 4px;
-        // position: relative;
       }
 
       &.correct-letter {

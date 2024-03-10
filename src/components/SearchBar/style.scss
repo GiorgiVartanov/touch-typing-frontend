@@ -1,9 +1,3 @@
-// .search-wrapper {
-//   height: 3.5rem;
-//   max-width: 1280px;
-//   width: 100%;
-//   transition: 300ms var(--animation-function);
-
 .search-bar {
   width: 100%;
   padding: 0.5rem 0;
@@ -11,9 +5,11 @@
   align-self: flex-start;
   z-index: 100;
   border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px -1px var(--shadow-color);
 
   background-color: var(--secondary-background-color);
-  transition: all 300ms var(--animation-function);
+  transition: background-color 300ms var(--animation-function),
+    filter 300ms var(--animation-function);
 
   &:focus,
   &:active {
@@ -27,13 +23,12 @@
 
 .more-options-button {
   color: var(--accent-color);
-  transition: 300ms var(--animation-function);
+  transition: color 300ms var(--animation-function);
 
   &:hover {
     color: var(--text-color);
   }
 }
-// }
 
 @keyframes searchOptionsAppear {
   0% {

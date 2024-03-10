@@ -1,6 +1,6 @@
 import { Text } from "../../../types/practiceText.types"
 
-import LessonCard from "./PracticeTextCard"
+import PracticeTextCard from "./PracticeTextCard"
 import CardList from "../../../components/Card/CardList"
 import Button from "../../../components/Form/Button"
 
@@ -18,7 +18,7 @@ const PracticeTextCardList = ({
   showAddNewTextButton = false,
   addNewTextModal,
 }: Props) => {
-  if (textList.length === 0) return
+  // if (textList.length === 0) return
 
   return (
     <CardList className="text-card-list">
@@ -30,8 +30,8 @@ const PracticeTextCardList = ({
           Add New Text
         </Button>
       ) : null}
-      {textList.map((text, index) => (
-        <LessonCard
+      {textList?.map((text, index) => (
+        <PracticeTextCard
           title={text.title}
           description={text.description}
           author={text.author}

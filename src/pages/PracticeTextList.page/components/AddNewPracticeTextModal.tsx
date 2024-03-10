@@ -1,8 +1,10 @@
-import ajax from "../../../services/ajax"
 import { useState } from "react"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { toast } from "react-toastify"
 
 import { Text, DifficultyLevel } from "../../../types/practiceText.types"
 import { useAuthStore } from "../../../store/context/authContext"
+import { postPracticeText } from "../../../services/practiceText"
 
 import Modal from "../../../components/Modal/Modal"
 import Form from "../../../components/Form/Form"
@@ -12,6 +14,16 @@ import DateSelect from "../../../components/Form/DateSelect"
 import TextArea from "../../../components/Form/TextArea"
 import Button from "../../../components/Form/Button"
 
+const defaultTextDate: Text = {
+  _id: "-",
+  title: "",
+  description: "",
+  level: "Easy",
+  text: "",
+  author: "",
+  publishedOn: "",
+}
+
 interface Props {
   isVisible: boolean
   closeModal: () => void
@@ -19,17 +31,11 @@ interface Props {
 
 // modal to add new texts
 const AddNewPracticeTextModal = ({ isVisible, closeModal }: Props) => {
+  const queryClient = useQueryClient()
+
   const { token } = useAuthStore()
 
-  const [newTextData, setNewTextData] = useState<Text>({
-    _id: "-",
-    title: "",
-    description: "",
-    level: "Easy",
-    text: "",
-    author: "",
-    publishedOn: "",
-  })
+  const [newTextData, setNewTextData] = useState<Text>(defaultTextDate)
 
   const handleLevelChange = (selectedLevel: DifficultyLevel) => {
     handleChange("level", selectedLevel)
@@ -39,28 +45,40 @@ const AddNewPracticeTextModal = ({ isVisible, closeModal }: Props) => {
     setNewTextData((prevData) => ({ ...prevData, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (newTextData.title === "" || newTextData.description === "" || newTextData.text === "") {
-      return
-    }
+    mutation.mutate(newTextData)
 
-    ajax.post(
-      "lesson/create",
-      {
-        title: newTextData.title,
-        description: newTextData.description,
-        level: newTextData.level,
-        text: newTextData.text,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    setNewTextData(defaultTextDate)
   }
+
+  const mutation = useMutation({
+    mutationFn: (textData: {
+      title: string
+      description: string
+      level: DifficultyLevel
+      text: string
+    }) => {
+      if (!token) throw new Error("no token")
+
+      return postPracticeText(
+        textData.title,
+        textData.description,
+        textData.level,
+        textData.text,
+        token
+      )
+    },
+    mutationKey: ["post new text", newTextData],
+    onMutate: () => {},
+    onSuccess: () => {
+      toast.success("Successfully added new text")
+    },
+    onError: () => {
+      toast.error("Something went wrong while adding new text")
+    },
+  })
 
   return (
     <Modal
@@ -91,7 +109,7 @@ const AddNewPracticeTextModal = ({ isVisible, closeModal }: Props) => {
           onChange={(e) => handleChange("description", e.target.value)}
           className="textarea-description"
         />
-        <Input
+        {/* <Input
           name="author"
           value={newTextData.author || ""}
           onChange={(e) => handleChange("author", e.target.value)}
@@ -100,14 +118,14 @@ const AddNewPracticeTextModal = ({ isVisible, closeModal }: Props) => {
           name="published on"
           value={newTextData.publishedOn}
           onChange={(e) => handleChange("publishedOn", e.target.value)}
-        />
+        /> */}
         <Select
           name="level"
           value={newTextData.level}
           options={["Easy", "Intermediate", "Normal", "Hard", "Expert", "Advanced"]}
           onChange={(selectedLevel) => handleLevelChange(selectedLevel as DifficultyLevel)}
         />
-        <Button className="submit-button cta-button">Add Text</Button>
+        <Button className="submit-button cta-button add-new-text-button">Add Text</Button>
       </Form>
     </Modal>
   )

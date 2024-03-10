@@ -18,6 +18,8 @@ const NavItem = ({ icon, closeNavigation, children }: Props) => {
   }
 
   const handleCloseMenu = () => {
+    if (window.innerWidth < 600) return
+
     setIsOpen(false)
   }
 
@@ -36,7 +38,9 @@ const NavItem = ({ icon, closeNavigation, children }: Props) => {
         <div className="nav-item-icon">{icon}</div>
         {children ? <DropdownArrow isOpen={isOpen} /> : null}
       </button>
-      {isOpen ? children : null}
+      <div className={`nav-item-children ${isOpen ? "nav-item-open" : "nav-item-closed"}`}>
+        {children}
+      </div>
     </li>
   )
 }

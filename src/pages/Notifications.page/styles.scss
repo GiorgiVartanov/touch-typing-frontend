@@ -55,9 +55,12 @@
     padding: 0.5rem 0.5rem;
     display: flex;
     // align-items: center;
+    min-height: 5rem;
     height: 5rem;
     position: relative;
-    transition: 300ms var(--animation-function);
+    transition: background-color 300ms var(--animation-function),
+      opacity 300ms var(--animation-function), height 300ms var(--animation-function),
+      max-height 300ms var(--animation-function);
     cursor: pointer;
 
     &.notification-resolved {
@@ -122,6 +125,7 @@
     .notification-content {
       display: flex;
       flex-direction: column;
+      margin-left: 1rem;
     }
 
     .notification-date {
@@ -135,7 +139,7 @@
 
     .notification-text {
       line-height: 1.25rem;
-      margin: 1.25rem 0 0.5rem 0;
+      margin: 1.25rem 0 1.25rem 0;
       display: -webkit-box;
       overflow: hidden;
       -webkit-line-clamp: 3;
@@ -158,10 +162,19 @@
     }
 
     .notification-sender {
-      margin-right: 1.5rem;
+      // margin-right: 1.5rem;
+      // width: 3rem;
+      position: relative;
+
+      .notification-icon {
+      }
 
       .username {
-        opacity: 50%;
+        // opacity: 50%;
+        position: absolute;
+        top: -0.25rem;
+        left: 3.5rem;
+        font-size: 0.75rem;
       }
     }
   }
