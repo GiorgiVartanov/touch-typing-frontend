@@ -19,7 +19,6 @@ const MatchHistoricalList = () => {
     const fetchMatches = async () => {
       // Fetch matches based on user search input
       const response = await ajax.get(`/match?username=${userSearch}`);
-      console.log(userSearch);
       setMatches(response.data);
     };
     fetchMatches();

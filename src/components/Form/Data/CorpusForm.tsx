@@ -16,7 +16,6 @@ const CorpusForm = ({setFetchedData, setLoading, setError, setTextRequest}: Corp
     const [amount, setAmount] = useState<Number>(10)
 
     useEffect(() => {
-        console.log("Here");
         if(setLoading)
             setLoading(true)
         if(setError)
@@ -59,7 +58,7 @@ const CorpusForm = ({setFetchedData, setLoading, setError, setTextRequest}: Corp
                     else setAmount(1)
                 }}
                 type="number"
-                name=""
+                name=" "
                 value={String(amount)}
             />
         </div>
