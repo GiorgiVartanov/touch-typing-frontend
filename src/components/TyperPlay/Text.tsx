@@ -45,9 +45,12 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
         return [wordLetterStatuses]
       }
     })
-    
-    accuracy.current += wordLetterStatuses.reduce((prev: number, curr)=>prev+Number(curr===2), 0)
-    await ModifyMatch(accuracy.current/totalSymbols.current*100);
+
+    accuracy.current += wordLetterStatuses.reduce(
+      (prev: number, curr) => prev + Number(curr === 2),
+      0
+    )
+    await ModifyMatch((accuracy.current / totalSymbols.current) * 100)
 
     if (currentWordIndex + 1 === text.length && finishHandler)
       finishHandler([...lettersStatuses, wordLetterStatuses], startTime.current)
@@ -95,7 +98,13 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
 
   return (
     <>
-      {currentWordIndex === text.length ? <h1>Waiting for other players to finish...<br></br></h1> : <></>}
+      {currentWordIndex === text.length ? (
+        <h1>
+          Waiting for other players to finish...<br></br>
+        </h1>
+      ) : (
+        <></>
+      )}
       <div
         autoFocus={true}
         style={{
