@@ -23,7 +23,7 @@ const CorpusForm = ({ setFetchedData, setLoading, setError, setTextRequest }: Co
 
     try {
       const fetchLesson = async () => {
-        const response = await ajax.get(`/util/words?amount=${amount}`)
+        const response = await ajax.get(`/practice/words?amount=${amount}`)
 
         setFetchedData(
           response.data.map((el: { _id: string; word: string; count: number }) => el.word).join(" ")
