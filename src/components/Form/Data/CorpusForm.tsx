@@ -58,7 +58,7 @@ const CorpusForm = ({setFetchedData, setLoading, setError, setTextRequest}: Corp
                     else setAmount(1)
                 }}
                 type="number"
-                name=""
+                name=" "
                 value={String(amount)}
             />
         </div>

@@ -65,9 +65,9 @@ const FakeWordsForm = ({setFetchedData, setLoading, setError, setTextRequest}: f
 
     return (
         <div className="select-list">
-            <label>
+            <label htmlFor="letterFW_id">
             letter:
-            <select value={letter} onChange={(e) => setLetter(e.target.value)}>
+            <select value={letter} onChange={(e) => setLetter(e.target.value)} id={"letterFW_id"}>
                 {georgianLetters.map((letter) => (
                 <option
                     key={letter}
@@ -78,9 +78,10 @@ const FakeWordsForm = ({setFetchedData, setLoading, setError, setTextRequest}: f
                 ))}
             </select>
             </label>
-            <label>
+            <label htmlFor="amountFW_id">
             amount:
             <select
+                id={"amountFW_id"}
                 value={amount}
                 onChange={(e) => setAmount(Number(e.target.value))}
             >
@@ -94,9 +95,10 @@ const FakeWordsForm = ({setFetchedData, setLoading, setError, setTextRequest}: f
                 ))}
             </select>
             </label>
-            <label>
+            <label htmlFor="min_syllablesFW_id">
             min syllables:
             <select
+                id={"min_syllablesFW_id"}
                 value={minAmountOfSyllables}
                 onChange={(e) => setMinAmountOfSyllables(Number(e.target.value))}
             >
@@ -110,10 +112,10 @@ const FakeWordsForm = ({setFetchedData, setLoading, setError, setTextRequest}: f
                 ))}
             </select>
             </label>
-            <label htmlFor="maxAmountOfSyllables">
+            <label htmlFor="max_syllablesFW_id">
             max syllables:
             <select
-                name="maxAmountOfSyllables"
+                id={"max_syllablesFW_id"}                
                 value={maxAmountOfSyllables}
                 onChange={(e) => setMaxAmountOfSyllables(Number(e.target.value))}
             >

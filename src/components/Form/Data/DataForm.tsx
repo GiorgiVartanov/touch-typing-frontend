@@ -79,17 +79,17 @@ const DataForm = ({CreateMatch, setShowModal} : FormProps) => {
         }
         ))
     }
-    
+
     return (
         <Form onSubmit={submitHandler} className="match_form">
             <div className="basic">
             <Input
-                name = "user_limit"
+                name = "user limit"
                 onChange={handleUserLimitChange}
                 value={String(params.user_limit)}
             />
             <Input
-                name = "time_limit"
+                name = "time limit"
                 onChange={handleTimeLimitChange}
                 value={String(params.time_limit)}
             />
@@ -98,6 +98,7 @@ const DataForm = ({CreateMatch, setShowModal} : FormProps) => {
                 <label>
                     Text Generation Options:
                     <select
+                        id = {"textGen_id"}
                         value={textGenerationMode}
                         onChange={(e) => setTextGenerationMode(e.target.value as TextGenMode)}
                     >
@@ -127,8 +128,8 @@ const DataForm = ({CreateMatch, setShowModal} : FormProps) => {
                     </Button>              
                 </div>
                 <div className="example">
-                    <p>example text:</p>
-                    <p>{fetchedData}</p>
+                    <p>sample text:</p>
+                    <p>{fetchedData.length > 200 ? fetchedData.substring(0, 200) + "..." : fetchedData}</p>
                 </div>
             </div>            
         </Form>      
