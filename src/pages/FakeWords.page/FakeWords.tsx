@@ -7,7 +7,7 @@ import Loading from "../../components/Loading/Loading"
 import ReinforcementTyper from "../../components/ReinforcementTyper/ReinforcementTyper"
 
 // Default and Reinforcement modes
-type Mode = "D" | "R" 
+type Mode = "D" | "R"
 
 // options for selects
 const typerModes = ["D", "R"]
@@ -98,11 +98,17 @@ const FakeWordsPage = () => {
     if (isError) {
       return <div>Something went wrong, check browser console for more detailed information</div>
     }
-    
+
     return typerMode == "D" ? (
-      <Typer wordSeparator="•" text={fetchedText} />
+      <Typer
+        wordSeparator="•"
+        text={fetchedText}
+      />
     ) : (
-      <ReinforcementTyper wordSeparator="•" text={fetchedText} />
+      <ReinforcementTyper
+        wordSeparator="•"
+        text={fetchedText}
+      />
     )
   }
 
@@ -116,8 +122,8 @@ const FakeWordsPage = () => {
             onChange={(e) => setTyperMode(e.target.value as Mode)}
           >
             {typerModes.map((mode) => (
-              <option 
-                key={mode} 
+              <option
+                key={mode}
                 value={mode}
               >
                 {mode}
@@ -127,7 +133,10 @@ const FakeWordsPage = () => {
         </label>
         <label>
           letter:
-          <select value={letter} onChange={(e) => setLetter(e.target.value)}>
+          <select
+            value={letter}
+            onChange={(e) => setLetter(e.target.value)}
+          >
             {georgianLetters.map((letter) => (
               <option
                 key={letter}
