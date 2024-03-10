@@ -25,7 +25,10 @@ const FriendSuggestions = ({ username }: Props) => {
     queryKey: ["friend-suggestions", username],
   })
 
-  if (isLoading) return <Loading />
+  if (isLoading) {
+    console.log("hi")
+    return <Loading />
+  }
 
   if (error || !data?.data)
     return <div className="error-message">{error?.message || "something went wrong"}</div>
