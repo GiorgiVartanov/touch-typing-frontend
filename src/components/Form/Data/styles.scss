@@ -1,4 +1,5 @@
 .match_form {
+  max-width: 400px !important;
   .select-list {
     margin: 20px auto;
     display: flex;
@@ -79,9 +80,16 @@
   }
   .basic {
     display: flex;
+    margin: 0 auto;
+    width: 100%;
+    gap: 5px;
+    flex-direction: column;
     align-items: center;
     input {
       margin-bottom: 3px;
+    }
+    h2 {
+      margin-top: 8px;
     }
   }
 }

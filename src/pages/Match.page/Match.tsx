@@ -5,6 +5,7 @@ import TyperPlay from "../../components/TyperPlay/TyperPlay"
 import calculateWPM from "../../util/calculateWPM"
 import { useEffect } from "react"
 import Timer from "./Timer"
+import "./styles.scss"
 
 const Match = () => {
   const {
@@ -21,9 +22,9 @@ const Match = () => {
 
   //If user navigates away from the match, he automatically disconnects... (couldn't make the "useLocation" work... probably something wrong with the playContext)
   useEffect(() => {
-    if (match_finished === true) navigate("../match/" + match_id) // Navigate to the finished match
+    if (match_finished === true) navigate("../matches/" + match_id) // Navigate to the finished match
     return () => {
-      if (location.pathname !== "/play/" + match_id && match_id) {
+      if (location.pathname !== "/match/" + match_id && match_id) {
         // Update pathname
         LeaveMatch(match_id) // Disconnect user if they navigate away from the match
       }
@@ -71,7 +72,6 @@ const Match = () => {
         <>
           <h1>
             Waiting for users to join: {match.active_players}/{match.user_limit}{" "}
-            {/* Update variables */}
           </h1>
           <Button
             onClick={() => leaveMatch()} // Update function call

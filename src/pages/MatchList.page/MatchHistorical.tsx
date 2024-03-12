@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { MatchState } from "../../../types/match.types"
-import ajax from "../../../services/ajax"
-import Loading from "../../../components/Loading/Loading"
-import Button from "../../../components/Form/Button"
-import "../styles.scss"
-import Typer from "../../../components/Typer/Typer"
+import { MatchState } from "../../types/match.types"
+import ajax from "../../services/ajax"
+import Loading from "../../components/Loading/Loading"
+import Button from "../../components/Form/Button"
+import "./styles.scss"
+import Typer from "../../components/Typer/Typer"
 
 const MatchHistorical = () => {
   const { id } = useParams()
@@ -33,7 +33,7 @@ const MatchHistorical = () => {
 
   // Function to handle click event for navigating back to previous route
   const onClick = () => {
-    navigate("../match")
+    navigate("../matches")
   }
 
   return (
