@@ -243,7 +243,6 @@ const ProfilePage = () => {
           <div className="profile-page-icon">
             <UserIcon
               username={username}
-              includeName={false}
             />
             <p className="username">{username}</p>
           </div>

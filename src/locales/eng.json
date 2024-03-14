@@ -1,0 +1,50 @@
+{
+  "header": {
+    "learn": "learn",
+    "lessons": "lessons",
+    "competition": "competition",
+    "practice": "practice",
+    "games": "games",
+    "other": "other",
+    "social": "social",
+    "leaderboards": "leaderboards",
+    "settings": "settings",
+    "profile": "profile",
+    "notifications": "notifications",
+    "log out": "log out",
+    "register": "register",
+    "log in": "log in"
+  },
+
+  "main page": {
+    "lessons": "Lessons",
+    "lessons message": "learn typing by completing tasks",
+    "competition": "Competition",
+    "competition message": "challenge other people",
+    "games": "Games",
+    "games message": "play games",
+    "practice": "Practice",
+    "practice message": "type texts"
+  },
+
+  "settings page": {
+    "app settings": "App Settings",
+    "theme": "theme",
+    "System Default": "System Default",
+    "Dark": "Dark",
+    "Light": "Light",
+    "language": "language",
+    "Geo": "ქართული",
+    "En": "English",
+    "typing settings": "Typing settings",
+    "font": "font",
+    "font size": "font size",
+    "small": "small",
+    "medium": "medium",
+    "large": "large",
+    "extra large": "extra large",
+    "text example": "text example",
+    "text example text": "your text will look like this. words after that are only for length, so you will see how text looks on more than one line",
+    "reset settings": "reset settings"
+  }
+}

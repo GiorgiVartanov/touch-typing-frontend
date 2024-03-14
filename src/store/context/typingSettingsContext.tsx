@@ -36,7 +36,7 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const { token } = useAuthStore()
 
-  const fontOptions = ["sans", "serif", "cursive", "sanet"] as FontType[]
+  const fontOptions = ["sans", "serif", "sanet"] as FontType[]
   const fontSizeOptions = ["small", "medium", "large", "extra large"] as FontSizeType[]
 
   // saves a setting in the localStorage and on the server (if saveOnServer is true and a token is available)

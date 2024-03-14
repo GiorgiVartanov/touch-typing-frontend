@@ -1,4 +1,4 @@
-export type FontType = "sans" | "serif" | "cursive" | "sanet"
+export type FontType = "sans" | "serif" | "sanet"
 
 export type FontSizeType = "small" | "medium" | "large" | "extra large"
 

@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 
 import HeroKeyboard from "../../components/HeroKeyboard/HeroKeyboard"
 
 const MainPage = () => {
+  const { t } = useTranslation()
+
   const [activeKeys, setActiveKeys] = useState<string[]>([])
   const [showHeroKeyboard, setShowHeroKeyboard] = useState(window.innerWidth >= 1000)
 
@@ -44,8 +47,8 @@ const MainPage = () => {
             }}
             onMouseLeave={handleOnMouseLeave}
           >
-            <p>Lessons</p>
-            <span>learn typing by completing tasks</span>
+            <p>{t("lessons")}</p>
+            <span>{t("lessons message")}</span>
           </Link>
           <Link
             to="play"
@@ -55,8 +58,8 @@ const MainPage = () => {
             onMouseLeave={handleOnMouseLeave}
             className="border shadow"
           >
-            <p>Competition</p>
-            <span>challenge other people</span>
+            <p>{t("competition")}</p>
+            <span>{t("competition message")}</span>
           </Link>
           <div className="separate">
             <Link
@@ -67,8 +70,8 @@ const MainPage = () => {
               onMouseLeave={handleOnMouseLeave}
               className="border shadow"
             >
-              <p>Games</p>
-              <span>play games</span>
+              <p>{t("games")}</p>
+              <span>{t("games message")}</span>
             </Link>
             <Link
               to="practice"
@@ -78,8 +81,8 @@ const MainPage = () => {
               onMouseLeave={handleOnMouseLeave}
               className="border shadow"
             >
-              <p>Practice</p>
-              <span>type texts</span>
+              <p>{t("practice")}</p>
+              <span>{t("practice message")}</span>
             </Link>
           </div>
         </div>
