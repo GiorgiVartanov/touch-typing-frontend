@@ -7,7 +7,7 @@ import "./styles.scss"
 import HeroKeyboard from "../../components/HeroKeyboard/HeroKeyboard"
 
 const MainPage = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("translation", { keyPrefix: "main page" })
 
   const [activeKeys, setActiveKeys] = useState<string[]>([])
   const [showHeroKeyboard, setShowHeroKeyboard] = useState(window.innerWidth >= 1000)

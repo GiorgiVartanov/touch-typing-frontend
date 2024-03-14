@@ -12,7 +12,7 @@ import Button from "../../components/Form/Button"
 import TypingSettingsTextExample from "./TypingSettingsTextExample"
 
 const SettingsPage = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("translation", { keyPrefix: "settings page" })
 
   const [isConfirmResetModalOpen, setIsConfirmResetModalOpen] = useState<boolean>(false)
 

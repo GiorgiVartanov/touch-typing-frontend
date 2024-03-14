@@ -29,7 +29,7 @@ import NotificationsAmount from "./NotificationsAmount"
 import "./styles.scss"
 
 const Header = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("translation", { keyPrefix: "header" })
 
   const navRef = useRef<HTMLElement>(null)
 

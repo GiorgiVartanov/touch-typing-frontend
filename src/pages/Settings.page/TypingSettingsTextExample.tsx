@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import Typer from "../../components/Typer/Typer"
 
 const TypingSettingsTextExample = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("translation", { keyPrefix: "settings page" })
 
   return (
     <div className="text-example ">
