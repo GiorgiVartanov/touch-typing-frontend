@@ -1,10 +1,11 @@
 import { useMemo } from "react"
 
 import Letter from "./Letter"
+import { wordLetterStatusesType } from "../../types/typer.types/letterStatuses.types"
 
 interface Props {
   word: string
-  lettersStatuses?: (0 | 1 | 2)[]
+  lettersStatuses?: wordLetterStatusesType
   wordSeparator: string
   isLastWord: boolean
   style?: React.CSSProperties
@@ -12,15 +13,8 @@ interface Props {
 }
 
 // renders a word
-// it uses useMemo, so it's rerendered only when any of its props are changed (actually it is rerendered when it's parent rerenders. calculations (list of Letter components) are cached, so next time they will get rendered faster)
-const Word = ({
-  word,
-  lettersStatuses,
-  wordSeparator,
-  isLastWord,
-  style,
-  className = "",
-}: Props) => {
+// it uses useMemo, so it's rerendered only when any of its props are changed (actually it is rerendered when it's parent rerenders. calculations (list of Letter components) are cached, so next time they will get rendered faster )
+const Word = ({ word, lettersStatuses, wordSeparator, isLastWord, style, className }: Props) => {
   const memoizedWord = useMemo(() => {
     return (
       <div
@@ -33,7 +27,6 @@ const Word = ({
               key={index}
               letter={letter}
               isCurrentLetter={false}
-              isLastLetter={index === word.length}
               isCorrect={lettersStatuses?.[index]}
             />
           )

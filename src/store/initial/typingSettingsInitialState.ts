@@ -1,4 +1,8 @@
-import { FontType, FontSizeType, TypingSettingsState } from "../../types/typingSettings.types"
+import {
+  FontType,
+  FontSizeType,
+  TypingSettingsState,
+} from "../../types/typer.types/typingSettings.types"
 
 const font: FontType | null = localStorage.getItem("font") as FontType
 const fontSize: FontSizeType | null = localStorage.getItem("fontSize") as FontSizeType
