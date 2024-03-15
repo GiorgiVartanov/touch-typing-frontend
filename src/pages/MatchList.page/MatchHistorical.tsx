@@ -5,7 +5,7 @@ import ajax from "../../services/ajax"
 import Loading from "../../components/Loading/Loading"
 import Button from "../../components/Form/Button"
 import "./styles.scss"
-import Typer from "../../components/Typer/Typer"
+import TypingArea from "../../components/TypingArea/TypingArea"
 
 const MatchHistorical = () => {
   const { id } = useParams()
@@ -73,7 +73,7 @@ const MatchHistorical = () => {
           })}
         </div>
         <div className="history-text">
-          <Typer text={match.text} />
+          <TypingArea text={match.text} />
         </div>
       </div>
       <div className="history-button">

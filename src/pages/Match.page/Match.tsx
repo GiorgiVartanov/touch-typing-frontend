@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { usePlayStore } from "../../store/context/playContext"
 import Button from "../../components/Form/Button"
-import TyperPlay from "../../components/TyperPlay/TyperPlay"
-import calculateWPM from "../../util/TypingStats/calculateWPM"
+import TypingAreaPlay from "../../components/TypingAreaPlay/TypingAreaPlay"
 import { useEffect } from "react"
 import Timer from "./Timer"
 import "./styles.scss"
@@ -52,17 +51,6 @@ const Match = () => {
   }
 
   const match = matches[match_id] // Update variable
-
-  //calculates WPM of the user and sends it to the backend
-  // Handler for finishing the match
-  const finishHandler = (lettersStatuses: (0 | 1 | 2)[][], startTime: Date | null) => {
-    const finishTime = new Date()
-    let timeTaken = 0
-    if (startTime) {
-      timeTaken = finishTime.getTime() - startTime.getTime()
-    }
-    NotifyFinish(calculateWPM(timeTaken / 1000, lettersStatuses))
-  }
 
   return (
     <div className="page match">
@@ -114,9 +102,9 @@ const Match = () => {
           {match.players[uid] === undefined || match.players[uid].has_finished === true ? (
             <Button onClick={() => leaveMatch()}>Leave the match</Button>
           ) : (
-            <TyperPlay
-              finishHandler={finishHandler}
+            <TypingAreaPlay
               ModifyMatch={ModifyMatch}
+              handleTextFinish={NotifyFinish}
               text={match.text}
             />
           )}
