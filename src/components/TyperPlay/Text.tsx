@@ -10,17 +10,27 @@ import { useTypingSettingsStore } from "../../store/context/typingSettingsContex
 
 import Word from "../Typer/Word"
 import ActiveWord from "../Typer/ActiveWord"
+import { wordLetterStatusesType } from "../../types/typer.types/letterStatuses.types"
+import { useMetrics } from "../../store/context/MetricsContext"
+import calculateWPM from "../../util/TypingStats/calculateWPM"
 
 interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
-  finishHandler?: (lettersStatuses: (0 | 1 | 2)[][], startTime: Date | null) => void
+  handleTextFinish: (user_wpm: number) => void
   ModifyMatch: (currentWordIndex: number) => void
+  removeTextComponent: () => void
 }
 
-const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch }: Props) => {
+const Text = ({
+  text,
+  wordSeparator = "",
+  handleTextFinish,
+  ModifyMatch,
+  removeTextComponent,
+}: Props) => {
   const { font, fontSize } = useTypingSettingsStore()
-  const startTime = useRef<Date | null>(null)
+  const { metrics, handleMetrics } = useMetrics()
 
   const textLength = text.length
 
@@ -32,11 +42,10 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
   const totalSymbols = useRef<number>(text.join("").length)
 
   // goes to the next word
-  const goToNextWord = async (wordLetterStatuses: (0 | 1 | 2)[]) => {
-    // 0 - letter was not typed yet
-    // 1 - letter was typed incorrectly
-    // 2 - letter was typed correctly
-
+  const handleFinishWord = async (
+    wordLetterStatuses: wordLetterStatusesType,
+    isLastWord: boolean
+  ) => {
     setCurrentWordIndex((prevState) => prevState + 1)
     setLettersStatuses((prevState) => {
       if (prevState) {
@@ -52,13 +61,19 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
     )
     await ModifyMatch((accuracy.current / totalSymbols.current) * 100)
 
-    if (currentWordIndex + 1 === text.length && finishHandler)
-      finishHandler([...lettersStatuses, wordLetterStatuses], startTime.current)
+    if (isLastWord) {
+      handleMetrics.handleSetLetterStatuses([...lettersStatuses, wordLetterStatuses])
+      const time =
+        metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
+      handleTextFinish(calculateWPM(time / 1000, lettersStatuses))
+      removeTextComponent()
+    }
   }
 
   useEffect(() => {
     setCurrentWordIndex(0)
     setLettersStatuses([])
+    handleMetrics.handleResetMetrics()
   }, [text])
 
   const calculateFontSize = () => {
@@ -91,11 +106,6 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
     }
   }
 
-  // const lineHeight = 1.25 // Set the line height factor based on your design
-  // const amountOfShownLines = 5 // Set the desired number of lines to be shown
-
-  // const containerHeight = `${amountOfShownLines * parseFloat(calculateFontSize()) * lineHeight}rem`
-
   return (
     <>
       {currentWordIndex === text.length ? (
@@ -110,8 +120,6 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
         style={{
           fontSize: calculateFontSize(),
           lineHeight: calculateLineHeight(),
-          // maxHeight: containerHeight,
-          // overflow: "hidden",
         }}
         className={`text font-${font}`}
       >
@@ -121,10 +129,9 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch
               <ActiveWord
                 key={index}
                 word={word}
-                goToNextWord={goToNextWord}
+                handleFinishWord={handleFinishWord}
                 isLastWord={index === textLength - 1}
                 wordSeparator={wordSeparator}
-                startTime={startTime}
               />
             )
           } else {

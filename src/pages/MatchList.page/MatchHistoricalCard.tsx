@@ -1,5 +1,5 @@
-import Button from "../../../components/Form/Button"
-import { MatchState } from "../../../types/match.types"
+import Button from "../../components/Form/Button"
+import { MatchState } from "../../types/match.types"
 
 interface Props {
   match: MatchState

@@ -33,9 +33,9 @@ import History from "./pages/Profile.page/History"
 // components
 import Header from "./components/Header/Header"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
-import Match from "./pages/Play.page/Match"
-import MatchHistorical from "./pages/Play.page/MatchList/MatchHistorical"
-import MatchHistoricalList from "./pages/Play.page/MatchList/MatchHistoricalList"
+import Match from "./pages/Match.page/Match"
+import MatchHistorical from "./pages/MatchList.page/MatchHistorical"
+import MatchHistoricalList from "./pages/MatchList.page/MatchHistoricalList"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -101,15 +101,15 @@ const App = () => {
           element={<PlayPage />}
         />
         <Route
-          path="/play/:id"
+          path="/match/:id"
           element={<Match />}
         />
         <Route
-          path="/match"
+          path="/matches"
           element={<MatchHistoricalList />}
         />
         <Route
-          path="/match/:id"
+          path="/matches/:id"
           element={<MatchHistorical />}
         />
         <Route
