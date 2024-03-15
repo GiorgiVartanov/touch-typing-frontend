@@ -1,4 +1,4 @@
-import Typer from "../../components/Typer/Typer"
+import TypingArea from "../../components/TypingArea/TypingArea"
 
 const TypingSettingsTextExample = () => {
   // const text =
@@ -9,7 +9,7 @@ const TypingSettingsTextExample = () => {
   return (
     <div className="text-example ">
       <p>text example</p>
-      <Typer text={text} />
+      <TypingArea text={text} />
     </div>
   )
 }
