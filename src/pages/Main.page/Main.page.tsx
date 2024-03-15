@@ -1,19 +1,43 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
+import getRandomMotivationalPhrase from "../../util/getRandomMotivationalPhrase"
+
 import "./styles.scss"
 
 import HeroKeyboard from "../../components/HeroKeyboard/HeroKeyboard"
+import TypingArea from "../../components/TypingArea/TypingArea"
 
 const MainPage = () => {
   const [activeKeys, setActiveKeys] = useState<string[]>([])
   const [showHeroKeyboard, setShowHeroKeyboard] = useState(window.innerWidth >= 1000)
+
+  const [text, setText] = useState<string>(getRandomMotivationalPhrase)
 
   const handleOnButtonHover = (buttonName: string) => {
     setActiveKeys(buttonName.split(""))
   }
   const handleOnMouseLeave = () => {
     setActiveKeys([])
+  }
+
+  const renderKeyboard = () => {
+    if (!showHeroKeyboard) return
+
+    const changeText = () => {
+      setText((prevState) => getRandomMotivationalPhrase(prevState))
+    }
+
+    return (
+      <div>
+        <TypingArea
+          text={text}
+          className="typing-area-main-page"
+          handleTextFinish={changeText}
+        />
+        <HeroKeyboard activeKeys={activeKeys} />
+      </div>
+    )
   }
 
   useEffect(() => {
@@ -34,7 +58,7 @@ const MainPage = () => {
   return (
     <div className="page main-page">
       <div className="hero">
-        {showHeroKeyboard ? <HeroKeyboard activeKeys={activeKeys} /> : ""}
+        {renderKeyboard()}
         <div className="options">
           <Link
             className="border shadow"
