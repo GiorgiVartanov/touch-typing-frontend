@@ -12,8 +12,8 @@ import {
   FontSizeType,
   TypingSettingsOptions,
   TypingSettingsActions,
-} from "../../types/typingSettings.types"
-import { TypingSettingsState } from "../../types/typingSettings.types"
+} from "../../types/typer.types/typingSettings.types"
+import { TypingSettingsState } from "../../types/typer.types/typingSettings.types"
 import { saveTypingSetting, getTypingSettings } from "../../services/typingSettingsServices"
 
 import { useAuthStore } from "./authContext"

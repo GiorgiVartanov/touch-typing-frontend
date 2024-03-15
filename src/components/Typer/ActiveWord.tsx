@@ -1,8 +1,10 @@
-import { useEffect, useState, useRef, MutableRefObject } from "react"
+import { useEffect, useState, useRef } from "react"
 
 import Letter from "./Letter"
+import { LetterStatus, wordLetterStatusesType } from "../../types/typer.types/letterStatuses.types"
+import { useMetrics } from "../../store/context/MetricsContext"
 
-const usedKeys = [
+const allowedKeys = [
   "1",
   "2",
   "3",
@@ -14,23 +16,6 @@ const usedKeys = [
   "9",
   "0",
   "=",
-  "+",
-  "-",
-  "_",
-  "!",
-  "@",
-  "#",
-  "$",
-  "%",
-  "^",
-  "&",
-  "*",
-  "(",
-  ")",
-  "[",
-  "]",
-  "{",
-  "}",
   "q",
   "w",
   "e",
@@ -103,84 +88,75 @@ const usedKeys = [
   "Backspace",
   " ",
   "",
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
 ]
+
+const typableAllowedKeys = allowedKeys.filter((key) => key !== "Enter" && key !== "Backspace")
 
 interface Props {
   word: string
-  goToNextWord: (lettersStatuses: (0 | 1 | 2)[]) => void
+  handleFinishWord: (lettersStatuses: wordLetterStatusesType, isLastWord: boolean) => void
   isLastWord: boolean
   wordSeparator: string
   style?: React.CSSProperties
   className?: string
-  startTime?: MutableRefObject<Date | null>
 }
 
 const ActiveWord = ({
   word,
-  goToNextWord,
+  handleFinishWord,
   isLastWord,
   wordSeparator,
   style,
   className,
-  startTime,
 }: Props) => {
+  const { handleMetrics } = useMetrics()
   const inputRef = useRef<HTMLInputElement | null>(null)
-
   const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0)
-  const [lettersStatuses, setLettersStatuses] = useState<(0 | 1 | 2)[]>(
-    Array.from({ length: word.length }, () => 0)
+
+  const [lettersStatuses, setLettersStatuses] = useState<wordLetterStatusesType>(
+    Array.from({ length: word.length }, () => LetterStatus.Inactive)
   )
 
-  const handleKeyPress = (e: KeyboardEvent) => {
-    if (startTime?.current === null) startTime.current = new Date()
+  useEffect(() => {
+    if (
+      isLastWord &&
+      currentLetterIndex === word.length &&
+      lettersStatuses[word.length - 1] === LetterStatus.Correct // for test to finish last typed char has to be correct
+    ) {
+      handleFinishWord(lettersStatuses, true)
+    }
+  })
 
+  const handleKeyPress = (e: KeyboardEvent) => {
     const pressedKey = e.key
+    let isInputCharCorrect = pressedKey === word[currentLetterIndex]
+    const isInputTypable = typableAllowedKeys.includes(pressedKey)
 
     // ignores certain keys that should not trigger any action
-    if (!usedKeys.includes(pressedKey)) {
-      return
+    if (!allowedKeys.includes(pressedKey)) return
+
+    // if user presses on space and they have typed  the last character, they will be moved to the next word
+    if (pressedKey === " " && currentLetterIndex > word.length - 1) {
+      if (isLastWord) {
+        handleFinishWord(lettersStatuses, true) // you can end test by pressing space if you are at the end
+      } else {
+        handleFinishWord(lettersStatuses, false)
+        isInputCharCorrect = true // space is correct char
+      }
     }
 
-    // if user is at the end of a word they can press on enter or space to go the the next word, or on backspace to go back
-    if (currentLetterIndex === word.length && !["Enter", " ", "Backspace"].includes(pressedKey)) {
-      return
-    }
+    // collect needed metrics
+    handleMetrics.recordKeyPressAllMetrics(isInputCharCorrect, pressedKey, isInputTypable)
 
-    // if user presses on space key
+    // if user is at the end of a word they can press space to go the the next word, or on backspace to go back
+    if (currentLetterIndex === word.length && ![" ", "Backspace"].includes(pressedKey)) return
+
+    // default action of pressing on space key is to scroll down
     if (e.key === " ") {
       e.preventDefault()
-      // default action of pressing on space key is to scroll down
     }
 
-    // if user presses on Backspace together with Ctrl
     if (e.key === "Backspace" && e.ctrlKey) {
-      // Prevent the default behavior of backspace/delete
       e.preventDefault()
       // Remove the whole word by resetting the lettersStatuses and currentLetterIndex
       setLettersStatuses(Array.from({ length: word.length }, () => 0))
@@ -201,48 +177,22 @@ const ActiveWord = ({
     }
 
     if (pressedKey === "Backspace") return
-    // if user presses on space and they have types last character, they will be moved to the next word
 
-    if (pressedKey === " " && currentLetterIndex > word.length - 1) {
-      goToNextWord(lettersStatuses)
-    }
+    setLettersStatuses((prevState) => {
+      const savedPrevState = prevState
+      savedPrevState[currentLetterIndex] = isInputCharCorrect
+        ? LetterStatus.Correct
+        : LetterStatus.Incorrect
+      return savedPrevState
+    })
 
-    // if it's the last word and the user has typed the last letter, move to the next word
-    if (isLastWord && currentLetterIndex === word.length - 1) {
-      goToNextWord(lettersStatuses.map((letter) => (letter === 0 ? 2 : letter)))
-    }
-
-    // if user presses on Enter , they are automatically moved to the next word
-    if (["Enter"].includes(pressedKey)) {
-      // if user has not typed any letters of the word
-      if (!lettersStatuses.includes(1) && !lettersStatuses.includes(2)) return
-      goToNextWord(lettersStatuses.map((letter) => (letter === 0 ? 1 : letter)))
-    } else {
-      if (pressedKey === word[currentLetterIndex]) {
-        // if the pressed character is correct, mark it as correct (2)
-        setLettersStatuses((prevState) => {
-          const savedPrevState = prevState
-          savedPrevState[currentLetterIndex] = 2
-          return savedPrevState
-        })
-      } else {
-        // if the pressed character is incorrect, mark it as incorrect (1)
-        setLettersStatuses((prevState) => {
-          const savedPrevState = prevState
-          savedPrevState[currentLetterIndex] = 1
-          return savedPrevState
-        })
-      }
-      // moving to the next character
-      setCurrentLetterIndex((prevState) => prevState + 1)
-    }
+    // moving to the next character
+    setCurrentLetterIndex((prevState) => prevState + 1)
   }
 
   useEffect(() => {
-    // adds event listener that is triggered on each key press
     window.addEventListener("keydown", handleKeyPress)
 
-    // cleans the event listener when the component unmounts
     return () => {
       window.removeEventListener("keydown", handleKeyPress)
     }
@@ -266,7 +216,6 @@ const ActiveWord = ({
             key={index}
             letter={letter}
             isCurrentLetter={index === currentLetterIndex}
-            isLastLetter={index === word.length}
             isCorrect={lettersStatuses[index]}
           />
         )

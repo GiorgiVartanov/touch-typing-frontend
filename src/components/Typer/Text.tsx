@@ -1,39 +1,35 @@
 /// <reference types="vite-plugin-svgr/client" />
 // fixed issue with importing svg file as a component
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 
-// import ResetIcon from "../../assets/icons/arrow-rotate-left.svg?react"
-// it has "?react" at the end, so it will be imported as a Component
-
 import Word from "./Word"
 import ActiveWord from "./ActiveWord"
+import {
+  wordsLetterStatusesType,
+  wordLetterStatusesType,
+} from "../../types/typer.types/letterStatuses.types"
+import { useMetrics } from "../../store/context/MetricsContext"
 
 interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
-  finishHandler?: (lettersStatuses: (0 | 1 | 2)[][], startTime: Date | null) => void
+  handleTextFinish: () => void
 }
 
-const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) => {
+const Text = ({ text, wordSeparator = "", handleTextFinish }: Props) => {
   const { font, fontSize } = useTypingSettingsStore()
-  const startTime = useRef<Date | null>(null)
+  const { metrics, handleMetrics } = useMetrics()
 
   const textLength = text.length
 
-  // const containerHeight = `${amountOfShownLines * lineSpacing}rem`
-
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
-  const [lettersStatuses, setLettersStatuses] = useState<(0 | 1 | 2)[][]>([])
+  const [lettersStatuses, setLettersStatuses] = useState<wordsLetterStatusesType>([])
 
   // goes to the next word
-  const goToNextWord = (wordLetterStatuses: (0 | 1 | 2)[]) => {
-    // 0 - letter was not typed yet
-    // 1 - letter was typed incorrectly
-    // 2 - letter was typed correctly
-
+  const handleFinishWord = (wordLetterStatuses: wordLetterStatusesType, isLastWord: boolean) => {
     setCurrentWordIndex((prevState) => prevState + 1)
     setLettersStatuses((prevState) => {
       if (prevState) {
@@ -43,13 +39,16 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) =>
       }
     })
 
-    if (currentWordIndex + 1 === text.length && finishHandler)
-      finishHandler([...lettersStatuses, wordLetterStatuses], startTime.current)
+    if (isLastWord) {
+      handleMetrics.handleSetLetterStatuses([...lettersStatuses, wordLetterStatuses])
+      handleTextFinish()
+    }
   }
 
   useEffect(() => {
     setCurrentWordIndex(0)
     setLettersStatuses([])
+    handleMetrics.handleResetMetrics()
   }, [text])
 
   const calculateFontSize = () => {
@@ -82,19 +81,13 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) =>
     }
   }
 
-  // const lineHeight = 1.25 // Set the line height factor based on your design
-  // const amountOfShownLines = 5 // Set the desired number of lines to be shown
-
-  // const containerHeight = `${amountOfShownLines * parseFloat(calculateFontSize()) * lineHeight}rem`
-
   return (
     <div
       autoFocus={true}
+      // applies text settings
       style={{
         fontSize: calculateFontSize(),
         lineHeight: calculateLineHeight(),
-        // maxHeight: containerHeight,
-        // overflow: "hidden",
       }}
       className={`text font-${font}`}
     >
@@ -104,10 +97,9 @@ const Text = ({ text, wordSeparator = "", finishHandler = undefined }: Props) =>
             <ActiveWord
               key={index}
               word={word}
-              goToNextWord={goToNextWord}
+              handleFinishWord={handleFinishWord}
               isLastWord={index === textLength - 1}
               wordSeparator={wordSeparator}
-              startTime={startTime}
             />
           )
         } else {

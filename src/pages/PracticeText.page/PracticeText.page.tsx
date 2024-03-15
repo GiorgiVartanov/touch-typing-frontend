@@ -6,7 +6,7 @@ import "./styles.scss"
 import { Text } from "../../types/practiceText.types"
 import { getPracticeText } from "../../services/practiceText"
 
-import Typer from "../../components/Typer/Typer"
+import TypingArea from "../../components/TypingArea/TypingArea"
 import Loading from "../../components/Loading/Loading"
 
 // page
@@ -45,7 +45,7 @@ const PracticeTextPage = () => {
         </h2>
         <p>{description}</p>
       </div>
-      <Typer
+      <TypingArea
         text={text}
         wordSeparator={wordSeparator}
       />

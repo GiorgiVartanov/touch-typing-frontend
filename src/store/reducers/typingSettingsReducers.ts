@@ -1,7 +1,7 @@
-import { FontType, FontSizeType } from "../../types/typingSettings.types"
+import { FontType, FontSizeType } from "../../types/typer.types/typingSettings.types"
 
 import { SET_FONT, SET_FONT_SIZE } from "../actions/typingSettingsActions"
-import { TypingSettingsState } from "../../types/typingSettings.types"
+import { TypingSettingsState } from "../../types/typer.types/typingSettings.types"
 
 export type TypingSettingsActions =
   | { type: typeof SET_FONT; payload: FontType }

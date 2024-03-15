@@ -1,0 +1,30 @@
+.results {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+
+  .metric {
+    .value {
+      font-size: 3rem;
+      color: var(--primary-color);
+    }
+
+    .name {
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+  }
+
+  .restart {
+    width: 3rem;
+    height: 3rem;
+    background: url("/assets/icons/arrow-rotate-right.svg") no-repeat;
+    margin-left: auto;
+
+    &:focus {
+      transition: 0.3s;
+      transform: scale(1.1);
+    }
+  }
+}
