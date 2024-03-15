@@ -13,6 +13,7 @@ const RadioSetting = ({ name, selectedValue, valueOptions, selectValue }: Props)
         <label
           key={index}
           className="radio-setting"
+          htmlFor={`${name}_${index}`}
         >
           <input
             type="radio"
@@ -23,7 +24,6 @@ const RadioSetting = ({ name, selectedValue, valueOptions, selectValue }: Props)
             onChange={() => selectValue(option)}
           />
           {option.toString()}
-          {/* <label htmlFor={`${name}_${index}`}>{}</label> */}
         </label>
       ))}
     </div>
