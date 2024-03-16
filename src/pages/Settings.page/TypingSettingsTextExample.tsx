@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-import Typer from "../../components/Typer/Typer"
+import TypingArea from "../../components/TypingArea/TypingArea"
 
 const TypingSettingsTextExample = () => {
   const { t } = useTranslation("translation", { keyPrefix: "settings page" })
@@ -8,7 +8,7 @@ const TypingSettingsTextExample = () => {
   return (
     <div className="text-example ">
       <p>{t("text example")}</p>
-      <Typer text={t("text example text")} />
+      <TypingArea text={t("text example")} />
     </div>
   )
 }

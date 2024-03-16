@@ -1,17 +1,18 @@
 import Text from "./Text"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import "../Typer/styles.scss"
 
 interface Props {
   text: string
   wordSeparator?: string
-  finishHandler?: (lettersStatuses: (0 | 1 | 2)[][], startTime: Date | null) => void
+  handleTextFinish: (user_wpm: number) => void
   ModifyMatch: (currentWordIndex: number) => void
 }
 
 // renders typing settings
 // renders Text with the passed word separator (thing between words, usually space but any string may be passed)
-const TyperPlay = ({ text, wordSeparator = "", finishHandler = undefined, ModifyMatch }: Props) => {
+const TyperPlay = ({ text, wordSeparator = "", handleTextFinish, ModifyMatch }: Props) => {
+  const [show, setShow] = useState<Boolean>(true)
   const memoizedTyper = useMemo(() => {
     return (
       <div className="typer">
@@ -19,13 +20,15 @@ const TyperPlay = ({ text, wordSeparator = "", finishHandler = undefined, Modify
         <Text
           text={text.split(" ")}
           wordSeparator={wordSeparator}
-          finishHandler={finishHandler}
+          handleTextFinish={handleTextFinish}
           ModifyMatch={ModifyMatch}
+          removeTextComponent={() => setShow(false)}
         />
       </div>
     )
   }, [])
 
-  return memoizedTyper
+  if (show) return memoizedTyper
+  else return <></>
 }
 export default TyperPlay

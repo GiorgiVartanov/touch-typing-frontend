@@ -1,21 +1,16 @@
+import { LetterStatus } from "../../types/typer.types/letterStatuses.types"
+
 interface Props {
   letter: string
   isCurrentLetter: boolean
-  isLastLetter: boolean
-  isCorrect?: 0 | 1 | 2
+  isCorrect?: LetterStatus
 }
 
-const Letter = ({ letter, isCurrentLetter, isLastLetter, isCorrect = 0 }: Props) => {
+const Letter = ({ letter, isCurrentLetter, isCorrect = LetterStatus.Inactive }: Props) => {
   const color = ["", "incorrect-letter", "correct-letter"][isCorrect]
 
   return (
-    <span
-      className={`letter ${isLastLetter ? "last-letter" : ""} ${color} ${
-        isCurrentLetter ? "active-letter" : ""
-      }`}
-    >
-      {letter}
-    </span>
+    <span className={`letter ${color} ${isCurrentLetter ? "active-letter" : ""}`}>{letter}</span>
   )
 }
 export default Letter

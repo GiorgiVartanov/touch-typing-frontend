@@ -29,7 +29,7 @@ const PlayPage = () => {
 
   //here should work without [match_id], right? (since match_id comes from PlayStore) couldn't make it work...
   useEffect(() => {
-    if (match_id) navigate(`./${match_id}`)
+    if (match_id) navigate(`../match/${match_id}`)
   }, [match_id])
 
   // Modal component for creating a match
@@ -54,7 +54,7 @@ const PlayPage = () => {
             <div className="play-create">
               {/*აქ იქნება matchSetting Modal*/}
               <Button onClick={clickCreateMatchHandler}>create a match</Button>
-              <Button onClick={() => navigate("../match")}>Match History</Button>
+              <Button onClick={() => navigate("../matches")}>Match History</Button>
             </div>
             <PlayMatchesList
               matches={matches}

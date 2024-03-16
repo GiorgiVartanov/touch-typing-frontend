@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom"
 import { usePlayStore } from "../../store/context/playContext"
 import Button from "../../components/Form/Button"
-import TyperPlay from "../../components/TyperPlay/TyperPlay"
-import calculateWPM from "../../util/calculateWPM"
+import TypingAreaPlay from "../../components/TypingAreaPlay/TypingAreaPlay"
 import { useEffect } from "react"
 import Timer from "./Timer"
+import "./styles.scss"
 
 const Match = () => {
   const {
@@ -21,9 +21,9 @@ const Match = () => {
 
   //If user navigates away from the match, he automatically disconnects... (couldn't make the "useLocation" work... probably something wrong with the playContext)
   useEffect(() => {
-    if (match_finished === true) navigate("../match/" + match_id) // Navigate to the finished match
+    if (match_finished === true) navigate("../matches/" + match_id) // Navigate to the finished match
     return () => {
-      if (location.pathname !== "/play/" + match_id && match_id) {
+      if (location.pathname !== "/match/" + match_id && match_id) {
         // Update pathname
         LeaveMatch(match_id) // Disconnect user if they navigate away from the match
       }
@@ -52,17 +52,6 @@ const Match = () => {
 
   const match = matches[match_id] // Update variable
 
-  //calculates WPM of the user and sends it to the backend
-  // Handler for finishing the match
-  const finishHandler = (lettersStatuses: (0 | 1 | 2)[][], startTime: Date | null) => {
-    const finishTime = new Date()
-    let timeTaken = 0
-    if (startTime) {
-      timeTaken = finishTime.getTime() - startTime.getTime()
-    }
-    NotifyFinish(calculateWPM(timeTaken / 1000, lettersStatuses))
-  }
-
   return (
     <div className="page match">
       {" "}
@@ -71,7 +60,6 @@ const Match = () => {
         <>
           <h1>
             Waiting for users to join: {match.active_players}/{match.user_limit}{" "}
-            {/* Update variables */}
           </h1>
           <Button
             onClick={() => leaveMatch()} // Update function call
@@ -114,9 +102,9 @@ const Match = () => {
           {match.players[uid] === undefined || match.players[uid].has_finished === true ? (
             <Button onClick={() => leaveMatch()}>Leave the match</Button>
           ) : (
-            <TyperPlay
-              finishHandler={finishHandler}
+            <TypingAreaPlay
               ModifyMatch={ModifyMatch}
+              handleTextFinish={NotifyFinish}
               text={match.text}
             />
           )}

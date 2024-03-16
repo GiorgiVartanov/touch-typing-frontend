@@ -80,6 +80,7 @@ const Input = ({
           {name || placeholder}
         </label>
         <input
+          id={name}
           name={name}
           type={!isVisibilityChangeable ? type : isValueVisible ? "text" : "password"}
           value={value}

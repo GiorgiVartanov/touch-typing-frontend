@@ -1,4 +1,4 @@
-import { FontType, FontSizeType } from "../../types/typingSettings.types"
+import { FontType, FontSizeType } from "../../types/typer.types/typingSettings.types"
 
 export const SET_FONT = "SET_FONT"
 export const SET_FONT_SIZE = "SET_FONT_SIZE"

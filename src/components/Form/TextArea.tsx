@@ -37,6 +37,7 @@ const TextArea = ({
         {name || placeholder}
       </label>
       <textarea
+        id={name}
         name={name}
         value={value}
         placeholder={placeholder}
