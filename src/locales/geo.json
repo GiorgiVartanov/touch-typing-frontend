@@ -46,5 +46,42 @@
     "text example": "ტექსტის მაგალითი",
     "text example text": "თქვენი ტექსტი ასე იქნება გამოსახული. შემდეგი სიტყვები მხოლოდ სიგრძისთვისაა, რომ თქვენ ნახოთ თუ როგორ გამოიყურება ტექსტი ერთზე მეტ სტრიქონზე",
     "reset settings": "თავდაპირველ პარამეტრებზე დაბრუნება"
+  },
+  
+  "play page": {
+    "Create a match": "შექმენით მატჩი",
+    "Match history": "მატჩების ისტორია",
+    "Active rooms": "აქტიური ოთახები",
+    "Active matches": "მიმდინარე მატჩები",
+    "Leave": "დატოვება",
+    "Waiting for users to join": "ვუცდით სხვა მომხმარებლების შემოსვლას",
+    "Unauthorized": "არაავტორიზებული",
+    "Spectators": "მაყურებლები",
+    "The match has started. Good luck!": "მატჩი დაიწყო. წარმატებები!",
+    "Leave the match": "მატჩის დატოვება",
+    "Time left": "დარჩენილი დრო",
+    "Spectate": "ყურება",
+    "Join": "შესვლა",
+    "Progress": "პროგრესი",
+    "Disconnected": "გამოთიშული",
+    "Results": "შედეგები",
+    "Search by username": "მოძებნეთ მომხმარებლის სახელით"
+  },
+
+  "forms": {
+    "Letter": "ასო",
+    "Amount": "ოდენობა",
+    "Min syllables": "მინიმალური მარცვლები",
+    "Max syllables": "მაქსიმალური მარცვლები",
+    "Back": "უკან",
+    "Create": "შექმნა",
+    "Text generation options": "ტექსტის შექმნის მეთოდები",
+    "Sample text": "სანიმუშო ტექსტი",
+    "User limit": "მომხარებელთა ლიმიტი",
+    "Time limit": "დროის ლიმიტი",
+    "Fake words": "ყალბი სიტყვები",
+    "Corpus words": "სიტყვები",
+    "seconds": "წამი",
+    "View": "ნახვა"
   }
 }

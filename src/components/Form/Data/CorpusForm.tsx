@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import ajax from "../../../services/ajax"
 import { Props } from "./DataForm"
 import Input from "../../Form/Input"
+import { useTranslation } from "react-i18next"
 
 export interface TextRequestWord {
   type?: string
@@ -14,6 +15,7 @@ interface CorpusFormProps extends Props {
 
 const CorpusForm = ({ setFetchedData, setLoading, setError, setTextRequest }: CorpusFormProps) => {
   const [amount, setAmount] = useState<Number>(10)
+  const { t } = useTranslation("translation", { keyPrefix: "forms" })
 
   useEffect(() => {
     if (setLoading) setLoading(true)
@@ -46,7 +48,7 @@ const CorpusForm = ({ setFetchedData, setLoading, setError, setTextRequest }: Co
 
   return (
     <div className="corpus">
-      <p>amount:</p>
+      <p>{t("Amount")}:</p>
       <Input
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           if (Number(e.target.value) > 0 && Number(e.target.value) < 1000)

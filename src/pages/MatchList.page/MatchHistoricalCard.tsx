@@ -1,5 +1,6 @@
 import Button from "../../components/Form/Button"
 import { MatchState } from "../../types/match.types"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   match: MatchState
@@ -7,11 +8,16 @@ interface Props {
 }
 
 const MatchHistoricalCard = ({ match, onClick }: Props) => {
+  const { t } = useTranslation("translation", { keyPrefix: "forms" })
   return (
     <div className="match-card">
       <div className="head">
-        <p>time limit: {match.time_limit} seconds</p>
-        <p>user limit: {match.user_limit}</p>
+        <p>
+          {t("Time limit")}: {match.time_limit} {t("seconds")}
+        </p>
+        <p>
+          {t("User limit")}: {match.user_limit}
+        </p>
       </div>
       <p>{match.text.length > 100 ? match.text.slice(0, 100) + "..." : match.text}</p>
       {/* if we want to show the text generation type, instead of the text */}
@@ -20,7 +26,7 @@ const MatchHistoricalCard = ({ match, onClick }: Props) => {
       </p> */}
       <div className="match-card-bottom">
         <p>{new Date(match.date).toString().slice(4, 25)}</p>
-        <Button onClick={() => onClick(match._id)}>View</Button>
+        <Button onClick={() => onClick(match._id)}>{t("View")}</Button>
       </div>
     </div>
   )

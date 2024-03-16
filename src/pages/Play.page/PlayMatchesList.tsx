@@ -2,6 +2,7 @@ import { useState } from "react"
 import Button from "../../components/Form/Button"
 import { MatchStateList } from "../../types/match.types"
 import PlayMatchCard from "./PlayMatchesCard"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   matches: MatchStateList
@@ -10,6 +11,7 @@ interface Props {
 
 const PlayMatchesList = ({ matches, onClick }: Props) => {
   const [option, setOption] = useState<boolean>(false)
+  const { t } = useTranslation("translation", { keyPrefix: "play page" })
   return (
     <div className="match-list">
       <div className="options">
@@ -18,14 +20,14 @@ const PlayMatchesList = ({ matches, onClick }: Props) => {
           className={option === false ? "active" : ""}
           onClick={() => setOption(false)}
         >
-          Active rooms
+          {t("Active rooms")}
         </Button>
         <Button
           key={2}
           className={option === false ? "" : "active"}
           onClick={() => setOption(true)}
         >
-          Active matches
+          {t("Active matches")}
         </Button>
       </div>
       {Object.keys(matches)

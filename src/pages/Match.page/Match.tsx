@@ -5,6 +5,7 @@ import TypingAreaPlay from "../../components/TypingAreaPlay/TypingAreaPlay"
 import { useEffect } from "react"
 import Timer from "./Timer"
 import "./styles.scss"
+import { useTranslation } from "react-i18next"
 
 const Match = () => {
   const {
@@ -18,6 +19,7 @@ const Match = () => {
     match_finished,
   } = usePlayStore() // Update variables
   const navigate = useNavigate()
+  const { t } = useTranslation("translation", { keyPrefix: "play page" })
 
   //If user navigates away from the match, he automatically disconnects... (couldn't make the "useLocation" work... probably something wrong with the playContext)
   useEffect(() => {
@@ -39,7 +41,7 @@ const Match = () => {
   )
     return (
       <div className="page">
-        <h1>Unauthorized</h1>
+        <h1>{t("Unauthorized")}</h1>
       </div>
     )
 
@@ -59,22 +61,24 @@ const Match = () => {
       {match.has_started !== true ? (
         <>
           <h1>
-            Waiting for users to join: {match.active_players}/{match.user_limit}{" "}
+            {t("Waiting for users to join")}: {match.active_players}/{match.user_limit}{" "}
           </h1>
           <Button
             onClick={() => leaveMatch()} // Update function call
           >
-            Leave
+            {t("Leave")}
           </Button>
         </>
       ) : (
         <>
-          <h1 className="spectators">spectators: {Object.keys(match.spectators).length}</h1>
+          <h1 className="spectators">
+            {t("Spectators")}: {Object.keys(match.spectators).length}
+          </h1>
           {match.players[uid] === undefined || match.players[uid].has_finished === true ? (
             <></>
           ) : (
             <>
-              <h1 className="head">The match has started. Good luck!</h1>
+              <h1 className="head">{t("The match has started. Good luck!")}</h1>
               <Timer duration={match.time_limit} />
             </>
           )}
@@ -91,8 +95,8 @@ const Match = () => {
                   {match.players[uid].WPM !== -1
                     ? match.players[uid].has_finished
                       ? " WPM: "
-                      : " Progress: "
-                    : " Disconnected: "}
+                      : " " + t("Progress") + ": "
+                    : " " + t("Disconnected") + ": "}
                   {match.players[uid].WPM.toFixed(2)}
                   {match.players[uid].has_finished ? "" : "%"}
                 </h1>
@@ -100,7 +104,7 @@ const Match = () => {
             )
           })}
           {match.players[uid] === undefined || match.players[uid].has_finished === true ? (
-            <Button onClick={() => leaveMatch()}>Leave the match</Button>
+            <Button onClick={() => leaveMatch()}>{t("Leave the match")}</Button>
           ) : (
             <TypingAreaPlay
               ModifyMatch={ModifyMatch}

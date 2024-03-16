@@ -6,6 +6,7 @@ import Loading from "../../components/Loading/Loading"
 import Button from "../../components/Form/Button"
 import "./styles.scss"
 import TypingArea from "../../components/TypingArea/TypingArea"
+import { useTranslation } from "react-i18next"
 
 const MatchHistorical = () => {
   const { id } = useParams()
@@ -14,6 +15,8 @@ const MatchHistorical = () => {
   const [match, setMatch] = useState<MatchState | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const navigate = useNavigate()
+  const t_form = useTranslation("translation", { keyPrefix: "forms" })["t"]
+  const t_play = useTranslation("translation", { keyPrefix: "play page" })["t"]
 
   useEffect(() => {
     setIsLoading(true)
@@ -43,8 +46,12 @@ const MatchHistorical = () => {
           key={1}
           className="history-header-top"
         >
-          <h1 key={1}>User limit: {match.user_limit}</h1>
-          <h1 key={2}>Time limit: {match.time_limit}</h1>
+          <h1 key={1}>
+            {t_form("User limit")}: {match.user_limit}
+          </h1>
+          <h1 key={2}>
+            {t_form("Time limit")}: {match.time_limit}
+          </h1>
         </div>
         <div
           key={2}
@@ -55,7 +62,7 @@ const MatchHistorical = () => {
       </div>
       <div className="history-body">
         <div className="history-body-list">
-          <h1 className="title">Results:</h1>
+          <h1 className="title">{t_play("Results")}:</h1>
           {Object.keys(match.players).map((key, ind) => {
             return (
               <div
@@ -66,7 +73,7 @@ const MatchHistorical = () => {
                 {match.players[key].WPM != -1 ? (
                   <h1 key={2}>WPM: {match.players[key].WPM.toFixed(2)}</h1>
                 ) : (
-                  "Disconnected"
+                  t_play("Disconnected")
                 )}
               </div>
             )
@@ -77,7 +84,7 @@ const MatchHistorical = () => {
         </div>
       </div>
       <div className="history-button">
-        <Button onClick={onClick}>Back</Button>
+        <Button onClick={onClick}>{t_form("Back")}</Button>
       </div>
     </div>
   )
