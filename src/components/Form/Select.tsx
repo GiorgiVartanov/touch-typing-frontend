@@ -8,7 +8,7 @@ interface Props {
 const Select = ({ name, value, options, onChange }: Props) => {
   return (
     <div className="select-wrapper">
-      <label htmlFor="">{name}</label>
+      <label htmlFor={name}>{name}</label>
       <select
         id={name}
         name={name}
