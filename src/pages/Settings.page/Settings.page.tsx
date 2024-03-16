@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
@@ -11,6 +12,8 @@ import Button from "../../components/Form/Button"
 import TypingSettingsTextExample from "./TypingSettingsTextExample"
 
 const SettingsPage = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "settings page" })
+
   const [isConfirmResetModalOpen, setIsConfirmResetModalOpen] = useState<boolean>(false)
 
   const {
@@ -48,15 +51,17 @@ const SettingsPage = () => {
   // application settings
   const appSettings = [
     {
-      name: "theme",
-      selectedValue: theme,
+      name: t("theme"),
+      selectedValue: t(theme),
       valueOptions: themeOptions,
+      valueToShow: themeOptions.map((option) => t(option)),
       selectValue: setTheme,
     },
     {
-      name: "language",
-      selectedValue: language,
+      name: t("language"),
+      selectedValue: t(language),
       valueOptions: languageOptions,
+      valueToShow: languageOptions.map((option) => t(option)),
       selectValue: setLanguage,
     },
   ]
@@ -64,15 +69,17 @@ const SettingsPage = () => {
   // typing settings
   const typingSettings = [
     {
-      name: "font",
+      name: t("font"),
       selectedValue: font,
       valueOptions: fontOptions,
+      valueToShow: fontOptions,
       selectValue: setFont,
     },
     {
-      name: "font size",
-      selectedValue: fontSize,
+      name: t("font size"),
+      selectedValue: t(fontSize),
       valueOptions: fontSizeOptions,
+      valueToShow: fontSizeOptions.map((option) => t(option)),
       selectValue: setFontSize,
     },
   ]
@@ -112,14 +119,18 @@ const SettingsPage = () => {
     )
   }
 
+  // useEffect(() => {
+  //   i18n.changeLanguage(language.toLocaleLowerCase())
+  // }, [language, i18n])
+
   return (
     <div className="page settings-page">
       <SettingsSection
-        sectionTitle="App Settings"
+        sectionTitle={t("app settings")}
         settingsList={appSettings}
       />
       <SettingsSection
-        sectionTitle="Typing Settings"
+        sectionTitle={t("typing settings")}
         settingsList={typingSettings}
       >
         <TypingSettingsTextExample />
@@ -129,7 +140,7 @@ const SettingsPage = () => {
           className="reset-settings-button"
           onClick={handleOpenConfirmResetModal}
         >
-          reset settings
+          {t("reset settings")}
         </Button>
       </div>
 

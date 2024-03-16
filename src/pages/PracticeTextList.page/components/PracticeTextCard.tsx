@@ -7,7 +7,7 @@ interface Props {
   level: string
   _id: string
   className?: string
-  style: React.CSSProperties
+  style?: React.CSSProperties
 }
 
 // shows text title and description

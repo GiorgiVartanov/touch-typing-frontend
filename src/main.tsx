@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
+import "./i18n"
+
 import "./index.scss"
 import "react-toastify/dist/ReactToastify.css"
 

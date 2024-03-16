@@ -6,6 +6,7 @@ interface Props {
     name: string
     selectedValue: any
     valueOptions: any[]
+    valueToShow: any[]
     selectValue: (newValue: any) => void
   }[]
   children?: React.ReactNode

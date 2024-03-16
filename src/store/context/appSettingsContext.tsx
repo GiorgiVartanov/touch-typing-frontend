@@ -1,4 +1,5 @@
-import { createContext, useContext, useReducer } from "react"
+import { createContext, useContext, useReducer, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 import { setThemeAction, setLanguageAction } from "../actions/appSettingsActions"
 import { LanguageType, ThemeType } from "../../types/appSettings.types"
@@ -27,14 +28,16 @@ interface Props {
 }
 
 const AppSettingsProvider = ({ children }: Props) => {
+  const { i18n } = useTranslation()
+
   const [state, dispatch] = useReducer(appSettingsReducer, appSettingsInitialState)
 
   const { token } = useAuthStore()
 
   const themeOptions = ["System Default", "Dark", "Light"] as ThemeType[]
-  const languageOptions = ["Geo", "Eng"] as LanguageType[]
+  const languageOptions = ["System Default", "Geo", "En"] as LanguageType[]
 
-  // saves a setting both in localStorage and on the server (if saveOnServer is true or token is available)
+  // saves a setting in the localStorage and on the server (if saveOnServer is true and a token is available)
   const saveSetting = (
     appSettings: string,
     value: string | number | boolean,
@@ -66,12 +69,41 @@ const AppSettingsProvider = ({ children }: Props) => {
   const setLanguage = (newValue: LanguageType, saveOnServer: boolean = true) => {
     saveSetting("language", newValue, saveOnServer)
     dispatch(setLanguageAction(newValue))
+
+    let languageToApply = "en"
+
+    if (newValue === "System Default") {
+      // user's browser's language
+      const systemDefaultLanguage = navigator.language.split("-")[0]
+
+      if (systemDefaultLanguage === "ka") languageToApply = "geo"
+      else languageToApply = "en"
+    } else {
+      languageToApply = newValue.toLowerCase()
+    }
+
+    i18n.changeLanguage(languageToApply)
   }
 
   // resets all settings to default values
   const resetAppSettings = () => {
     setAppSettings()
   }
+
+  useEffect(() => {
+    let languageToApply = "en"
+
+    if (state.language === "System Default") {
+      const systemDefaultLanguage = navigator.language.split("-")[0]
+
+      if (systemDefaultLanguage === "ka") languageToApply = "geo"
+      else languageToApply = "en"
+    } else {
+      languageToApply = state.language.toLowerCase()
+    }
+
+    i18n.changeLanguage(languageToApply)
+  }, [])
 
   const store = {
     ...state,

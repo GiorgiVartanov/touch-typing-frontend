@@ -1,11 +1,11 @@
-import ajax from "../../../services/ajax"
-import Loading from "../../../components/Loading/Loading"
+import ajax from "../../services/ajax"
+import Loading from "../../components/Loading/Loading"
 import { useEffect, useState } from "react"
-import { MatchState } from "../../../types/match.types"
+import { MatchState } from "../../types/match.types"
 import MatchHistoricalCard from "./MatchHistoricalCard" // Update import
 import { useNavigate } from "react-router-dom"
-import Button from "../../../components/Form/Button"
-import SearchBar from "../../../components/SearchBar/SearchBar"
+import Button from "../../components/Form/Button"
+import SearchBar from "../../components/SearchBar/SearchBar"
 
 const MatchHistoricalList = () => {
   // State to hold the list of matches and loading state

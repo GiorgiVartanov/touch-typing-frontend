@@ -108,7 +108,9 @@
 
           &.nav-item-link {
             padding: 0.25rem 0.5rem;
-            transition: opacity 300ms var(--animation-function);
+            transition:
+              color 300ms var(--animation-function),
+              opacity 300ms var(--animation-function);
 
             &:hover {
               opacity: 0.75;
@@ -450,6 +452,7 @@
 
           &.nav-item-link {
             padding: 1rem !important;
+
             align-items: end;
             transition:
               background-color 300ms var(--animation-function),
@@ -504,7 +507,7 @@
                 border-radius: 0 !important;
                 display: flex !important;
                 padding-right: 1.75rem;
-                // transition: 300ms var(--animation-function);
+                transition: 300ms var(--animation-function);
 
                 &:hover,
                 &:active {
