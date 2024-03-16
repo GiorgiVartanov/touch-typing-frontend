@@ -8,7 +8,7 @@ const TypingSettingsTextExample = () => {
   return (
     <div className="text-example ">
       <p>{t("text example")}</p>
-      <TypingArea text={t("text example")} />
+      <TypingArea text={t("text example text")} />
     </div>
   )
 }
