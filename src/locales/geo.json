@@ -1,0 +1,50 @@
+{
+  "header": {
+    "learn": "სწავლა",
+    "lessons": "გაკვეთილები",
+    "competition": "შეჯიბრი",
+    "practice": "ტექსტები",
+    "games": "თამაშები",
+    "other": "სხვა",
+    "social": "სოციალიზაცია?",
+    "leaderboards": "ლიდერბორდი",
+    "settings": "პარამეტრები",
+    "profile": "პროფილი",
+    "notifications": "შეტყობინებები",
+    "log out": "გასხვა",
+    "register": "რეგისტრაცია",
+    "log in": "შესვლა"
+  },
+
+  "main page": {
+    "lessons": "გაკვეთილები",
+    "lessons message": "ისწავლე ბრმად ბეჭდვა",
+    "competition": "შეჯიბრი",
+    "competition message": "შეეჯიბრე სხვებს",
+    "games": "თამაშები",
+    "games message": "ისწავლე თამაშებით",
+    "practice": "ტექსტები",
+    "practice message": "აკრიფე ტექსტები"
+  },
+
+  "settings page": {
+    "app settings": "აპლიკაციის პარამეტრები",
+    "theme": "თემა?",
+    "System Default": "სისტემ დეფაულტი",
+    "Dark": "ბნელი",
+    "Light": "ნათელი",
+    "language": "ენა",
+    "Geo": "ქართული",
+    "En": "English",
+    "typing settings": "ბეჭდვის პარამეტრები",
+    "font": "ფონტი",
+    "font size": "ფონტის ზომა",
+    "small": "პატარა",
+    "medium": "საშუალო",
+    "large": "დიდი",
+    "extra large": "უფრო დიდი",
+    "text example": "ტექსტის მაგალითი",
+    "text example text": "თქვენი ტექსტი ასე იქნება გამოსახული. შემდეგი სიტყვები მხოლოდ სიგრძისთვისაა, რომ თქვენ ნახოთ თუ როგორ გამოიყურება ტექსტი ერთზე მეტ სტრიქონზე",
+    "reset settings": "თავდაპირველ პარამეტრებზე დაბრუნება"
+  }
+}

@@ -37,7 +37,7 @@ const PracticeTextCardList = ({
           author={text.author}
           level={text.level}
           _id={text._id}
-          style={{ animationDelay: `${index * 0.05}s` }}
+          // style={{ animationDelay: `${index * 0.05}s` }}
           key={text._id}
         />
       ))}

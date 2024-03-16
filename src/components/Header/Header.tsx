@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
+import { useTranslation } from "react-i18next"
 
 import { useAuthStore } from "../../store/context/authContext"
 import { useOnClickOutside } from "../../hooks/useOnClickOutside"
@@ -28,6 +29,8 @@ import NotificationsAmount from "./NotificationsAmount"
 import "./styles.scss"
 
 const Header = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "header" })
+
   const navRef = useRef<HTMLElement>(null)
 
   const navigate = useNavigate()
@@ -185,53 +188,53 @@ const Header = () => {
           <li className="nav-item">
             <ChangeTheme />
           </li>
-          <NavItem icon="learn">
+          <NavItem icon={t("learn")}>
             <DropDownMenu>
               <DropDownItem
                 icon={<LaptopIcon />}
                 closeNavigation={handleCloseNavigation}
               >
-                <NavLink to={`/lessons`}>Lessons</NavLink>
+                <NavLink to={`/lessons`}>{t("lessons")}</NavLink>
               </DropDownItem>
               <DropDownItem
                 icon={<GlobeIcon />}
                 closeNavigation={handleCloseNavigation}
               >
-                <NavLink to={`/play`}>competition</NavLink>
+                <NavLink to={`/play`}>{t("competition")}</NavLink>
               </DropDownItem>
               <DropDownItem
                 icon={<KeyboardIcon />}
                 closeNavigation={handleCloseNavigation}
               >
-                <NavLink to={`/practice`}>practice</NavLink>
+                <NavLink to={`/practice`}>{t("practice")}</NavLink>
               </DropDownItem>
               <DropDownItem
                 icon={<GamepadIcon />}
                 closeNavigation={handleCloseNavigation}
               >
-                <NavLink to={`/games`}>games</NavLink>
+                <NavLink to={`/games`}>{t("games")}</NavLink>
               </DropDownItem>
             </DropDownMenu>
           </NavItem>
-          <NavItem icon="other">
+          <NavItem icon={t("other")}>
             <DropDownMenu>
               <DropDownItem
                 icon={<UserGroupIcon />}
                 closeNavigation={handleCloseNavigation}
               >
-                <NavLink to={`/social`}>social</NavLink>
+                <NavLink to={`/social`}>{t("social")}</NavLink>
               </DropDownItem>
               <DropDownItem
                 icon={<TrophyIcon />}
                 closeNavigation={handleCloseNavigation}
               >
-                <NavLink to={`/leaderboards`}>leaderboards</NavLink>
+                <NavLink to={`/leaderboards`}>{t("leaderboards")}</NavLink>
               </DropDownItem>
               <DropDownItem
                 icon={<SettingsIcon />}
                 closeNavigation={handleCloseNavigation}
               >
-                <NavLink to={`/settings`}>settings</NavLink>
+                <NavLink to={`/settings`}>{t("settings")}</NavLink>
               </DropDownItem>
             </DropDownMenu>
           </NavItem>

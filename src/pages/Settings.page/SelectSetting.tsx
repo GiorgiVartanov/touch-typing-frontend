@@ -2,11 +2,16 @@ interface Props {
   name: string
   selectedValue: string | number | boolean
   valueOptions: Array<string | number | boolean>
+  valueToShow: Array<string | number | boolean>
   selectValue: (newValue: string | number | boolean) => void
 }
 
-// select element where user can select typing setting
-const SelectSetting = ({ name, selectedValue, valueOptions, selectValue }: Props) => {
+// select element where user can select setting
+const SelectSetting = ({ name, selectedValue, valueOptions, valueToShow, selectValue }: Props) => {
+  const handleSelectValue = (newValue: string) => {
+    selectValue(valueOptions[valueToShow.indexOf(newValue)])
+  }
+
   return (
     <label
       htmlFor={name}
@@ -16,11 +21,12 @@ const SelectSetting = ({ name, selectedValue, valueOptions, selectValue }: Props
       <select
         id={name}
         name={name}
+        // value={valueToShow[valueOptions.indexOf(selectedValue)].toString()}
         value={selectedValue.toString()}
-        onChange={(e) => selectValue(e.target.value)}
+        onChange={(e) => handleSelectValue(e.target.value)}
         className="setting-select"
       >
-        {valueOptions.map((option) => (
+        {valueToShow.map((option) => (
           <option
             key={option.toString()}
             value={option.toString()}
