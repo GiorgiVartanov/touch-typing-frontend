@@ -1,33 +1,53 @@
-// @import "../../animations.scss";
-
 .main-page {
   position: relative;
 
-  .hero {
-    position: absolute;
-    // height: 420px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    gap: 5rem;
-    top: 52.5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .main-content {
+    // margin-top: 4rem;
+    position: relative;
+    height: 100vh;
+
+    .background-image {
+      background-image: url(../../assets/hero.jpg);
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: opacity(0.15);
+    }
+
+    .page {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1rem 5rem;
+    }
+
+    .typing-area-main-page {
+      font-size: 2.5rem !important;
+      margin-top: 1rem;
+      // position: absolute;
+      // top: -2.5rem;
+      backdrop-filter: blur(2px);
+    }
 
     .options {
-      transform: translateY(15%);
       user-select: none;
       padding: 0.5rem;
       max-width: 360px;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.5rem;
+      backdrop-filter: blur(2px);
 
       // animation: appear 200ms var(--animation-function);
 
       .separate {
         display: flex;
-        gap: 0.75rem;
+        gap: 0.5rem;
         width: auto;
       }
 
@@ -42,16 +62,18 @@
           box-shadow 300ms var(--animation-function);
         width: 360px;
         height: 76px;
-        background-color: var(--secondary-background-color);
+        background-color: var(--secondary-background-color-transparent);
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
         box-shadow: 0 2px 4px -1px var(--shadow-color);
         border-radius: var(--border-radius);
 
+        backdrop-filter: blur();
+
         &:hover,
         &:active {
-          background-color: var(--secondary-background-color-active);
+          background-color: var(--secondary-background-color-transparent-active);
           // filter: brightness(var(--action-brightness));
           box-shadow: 0 2px 6px 1px var(--shadow-color);
         }
@@ -93,9 +115,27 @@
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .main-page {
+    .page {
+      justify-content: center;
+      align-items: center;
+      padding: 0 !important;
+
+      .options {
+        margin: auto;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: var(--width-xsm)) {
   .main-page {
-    .hero {
+    .main-content {
+      .page {
+        padding: 0;
+      }
+
       .options {
         width: fit-content;
         max-width: 100%;

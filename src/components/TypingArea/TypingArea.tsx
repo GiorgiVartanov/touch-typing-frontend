@@ -7,12 +7,14 @@ interface Props {
   text: string
   wordSeparator?: string
   handleTextFinish?: () => void
+  className?: string
 }
 
-const TypingAreaDisplay = ({ text, wordSeparator }: Props) => {
+const TypingAreaDisplay = ({ text, wordSeparator, handleTextFinish, className }: Props) => {
   const [displayResults, setDisplayResults] = useState(false)
-  const handleTextFinish = () => {
-    setDisplayResults(true)
+  const handleOnTextFinish = () => {
+    if (handleTextFinish) handleTextFinish()
+    else setDisplayResults(true)
   }
 
   const handleRestart = () => setDisplayResults(false)
@@ -28,7 +30,8 @@ const TypingAreaDisplay = ({ text, wordSeparator }: Props) => {
           <Typer
             text={text}
             wordSeparator={wordSeparator}
-            handleTextFinish={handleTextFinish}
+            handleTextFinish={handleOnTextFinish}
+            className={className}
           />
         )}
       </div>
@@ -36,13 +39,14 @@ const TypingAreaDisplay = ({ text, wordSeparator }: Props) => {
   )
 }
 
-const TypingArea = ({ text, wordSeparator, handleTextFinish }: Props) => {
+const TypingArea = ({ text, wordSeparator, handleTextFinish, className }: Props) => {
   return (
     <MetricsProvider>
       <TypingAreaDisplay
         text={text}
         wordSeparator={wordSeparator}
         handleTextFinish={handleTextFinish}
+        className={className}
       />
     </MetricsProvider>
   )

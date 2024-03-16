@@ -17,9 +17,10 @@ interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
   handleTextFinish: () => void
+  className?: string
 }
 
-const Text = ({ text, wordSeparator = "", handleTextFinish }: Props) => {
+const Text = ({ text, wordSeparator = "", handleTextFinish, className }: Props) => {
   const { font, fontSize } = useTypingSettingsStore()
   const { metrics, handleMetrics } = useMetrics()
 
@@ -89,7 +90,7 @@ const Text = ({ text, wordSeparator = "", handleTextFinish }: Props) => {
         fontSize: calculateFontSize(),
         lineHeight: calculateLineHeight(),
       }}
-      className={`text font-${font}`}
+      className={`text font-${font} ${className}`}
     >
       {text.map((word, index) => {
         if (index === currentWordIndex) {

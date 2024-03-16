@@ -8,6 +8,7 @@
   background-color: transparent;
   background-color: var(--background-color-transparent);
   backdrop-filter: blur(15px);
+  box-shadow: 0 1px 3px -1px var(--shadow-color);
 
   &.header-hidden {
     animation: headerSlideOutToTop 300ms var(--animation-function) forwards;
@@ -369,23 +370,23 @@
   }
 }
 
-// @keyframes headerSlideInFromTop {
-//   0% {
-//     padding: 0 0;
-//   }
-//   100% {
-//     padding: 0.5rem 0;
-//   }
-// }
+@keyframes headerSlideInFromTop {
+  0% {
+    padding: 0 0;
+  }
+  100% {
+    padding: 0.25rem 0;
+  }
+}
 
-// @keyframes headerSlideOutToTop {
-//   0% {
-//     padding: 0.5rem 0;
-//   }
-//   100% {
-//     padding: 0 0;
-//   }
-// }
+@keyframes headerSlideOutToTop {
+  0% {
+    padding: 0.25rem 0;
+  }
+  100% {
+    padding: 0 0;
+  }
+}
 
 @keyframes navbarSlide {
   0% {
