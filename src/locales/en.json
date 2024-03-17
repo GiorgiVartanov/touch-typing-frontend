@@ -27,6 +27,16 @@
     "practice message": "type texts"
   },
 
+  "auth page": {
+    "username": "username",
+    "password": "password",
+    "confirm password": "confirm password",
+    "log in": "log in",
+    "register": "register",
+    "don't have account yet? register": "Don't have account yet? register",
+    "already have account? log in": "Already have account? Log in"
+  },
+
   "settings page": {
     "app settings": "App Settings",
     "theme": "theme",

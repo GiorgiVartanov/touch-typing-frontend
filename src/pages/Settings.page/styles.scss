@@ -10,7 +10,14 @@
     .reset-settings-button {
       // background-color: var(--secondary-background-color);
       padding: 0.25rem 0.5rem;
-      margin-top: 1rem;
+      // margin-top: 1rem;
+      background-color: transparent;
+      box-shadow: none;
+      color: var(--accent-color-dim);
+
+      &:hover {
+        color: var(--accent-color);
+      }
     }
   }
 
@@ -84,6 +91,7 @@
             border: none;
             outline: none;
             border-radius: 0.5rem;
+            box-shadow: 0 2px 4px -1px var(--shadow-color);
 
             &:hover,
             &:focus {

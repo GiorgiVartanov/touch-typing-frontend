@@ -20,11 +20,6 @@
     border-radius: var(--border-radius);
     box-shadow: 0 2px 4px -1px var(--shadow-color);
 
-    // opacity: 0;
-    // transform: scale(0) translate(-25%, -25%);
-
-    // animation: fadeInScale 300ms var(--animation-function) forwards;
-
     background-color: var(--secondary-background-color);
     transition: background-color 300ms var(--animation-function);
     border: 2px solid transparent;
@@ -36,17 +31,17 @@
   }
 }
 
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    // transform: scale(0.5) translate(0, 0);
-    // transform: scale(0) translate(-25%, -25%);
-  }
-  100% {
-    opacity: 1;
-    // transform: scale(1) translate(0, 0);
-  }
-}
+// @keyframes fadeInScale {
+//   0% {
+//     opacity: 0;
+//     // transform: scale(0.5) translate(0, 0);
+//     // transform: scale(0) translate(-25%, -25%);
+//   }
+//   100% {
+//     opacity: 1;
+//     // transform: scale(1) translate(0, 0);
+//   }
+// }
 
 @media screen and (max-width: 520px) {
   .card-list {

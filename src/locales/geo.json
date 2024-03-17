@@ -27,13 +27,23 @@
     "practice message": "აკრიფე ტექსტები"
   },
 
+  "auth page": {
+    "username": "მომხმარებლის სახელი",
+    "password": "პაროლი",
+    "confirm password": "გაიმეორე პაროლი",
+    "log in": "შესვლა",
+    "register": "რეგისტრაცია",
+    "don't have account yet? register": "არ გაქვს ანგარიში? დარეგისტრირდი",
+    "already have account? log in": "უკვე გაქვს ანგარიში? შემოდი"
+  },
+
   "settings page": {
     "app settings": "აპლიკაციის პარამეტრები",
     "theme": "თემა",
-    "System Default": "სისტემ დეფაულტი",
-    "Dark": "ბნელი",
-    "Light": "ნათელი",
-    "language": "ენა",
+    "System Default": "სისტემური",
+    "Dark": "მუქი",
+    "Light": "ღია",
+    "language": "აპლიკაციის ენა",
     "Geo": "ქართული",
     "En": "English",
     "typing settings": "ბეჭდვის პარამეტრები",

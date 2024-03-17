@@ -13,6 +13,8 @@ interface Props {
 const TypingAreaDisplay = ({ text, wordSeparator, handleTextFinish, className }: Props) => {
   const [displayResults, setDisplayResults] = useState(false)
   const handleOnTextFinish = () => {
+    console.log(handleTextFinish)
+
     if (handleTextFinish) handleTextFinish()
     else setDisplayResults(true)
   }

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 import { LoginCredentials, LoginCredentialsError } from "../../types/auth.types"
@@ -10,6 +11,8 @@ import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
 
 const LoginPage = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "auth page" })
+
   const { loginUser, loginErrorMessage, resetLoginPasswordError, resetLoginUsernameError } =
     useAuthStore()
 
@@ -90,13 +93,13 @@ const LoginPage = () => {
     <div className="page register-page">
       <Form onSubmit={handleSubmit}>
         <Input
-          name="username"
+          name={t("username")}
           value={credentials.username}
           onChange={handleUsernameChange}
           errors={[...loginErrorMessage.usernameError, ...credentialsError.usernameError]}
         />
         <Input
-          name="password"
+          name={t("password")}
           type="password"
           value={credentials.password}
           onChange={handlePasswordChange}
@@ -108,7 +111,7 @@ const LoginPage = () => {
         to="../register"
         className="auth-message"
       >
-        Don't have account yet? Register
+        {t("don't have account yet? register")}
       </Link>
     </div>
   )

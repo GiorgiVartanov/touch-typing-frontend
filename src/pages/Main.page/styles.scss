@@ -2,18 +2,8 @@
   position: relative;
 
   .main-content {
-    // margin-top: 4rem;
     position: relative;
     height: 100vh;
-
-    // .background-image {
-    //   background-image: url(../../assets/hero.jpg);
-    //   height: 100vh;
-    //   background-size: cover;
-    //   background-position: center;
-    //   background-repeat: no-repeat;
-    //   filter: opacity(0.15);
-    // }
 
     .page {
       position: absolute;
@@ -29,11 +19,7 @@
     .typing-area-main-page {
       font-size: 2.5rem !important;
       margin-top: 1rem;
-      // position: absolute;
-      // top: -2.5rem;
       backdrop-filter: blur(2px);
-      // border-left: 0.5rem solid var(--primary-color);
-      // padding-left: 0.5rem;
     }
 
     .options {
@@ -43,7 +29,6 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      backdrop-filter: blur(2px);
 
       // animation: appear 200ms var(--animation-function);
 
@@ -70,8 +55,7 @@
         gap: 0.25rem;
         box-shadow: 0 2px 4px -1px var(--shadow-color);
         border-radius: var(--border-radius);
-
-        backdrop-filter: blur();
+        backdrop-filter: blur(2.5px);
 
         &:hover,
         &:active {
