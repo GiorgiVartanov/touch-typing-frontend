@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 const Timer = ({ duration }: { duration: number }) => {
   const [countdown, setCountdown] = useState(duration)
+  const { t } = useTranslation("translation", { keyPrefix: "play page" })
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -17,7 +19,11 @@ const Timer = ({ duration }: { duration: number }) => {
     return () => clearInterval(timer)
   }, [duration])
 
-  return <div className="timer">Time left: {countdown}</div>
+  return (
+    <div className="timer">
+      {t("Time left")}: {countdown}
+    </div>
+  )
 }
 
 export default Timer

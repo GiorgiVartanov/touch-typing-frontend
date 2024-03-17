@@ -46,5 +46,43 @@
     "text example": "text example",
     "text example text": "your text will look like this. words after that are only for length, so you will see how text looks on more than one line",
     "reset settings": "reset settings"
+  },
+
+  "play page": {
+    "Create a match": "Create a match",
+    "Match history": "Match history",
+    "Active rooms": "Active rooms",
+    "Active matches": "Active matches",
+    "Leave": "Leave",
+    "Waiting for users to join": "Waiting for users to join",
+    "Unauthorized": "Unauthorized",
+    "Spectators": "Spectators",
+    "The match has started. Good luck!": "The match has started. Good luck!",
+    "Leave the match": "Leave the match",
+    "Time left": "Time left",
+    "Spectate": "Spectate",
+    "Join": "Join",
+    "Progress": "Progress",
+    "Disconnected": "Disconnected",
+    "Results": "Results",
+    "Search by username": "Search by username",
+    "Active users": "Active users"
+  },
+
+  "forms": {
+    "Letter": "Letter",
+    "Amount": "Amount",
+    "Min syllables": "Min syllables",
+    "Max syllables": "Max syllables",
+    "Back": "Back",
+    "Create": "Create",
+    "Text generation options": "Text generation options",
+    "Sample text": "Sample text",
+    "User limit": "User limit",
+    "Time limit": "Time limit",
+    "Fake words": "Fake words",
+    "Corpus words": "Corpus words",
+    "seconds": "seconds",
+    "View": "View"
   }
 }

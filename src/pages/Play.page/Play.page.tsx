@@ -5,11 +5,13 @@ import PlayMatchesList from "./PlayMatchesList"
 import "./styles.scss"
 import { useNavigate } from "react-router-dom"
 import DataForm from "../../components/Form/Data/DataForm"
+import { useTranslation } from "react-i18next"
 
 const PlayPage = () => {
   const { username, users, match_id, matches, CreateMatch, JoinMatch } = usePlayStore()
   const [showModal, setShowModal] = useState<boolean>(false)
   const navigate = useNavigate()
+  const { t } = useTranslation("translation", { keyPrefix: "play page" })
 
   useEffect(() => {
     if (username === "-1") {
@@ -49,12 +51,14 @@ const PlayPage = () => {
         CreateMatchModal()
       ) : (
         <div className="page play">
-          <h2 className="play-head">Active users: {users.length}</h2>
+          <h2 className="play-head">
+            {t("Active users")}: {users.length}
+          </h2>
           <div className="play-body">
             <div className="play-create">
               {/*აქ იქნება matchSetting Modal*/}
-              <Button onClick={clickCreateMatchHandler}>create a match</Button>
-              <Button onClick={() => navigate("../matches")}>Match History</Button>
+              <Button onClick={clickCreateMatchHandler}>{t("Create a match")}</Button>
+              <Button onClick={() => navigate("../matches")}>{t("Match history")}</Button>
             </div>
             <PlayMatchesList
               matches={matches}

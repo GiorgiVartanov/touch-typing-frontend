@@ -6,6 +6,7 @@ import MatchHistoricalCard from "./MatchHistoricalCard" // Update import
 import { useNavigate } from "react-router-dom"
 import Button from "../../components/Form/Button"
 import SearchBar from "../../components/SearchBar/SearchBar"
+import { useTranslation } from "react-i18next"
 
 const MatchHistoricalList = () => {
   // State to hold the list of matches and loading state
@@ -13,6 +14,8 @@ const MatchHistoricalList = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [userSearch, setUserSearch] = useState<string>("") //has to be saved when navigating...
   const navigate = useNavigate()
+  const t_form = useTranslation("translation", { keyPrefix: "forms" })["t"]
+  const t_play = useTranslation("translation", { keyPrefix: "play page" })["t"]
 
   useEffect(() => {
     setIsLoading(true)
@@ -44,7 +47,7 @@ const MatchHistoricalList = () => {
       <SearchBar
         value={userSearch}
         handleTextChange={handleTextChange}
-        placeholder="search by username..."
+        placeholder={t_play("Search by username") + "..."}
       />
       <div className="match-body-main">
         <div className="match-body-main-list">
@@ -62,7 +65,7 @@ const MatchHistoricalList = () => {
             })}
         </div>
         <div className="back">
-          <Button onClick={() => navigate("../play")}>Back</Button>
+          <Button onClick={() => navigate("../play")}>{t_form("Back")}</Button>
         </div>
       </div>
     </div>

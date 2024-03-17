@@ -4,12 +4,17 @@ import Loading from "../../Loading/Loading"
 import CorpusForm, { TextRequestWord } from "./CorpusForm"
 import Form from "../../../components/Form/Form"
 import Input from "../../../components/Form/Input"
+import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 import Button from "../../Form/Button"
 
 type TextGenMode = "FakeWords" | "CorpusWords" //FakeWords, Corpus Words,
 const TextGenModes = ["FakeWords", "CorpusWords"]
+const TextGenModesText: { [key: string]: string } = {
+  FakeWords: "Fake words",
+  CorpusWords: "Corpus words",
+}
 
 interface matchProps {
   text: string
@@ -46,6 +51,7 @@ const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
   const [error, setError] = useState<boolean>(false)
   const [create, setCreate] = useState<boolean>(false)
   const [params, setParams] = useState<matchProps>(initialMatchProps)
+  const { t } = useTranslation("translation", { keyPrefix: "forms" })
 
   if (loading) return <Loading />
   if (error)
@@ -88,19 +94,19 @@ const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
     >
       <div className="basic">
         <Input
-          name="user limit"
+          name={t("User limit")}
           onChange={handleUserLimitChange}
           value={String(params.user_limit)}
         />
         <Input
-          name="time limit"
+          name={t("Time limit")}
           onChange={handleTimeLimitChange}
           value={String(params.time_limit)}
         />
       </div>
       <div className="textGen">
         <label>
-          Text Generation Options:
+          {t("Text generation options")}
           <select
             id={"textGen_id"}
             value={textGenerationMode}
@@ -111,7 +117,7 @@ const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
                 key={mode}
                 value={mode}
               >
-                {mode}
+                {t(TextGenModesText[mode])}
               </option>
             ))}
           </select>
@@ -128,12 +134,12 @@ const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
             onClick={() => setShowModal(false)}
             {...{ type: "button" }}
           >
-            Back
+            {t("Back")}
           </Button>
-          <Button {...{ type: "submit" }}>Create</Button>
+          <Button {...{ type: "submit" }}>{t("Create")}</Button>
         </div>
         <div className="example">
-          <p>sample text:</p>
+          <p>{t("Sample text")}:</p>
           <p>{fetchedData.length > 200 ? fetchedData.substring(0, 200) + "..." : fetchedData}</p>
         </div>
       </div>

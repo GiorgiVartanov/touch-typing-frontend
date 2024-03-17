@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import ajax from "../../../services/ajax"
 import { Props } from "./DataForm"
+import { useTranslation } from "react-i18next"
 
 const georgianLetters = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ".split("")
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100]
@@ -29,6 +30,7 @@ const FakeWordsForm = ({
   const [amount, setAmount] = useState<number>(5)
   const [minAmountOfSyllables, setMinAmountOfSyllables] = useState<number>(1)
   const [maxAmountOfSyllables, setMaxAmountOfSyllables] = useState<number>(1)
+  const { t } = useTranslation("translation", { keyPrefix: "forms" })
 
   useEffect(() => {
     if (setLoading) setLoading(true)
@@ -65,7 +67,7 @@ const FakeWordsForm = ({
   return (
     <div className="select-list">
       <label htmlFor="letterFW_id">
-        letter:
+        {t("Letter")}:
         <select
           value={letter}
           onChange={(e) => setLetter(e.target.value)}
@@ -82,7 +84,7 @@ const FakeWordsForm = ({
         </select>
       </label>
       <label htmlFor="amountFW_id">
-        amount:
+        {t("Amount")}:
         <select
           id={"amountFW_id"}
           value={amount}
@@ -99,7 +101,7 @@ const FakeWordsForm = ({
         </select>
       </label>
       <label htmlFor="min_syllablesFW_id">
-        min syllables:
+        {t("Min syllables")}:
         <select
           id={"min_syllablesFW_id"}
           value={minAmountOfSyllables}
@@ -116,7 +118,7 @@ const FakeWordsForm = ({
         </select>
       </label>
       <label htmlFor="max_syllablesFW_id">
-        max syllables:
+        {t("Max syllables")}:
         <select
           id={"max_syllablesFW_id"}
           value={maxAmountOfSyllables}
