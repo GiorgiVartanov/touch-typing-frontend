@@ -257,6 +257,7 @@
               flex-direction: row;
               user-select: none;
               background-color: var(--secondary-background-color);
+              backdrop-filter: blur(2.5px);
 
               &:hover,
               &:active {
@@ -425,6 +426,7 @@
     &.nav-hidden {
       .nav {
         display: none !important;
+
         // visibility: hidden !important;
       }
     }
@@ -435,6 +437,7 @@
 
       .nav {
         flex-direction: column;
+        backdrop-filter: blur(10px);
         position: absolute;
         right: 0;
         top: 0;

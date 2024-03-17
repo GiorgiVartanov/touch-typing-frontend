@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 import { RegisterCredentials, RegisterCredentialsError } from "../../types/auth.types"
@@ -15,6 +16,8 @@ const minUsernameLength = 3
 const maxUsernameLength = 20
 
 const RegisterPage = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "auth page" })
+
   const { registerUser, registerErrorMessage } = useAuthStore()
 
   const [credentials, setCredentials] = useState<RegisterCredentials>({
@@ -101,35 +104,35 @@ const RegisterPage = () => {
     const confirmPasswordErrors: string[] = []
 
     if (credentials.username.length === 0) {
-      usernameErrors.push("this field should not be empty")
+      usernameErrors.push(t("this field should not be empty"))
     }
 
     if (credentials.username.length < minUsernameLength && credentials.username.length !== 0) {
-      usernameErrors.push(`username should be longer than ${minUsernameLength} characters`)
+      usernameErrors.push(t(`username should be longer than ${minUsernameLength} characters`))
     }
 
     if (credentials.username.length > maxUsernameLength) {
-      usernameErrors.push(`username should be shorter than ${maxUsernameLength} characters`)
+      usernameErrors.push(t(`username should be shorter than ${maxUsernameLength} characters`))
     }
 
     if (credentials.password.length === 0) {
-      passwordErrors.push("this field should not be empty")
+      passwordErrors.push(t("this field should not be empty"))
     }
 
     if (credentials.password.length < minPasswordLength && credentials.password.length !== 0) {
-      passwordErrors.push(`password should be longer than ${minUsernameLength} characters`)
+      passwordErrors.push(t(`password should be longer than ${minUsernameLength} characters`))
     }
 
     if (credentials.password.length > maxPasswordLength) {
-      passwordErrors.push(`password should be shorter than ${minUsernameLength} characters`)
+      passwordErrors.push(t(`password should be shorter than ${minUsernameLength} characters`))
     }
 
     if (credentials.password !== credentials.confirmPassword) {
-      confirmPasswordErrors.push("passwords do not match")
+      confirmPasswordErrors.push(t("passwords do not match"))
     }
 
     if (credentials.confirmPassword.length === 0) {
-      confirmPasswordErrors.push("this field should not be empty")
+      confirmPasswordErrors.push(t("this field should not be empty"))
     }
 
     if (
@@ -153,13 +156,13 @@ const RegisterPage = () => {
     <div className="page register-page">
       <Form onSubmit={handleSubmit}>
         <Input
-          name="username"
+          name={t("username")}
           value={credentials.username}
           onChange={handleUsernameChange}
           errors={[...registerErrorMessage.usernameError, ...credentialsError.usernameError]}
         />
         <Input
-          name="password"
+          name={t("password")}
           type="password"
           isVisibilityChangeable={false}
           value={credentials.password}
@@ -167,7 +170,7 @@ const RegisterPage = () => {
           errors={[...registerErrorMessage.passwordError, ...credentialsError.passwordError]}
         />
         <Input
-          name="confirm password"
+          name={t("confirm password")}
           type="password"
           isVisibilityChangeable={false}
           value={credentials.confirmPassword}
@@ -177,13 +180,13 @@ const RegisterPage = () => {
             ...credentialsError.confirmPasswordError,
           ]}
         />
-        <Button className="cta-button">register</Button>
+        <Button className="cta-button">{t("register")}</Button>
       </Form>
       <Link
         to="../login"
         className="auth-message"
       >
-        Already have account? Log In
+        {t("already have account? log in")}
       </Link>
     </div>
   )
