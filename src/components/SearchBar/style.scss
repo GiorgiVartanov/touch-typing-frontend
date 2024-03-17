@@ -11,6 +11,11 @@
   transition:
     background-color 300ms var(--animation-function),
     filter 300ms var(--animation-function);
+  color: var(--accent-color);
+
+  &::placeholder {
+    color: var(--accent-color-dim);
+  }
 
   &:focus,
   &:active {

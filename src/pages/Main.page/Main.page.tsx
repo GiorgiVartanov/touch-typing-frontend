@@ -48,7 +48,6 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <div className="main-content">
-        <div className="background-image"></div>
         <div className="page">
           <MainPageText />
           {renderOptions()}

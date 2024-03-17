@@ -54,7 +54,7 @@ const SearchBar = ({
 
   return (
     <input
-      className="border shadow-focus search-bar"
+      className="search-bar"
       placeholder={placeholder}
       value={searchValue}
       onChange={handleOnChange}

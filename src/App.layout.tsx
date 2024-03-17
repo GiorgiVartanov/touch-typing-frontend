@@ -1,23 +1,24 @@
-import { useEffect } from "react";
-import { ToastContainer } from "react-toastify";
+import { useEffect } from "react"
+import { ToastContainer } from "react-toastify"
 
 import "./App.scss"
 
-import Header from "./components/Header/Header";
+import Header from "./components/Header/Header"
 
 interface Props {
-  themeToApply: string;
-  children: React.ReactNode;
+  themeToApply: string
+  children: React.ReactNode
 }
 
-const Layout = ({ children, themeToApply }:Props) => {
+const Layout = ({ children, themeToApply }: Props) => {
   useEffect(() => {
-    document.documentElement.classList.remove("dark", "light");
-    document.documentElement.classList.add(themeToApply);
-  }, [themeToApply]);
+    document.documentElement.classList.remove("dark", "light")
+    document.documentElement.classList.add(themeToApply)
+  }, [themeToApply])
 
   return (
     <div className={`App ${themeToApply}`}>
+      <div className="background-image"></div>
       <Header />
       {children}
       <ToastContainer
@@ -31,7 +32,7 @@ const Layout = ({ children, themeToApply }:Props) => {
         theme={themeToApply}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

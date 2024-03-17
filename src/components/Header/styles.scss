@@ -583,10 +583,7 @@
               .dropdown-menu {
                 visibility: visible;
                 opacity: 1;
-                // max-height: 200px;
-                background-color: red !important;
                 pointer-events: all;
-                // transform: translateY(0) translateX(0) scaleY(1) scaleX(1);
               }
             }
 
@@ -594,10 +591,7 @@
               .dropdown-menu {
                 visibility: hidden;
                 opacity: 0;
-                // max-height: 0;
-                background-color: blue !important;
                 pointer-events: none;
-                // transform: translateY(-40%) translateX(25%) scaleY(0.25) scaleX(0.25);
               }
             }
           }
