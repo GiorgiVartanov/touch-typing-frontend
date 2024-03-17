@@ -62,7 +62,7 @@ form {
       display: block;
       padding: 0.5rem;
       background-color: var(--secondary-background-color);
-      // box-shadow: 0 2px 4px -1px var(--shadow-color);
+      box-shadow: 0 2px 4px -1px var(--shadow-color);
       font-size: 1rem;
       width: 300px;
       border-radius: var(--border-radius);
@@ -155,12 +155,11 @@ form {
       background-color: var(--secondary-background-color);
       width: 300px;
       display: block;
-      // transition: 300ms var(--animation-function);
+      transition: background-color 300ms var(--animation-function);
       border-radius: var(--border-radius);
 
       &:focus {
-        // box-shadow: 0 6px 12px 1px var(--shadow-color);
-        // filter: brightness(var(--action-brightness));
+        background-color: var(--secondary-background-color-active);
       }
     }
   }

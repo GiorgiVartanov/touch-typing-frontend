@@ -36,6 +36,18 @@ body {
 
   font-family: "Poppins", "Noto Sans Georgian", sans-serif;
 
+  .background-image {
+    background-image: url(./assets/hero.jpg);
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: opacity(0.15) blur(3px);
+    pointer-events: none;
+  }
+
   // light theme
   &:not(.dark) {
     --primary-color: rgb(87, 82, 180);
@@ -54,10 +66,8 @@ body {
     --background-color: #e3e8f0;
     --background-color-transparent: #e3e8f06c;
 
-    --secondary-background-color: #ffffff;
-    --secondary-background-color-transparent: #ffffff4d;
-    --secondary-background-color-active: #f6f7fd;
-    --secondary-background-color-transparent-active: #f6f7fd25;
+    --secondary-background-color: #ffffff4d;
+    --secondary-background-color-active: #f6f7fd25;
 
     --text-color: #1f1e24;
 
@@ -89,10 +99,8 @@ body {
     --background-color: #262533;
     --background-color-transparent: #26253375;
 
-    --secondary-background-color: #44435a;
-    --secondary-background-color-transparent: #44435ab2;
-    --secondary-background-color-active: #555470;
-    --secondary-background-color-transparent-active: #555470b2;
+    --secondary-background-color: #44435ab2;
+    --secondary-background-color-active: #555470b2;
 
     --text-color: #e2e6eb;
 

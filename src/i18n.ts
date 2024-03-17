@@ -12,7 +12,7 @@ i18n
   .init({
     lng: "eng",
     fallbackLng: "eng",
-    debug: true, // change to false
+    debug: import.meta.env.MODE ? true : false,
 
     resources: {
       eng: {

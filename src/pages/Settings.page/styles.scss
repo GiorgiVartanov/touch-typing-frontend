@@ -84,6 +84,11 @@
             border: none;
             outline: none;
             border-radius: 0.5rem;
+
+            &:hover,
+            &:focus {
+              background-color: var(--secondary-background-color-active);
+            }
           }
         }
       }

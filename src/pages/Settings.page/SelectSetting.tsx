@@ -21,7 +21,6 @@ const SelectSetting = ({ name, selectedValue, valueOptions, valueToShow, selectV
       <select
         id={name}
         name={name}
-        // value={valueToShow[valueOptions.indexOf(selectedValue)].toString()}
         value={selectedValue.toString()}
         onChange={(e) => handleSelectValue(e.target.value)}
         className="setting-select"
