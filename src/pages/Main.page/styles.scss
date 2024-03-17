@@ -76,7 +76,6 @@
         &:hover,
         &:active {
           background-color: var(--secondary-background-color-active);
-          // filter: brightness(var(--action-brightness));
           box-shadow: 0 2px 6px 1px var(--shadow-color);
         }
 
@@ -127,6 +126,10 @@
       .options {
         margin: auto;
       }
+    }
+
+    .typing-area-main-page {
+      display: none;
     }
   }
 }

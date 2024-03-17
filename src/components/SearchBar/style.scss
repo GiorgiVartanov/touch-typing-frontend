@@ -19,7 +19,7 @@
 
   &:focus,
   &:active {
-    filter: brightness(var(--action-brightness));
+    background-color: var(--secondary-background-color);
   }
 
   &:focus {

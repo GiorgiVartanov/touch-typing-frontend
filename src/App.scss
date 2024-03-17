@@ -37,8 +37,10 @@ body {
   font-family: "Poppins", "Noto Sans Georgian", sans-serif;
 
   .background-image {
-    background-image: url(./assets/hero.jpg);
-    position: absolute;
+    background-image: url("./assets/hero.jpg");
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     background-size: cover;

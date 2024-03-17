@@ -70,7 +70,6 @@
         &:hover {
           background-color: var(--secondary-background-color-active);
           color: var(--accent-color-dim);
-          // filter: brightness(var(--action-brightness));
         }
 
         .theme-icon {
@@ -457,7 +456,6 @@
             filter: brightness(0.9);
             background-color: var(--background-color);
             color: var(--accent-color-dim);
-            // filter: brightness(var(--action-brightness));
           }
         }
 
@@ -569,17 +567,12 @@
                 }
 
                 .icon {
-                  // position: absolute;
-                  // fill: var(--text-color);
-                  // background-color: red;
                   display: flex;
                   position: static !important;
                   height: 1.5rem !important;
                   width: 1.5rem !important;
-                  // right: 2.5rem !important;
                   margin-right: 0.25rem;
                   left: auto !important;
-                  // transition: all var(--animation-function) 300ms;
                   pointer-events: none;
                 }
 

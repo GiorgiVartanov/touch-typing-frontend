@@ -53,8 +53,8 @@
     &:hover,
     &:focus {
       svg {
-        transform: rotate(30deg) scale(1.15);
         fill: var(--accent-color);
+        transform: rotate(30deg) scale(1.15);
       }
     }
   }
