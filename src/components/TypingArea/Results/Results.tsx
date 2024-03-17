@@ -2,6 +2,9 @@ import { useMetrics } from "../../../store/context/MetricsContext"
 import calculateWPM from "../../../util/TypingStats/calculateWPM"
 import calculateTime from "../../../util/TypingStats/calculateTime"
 import calculateAccuracy from "../../../util/TypingStats/calculateAccuracy"
+
+import RestartIcon from "../../../assets/icons/arrow-rotate-right.svg?react"
+
 import "./styles.scss"
 
 const Results: React.FC<{ handleRestart: () => void }> = ({ handleRestart }) => {
@@ -27,7 +30,9 @@ const Results: React.FC<{ handleRestart: () => void }> = ({ handleRestart }) => 
       <button
         onClick={handleRestart}
         className="restart"
-      ></button>
+      >
+        <RestartIcon />
+      </button>
     </div>
   )
 }
