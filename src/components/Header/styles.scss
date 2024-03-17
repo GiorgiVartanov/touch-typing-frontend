@@ -33,6 +33,7 @@
     transition: all 300ms var(--animation-function);
     max-width: 1280px;
     padding: 0.5rem;
+    position: relative;
 
     margin: 0 auto;
 
@@ -45,6 +46,13 @@
     }
 
     nav {
+      .change-language-button {
+        margin-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
       .change-theme-button {
         background-color: var(--secondary-background-color);
         transition:
@@ -53,7 +61,8 @@
         height: 1.75rem;
         width: 3.5rem;
         border-radius: 10px;
-        margin-right: 2.5rem;
+        margin-right: 1rem;
+
         padding: 0;
         align-content: center;
         box-shadow: 0 2px 4px -1px var(--shadow-color);
@@ -105,6 +114,13 @@
           position: relative;
 
           color: var(--accent-color);
+
+          &.header-buttons {
+            position: absolute;
+            right: 24rem;
+            top: 50%;
+            transform: translateY(-50%);
+          }
 
           &.nav-item-link {
             padding: 0.25rem 0.5rem;
