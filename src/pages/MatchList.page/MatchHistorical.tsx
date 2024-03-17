@@ -50,7 +50,7 @@ const MatchHistorical = () => {
             {t_form("User limit")}: {match.user_limit}
           </h1>
           <h1 key={2}>
-            {t_form("Time limit")}: {match.time_limit}
+            {t_form("Time limit")}: {match.time_limit} {t_form("seconds")}
           </h1>
         </div>
         <div

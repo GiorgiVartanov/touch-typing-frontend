@@ -65,7 +65,8 @@
     "Progress": "პროგრესი",
     "Disconnected": "გამოთიშული",
     "Results": "შედეგები",
-    "Search by username": "მოძებნეთ მომხმარებლის სახელით"
+    "Search by username": "მოძებნეთ მომხმარებლის სახელით",
+    "Active users": "აქტიური მომხმარებლები"
   },
 
   "forms": {

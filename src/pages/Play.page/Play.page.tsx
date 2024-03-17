@@ -51,7 +51,9 @@ const PlayPage = () => {
         CreateMatchModal()
       ) : (
         <div className="page play">
-          <h2 className="play-head">Active users: {users.length}</h2>
+          <h2 className="play-head">
+            {t("Active users")}: {users.length}
+          </h2>
           <div className="play-body">
             <div className="play-create">
               {/*აქ იქნება matchSetting Modal*/}

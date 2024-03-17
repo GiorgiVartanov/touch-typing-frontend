@@ -82,27 +82,30 @@ const Match = () => {
               <Timer duration={match.time_limit} />
             </>
           )}
-          {Object.keys(match.players).map((uid, ind) => {
-            return (
-              <div
-                key={ind}
-                className={
-                  (match.players[uid].username === username ? "active-background" : "") + " list"
-                }
-              >
-                <h1 key={1}>{match.players[uid].username}</h1>
-                <h1 key={2}>
-                  {match.players[uid].WPM !== -1
-                    ? match.players[uid].has_finished
-                      ? " WPM: "
-                      : " " + t("Progress") + ": "
-                    : " " + t("Disconnected") + ": "}
-                  {match.players[uid].WPM.toFixed(2)}
-                  {match.players[uid].has_finished ? "" : "%"}
-                </h1>
-              </div>
-            )
-          })}
+          <div className="list">
+            {Object.keys(match.players).map((uid, ind) => {
+              return (
+                <div
+                  key={ind}
+                  className={
+                    (match.players[uid].username === username ? "active-background" : "") +
+                    " list_element"
+                  }
+                >
+                  <h1 key={1}>{match.players[uid].username}</h1>
+                  <h1 key={2}>
+                    {match.players[uid].WPM !== -1
+                      ? match.players[uid].has_finished
+                        ? " WPM: "
+                        : " " + t("Progress") + ": "
+                      : " " + t("Disconnected") + ": "}
+                    {match.players[uid].WPM.toFixed(2)}
+                    {match.players[uid].has_finished ? "" : "%"}
+                  </h1>
+                </div>
+              )
+            })}
+          </div>
           {match.players[uid] === undefined || match.players[uid].has_finished === true ? (
             <Button onClick={() => leaveMatch()}>{t("Leave the match")}</Button>
           ) : (

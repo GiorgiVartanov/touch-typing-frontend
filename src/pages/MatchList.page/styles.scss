@@ -21,6 +21,7 @@
       width: 100%;
       font-size: large;
       margin-bottom: 10px;
+      gap: 25px;
     }
     .history-header-date {
       opacity: 0.5;
@@ -28,7 +29,6 @@
   }
   .history-body {
     .history-body-list {
-      width: 100%;
       max-width: 650px;
       .title {
         font-size: large;
@@ -41,7 +41,8 @@
         margin: 3px;
         border-radius: 10px;
         padding: 10px;
-        width: 125%;
+        gap: 50px;
+        width: 100%;
       }
     }
     .history-text {

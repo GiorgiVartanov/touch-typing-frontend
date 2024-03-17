@@ -65,7 +65,8 @@
     "Progress": "Progress",
     "Disconnected": "Disconnected",
     "Results": "Results",
-    "Search by username": "Search by username"    
+    "Search by username": "Search by username",
+    "Active users": "Active users"
   },
 
   "forms": {
