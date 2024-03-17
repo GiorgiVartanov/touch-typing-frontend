@@ -18,6 +18,7 @@ import BellIcon from "../../assets/icons/bell.svg?react"
 import GamepadIcon from "../../assets/icons/gamepad.svg?react"
 
 import ChangeTheme from "./ChangeTheme"
+import ChangeLanguage from "./ChangeLanguage"
 import DropDownItem from "./DropDownItem"
 import DropDownMenu from "./DropDownMenu"
 import NavItem from "./NavItem"
@@ -125,14 +126,14 @@ const Header = () => {
           className="nav-item nav-item-link"
           onClick={handleCloseNavigation}
         >
-          register
+          {t("register")}
         </NavLink>
         <NavLink
           to={`/login`}
           className="nav-item nav-item-link"
           onClick={handleCloseNavigation}
         >
-          log in
+          {t("log in")}
         </NavLink>
       </>
     )
@@ -185,7 +186,8 @@ const Header = () => {
     return (
       <nav className={isNavigationOpen ? "nav-shown" : "nav-hidden"}>
         <ul className="nav">
-          <li className="nav-item">
+          <li className="nav-item header-buttons">
+            <ChangeLanguage />
             <ChangeTheme />
           </li>
           <NavItem icon={t("learn")}>
