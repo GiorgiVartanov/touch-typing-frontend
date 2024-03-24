@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import "./styles.scss"
 
 import MainPageText from "./MainPageText"
+import PageLayout from "../../layout/Page.layout/Page.layout"
 
 const MainPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "main page" })
@@ -11,34 +12,22 @@ const MainPage = () => {
   const renderOptions = () => {
     return (
       <div className="options">
-        <Link
-          className="border shadow"
-          to="lessons"
-        >
+        <Link to="lessons">
           <p>{t("lessons")}</p>
           <span>{t("lessons message")}</span>
         </Link>
-        <Link
-          to="play"
-          className="border shadow"
-        >
-          <p>{t("competition")}</p>
-          <span>{t("competition message")}</span>
+        <Link to="create">
+          <p>{t("create")}</p>
+          <span>{t("create message")}</span>
         </Link>
         <div className="separate">
-          <Link
-            to="games"
-            className="border shadow"
-          >
+          <Link to="games">
             <p>{t("games")}</p>
             <span>{t("games message")}</span>
           </Link>
-          <Link
-            to="practice"
-            className="border shadow"
-          >
-            <p>{t("practice")}</p>
-            <span>{t("practice message")}</span>
+          <Link to="play">
+            <p>{t("competition")}</p>
+            <span>{t("competition message")}</span>
           </Link>
         </div>
       </div>
@@ -46,14 +35,12 @@ const MainPage = () => {
   }
 
   return (
-    <div className="main-page">
+    <PageLayout className="main-page">
       <div className="main-content">
-        <div className="page">
-          <MainPageText />
-          {renderOptions()}
-        </div>
+        <MainPageText />
+        {renderOptions()}
       </div>
-    </div>
+    </PageLayout>
   )
 }
 export default MainPage

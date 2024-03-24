@@ -1,0 +1,571 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+
+  .row {
+    display: flex;
+    justify-content: center;
+
+    .key {
+      &.uppercase {
+        &.keys-2 {
+          .key-value {
+            &:nth-of-type(1) {
+              opacity: 0.5;
+            }
+            &:nth-of-type(2) {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.key {
+  background-color: var(--secondary-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition:
+    background-color 100ms var(--animation-function),
+    color 100ms var(--animation-function);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 4px -1px var(--shadow-color);
+  user-select: none;
+
+  &.dragging {
+    opacity: 0.25;
+  }
+
+  &.editable-key {
+    &.dragging-over {
+      // outline: 1px solid red;
+    }
+  }
+
+  &.dragged-key {
+    cursor: grabbing;
+    user-select: none;
+    height: 4rem;
+    width: 4rem;
+    font-size: 1.5rem;
+    &.keys-2 {
+      .key-value {
+        &:nth-of-type(1) {
+          top: 0.1rem;
+          left: 0.6rem;
+          opacity: 1;
+        }
+        &:nth-of-type(2) {
+          bottom: 0.1rem;
+          right: 0.6rem;
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &.q-key,
+    &.a-key,
+    &.z-key {
+      background-color: var(--finger-color-1);
+
+      &.pressed {
+        background-color: var(--finger-color-1-hover);
+      }
+    }
+
+    &.w-key,
+    &.s-key,
+    &.x-key {
+      background-color: var(--finger-color-2);
+
+      &.pressed {
+        background-color: var(--finger-color-2-hover);
+      }
+    }
+
+    &.e-key,
+    &.d-key,
+    &.c-key {
+      background-color: var(--finger-color-3);
+
+      &.pressed {
+        background-color: var(--finger-color-3-hover);
+      }
+    }
+
+    &.r-key,
+    &.f-key,
+    &.v-key,
+    &.t-key,
+    &.g-key,
+    &.b-key {
+      background-color: var(--finger-color-4);
+
+      &.pressed {
+        background-color: var(--finger-color-4-hover);
+      }
+    }
+
+    &.y-key,
+    &.h-key,
+    &.n-key,
+    &.u-key,
+    &.j-key,
+    &.m-key {
+      background-color: var(--finger-color-7);
+
+      &.pressed {
+        background-color: var(--finger-color-7-hover);
+      }
+    }
+
+    &.i-key,
+    &.k-key,
+    &.comma-key {
+      background-color: var(--finger-color-8);
+
+      &.pressed {
+        background-color: var(--finger-color-8-hover);
+      }
+    }
+
+    &.o-key,
+    &.l-key,
+    &.period-key {
+      background-color: var(--finger-color-9);
+
+      &.pressed {
+        background-color: var(--finger-color-9-hover);
+      }
+    }
+
+    &.p-key,
+    &.semicolon-key,
+    &.slash-key {
+      background-color: var(--finger-color-10);
+
+      &.pressed {
+        background-color: var(--finger-color-10-hover);
+      }
+    }
+
+    &.tab-key,
+    &.capslock-key,
+    &.shiftleft-key,
+    &.controlleft-key,
+    &.metaleft-key,
+    &.altleft-key,
+    &.altright-key,
+    &.controlright-key,
+    &.shiftright-key,
+    &.enter-key,
+    &.backspace-key,
+    &.metaright-key,
+    &.contextmenu-key {
+      font-size: 0.75rem;
+    }
+
+    &.tab-key {
+      width: 6rem;
+    }
+    &.capslock-key {
+      width: 7.5rem;
+    }
+    &.shiftleft-key {
+      width: 10rem;
+    }
+    &.controlleft-key {
+      width: 5rem;
+    }
+    &.metaleft-key {
+      width: 5rem;
+    }
+    &.altleft-key {
+      width: 5rem;
+    }
+    &.space-key {
+      width: 27rem;
+    }
+    &.altright-key {
+      width: 5rem;
+    }
+    &.metaright-key {
+      width: 5rem;
+    }
+    &.contextmenu-key {
+      width: 4rem;
+    }
+    &.controlright-key {
+      width: 5rem;
+    }
+    &.shiftright-key {
+      width: 9rem;
+    }
+    &.enter-key {
+      width: 7rem;
+    }
+    &.backspace-key {
+      width: 6rem;
+    }
+  }
+
+  &.editable-key {
+    cursor: grab;
+  }
+
+  &.keys-2 {
+    position: relative;
+    .key-value {
+      position: absolute;
+    }
+  }
+
+  &.pressed {
+    background-color: var(--secondary-background-color-active);
+  }
+
+  &.inactive {
+    opacity: 0.5;
+    background-color: var(--secondary-background-color) !important;
+
+    &.pressed {
+      background-color: var(--secondary-background-color) !important;
+    }
+  }
+
+  &.q-key,
+  &.a-key,
+  &.z-key {
+    background-color: var(--finger-color-1);
+
+    &.pressed {
+      background-color: var(--finger-color-1-hover);
+    }
+  }
+
+  &.w-key,
+  &.s-key,
+  &.x-key {
+    background-color: var(--finger-color-2);
+
+    &.pressed {
+      background-color: var(--finger-color-2-hover);
+    }
+  }
+
+  &.e-key,
+  &.d-key,
+  &.c-key {
+    background-color: var(--finger-color-3);
+
+    &.pressed {
+      background-color: var(--finger-color-3-hover);
+    }
+  }
+
+  &.r-key,
+  &.f-key,
+  &.v-key,
+  &.t-key,
+  &.g-key,
+  &.b-key {
+    background-color: var(--finger-color-4);
+
+    &.pressed {
+      background-color: var(--finger-color-4-hover);
+    }
+  }
+
+  &.y-key,
+  &.h-key,
+  &.n-key,
+  &.u-key,
+  &.j-key,
+  &.m-key {
+    background-color: var(--finger-color-7);
+
+    &.pressed {
+      background-color: var(--finger-color-7-hover);
+    }
+  }
+
+  &.i-key,
+  &.k-key,
+  &.comma-key {
+    background-color: var(--finger-color-8);
+
+    &.pressed {
+      background-color: var(--finger-color-8-hover);
+    }
+  }
+
+  &.o-key,
+  &.l-key,
+  &.period-key {
+    background-color: var(--finger-color-9);
+
+    &.pressed {
+      background-color: var(--finger-color-9-hover);
+    }
+  }
+
+  &.p-key,
+  &.semicolon-key,
+  &.slash-key {
+    background-color: var(--finger-color-10);
+
+    &.pressed {
+      background-color: var(--finger-color-10-hover);
+    }
+  }
+}
+
+.keyboard-size-small {
+  gap: 0.375rem;
+
+  .row {
+    gap: 0.375rem;
+
+    .key {
+      &.in-reverse {
+        .key-value {
+          &:nth-of-type(2) {
+            top: 0.075rem;
+            left: 0.45rem;
+            right: auto !important;
+            bottom: auto !important;
+          }
+          &:nth-of-type(1) {
+            bottom: 0.075rem;
+            right: 0.45rem;
+            left: auto !important;
+            top: auto !important;
+          }
+        }
+      }
+    }
+
+    .key {
+      font-size: 1.125rem;
+      height: 3rem;
+      width: 3rem;
+
+      &.keys-2 {
+        .key-value {
+          &:nth-of-type(1) {
+            top: 0.075rem;
+            left: 0.45rem;
+            opacity: 1;
+          }
+          &:nth-of-type(2) {
+            bottom: 0.075rem;
+            right: 0.45rem;
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &.f-key,
+      &.j-key {
+        position: relative;
+
+        &::after {
+          position: absolute;
+          content: "";
+          background-color: var(--background-color);
+          height: 0.1875rem;
+          width: 0.75rem;
+          bottom: 0.2625rem;
+          right: 1.125rem;
+          opacity: 0.5;
+          box-shadow: 0 2px 4px -1px var(--shadow-color);
+        }
+      }
+
+      &.tab-key,
+      &.capslock-key,
+      &.shiftleft-key,
+      &.controlleft-key,
+      &.metaleft-key,
+      &.altleft-key-key,
+      &.altright-key,
+      &.controlright-key,
+      &.shiftright-key,
+      &.enter-key,
+      &.backspace-key,
+      &.metaright-key,
+      &.contextmenu-key {
+        font-size: 0.65rem;
+      }
+
+      &.tab-key {
+        width: 4.5rem;
+      }
+      &.capslock-key {
+        width: 5.625rem;
+      }
+      &.shiftleft-key {
+        width: 7.5rem;
+      }
+      &.controlleft-key {
+        width: 3.75rem;
+      }
+      &.metaleft-key {
+        width: 3.75rem;
+      }
+      &.altleft-key {
+        width: 3.75rem;
+      }
+      &.space-key {
+        width: 20.25rem;
+      }
+      &.altright-key {
+        width: 3.75rem;
+      }
+      &.metaright-key {
+        width: 3.75rem;
+      }
+      &.contextmenu-key {
+        width: 3rem;
+      }
+      &.controlright-key {
+        width: 3.75rem;
+      }
+      &.shiftright-key {
+        width: 6.75rem;
+      }
+      &.enter-key {
+        width: 5.25rem;
+      }
+      &.backspace-key {
+        width: 4.5rem;
+      }
+    }
+  }
+}
+.keyboard-size-medium {
+  gap: 0.5rem;
+
+  .row {
+    gap: 0.5rem;
+
+    .key {
+      &.in-reverse {
+        .key-value {
+          &:nth-of-type(2) {
+            top: 0.1rem;
+            left: 0.6rem;
+            right: auto !important;
+            bottom: auto !important;
+          }
+          &:nth-of-type(1) {
+            bottom: 0.1rem;
+            right: 0.6rem;
+            left: auto !important;
+            top: auto !important;
+          }
+        }
+      }
+    }
+
+    .key {
+      font-size: 1.5rem;
+      height: 4rem;
+      width: 4rem;
+
+      &.keys-2 {
+        .key-value {
+          &:nth-of-type(1) {
+            top: 0.1rem;
+            left: 0.6rem;
+            opacity: 1;
+          }
+          &:nth-of-type(2) {
+            bottom: 0.1rem;
+            right: 0.6rem;
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &.f-key,
+      &.j-key {
+        position: relative;
+
+        &::after {
+          position: absolute;
+          content: "";
+          background-color: var(--background-color);
+          height: 0.25rem;
+          width: 1rem;
+          bottom: 0.35rem;
+          right: 1.5rem;
+          opacity: 0.5;
+          box-shadow: 0 2px 4px -1px var(--shadow-color);
+        }
+      }
+
+      &.tab-key,
+      &.capslock-key,
+      &.shiftleft-key,
+      &.controlleft-key,
+      &.metaleft-key,
+      &.altleft-key,
+      &.altright-key,
+      &.controlright-key,
+      &.shiftright-key,
+      &.enter-key,
+      &.backspace-key,
+      &.metaright-key,
+      &.contextmenu-key {
+        font-size: 0.75rem;
+      }
+
+      &.tab-key {
+        width: 6rem;
+      }
+      &.capslock-key {
+        width: 7.5rem;
+      }
+      &.shiftleft-key {
+        width: 10rem;
+      }
+      &.controlleft-key {
+        width: 5rem;
+      }
+      &.metaleft-key {
+        width: 5rem;
+      }
+      &.altleft-key {
+        width: 5rem;
+      }
+      &.space-key {
+        width: 27rem;
+      }
+      &.altright-key {
+        width: 5rem;
+      }
+      &.metaright-key {
+        width: 5rem;
+      }
+      &.contextmenu-key {
+        width: 4rem;
+      }
+      &.controlright-key {
+        width: 5rem;
+      }
+      &.shiftright-key {
+        width: 9rem;
+      }
+      &.enter-key {
+        width: 7rem;
+      }
+      &.backspace-key {
+        width: 6rem;
+      }
+    }
+  }
+}

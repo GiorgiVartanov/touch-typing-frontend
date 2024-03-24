@@ -1,6 +1,10 @@
 import { createContext, useContext, useReducer, useEffect } from "react"
 
-import { setFontAction, setFontSizeAction } from "../actions/typingSettingsActions"
+import {
+  setTypingLanguageAction,
+  setFontAction,
+  setFontSizeAction,
+} from "../actions/typingSettingsActions"
 import typingSettingsReducer from "../reducers/typingSettingsReducers"
 import {
   typingSettingsInitialState,
@@ -8,6 +12,7 @@ import {
   defaultFontSize,
 } from "../initial/typingSettingsInitialState"
 import {
+  TypingLanguageType,
   FontType,
   FontSizeType,
   TypingSettingsOptions,
@@ -36,6 +41,13 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const { token } = useAuthStore()
 
+  const typingLanguageOptions = [
+    "QWERTY",
+    "QWERTY georgian",
+    "Dvorak",
+    "Colemak",
+    "Workman",
+  ] as TypingLanguageType[]
   const fontOptions = ["sans", "serif", "sanet"] as FontType[]
   const fontSizeOptions = ["small", "medium", "large", "extra large"] as FontSizeType[]
 
@@ -52,10 +64,15 @@ const TypingSettingsProvider = ({ children }: Props) => {
     saveTypingSetting(typingSettingToChange, value, token)
   }
 
+  const setTypingLanguage = (newValue: TypingLanguageType, saveOnServer: boolean = true) => {
+    saveSetting("typingLanguage", newValue, saveOnServer)
+    dispatch(setTypingLanguageAction(newValue))
+  }
+
   const setFont = (newValue: FontType, saveOnServer: boolean = true) => {
     // saves font to the localStorage and on a server (if user is logged in)
     saveSetting("font", newValue, saveOnServer)
-    // changes font on the reducer state
+    // changes font in the reducer state
     dispatch(setFontAction(newValue))
   }
 
@@ -92,8 +109,10 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const store = {
     ...state,
+    typingLanguageOptions,
     fontOptions,
     fontSizeOptions,
+    setTypingLanguage,
     setFont,
     setFontSize,
     resetTypingSettings,

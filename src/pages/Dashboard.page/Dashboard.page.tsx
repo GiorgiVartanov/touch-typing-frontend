@@ -1,4 +1,6 @@
+import PageLayout from "../../layout/Page.layout/Page.layout"
+
 const Dashboard = () => {
-  return <div>Dashboard</div>
+  return <PageLayout>Dashboard</PageLayout>
 }
 export default Dashboard

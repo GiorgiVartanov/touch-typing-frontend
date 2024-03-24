@@ -1,5 +1,13 @@
 {
+  "modal": {
+    "click anywhere to close": "გასათიშებლად დააწკაპეთ",
+    "are you sure you want to log out?": "გასვლა ნამდვილად გსურთ?",
+    "stay": "დარჩენა",
+    "log out": "გასვლა"
+  },
+
   "header": {
+    "touch typing": "ბრმად ბეჭდვა",
     "learn": "სწავლა",
     "lessons": "გაკვეთილები",
     "competition": "შეჯიბრი",
@@ -13,7 +21,14 @@
     "notifications": "შეტყობინებები",
     "log out": "გასხვა",
     "register": "რეგისტრაცია",
-    "log in": "შესვლა"
+    "log in": "ავტორიზაცია"
+  },
+
+  "typer": {
+    "WPM": "WPM",
+    "WPM definition": "სიტყვა წუთში",
+    "accuracy": "სიზუსტე",
+    "time": "დრო"
   },
 
   "main page": {
@@ -24,7 +39,11 @@
     "games": "თამაშები",
     "games message": "ისწავლე თამაშებით",
     "practice": "ტექსტები",
-    "practice message": "აკრიფე ტექსტები"
+    "practice message": "აკრიფე ტექსტები",
+    "create": "შექმნა",
+    "create message": "შექმენი კლავიატურის განლაგება",
+    "stay": "დარჩენა",
+    "log out": "გასვლა"
   },
 
   "auth page": {
@@ -34,7 +53,13 @@
     "log in": "შესვლა",
     "register": "რეგისტრაცია",
     "don't have account yet? register": "არ გაქვს ანგარიში? დარეგისტრირდი",
-    "already have account? log in": "უკვე გაქვს ანგარიში? შემოდი"
+    "already have account? log in": "უკვე გაქვს ანგარიში? გაიარე ავტორიზაცია",
+    "this field should not be empty": "ეს ველი არ უნდა იყოს ცარიელი",
+    "user with this username does not exist": "მომხმარებელი ამ სახელით არ არსებობს",
+    "username too short": "მომხმარებლის სახელი უნდა იყოს {{minUsernameLength}} სიმბოლოზე უფრო გრძელი",
+    "username too long": "მომხმარებლის სახელი უნდა იყოს {{maxUsernameLength}} სიმბოლოზე უფრო გრძელი",
+    "passwords do not match": "პაროლები ერთმანეთს არ ემთხვევა",
+    "incorrect password": "არასწორი პაროლი"
   },
 
   "settings page": {
@@ -43,9 +68,15 @@
     "System Default": "სისტემური",
     "Dark": "მუქი",
     "Light": "ღია",
-    "language": "აპლიკაციის ენა",
+    "app language": "აპლიკაციის ენა",
     "Geo": "ქართული",
     "En": "English",
+    "typing language": "კლავიატურის განლაგება",
+    "QWERTY": "QWERTY",
+    "QWERTY georgian": "QWERTY ქართული",
+    "Dvorak": "Dvorak",
+    "Colemak": "Colemak",
+    "Workman": "Workman",
     "typing settings": "ბეჭდვის პარამეტრები",
     "font": "ფონტი",
     "font size": "ფონტის ზომა",

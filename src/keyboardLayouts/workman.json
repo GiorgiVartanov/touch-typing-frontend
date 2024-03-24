@@ -1,0 +1,441 @@
+{
+  "keyboard": [
+    [
+      {
+        "key": "backquote",
+        "value": ["`", "~"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "1",
+        "value": ["1", "!"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "2",
+        "value": ["2", "@"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "3",
+        "value": ["3", "#"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "4",
+        "value": ["4", "$"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "5",
+        "value": ["5", "%"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "6",
+        "value": ["6", "^"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "7",
+        "value": ["7", "&"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "8",
+        "value": ["8", "*"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "9",
+        "value": ["9", "("],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "0",
+        "value": ["0", ")"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "minus",
+        "value": ["-", "_"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "equal",
+        "value": ["=", "+"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "backspace",
+        "value": "Backspace",
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      }
+    ],
+    [
+      {
+        "key": "tab",
+        "value": "Tab",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "q",
+        "value": ["q", "Q"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "w",
+        "value": ["d", "D"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "e",
+        "value": ["r", "R"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "r",
+        "value": ["w", "W"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "t",
+        "value": ["b", "B"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "y",
+        "value": ["j", "J"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "u",
+        "value": ["f", "F"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "i",
+        "value": ["u", "U"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "o",
+        "value": ["p", "P"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "p",
+        "value": [":", ";"],
+        "showBoth": true,
+        "triggeredByCapsLock": true,
+        "showInReverse": true
+      },
+      {
+        "key": "bracketleft",
+        "value": ["[", "{"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "bracketright",
+        "value": ["]", "}"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "backslash",
+        "value": ["\\", "|"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      }
+    ],
+    [
+      {
+        "key": "capslock",
+        "value": "CapsLock",
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "a",
+        "value": ["a", "A"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "s",
+        "value": ["s", "S"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "d",
+        "value": ["h", "HD"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "f",
+        "value": ["t", "T"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "g",
+        "value": ["g", "G"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "h",
+        "value": ["y", "Y"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "j",
+        "value": ["n", "N"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "k",
+        "value": ["e", "E"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "l",
+        "value": ["o", "O"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "semicolon",
+        "value": ["i", "I"],
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "quote",
+        "value": ["'", "\""],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "enter",
+        "value": "Enter",
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      }
+    ],
+    [
+      {
+        "key": "shiftleft",
+        "value": "Shift",
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "z",
+        "value": ["z", "Z"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "x",
+        "value": ["x", "X"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "c",
+        "value": ["m", "M"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "v",
+        "value": ["c", "C"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "b",
+        "value": ["v", "V"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "n",
+        "value": ["k", "K"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "m",
+        "value": ["l", "L"],
+        "showBoth": false,
+        "triggeredByCapsLock": true,
+        "showInReverse": false
+      },
+      {
+        "key": "comma",
+        "value": [",", "<"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "period",
+        "value": [".", ">"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "slash",
+        "value": ["/", "?"],
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": true
+      },
+      {
+        "key": "shiftright",
+        "value": "Shift",
+        "showBoth": true,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      }
+    ],
+    [
+      {
+        "key": "controlleft",
+        "value": "Ctrl",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "metaleft",
+        "value": "Meta",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "altleft",
+        "value": "Alt",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "space",
+        "value": " ",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "altright",
+        "value": "Alt",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "metaright",
+        "value": "Meta",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "contextmenu",
+        "value": "Menu",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      },
+      {
+        "key": "controlright",
+        "value": "Ctrl",
+        "showBoth": false,
+        "triggeredByCapsLock": false,
+        "showInReverse": false
+      }
+    ]
+  ]
+}

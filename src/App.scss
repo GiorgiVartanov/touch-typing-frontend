@@ -2,7 +2,6 @@ html,
 body,
 #root {
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 body {
@@ -31,26 +30,28 @@ body {
   --medium-screen: 768px;
   --large-screen: 1200px;
 
+  --finger-color-1: rgba(222, 106, 106, 0.7); // Q A Z row
+  --finger-color-2: rgba(106, 117, 222, 0.7); // W S X row
+  --finger-color-3: rgba(106, 222, 139, 0.7); // E D C row
+  --finger-color-4: rgba(222, 197, 106, 0.7); // R F V row
+  --finger-color-7: rgba(114, 119, 167, 0.7); // U J M row
+  --finger-color-8: rgba(106, 222, 139, 0.7); // I K row
+  --finger-color-9: rgba(106, 117, 222, 0.7); // O L . row
+  --finger-color-10: rgba(222, 106, 106, 0.7); // P , ; row
+
+  --finger-color-1-hover: rgba(222, 106, 106, 0.95);
+  --finger-color-2-hover: rgba(106, 117, 222, 0.95);
+  --finger-color-3-hover: rgba(106, 222, 139, 0.95);
+  --finger-color-4-hover: rgba(222, 197, 106, 0.95);
+  --finger-color-7-hover: rgba(114, 119, 167, 0.95);
+  --finger-color-8-hover: rgba(106, 222, 139, 0.95);
+  --finger-color-9-hover: rgba(106, 117, 222, 0.95);
+  --finger-color-10-hover: rgba(222, 106, 106, 0.95);
+
   background-repeat: no-repeat;
   background-size: cover;
 
   font-family: "Poppins", "Noto Sans Georgian", sans-serif;
-
-  .background-image {
-    background-image: url("./assets/hero.jpg");
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transform: blur 300ms var(--animation-function);
-    z-index: 1;
-
-    pointer-events: none;
-  }
 
   // light theme
   &:not(.dark) {
@@ -67,7 +68,7 @@ body {
     --warning-color: #d43737;
     // --warning-color: #ee6868;
 
-    --background-color: #c0cee4;
+    --background-color: #dfe2e9;
     --background-color-transparent: #e3e8f04d;
 
     --secondary-background-color: #ffffff70;
@@ -125,16 +126,6 @@ body {
     .background-image {
       filter: opacity(0.2) blur(3px);
     }
-  }
-
-  .page {
-    padding: 0.5rem;
-    max-width: 1280px;
-    width: 100%;
-    margin: 4.5rem auto;
-    flex: 1;
-    position: relative;
-    z-index: 2;
   }
 
   .icon {

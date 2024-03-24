@@ -16,6 +16,7 @@ import Loading from "../../components/Loading/Loading"
 import AddNewLessonModal from "./components/AddNewPracticeTextModal"
 import PracticeTextSearchOptions from "./components/PracticeTextSearchOptions"
 import Button from "../../components/Form/Button"
+import PageLayout from "../../layout/Page.layout/Page.layout"
 
 // page
 const PracticeTextListPage = () => {
@@ -239,7 +240,7 @@ const PracticeTextListPage = () => {
   }, [hasNextPage, isFetchingNextPage, isFetching])
 
   return (
-    <div className="page text-list-page">
+    <PageLayout className="text-list-page">
       <SearchBar
         value={searchValue}
         handleTextChange={handleTextChange}
@@ -277,7 +278,7 @@ const PracticeTextListPage = () => {
         closeModal={handleCloseAddNewTextModal}
       />
       {renderTexts()}
-    </div>
+    </PageLayout>
   )
 }
 export default PracticeTextListPage

@@ -8,8 +8,8 @@ import { getPracticeText } from "../../services/practiceText"
 
 import TypingArea from "../../components/TypingArea/TypingArea"
 import Loading from "../../components/Loading/Loading"
+import PageLayout from "../../layout/Page.layout/Page.layout"
 
-// page
 const PracticeTextPage = () => {
   const { id } = useParams()
 
@@ -32,24 +32,15 @@ const PracticeTextPage = () => {
     return <div>{error?.message || "something went wrong"}</div>
   }
 
-  const { title, description, level, text, wordSeparator } = data.data
+  const { text, wordSeparator } = data.data
 
   return (
-    <div className="page lesson-page">
-      <div className="description">
-        <h2>
-          {title}
-          <Link to={`../learn/${level}`}>
-            <span>{level}</span>
-          </Link>
-        </h2>
-        <p>{description}</p>
-      </div>
+    <PageLayout className="practice-page">
       <TypingArea
         text={text}
         wordSeparator={wordSeparator}
       />
-    </div>
+    </PageLayout>
   )
 }
 export default PracticeTextPage

@@ -1,4 +1,6 @@
+import PageLayout from "../../layout/Page.layout/Page.layout"
+
 const LeaderboardsPage = () => {
-  return <div className="page">Leaderboards</div>
+  return <PageLayout>Leaderboards</PageLayout>
 }
 export default LeaderboardsPage

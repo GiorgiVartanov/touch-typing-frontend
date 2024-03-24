@@ -16,6 +16,7 @@ const MainPageText = () => {
       text={text}
       className="typing-area-main-page"
       handleTextFinish={changeText}
+      showKeyboard={false}
     />
   )
 }

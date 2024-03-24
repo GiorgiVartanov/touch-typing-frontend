@@ -16,7 +16,9 @@ import LaptopIcon from "../../assets/icons/laptop.svg?react"
 import TrophyIcon from "../../assets/icons/trophy.svg?react"
 import BellIcon from "../../assets/icons/bell.svg?react"
 import GamepadIcon from "../../assets/icons/gamepad.svg?react"
+import GearIcon from "../../assets/icons/gear.svg?react"
 
+import SettingsModal from "../SettingsModal/SettingsModal"
 import ChangeTheme from "./ChangeTheme"
 import ChangeLanguage from "./ChangeLanguage"
 import DropDownItem from "./DropDownItem"
@@ -43,7 +45,7 @@ const Header = () => {
   const [isOnTop, setIsOnTop] = useState<boolean>(true)
   const [showScrollToTopButton, setScrollToTopButton] = useState<boolean>(false)
   const [isConfirmLogoutModalVisible, setIsConfirmLogoutModalVisible] = useState<boolean>(false)
-
+  const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
   const [isNavigationOpen, setIsNavigationOpen] = useState<boolean>(false)
 
   const username = user?.username
@@ -62,6 +64,14 @@ const Header = () => {
 
   const handleNavigationToggle = () => {
     setIsNavigationOpen((prevState) => !prevState)
+  }
+
+  const handleOpenSettingsMenu = () => {
+    setIsSettingsMenuOpen(true)
+  }
+
+  const handleCloseSettingsMenu = () => {
+    setIsSettingsMenuOpen(false)
   }
 
   useEffect(() => {
@@ -94,7 +104,7 @@ const Header = () => {
             icon={<ProfileIcon />}
             closeNavigation={handleCloseNavigation}
           >
-            <NavLink to={`/profile/${username}/`}>profile</NavLink>
+            <NavLink to={`/profile/${username}/`}>{t("profile")}</NavLink>
           </DropDownItem>
           <DropDownItem
             icon={<BellIcon />}
@@ -104,14 +114,15 @@ const Header = () => {
               to={`/notifications`}
               className="notifications-link"
             >
-              {token ? <NotificationsAmount token={token} /> : null}notifications
+              {token ? <NotificationsAmount token={token} /> : null}
+              {t("notifications")}
             </NavLink>
           </DropDownItem>
           <DropDownItem
             icon={<LogoutIcon />}
             className="logout-button"
           >
-            <button onClick={handleLogout}>log out</button>
+            <button onClick={handleLogout}>{t("log out")}</button>
           </DropDownItem>
         </DropDownMenu>
       </NavItem>
@@ -155,7 +166,7 @@ const Header = () => {
               className="positive"
               onClick={closeLogoutConfirmationModal}
             >
-              stay
+              {t("stay")}
             </Button>
             <Button
               onClick={() => {
@@ -165,7 +176,7 @@ const Header = () => {
               }}
               className="negative"
             >
-              log out
+              {t("log out")}
             </Button>
           </>
         }
@@ -182,14 +193,25 @@ const Header = () => {
     return createPortal(<ScrollToTop isVisible={showScrollToTopButton} />, appElement)
   }
 
+  const renderSettingsMenu = () => {
+    return (
+      <SettingsModal
+        isVisible={isSettingsMenuOpen}
+        closeModal={handleCloseSettingsMenu}
+      />
+    )
+  }
+
   const renderNavigation = () => {
     return (
       <nav className={isNavigationOpen ? "nav-shown" : "nav-hidden"}>
         <ul className="nav">
-          <li className="nav-item header-buttons">
-            <ChangeLanguage />
-            <ChangeTheme />
-          </li>
+          <button
+            onClick={handleOpenSettingsMenu}
+            className="open-settings-button"
+          >
+            <GearIcon className="icon" />
+          </button>
           <NavItem icon={t("learn")}>
             <DropDownMenu>
               <DropDownItem
@@ -218,29 +240,8 @@ const Header = () => {
               </DropDownItem>
             </DropDownMenu>
           </NavItem>
-          <NavItem icon={t("other")}>
-            <DropDownMenu>
-              <DropDownItem
-                icon={<UserGroupIcon />}
-                closeNavigation={handleCloseNavigation}
-              >
-                <NavLink to={`/social`}>{t("social")}</NavLink>
-              </DropDownItem>
-              <DropDownItem
-                icon={<TrophyIcon />}
-                closeNavigation={handleCloseNavigation}
-              >
-                <NavLink to={`/leaderboards`}>{t("leaderboards")}</NavLink>
-              </DropDownItem>
-              <DropDownItem
-                icon={<SettingsIcon />}
-                closeNavigation={handleCloseNavigation}
-              >
-                <NavLink to={`/settings`}>{t("settings")}</NavLink>
-              </DropDownItem>
-            </DropDownMenu>
-          </NavItem>
           {isLoggedIn ? renderAuthenticatedNavigation() : renderGuestNavigation()}
+          {renderSettingsMenu()}
         </ul>
       </nav>
     )
@@ -258,7 +259,7 @@ const Header = () => {
 
       <div className="header-content">
         <h1>
-          <NavLink to="/">Touch Typing</NavLink>
+          <NavLink to="/">{t("touch typing")}</NavLink>
         </h1>
         <button
           className={`menu-button ${isNavigationOpen ? "navigation-open" : ""}`}

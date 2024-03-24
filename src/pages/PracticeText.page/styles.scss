@@ -1,4 +1,7 @@
-.lesson-page {
+.practice-page {
+  width: fit-content;
+  position: relative;
+
   .description {
     max-width: 720px;
     margin: 0 auto 2rem;
@@ -12,6 +15,18 @@
         color: var(--accent-color-dim);
         opacity: 0.5;
       }
+    }
+  }
+
+  .typer {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+    .text {
+      max-width: 720px;
+      margin: 0 auto 2rem;
     }
   }
 }

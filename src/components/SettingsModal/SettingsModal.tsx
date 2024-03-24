@@ -6,24 +6,33 @@ import { useAppSettingsStore } from "../../store/context/appSettingsContext"
 
 import "./styles.scss"
 
+import Modal from "../Modal/Modal"
 import SettingsSection from "./SettingsSection"
-import ConfirmModal from "../../components/Modal/ConfirmModal"
-import Button from "../../components/Form/Button"
+import ConfirmModal from "../Modal/ConfirmModal"
+import Button from "../Form/Button"
 import TypingSettingsTextExample from "./TypingSettingsTextExample"
 
-const SettingsPage = () => {
+interface Props {
+  isVisible: boolean
+  closeModal: () => void
+}
+
+const SettingsModal = ({ isVisible, closeModal }: Props) => {
   const { t } = useTranslation("translation", { keyPrefix: "settings page" })
 
   const [isConfirmResetModalOpen, setIsConfirmResetModalOpen] = useState<boolean>(false)
 
   const {
     // all available values for each setting (they will be options in select)
+    typingLanguageOptions,
     fontOptions,
     fontSizeOptions,
     // function to set each setting
+    setTypingLanguage,
     setFont,
     setFontSize,
     // value of each setting
+    typingLanguage,
     font,
     fontSize,
     // function to reset setting (set them back to default)
@@ -58,7 +67,7 @@ const SettingsPage = () => {
       selectValue: setTheme,
     },
     {
-      name: t("language"),
+      name: t("app language"),
       selectedValue: t(language),
       valueOptions: languageOptions,
       valueToShow: languageOptions.map((option) => t(option)),
@@ -68,6 +77,13 @@ const SettingsPage = () => {
 
   // typing settings
   const typingSettings = [
+    {
+      name: t("typing language"),
+      selectedValue: t(typingLanguage),
+      valueOptions: typingLanguageOptions,
+      valueToShow: typingLanguageOptions.map((option) => t(option)),
+      selectValue: setTypingLanguage,
+    },
     {
       name: t("font"),
       selectedValue: font,
@@ -119,12 +135,14 @@ const SettingsPage = () => {
     )
   }
 
-  // useEffect(() => {
-  //   i18n.changeLanguage(language.toLocaleLowerCase())
-  // }, [language, i18n])
-
   return (
-    <div className="page settings-page">
+    <Modal
+      modalTitle="settings"
+      showCloseButton={true}
+      isVisible={isVisible}
+      closeModal={closeModal}
+      className="settings-modal"
+    >
       <SettingsSection
         sectionTitle={t("app settings")}
         settingsList={appSettings}
@@ -143,9 +161,8 @@ const SettingsPage = () => {
           {t("reset settings")}
         </Button>
       </div>
-
       {renderConfirmSettingsResetModal()}
-    </div>
+    </Modal>
   )
 }
-export default SettingsPage
+export default SettingsModal

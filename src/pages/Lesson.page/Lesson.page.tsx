@@ -1,4 +1,6 @@
+import PageLayout from "../../layout/Page.layout/Page.layout"
+
 const Lesson = () => {
-  return <div className="page">Lesson</div>
+  return <PageLayout>Lesson</PageLayout>
 }
 export default Lesson

@@ -22,7 +22,7 @@ interface Props {
 
 const Text = ({ text, wordSeparator = "", handleTextFinish, className }: Props) => {
   const { font, fontSize } = useTypingSettingsStore()
-  const { metrics, handleMetrics } = useMetrics()
+  const { handleMetrics } = useMetrics()
 
   const textLength = text.length
 
@@ -55,15 +55,15 @@ const Text = ({ text, wordSeparator = "", handleTextFinish, className }: Props) 
   const calculateFontSize = () => {
     switch (fontSize) {
       case "small":
-        return "0.75rem"
-      case "medium":
         return "1rem"
-      case "large":
+      case "medium":
         return "1.25rem"
+      case "large":
+        return "1.5rem"
       case "extra large":
-        return "1.5rem"
+        return "1.75rem"
       default:
-        return "1.5rem"
+        return "1.25rem"
     }
   }
 

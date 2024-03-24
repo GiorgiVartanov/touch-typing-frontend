@@ -1,9 +1,7 @@
 import { useEffect } from "react"
 import { ToastContainer } from "react-toastify"
 
-import "./App.scss"
-
-import Header from "./components/Header/Header"
+import "./styles.scss"
 
 interface Props {
   themeToApply: string
@@ -18,8 +16,6 @@ const Layout = ({ children, themeToApply }: Props) => {
 
   return (
     <div className={`App ${themeToApply}`}>
-      <div className="background-image"></div>
-      <Header />
       {children}
       <ToastContainer
         position="bottom-right"

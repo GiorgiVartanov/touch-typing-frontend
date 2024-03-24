@@ -1,4 +1,6 @@
+import PageLayout from "../../layout/Page.layout/Page.layout"
+
 const PageNotFoundPage = () => {
-  return <div className="page">404 page not found</div>
+  return <PageLayout>404 page not found</PageLayout>
 }
 export default PageNotFoundPage

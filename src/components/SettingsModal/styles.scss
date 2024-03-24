@@ -1,5 +1,5 @@
-.settings-page {
-  max-width: 720px !important;
+.settings-modal {
+  // max-width: 720px !important;
   margin: auto;
 
   .settings-button-list {
@@ -10,7 +10,7 @@
     .reset-settings-button {
       // background-color: var(--secondary-background-color);
       padding: 0.25rem 0.5rem;
-      // margin-top: 1rem;
+      margin-bottom: 2rem;
       background-color: transparent;
       box-shadow: none;
       color: var(--accent-color-dim);
@@ -35,8 +35,10 @@
 
   .settings-section {
     border-bottom: 1px solid var(--secondary-color);
-    padding: 1rem 0;
-    margin: auto;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+    // margin: auto;
+    width: auto;
 
     .section-title {
       margin-bottom: 1.25rem;

@@ -1,5 +1,13 @@
 {
+  "modal": {
+    "click anywhere to close": "click anywhere to close",
+    "are you sure you want to log out?": "are you sure you want to log out?",
+    "stay": "stay",
+    "log out": "log out"
+  },
+
   "header": {
+    "touch typing": "Touch Typing",
     "learn": "learn",
     "lessons": "lessons",
     "competition": "competition",
@@ -16,6 +24,13 @@
     "log in": "log in"
   },
 
+  "typer": {
+    "WPM": "WPM",
+    "WPM definition": "Word Per Minute",
+    "accuracy": "accuracy",
+    "time": "time"
+  },
+
   "main page": {
     "lessons": "Lessons",
     "lessons message": "learn typing by completing tasks",
@@ -23,8 +38,8 @@
     "competition message": "challenge other people",
     "games": "Games",
     "games message": "play games",
-    "practice": "Practice",
-    "practice message": "type texts"
+    "create": "Create",
+    "create message": "create keyboard layout"
   },
 
   "auth page": {
@@ -34,7 +49,12 @@
     "log in": "log in",
     "register": "register",
     "don't have account yet? register": "Don't have account yet? register",
-    "already have account? log in": "Already have account? Log in"
+    "already have account? log in": "Already have account? Log in",
+    "this field should not be empty": "this field should not be empty",
+    "user with this username does not exist": "user with this username does not exist",
+    "username too short": "username should be longer than {{minUsernameLength}} characters",
+    "username too long": "username should be shorter than {{maxUsernameLength}} characters",
+    "passwords do not match": "passwords do not match"
   },
 
   "settings page": {
@@ -43,8 +63,14 @@
     "System Default": "System Default",
     "Dark": "Dark",
     "Light": "Light",
-    "language": "language",
+    "app language": "app language",
     "Geo": "ქართული",
+    "typing language": "keyboard layout",
+    "QWERTY": "QWERTY",
+    "QWERTY georgian": "QWERTY georgian",
+    "Dvorak": "Dvorak",
+    "Colemak": "Colemak",
+    "Workman": "Workman",
     "En": "English",
     "typing settings": "Typing settings",
     "font": "font",

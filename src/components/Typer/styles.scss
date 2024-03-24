@@ -2,8 +2,8 @@
 
 .typer {
   margin-top: 0.5rem;
-  max-width: 720px;
-  margin: 0 auto;
+  // max-width: 720px;
+  // margin: 0 auto;
 
   .typing-panel {
     margin: 1rem 0;
@@ -18,6 +18,10 @@
       .settings-icon {
       }
     }
+  }
+
+  .keyboard {
+    margin-top: 4rem;
   }
 }
 
