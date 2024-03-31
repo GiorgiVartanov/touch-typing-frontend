@@ -24,29 +24,47 @@ body {
   --success-color: #27bd47; // change
   --large-font-size: 1.5rem;
   --animation-function: cubic-bezier(0.36, 0.56, 0.52, 0.97);
-  --border-radius: 0.5rem;
+  --border-radius: 0.25rem;
 
   --small-screen: 576px;
   --medium-screen: 768px;
   --large-screen: 1200px;
 
-  --finger-color-1: rgba(222, 106, 106, 0.7); // Q A Z row
-  --finger-color-2: rgba(106, 117, 222, 0.7); // W S X row
-  --finger-color-3: rgba(106, 222, 139, 0.7); // E D C row
-  --finger-color-4: rgba(222, 197, 106, 0.7); // R F V row
-  --finger-color-7: rgba(114, 119, 167, 0.7); // U J M row
-  --finger-color-8: rgba(106, 222, 139, 0.7); // I K row
-  --finger-color-9: rgba(106, 117, 222, 0.7); // O L . row
-  --finger-color-10: rgba(222, 106, 106, 0.7); // P , ; row
+  // --finger-color-1: rgba(222, 106, 106, 0.6); // Q A Z row
+  // --finger-color-2: rgba(106, 117, 222, 0.6); // W S X row
+  // --finger-color-3: rgba(106, 222, 139, 0.6); // E D C row
+  // --finger-color-4: rgba(222, 197, 106, 0.6); // R F V row
+  // --finger-color-7: rgba(114, 119, 167, 0.6); // U J M row
+  // --finger-color-8: rgba(106, 222, 139, 0.6); // I K row
+  // --finger-color-9: rgba(106, 117, 222, 0.6); // O L . row
+  // --finger-color-10: rgba(222, 106, 106, 0.6); // P , ; row
 
-  --finger-color-1-hover: rgba(222, 106, 106, 0.95);
-  --finger-color-2-hover: rgba(106, 117, 222, 0.95);
-  --finger-color-3-hover: rgba(106, 222, 139, 0.95);
-  --finger-color-4-hover: rgba(222, 197, 106, 0.95);
-  --finger-color-7-hover: rgba(114, 119, 167, 0.95);
-  --finger-color-8-hover: rgba(106, 222, 139, 0.95);
-  --finger-color-9-hover: rgba(106, 117, 222, 0.95);
-  --finger-color-10-hover: rgba(222, 106, 106, 0.95);
+  // --finger-color-1-hover: rgba(222, 106, 106, 0.9);
+  // --finger-color-2-hover: rgba(106, 117, 222, 0.9);
+  // --finger-color-3-hover: rgba(106, 222, 139, 0.9);
+  // --finger-color-4-hover: rgba(222, 197, 106, 0.9);
+  // --finger-color-7-hover: rgba(114, 119, 167, 0.9);
+  // --finger-color-8-hover: rgba(106, 222, 139, 0.9);
+  // --finger-color-9-hover: rgba(106, 117, 222, 0.9);
+  // --finger-color-10-hover: rgba(222, 106, 106, 0.9);
+
+  --finger-color-1: rgba(233, 90, 90, 0.6); // Q A Z row
+  --finger-color-2: rgba(98, 111, 226, 0.6); // W S X row
+  --finger-color-3: rgba(81, 224, 122, 0.6); // E D C row
+  --finger-color-4: rgba(228, 194, 72, 0.6); // R F V row
+  --finger-color-7: rgba(55, 175, 169, 0.6); // U J M row
+  --finger-color-8: rgba(81, 224, 122, 0.6); // I K row
+  --finger-color-9: rgba(79, 91, 201, 0.6); // O L . row
+  --finger-color-10: rgba(233, 90, 90, 0.6); // P , ; row
+
+  --finger-color-1-hover: rgba(233, 90, 90, 0.9); // Q A Z row
+  --finger-color-2-hover: rgba(98, 111, 226, 0.9); // W S X row
+  --finger-color-3-hover: rgba(81, 224, 122, 0.9); // E D C row
+  --finger-color-4-hover: rgba(228, 194, 72, 0.9); // R F V row
+  --finger-color-7-hover: rgba(55, 175, 169, 0.9); // U J M row
+  --finger-color-8-hover: rgba(81, 224, 122, 0.9); // I K row
+  --finger-color-9-hover: rgba(79, 91, 201, 0.9); // O L . row
+  --finger-color-10-hover: rgba(233, 90, 90, 0.9); // P , ; row
 
   background-repeat: no-repeat;
   background-size: cover;
@@ -68,11 +86,13 @@ body {
     --warning-color: #d43737;
     // --warning-color: #ee6868;
 
-    --background-color: #dfe2e9;
+    // --background-color: #fefffe;
+    --background-color: #f0f0f2;
     --background-color-transparent: #e3e8f04d;
 
-    --secondary-background-color: #ffffff70;
-    --secondary-background-color-active: #eff0f8b6;
+    --secondary-background-color: #fafbfb;
+    // --secondary-background-color: #ffffff70;
+    --secondary-background-color-active: rgba(244, 245, 245, 0.842);
 
     --text-color: #1f1e24;
 

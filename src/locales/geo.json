@@ -21,7 +21,8 @@
     "notifications": "შეტყობინებები",
     "log out": "გასხვა",
     "register": "რეგისტრაცია",
-    "log in": "ავტორიზაცია"
+    "log in": "ავტორიზაცია",
+    "stay": "დარჩენა"
   },
 
   "typer": {
@@ -63,15 +64,25 @@
   },
 
   "settings page": {
+    "settings": "პარამეტრები",
     "app settings": "აპლიკაციის პარამეტრები",
     "theme": "თემა",
     "System Default": "სისტემური",
     "Dark": "მუქი",
     "Light": "ღია",
+    "keyboard settings": "კლავიატურის პარამეტრები",
+    "keyboard type": "კლავიატურის ტიპი",
+    "ANSI": "ANSI",
+    "ANSI-ISO": "ANSI-ISO",
+    "ISO": "ISO",
+    "ABNT": "ABNT",
+    "KS": "KS",
+    "JIS": "JIS",
+    "Custom": "Custom ოღონდ ქართულად",
     "app language": "აპლიკაციის ენა",
     "Geo": "ქართული",
     "En": "English",
-    "typing language": "კლავიატურის განლაგება",
+    "keyboard layout": "კლავიატურის განლაგება",
     "QWERTY": "QWERTY",
     "QWERTY georgian": "QWERTY ქართული",
     "Dvorak": "Dvorak",

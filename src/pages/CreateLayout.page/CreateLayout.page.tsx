@@ -1,9 +1,14 @@
+import { useState } from "react"
+
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import "./styles.scss"
 
+import { KeyInterface } from "../../types/keyboard.types"
+
 import PageLayout from "../../layout/Page.layout/Page.layout"
 import Keyboard from "../../components/Keyboard/Keyboard"
-// import EditableKeyboard from "../../components/Keyboard/EditableKeyboard"
+import EditableKeyboard from "../../components/Keyboard/EditableKeyboard"
+import Button from "../../components/Form/Button"
 
 import { keyboard as qwertyLayout } from "../../keyboardLayouts/qwerty.json"
 import { keyboard as qwertyGeorgianLayout } from "../../keyboardLayouts/geo.json"
@@ -12,11 +17,14 @@ import { keyboard as colemakLayout } from "../../keyboardLayouts/colemak.json"
 import { keyboard as workmanLayout } from "../../keyboardLayouts/workman.json"
 
 const CreateLayoutPage = () => {
-  const { typingLanguage } = useTypingSettingsStore()
+  const { keyboardLayout } = useTypingSettingsStore()
+
+  const [isEditing, setIsEditing] = useState<boolean>(true)
 
   let currentKeyboard = qwertyLayout
 
-  switch (typingLanguage) {
+  // temporary
+  switch (keyboardLayout) {
     case "QWERTY":
       currentKeyboard = qwertyLayout
       break
@@ -36,16 +44,43 @@ const CreateLayoutPage = () => {
       currentKeyboard = qwertyLayout
   }
 
+  const handleStartEditing = () => {
+    setIsEditing(true)
+  }
+
+  const handleFinishEditing = () => {
+    setIsEditing(false)
+  }
+
   return (
     <PageLayout className="create-layout-page">
-      {/* <EditableKeyboard
-        size="medium"
-        keyboard={currentKeyboard}
-      /> */}
-      <Keyboard
-        size="medium"
-        keyboard={currentKeyboard}
-      />
+      <div className="keyboard-holder">
+        <div className="keyboard-edit-buttons">
+          <Button
+            onClick={handleStartEditing}
+            className={`${isEditing ? "active" : ""}`}
+          >
+            start editing
+          </Button>
+          <Button
+            onClick={handleFinishEditing}
+            className={`${isEditing ? "" : "active"}`}
+          >
+            finish editing
+          </Button>
+        </div>
+        {isEditing ? (
+          <EditableKeyboard
+            size="medium"
+            startingKeyboard={currentKeyboard as KeyInterface[]}
+          />
+        ) : (
+          <Keyboard
+            size="medium"
+            keyboard={currentKeyboard as KeyInterface[]}
+          />
+        )}
+      </div>
     </PageLayout>
   )
 }

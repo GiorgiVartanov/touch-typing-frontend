@@ -1,30 +1,28 @@
+import { KeyType } from "../../types/keyboard.types"
+
 interface Props {
   value: string | string[]
-  id: string
   isPressed: boolean
   isActive: boolean
-  showBoth: boolean
+  type: KeyType
   inUppercase: boolean
-  showInReverse: boolean
   className?: string
   style?: React.CSSProperties
 }
 
 const Key = ({
   value,
-  id,
   isPressed,
   isActive,
-  showBoth,
+  type,
   inUppercase,
-  showInReverse,
   className = "",
   style = {},
 }: Props) => {
   const renderKeyValues = () => {
     if (typeof value === "string") return <div className="key-value">{value}</div>
 
-    if (!showBoth) return <div className="key-value">{value[inUppercase ? 1 : 0]}</div>
+    if (type === "Letter") return <div className="key-value">{value[inUppercase ? 1 : 0]}</div>
 
     return value.map((key) => (
       <div
@@ -38,7 +36,7 @@ const Key = ({
 
   return (
     <div
-      className={`key ${typeof value !== "string" && value.length > 1 ? `keys-${value.length}` : ""} ${isActive ? "" : "inactive"} ${isPressed ? "pressed" : ""} ${inUppercase && typeof value !== "string" && value.length > 1 && showBoth ? "uppercase" : ""} ${showInReverse ? "in-reverse" : ""} ${className}`}
+      className={`key ${isActive ? "" : "inactive"} ${isPressed ? "pressed" : ""} ${inUppercase && typeof value !== "string" && value.length > 1 ? "uppercase" : ""} ${className}`}
       style={style}
     >
       {renderKeyValues()}

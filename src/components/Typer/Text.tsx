@@ -1,9 +1,7 @@
-/// <reference types="vite-plugin-svgr/client" />
-// fixed issue with importing svg file as a component
-
 import { useState, useEffect } from "react"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
+import { KeyInterface } from "../../types/keyboard.types"
 
 import Word from "./Word"
 import ActiveWord from "./ActiveWord"
@@ -17,10 +15,11 @@ interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
   handleTextFinish: () => void
+  keyboard: KeyInterface[]
   className?: string
 }
 
-const Text = ({ text, wordSeparator = "", handleTextFinish, className }: Props) => {
+const Text = ({ text, wordSeparator = "", handleTextFinish, keyboard, className }: Props) => {
   const { font, fontSize } = useTypingSettingsStore()
   const { handleMetrics } = useMetrics()
 
@@ -101,6 +100,7 @@ const Text = ({ text, wordSeparator = "", handleTextFinish, className }: Props) 
               handleFinishWord={handleFinishWord}
               isLastWord={index === textLength - 1}
               wordSeparator={wordSeparator}
+              keyboard={keyboard}
             />
           )
         } else {

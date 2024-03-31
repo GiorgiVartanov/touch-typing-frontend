@@ -1,5 +1,6 @@
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import "./styles.scss"
+import { KeyInterface } from "../../types/keyboard.types"
 
 import Text from "./Text"
 import Keyboard from "../Keyboard/Keyboard"
@@ -28,13 +29,14 @@ const Typer = ({
   showKeyboard = true,
   className,
 }: Props) => {
-  const { typingLanguage } = useTypingSettingsStore()
+  const { keyboardLayout } = useTypingSettingsStore()
 
   const textArray = text.split(" ")
 
   let currentKeyboard = qwertyLayout
 
-  switch (typingLanguage) {
+  // temporary
+  switch (keyboardLayout) {
     case "QWERTY":
       currentKeyboard = qwertyLayout
       break
@@ -61,8 +63,14 @@ const Typer = ({
         wordSeparator={wordSeparator}
         handleTextFinish={handleTextFinish}
         className={className}
+        keyboard={currentKeyboard as KeyInterface[]}
       />
-      {showKeyboard ? <Keyboard keyboard={currentKeyboard} /> : null}
+      {showKeyboard ? (
+        <Keyboard
+          keyboard={currentKeyboard as KeyInterface[]}
+          keyboardPosition="bottom"
+        />
+      ) : null}
     </div>
   )
 }

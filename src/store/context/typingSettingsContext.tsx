@@ -1,7 +1,8 @@
 import { createContext, useContext, useReducer, useEffect } from "react"
 
 import {
-  setTypingLanguageAction,
+  setKeyboardLayoutAction,
+  setKeyboardTypeAction,
   setFontAction,
   setFontSizeAction,
 } from "../actions/typingSettingsActions"
@@ -12,7 +13,8 @@ import {
   defaultFontSize,
 } from "../initial/typingSettingsInitialState"
 import {
-  TypingLanguageType,
+  KeyboardLayoutType,
+  KeyboardTypeType,
   FontType,
   FontSizeType,
   TypingSettingsOptions,
@@ -41,13 +43,15 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const { token } = useAuthStore()
 
-  const typingLanguageOptions = [
+  const keyboardLayoutOptions = [
     "QWERTY",
     "QWERTY georgian",
     "Dvorak",
     "Colemak",
     "Workman",
-  ] as TypingLanguageType[]
+    "Custom",
+  ] as KeyboardLayoutType[]
+  const keyboardTypeOptions = ["ANSI", "ANSI-ISO", "ISO", "ABNT", "KS", "JIS"] as KeyboardTypeType[]
   const fontOptions = ["sans", "serif", "sanet"] as FontType[]
   const fontSizeOptions = ["small", "medium", "large", "extra large"] as FontSizeType[]
 
@@ -64,9 +68,14 @@ const TypingSettingsProvider = ({ children }: Props) => {
     saveTypingSetting(typingSettingToChange, value, token)
   }
 
-  const setTypingLanguage = (newValue: TypingLanguageType, saveOnServer: boolean = true) => {
-    saveSetting("typingLanguage", newValue, saveOnServer)
-    dispatch(setTypingLanguageAction(newValue))
+  const setKeyboardLayout = (newValue: KeyboardLayoutType, saveOnServer: boolean = true) => {
+    saveSetting("keyboardLayout", newValue, saveOnServer)
+    dispatch(setKeyboardLayoutAction(newValue))
+  }
+
+  const setKeyboardType = (newValue: KeyboardTypeType, saveOnServer: boolean = true) => {
+    saveSetting("keyboardType", newValue, saveOnServer)
+    dispatch(setKeyboardTypeAction(newValue))
   }
 
   const setFont = (newValue: FontType, saveOnServer: boolean = true) => {
@@ -109,10 +118,12 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const store = {
     ...state,
-    typingLanguageOptions,
     fontOptions,
     fontSizeOptions,
-    setTypingLanguage,
+    keyboardLayoutOptions,
+    keyboardTypeOptions,
+    setKeyboardLayout,
+    setKeyboardType,
     setFont,
     setFontSize,
     resetTypingSettings,

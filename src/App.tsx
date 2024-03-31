@@ -18,7 +18,6 @@ import PlayPage from "./pages/Play.page/Play.page"
 import PageNotFoundPage from "./pages/PageNotFound.page/PageNotFound.page"
 import ProfilePage from "./pages/Profile.page/Profile.page"
 import FakeWordsPage from "./pages/FakeWords.page/FakeWords"
-import SettingsPage from "./components/SettingsModal/Settings.page"
 import LeaderboardsPage from "./pages/Leaderboards.page/Leaderboards.page"
 import NotificationsPage from "./pages/Notifications.page/Notifications.page"
 import LessonList from "./pages/LessonList.page/LessonList.page"
@@ -143,10 +142,6 @@ const App = () => {
               <NotificationsPage />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/settings"
-          element={<SettingsPage />}
         />
         <Route
           path="/social"

@@ -11,6 +11,8 @@ import SettingsSection from "./SettingsSection"
 import ConfirmModal from "../Modal/ConfirmModal"
 import Button from "../Form/Button"
 import TypingSettingsTextExample from "./TypingSettingsTextExample"
+import KeyboardTypeSelector from "./KeyboardTypeSelector"
+import CustomKeyboardSelector from "./CustomKeyboardSelector"
 
 interface Props {
   isVisible: boolean
@@ -24,15 +26,18 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
 
   const {
     // all available values for each setting (they will be options in select)
-    typingLanguageOptions,
+    keyboardLayoutOptions,
+    keyboardTypeOptions,
     fontOptions,
     fontSizeOptions,
     // function to set each setting
-    setTypingLanguage,
+    setKeyboardLayout,
+    setKeyboardType,
     setFont,
     setFontSize,
     // value of each setting
-    typingLanguage,
+    keyboardLayout,
+    keyboardType,
     font,
     fontSize,
     // function to reset setting (set them back to default)
@@ -75,15 +80,26 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
     },
   ]
 
+  // keyboard settings
+  const keyboardSettings = [
+    {
+      name: t("keyboard layout"),
+      selectedValue: t(keyboardLayout),
+      valueOptions: keyboardLayoutOptions,
+      valueToShow: keyboardLayoutOptions.map((option) => t(option)),
+      selectValue: setKeyboardLayout,
+    },
+    {
+      name: t("keyboard type"),
+      selectedValue: t(keyboardType),
+      valueOptions: keyboardTypeOptions,
+      valueToShow: keyboardTypeOptions.map((option) => t(option)),
+      selectValue: setKeyboardType,
+    },
+  ]
+
   // typing settings
   const typingSettings = [
-    {
-      name: t("typing language"),
-      selectedValue: t(typingLanguage),
-      valueOptions: typingLanguageOptions,
-      valueToShow: typingLanguageOptions.map((option) => t(option)),
-      selectValue: setTypingLanguage,
-    },
     {
       name: t("font"),
       selectedValue: font,
@@ -137,7 +153,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
 
   return (
     <Modal
-      modalTitle="settings"
+      modalTitle={t("settings")}
       showCloseButton={true}
       isVisible={isVisible}
       closeModal={closeModal}
@@ -147,6 +163,13 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
         sectionTitle={t("app settings")}
         settingsList={appSettings}
       />
+      <SettingsSection
+        sectionTitle={t("keyboard settings")}
+        settingsList={keyboardSettings}
+      >
+        {keyboardLayout === "Custom" ? <CustomKeyboardSelector /> : null}
+        <KeyboardTypeSelector />
+      </SettingsSection>
       <SettingsSection
         sectionTitle={t("typing settings")}
         settingsList={typingSettings}

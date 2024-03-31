@@ -2,7 +2,7 @@
   "modal": {
     "click anywhere to close": "click anywhere to close",
     "are you sure you want to log out?": "are you sure you want to log out?",
-    "stay": "stay",
+
     "log out": "log out"
   },
 
@@ -21,7 +21,8 @@
     "notifications": "notifications",
     "log out": "log out",
     "register": "register",
-    "log in": "log in"
+    "log in": "log in",
+    "stay": "stay"
   },
 
   "typer": {
@@ -58,14 +59,24 @@
   },
 
   "settings page": {
+    "settings": "settings",
     "app settings": "App Settings",
     "theme": "theme",
     "System Default": "System Default",
     "Dark": "Dark",
     "Light": "Light",
+    "keyboard settings": "Keyboard Settings",
+    "keyboard type": "Keyboard Type",
+    "ANSI": "ANSI",
+    "ANSI-ISO": "ANSI-ISO",
+    "ISO": "ISO",
+    "ABNT": "ABNT",
+    "KS": "KS",
+    "JIS": "JIS",
+    "Custom": "Custom",
     "app language": "app language",
     "Geo": "ქართული",
-    "typing language": "keyboard layout",
+    "keyboard layout": "keyboard layout",
     "QWERTY": "QWERTY",
     "QWERTY georgian": "QWERTY georgian",
     "Dvorak": "Dvorak",

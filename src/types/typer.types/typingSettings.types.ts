@@ -1,15 +1,24 @@
-export type TypingLanguageType = "QWERTY" | "QWERTY georgian" | "Dvorak" | "Colemak" | "Workman"
+export type KeyboardLayoutType =
+  | "QWERTY"
+  | "QWERTY georgian"
+  | "Dvorak"
+  | "Colemak"
+  | "Workman"
+  | "Custom"
+export type KeyboardTypeType = "ANSI" | "ANSI-ISO" | "ISO" | "ABNT" | "KS" | "JIS"
 export type FontType = "sans" | "serif" | "sanet"
 export type FontSizeType = "small" | "medium" | "large" | "extra large"
 
 export interface TypingSettingsState {
-  typingLanguage: TypingLanguageType
+  keyboardLayout: KeyboardLayoutType
+  keyboardType: KeyboardTypeType
   font: FontType
   fontSize: FontSizeType
 }
 
 export interface TypingSettingsOptions {
-  typingLanguageOptions: TypingLanguageType[]
+  keyboardLayoutOptions: KeyboardLayoutType[]
+  keyboardTypeOptions: KeyboardTypeType[]
   fontOptions: FontType[]
   fontSizeOptions: FontSizeType[]
 }
@@ -22,7 +31,8 @@ export interface TypingSettingItem {
 }
 
 export interface TypingSettingsActions {
-  setTypingLanguage: (newValue: TypingLanguageType) => void
+  setKeyboardLayout: (newValue: KeyboardLayoutType) => void
+  setKeyboardType: (newValue: KeyboardTypeType) => void
   setFont: (newValue: FontType) => void
   setFontSize: (newValue: FontSizeType) => void
   resetTypingSettings: () => void

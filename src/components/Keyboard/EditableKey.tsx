@@ -1,66 +1,45 @@
-import { useState, useEffect, useRef } from "react"
-import { createPortal } from "react-dom"
+import { useRef } from "react"
 
-import "./styles.scss"
+import { KeyType } from "../../types/keyboard.types"
+import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 
 import Key from "./Key"
 
 interface Props {
   value: string | string[]
-  id: string
+  code: string
+  isEditing: boolean
   isPressed: boolean
   isEditable: boolean
-  showBoth: boolean
+  type: KeyType
   inUppercase: boolean
-  isDraggingOver: boolean
-  onDrop: () => void
-  onDragStart: () => void
-  onDragFinish: () => void
-  onMouseEnter: () => void
-  onMouseLeave: () => void
+  onClick: () => void
+  onClickOutside: () => void
+  onChange: (keyCode: string, firstValue: string | null, secondValue: string | null) => void
   className?: string
+  style?: React.CSSProperties
 }
 
 const EditableKey = ({
   value,
-  id,
+  code,
+  isEditing,
   isPressed,
   isEditable,
-  showBoth,
+  type,
   inUppercase,
-  onDrop,
-  onDragStart,
-  isDraggingOver,
-  onDragFinish,
-  onMouseEnter,
-  onMouseLeave,
+  onClick,
+  onClickOutside,
+  onChange,
   className = "",
+  style = {},
 }: Props) => {
-  const [isDragging, setIsDragging] = useState<boolean>(false)
-  // const [isDraggingOver, setIsDraggingOver] = useState<boolean>(false)
-  const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
-  const ref = useRef<HTMLDivElement>(null)
-
-  const handleStartDragging = () => {
-    if (!isEditable) return
-
-    setIsDragging(true)
-    onDragStart()
-  }
-
-  const handleFinishDragging = () => {
-    if (!isEditable) return
-
-    setPosition({ x: 0, y: 0 })
-    setIsDragging(false)
-    onDrop()
-    // onDragFinish()
-  }
+  const ref = useRef<HTMLInputElement>(null)
 
   const renderKeyValues = () => {
     if (typeof value === "string") return <div className="key-value">{value}</div>
 
-    if (!showBoth) return <div className="key-value">{value[inUppercase ? 1 : 0]}</div>
+    if (type === "Letter") return <div className="key-value">{value[inUppercase ? 1 : 0]}</div>
 
     return value.map((key) => (
       <div
@@ -72,65 +51,65 @@ const EditableKey = ({
     ))
   }
 
-  const renderDraggedKey = () => {
-    return createPortal(
-      <Key
-        value={value}
-        id={id}
-        isPressed={false}
-        isActive={isEditable}
-        showBoth={showBoth}
-        inUppercase={false}
-        className={`dragged-key ${className}`}
-        style={{
-          position: "absolute",
-          left: position.x - 32,
-          top: position.y - 32,
-          zIndex: 100,
-        }}
-      />,
-      document.querySelector(".App") || document.body
+  // const handleOnFirstValueChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  //   const newValue = event.target.value.at(-1) || event.target.value
+
+  //   if (type === "Letter") {
+  //     onChange(code, newValue, newValue.toUpperCase())
+  //   } else {
+  //     onChange(code, newValue, value[1])
+  //   }
+  // }
+
+  // const handleOnSecondValueChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  //   const newValue = event.target.value.at(-1) || event.target.value
+
+  //   if (type === "Letter") {
+  //     onChange(code, newValue.toLocaleLowerCase(), newValue)
+  //   } else {
+  //     onChange(code, value[0], newValue)
+  //   }
+  // }
+
+  const renderEditableValues = () => {
+    return (
+      <>
+        <div className="key-value">{value[0]}</div>
+        <div className="key-value">{value[1]}</div>
+        <div className="key-editing-message">type new value of this key</div>
+      </>
     )
   }
 
-  useEffect(() => {
-    const currentKey = ref.current
-    if (currentKey) {
-      const rect = currentKey.getBoundingClientRect()
-      setPosition({ x: rect.left + 32, y: rect.top + 32 })
-    }
-
-    if (!isDragging) return
-
-    const trackMouse = (event: MouseEvent) => {
-      const mouseX = event.clientX
-      const mouseY = event.clientY
-
-      setPosition({ x: mouseX, y: mouseY })
-    }
-
-    document.addEventListener("mousemove", trackMouse)
-
-    return () => document.removeEventListener("mousemove", trackMouse)
-  }, [isDragging])
+  useOnClickOutside(ref, () => {
+    onClickOutside()
+  })
 
   return (
-    <div
-      ref={ref}
-      onMouseDown={handleStartDragging}
-      onMouseUp={handleFinishDragging}
-      className={`key ${isEditable ? "editable-key" : ""} ${typeof value !== "string" && value.length > 1 ? `keys-${value.length}` : ""} ${isEditable ? "" : "inactive"} ${isPressed ? "pressed" : ""} ${inUppercase && typeof value !== "string" && value.length > 1 && showBoth ? "uppercase" : ""} ${className} ${isDragging ? "dragging" : ""} ${isDraggingOver ? "dragging-over" : null}`}
-      onMouseEnter={() => {
-        if (!isDragging) return
-        onMouseEnter()
-      }}
-      onMouseLeave={() => {
-        if (!isDragging) return
-        onMouseLeave()
-      }}
-    >
-      {isDragging ? renderDraggedKey() : renderKeyValues()}
-    </div>
+    <>
+      <div
+        ref={ref}
+        onClick={() => {
+          if (!isEditable) return
+
+          onClick()
+        }}
+        className={`key ${isEditable ? "editable" : "uneditable"} ${isEditing ? "editing" : ""} ${isPressed ? "pressed" : ""} ${inUppercase && typeof value !== "string" && value.length > 1 ? "uppercase" : ""} ${className}`}
+        style={style}
+      >
+        {isEditing ? renderEditableValues() : renderKeyValues()}
+      </div>
+      {isEditing ? (
+        <Key
+          value={value}
+          isPressed={isPressed}
+          isActive={true}
+          type={type}
+          inUppercase={inUppercase}
+          className={`${type}-key editing-key-placeholder ${code}-key`}
+        />
+      ) : null}
+    </>
   )
 }
 export default EditableKey

@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react"
 import Letter from "./Letter"
 import { LetterStatus, wordLetterStatusesType } from "../../types/typer.types/letterStatuses.types"
 import { useMetrics } from "../../store/context/MetricsContext"
+import { KeyInterface } from "../../types/keyboard.types"
 
 const allowedKeys = [
   "1",
@@ -123,6 +124,7 @@ interface Props {
   handleFinishWord: (lettersStatuses: wordLetterStatusesType, isLastWord: boolean) => void
   isLastWord: boolean
   wordSeparator: string
+  keyboard: KeyInterface[]
   style?: React.CSSProperties
   className?: string
 }
@@ -132,6 +134,7 @@ const ActiveWord = ({
   handleFinishWord,
   isLastWord,
   wordSeparator,
+  keyboard,
   style,
   className,
 }: Props) => {
@@ -154,15 +157,37 @@ const ActiveWord = ({
   })
 
   const handleKeyPress = (e: KeyboardEvent) => {
-    const pressedKey = e.key
-    let isInputCharCorrect = pressedKey === word[currentLetterIndex]
-    const isInputTypable = typableAllowedKeys.includes(pressedKey)
+    // const pressedKey = e.key
+
+    const pressedKeyCode = e.code
+
+    const pressedKey = keyboard.find((key) => key.code === pressedKeyCode)
+
+    if (!pressedKey) return
+
+    let pressedKeyValue = ""
+
+    if (pressedKey.type === "Modifier") {
+      pressedKeyValue = pressedKey.value as string
+    } else {
+      if (
+        (e.shiftKey && !e.getModifierState("CapsLock")) ||
+        (!e.shiftKey && e.getModifierState("CapsLock"))
+      ) {
+        pressedKeyValue = pressedKey.value[1]
+      } else {
+        pressedKeyValue = pressedKey.value[0]
+      }
+    }
+
+    let isInputCharCorrect = pressedKeyValue === word[currentLetterIndex]
+    const isInputTypable = typableAllowedKeys.includes(pressedKeyValue)
 
     // ignores certain keys that should not trigger any action
-    if (!allowedKeys.includes(pressedKey)) return
+    if (!allowedKeys.includes(pressedKeyValue)) return
 
     // if user presses on space and they have typed  the last character, they will be moved to the next word
-    if (pressedKey === " " && currentLetterIndex > word.length - 1) {
+    if (pressedKeyValue === " " && currentLetterIndex > word.length - 1) {
       if (isLastWord) {
         handleFinishWord(lettersStatuses, true) // you can end test by pressing space if you are at the end
       } else {
@@ -172,10 +197,10 @@ const ActiveWord = ({
     }
 
     // collect needed metrics
-    handleMetrics.recordKeyPressAllMetrics(isInputCharCorrect, pressedKey, isInputTypable)
+    handleMetrics.recordKeyPressAllMetrics(isInputCharCorrect, pressedKeyValue, isInputTypable)
 
     // if user is at the end of a word they can press space to go the the next word, or on backspace to go back
-    if (currentLetterIndex === word.length && ![" ", "Backspace"].includes(pressedKey)) return
+    if (currentLetterIndex === word.length && ![" ", "Backspace"].includes(pressedKeyValue)) return
 
     // default action of pressing on space key is to scroll down
     if (e.key === " ") {
@@ -191,7 +216,7 @@ const ActiveWord = ({
     }
 
     // if the user presses Backspace and they are not on the first character of a word, move back one letter
-    if (pressedKey === "Backspace" && currentLetterIndex > 0) {
+    if (pressedKeyValue === "Backspace" && currentLetterIndex > 0) {
       setCurrentLetterIndex((prevState) => prevState - 1)
       // marks erased character as letter that was not typed (0)
       setLettersStatuses((prevState) => {
@@ -202,7 +227,7 @@ const ActiveWord = ({
       return
     }
 
-    if (pressedKey === "Backspace") return
+    if (pressedKeyValue === "Backspace") return
 
     setLettersStatuses((prevState) => {
       const savedPrevState = prevState

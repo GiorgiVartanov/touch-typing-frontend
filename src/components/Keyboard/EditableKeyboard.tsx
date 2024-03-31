@@ -1,220 +1,211 @@
 import { useEffect, useState } from "react"
 
 import "./styles.scss"
+import { KeyInterface, KeyType } from "../../types/keyboard.types"
+import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 
 import EditableKey from "./EditableKey"
+import Key from "./Key"
 
 interface Props {
-  keyboard?: {
-    key: string
-    value: string | string[]
-    showBoth: boolean
-    triggeredByCapsLock: boolean
-  }[][]
+  startingKeyboard: KeyInterface[]
   uneditableKeys?: string[]
   size?: "small" | "medium"
 }
 
 const EditableKeyboard = ({
-  keyboard = [
-    [
-      { key: "backquote", value: ["`", "~"], showBoth: true, triggeredByCapsLock: false },
-      { key: "1", value: ["1", "!"], showBoth: true, triggeredByCapsLock: false },
-      { key: "2", value: ["2", "@"], showBoth: true, triggeredByCapsLock: false },
-      { key: "3", value: ["3", "#"], showBoth: true, triggeredByCapsLock: false },
-      { key: "4", value: ["4", "$"], showBoth: true, triggeredByCapsLock: false },
-      { key: "5", value: ["5", "%"], showBoth: true, triggeredByCapsLock: false },
-      { key: "6", value: ["6", "^"], showBoth: true, triggeredByCapsLock: false },
-      { key: "7", value: ["7", "&"], showBoth: true, triggeredByCapsLock: false },
-      { key: "8", value: ["8", "*"], showBoth: true, triggeredByCapsLock: false },
-      { key: "9", value: ["9", "("], showBoth: true, triggeredByCapsLock: false },
-      { key: "0", value: ["0", ")"], showBoth: true, triggeredByCapsLock: false },
-      { key: "minus", value: ["-", "_"], showBoth: true, triggeredByCapsLock: false },
-      { key: "equal", value: ["=", "+"], showBoth: true, triggeredByCapsLock: false },
-      { key: "backspace", value: "Backspace", showBoth: true, triggeredByCapsLock: false },
-    ],
-    [
-      { key: "tab", value: "Tab", showBoth: true, triggeredByCapsLock: false },
-      { key: "q", value: ["q", "Q"], showBoth: false, triggeredByCapsLock: true },
-      { key: "w", value: ["w", "W"], showBoth: false, triggeredByCapsLock: true },
-      { key: "e", value: ["e", "E"], showBoth: false, triggeredByCapsLock: true },
-      { key: "r", value: ["r", "R"], showBoth: false, triggeredByCapsLock: true },
-      { key: "t", value: ["t", "T"], showBoth: false, triggeredByCapsLock: true },
-      { key: "y", value: ["y", "Y"], showBoth: false, triggeredByCapsLock: true },
-      { key: "u", value: ["u", "U"], showBoth: false, triggeredByCapsLock: true },
-      { key: "i", value: ["i", "I"], showBoth: false, triggeredByCapsLock: true },
-      { key: "o", value: ["o", "O"], showBoth: false, triggeredByCapsLock: true },
-      { key: "p", value: ["p", "P"], showBoth: false, triggeredByCapsLock: true },
-      { key: "bracketleft", value: ["[", "{"], showBoth: true, triggeredByCapsLock: false },
-      { key: "bracketright", value: ["]", "}"], showBoth: true, triggeredByCapsLock: false },
-      { key: "backslash", value: ["\\", "|"], showBoth: true, triggeredByCapsLock: false },
-    ],
-    [
-      { key: "capslock", value: "CapsLock", showBoth: true, triggeredByCapsLock: false },
-      { key: "a", value: ["a", "A"], showBoth: false, triggeredByCapsLock: true },
-      { key: "s", value: ["s", "S"], showBoth: false, triggeredByCapsLock: true },
-      { key: "d", value: ["d", "D"], showBoth: false, triggeredByCapsLock: true },
-      { key: "f", value: ["f", "F"], showBoth: false, triggeredByCapsLock: true },
-      { key: "g", value: ["g", "G"], showBoth: false, triggeredByCapsLock: true },
-      { key: "h", value: ["h", "H"], showBoth: false, triggeredByCapsLock: true },
-      { key: "j", value: ["j", "J"], showBoth: false, triggeredByCapsLock: true },
-      { key: "k", value: ["k", "K"], showBoth: false, triggeredByCapsLock: true },
-      { key: "l", value: ["l", "L"], showBoth: false, triggeredByCapsLock: true },
-      { key: "semicolon", value: [";", ":"], showBoth: true, triggeredByCapsLock: false },
-      { key: "quote", value: ["'", '"'], showBoth: true, triggeredByCapsLock: false },
-      { key: "enter", value: "Enter", showBoth: true, triggeredByCapsLock: false },
-    ],
-    [
-      { key: "shiftleft", value: "Shift", showBoth: true, triggeredByCapsLock: false },
-      { key: "z", value: ["z", "Z"], showBoth: false, triggeredByCapsLock: true },
-      { key: "x", value: ["x", "X"], showBoth: false, triggeredByCapsLock: true },
-      { key: "c", value: ["c", "C"], showBoth: false, triggeredByCapsLock: true },
-      { key: "v", value: ["v", "V"], showBoth: false, triggeredByCapsLock: true },
-      { key: "b", value: ["b", "B"], showBoth: false, triggeredByCapsLock: true },
-      { key: "n", value: ["n", "N"], showBoth: false, triggeredByCapsLock: true },
-      { key: "m", value: ["m", "M"], showBoth: false, triggeredByCapsLock: true },
-      { key: "comma", value: [",", "<"], showBoth: true, triggeredByCapsLock: false },
-      { key: "period", value: [".", ">"], showBoth: true, triggeredByCapsLock: false },
-      { key: "slash", value: ["/", "?"], showBoth: true, triggeredByCapsLock: false },
-      { key: "shiftright", value: "Shift", showBoth: true, triggeredByCapsLock: false },
-    ],
-    [
-      { key: "controlleft", value: "Ctrl", showBoth: false, triggeredByCapsLock: false },
-      { key: "metaleft", value: "Meta", showBoth: false, triggeredByCapsLock: false },
-      { key: "altleft", value: "Alt", showBoth: false, triggeredByCapsLock: false },
-      { key: "space", value: " ", showBoth: false, triggeredByCapsLock: false },
-      { key: "altright", value: "Alt", showBoth: false, triggeredByCapsLock: false },
-      { key: "metaright", value: "Meta", showBoth: false, triggeredByCapsLock: false },
-      { key: "contextmenu", value: "Menu", showBoth: false, triggeredByCapsLock: false },
-      { key: "controlright", value: "Ctrl", showBoth: false, triggeredByCapsLock: false },
-    ],
-  ],
+  startingKeyboard,
   uneditableKeys = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "0",
-    "minus",
-    "equal",
-    "tab",
-    "altright",
-    "altleft",
-    "metaright",
-    "metaleft",
-    "contextmenu",
-    "backspace",
-    "capslock",
-    "shiftleft",
-    "shiftright",
-    "controlleft",
-    "controlright",
-    "space",
-    "enter",
-    "",
+    "Tab",
+    "AltRight",
+    "AltLeft",
+    "MetaRight",
+    "MetaLeft",
+    "ContextMenu",
+    "Space",
+    "ControlLeft",
+    "ControlRight",
+    "ShiftLeft",
+    "ShiftRight",
+    "CapsLock",
+    "Enter",
+    "Backspace",
   ],
   size = "small",
 }: Props) => {
+  const { keyboardType } = useTypingSettingsStore()
+
   const [pressedKeys, setPressedKeys] = useState<string[]>([])
-  const [currentlyDraggedKey, setCurrentlyDraggedKey] = useState<string | null>(null)
-  const [candidateForSwap, setCandidateForSwap] = useState<string | null>(null)
+  const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null)
+  const [editingKeyboard, setEditingKeyboard] = useState<KeyInterface[]>(
+    structuredClone(startingKeyboard)
+  ) // startingKeyboard prop is used as a default value here
 
-  const handleDragStart = (id: string) => {
-    setCurrentlyDraggedKey(id)
+  const handleOnEditingKeyChange = (
+    keyCode: string,
+    type: KeyType,
+    firstValue: string | null,
+    secondValue: string | null
+  ) => {
+    setEditingKeyboard((prevState) => {
+      const keyboard = [...prevState]
+      const changedKeyIndex = keyboard.findIndex((key) => key.code === keyCode)
+      keyboard[changedKeyIndex].value = [
+        firstValue || keyboard[changedKeyIndex].value[0],
+        secondValue || keyboard[changedKeyIndex].value[1],
+      ]
+      keyboard[changedKeyIndex].type = type
+
+      return keyboard
+    })
   }
 
-  const handleDragFinish = () => {
-    setCurrentlyDraggedKey(null)
-  }
+  // const swapKeys = (keyCode1: string, keyCode2: string) => {
+  //   const key1 = editingKeyboard.find((key) => key.code === keyCode1)
+  //   const key2 = editingKeyboard.find((key) => key.code === keyCode2)
 
-  const handleDragOver = (id: string) => {
-    setCandidateForSwap(id)
-  }
+  //   if (!key1 || !key2) return
 
-  const handleFinishDrag = () => {
-    // setCandidateForSwap(null)
-  }
+  //   handleOnEditingKeyChange(keyCode1, key2.type, key2.value[0], key2.value[1])
 
-  const handleDrop = () => {
-    // console.log(`swapping ${currentlyDraggedKey} with ${candidateForSwap}`)
-  }
+  //   handleOnEditingKeyChange(keyCode2, key1.type, key1.value[0], key1.value[1])
+  // }
 
   const renderKeyboard = () => {
-    return keyboard.map((row, index) => renderRow(row, index))
+    // will change letter
+    const backslashKeyIndex = 27
+    const secondBackslashIndex = 43
+    const enterKeyIndex = 40
+
+    const phantomKey: KeyInterface = {
+      code: "Phantom",
+      value: "",
+      type: "Letter",
+    }
+
+    const secondBackslash: KeyInterface = {
+      ...startingKeyboard[backslashKeyIndex],
+      code: "Backslash-2",
+    }
+
+    const tempKeyboard = [...editingKeyboard]
+
+    switch (keyboardType) {
+      case "ANSI":
+        return tempKeyboard.map((key) => renderKey(key))
+      case "ISO":
+        tempKeyboard[enterKeyIndex] = startingKeyboard[backslashKeyIndex]
+        tempKeyboard[backslashKeyIndex] = startingKeyboard[enterKeyIndex]
+
+        tempKeyboard.splice(secondBackslashIndex - 2, 0, phantomKey)
+        tempKeyboard.splice(secondBackslashIndex, 0, secondBackslash)
+
+        return tempKeyboard.map((key) => renderKey(key))
+      case "ANSI-ISO":
+        tempKeyboard[enterKeyIndex] = startingKeyboard[backslashKeyIndex]
+        tempKeyboard[backslashKeyIndex] = startingKeyboard[enterKeyIndex]
+
+        return tempKeyboard.map((key) => renderKey(key))
+      case "ABNT":
+        return tempKeyboard.map((key) => renderKey(key))
+      case "KS":
+        return tempKeyboard.map((key) => renderKey(key))
+      case "JIS":
+        return tempKeyboard.map((key) => renderKey(key))
+      default:
+        return tempKeyboard.map((key) => renderKey(key))
+    }
   }
 
-  const renderRow = (
-    row: {
-      key: string
-      value: string | string[]
-      showBoth: boolean
-      triggeredByCapsLock: boolean
-    }[],
-    index: number
-  ) => {
-    return (
-      <div
-        className="row"
-        key={index}
-      >
-        {row.map((key) => renderEditableKey(key))}
-      </div>
-    )
+  const selectAsEditable = (keyCode: string) => {
+    setCurrentlyEditing(keyCode)
   }
 
-  const renderEditableKey = (key: {
-    key: string
-    value: string | string[]
-    showBoth: boolean
-    triggeredByCapsLock: boolean
-  }) => {
+  // change this name
+  const unselectAsEditable = () => {
+    // setCurrentlyEditing(null)
+  }
+
+  const renderKey = (key: KeyInterface) => {
     return (
       <EditableKey
         value={key.value}
-        id={key.key}
-        key={key.key}
-        isPressed={pressedKeys.includes(key.key)}
-        isEditable={!uneditableKeys.includes(key.key)}
-        showBoth={key.showBoth}
-        onDrop={handleDrop}
-        isDraggingOver={key.key === candidateForSwap}
-        onDragStart={() => {
-          handleDragStart(key.key)
+        code={key.code}
+        isEditing={key.code === currentlyEditing}
+        onClick={() => {
+          selectAsEditable(key.code)
         }}
-        onDragFinish={handleDragFinish}
-        onMouseEnter={() => {
-          handleDragOver(key.key)
-        }}
-        onMouseLeave={handleFinishDrag}
+        onClickOutside={unselectAsEditable}
+        key={key.code}
+        type={key.type}
+        isPressed={pressedKeys.includes(key.code)}
+        isEditable={!uneditableKeys.includes(key.code)}
         inUppercase={
-          (pressedKeys.includes("shiftleft") ||
-            pressedKeys.includes("shiftright") ||
-            (pressedKeys.includes("capslock") && key.triggeredByCapsLock)) &&
+          (pressedKeys.includes("ShiftLeft") ||
+            pressedKeys.includes("ShiftRight") ||
+            (pressedKeys.includes("CapsLock") && key.type === "Letter")) &&
           !(
-            (pressedKeys.includes("shiftleft") && pressedKeys.includes("capslock")) ||
-            (pressedKeys.includes("shiftright") && pressedKeys.includes("capslock"))
+            (pressedKeys.includes("ShiftLeft") && pressedKeys.includes("CapsLock")) ||
+            (pressedKeys.includes("ShiftRight") && pressedKeys.includes("CapsLock"))
           )
         }
-        className={`${key.key}-key`}
+        onChange={handleOnEditingKeyChange}
+        className={`${key.type}-key ${key.code}-key`}
       />
     )
   }
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      const pressedKey = event.code.replace("Key", "").replace("Digit", "").toLocaleLowerCase()
+      const pressedKey = event.code
 
-      if (pressedKey === "alt" || pressedKey === "space") event.preventDefault()
+      const pressedKeyValue = startingKeyboard.find((key) => key.code === pressedKey)
 
-      if (pressedKey === "capslock") {
+      if (pressedKey === "Esc") {
+        unselectAsEditable()
+      }
+
+      if (pressedKey === "Tab") {
+        event.preventDefault() // will change latter
+
+        const currentSelectedKeyIndex = editingKeyboard.findIndex((key) => {
+          return key.code === currentlyEditing
+        })
+
+        const selectNextKey = (currentIndex: number): string => {
+          let nextKeyIndex = 0
+
+          if (currentIndex < editingKeyboard.length - 2) {
+            nextKeyIndex = currentIndex + 1
+          } else {
+            nextKeyIndex = 0
+          }
+
+          const nextKey = editingKeyboard[nextKeyIndex]
+
+          if (nextKey.type === "Modifier") return selectNextKey(nextKeyIndex)
+          else return nextKey.code
+        }
+
+        selectAsEditable(selectNextKey(currentSelectedKeyIndex))
+      }
+
+      if (currentlyEditing && !uneditableKeys.includes(pressedKey) && pressedKeyValue) {
+        handleOnEditingKeyChange(
+          currentlyEditing,
+          pressedKeyValue.type,
+          pressedKeyValue.value[0],
+          pressedKeyValue.value[1]
+        )
+        // swapKeys(pressedKeyValue.code, currentlyEditing)
+      }
+
+      if (pressedKey === "Alt" || pressedKey === "Space") event.preventDefault()
+
+      if (pressedKey === "CapsLock") {
         setPressedKeys((prevState) => {
           if (prevState.includes("capslock")) {
-            return prevState.filter((key) => key !== "capslock")
+            return prevState.filter((key) => key !== "CapsLock")
           } else {
             return [...prevState, pressedKey]
           }
@@ -229,16 +220,16 @@ const EditableKeyboard = ({
       if (event.getModifierState("CapsLock")) {
         setPressedKeys((prevState) => [...prevState, pressedKey])
       } else {
-        setPressedKeys((prevState) => prevState.filter((key) => key !== "capslock"))
+        setPressedKeys((prevState) => prevState.filter((key) => key !== "CapsLock"))
       }
     }
 
     const handleKeyUnPress = (event: KeyboardEvent) => {
-      const pressedKey = event.code.replace("Key", "").replace("Digit", "").toLocaleLowerCase()
+      const pressedKey = event.code
 
-      if (pressedKey === "alt" || pressedKey === "space") event.preventDefault()
+      if (pressedKey === "Alt" || pressedKey === "Space") event.preventDefault()
 
-      if (pressedKey === "capslock") return
+      if (pressedKey === "CapsLock") return
 
       setPressedKeys((prevState) => prevState.filter((key) => key !== pressedKey))
     }
@@ -250,8 +241,12 @@ const EditableKeyboard = ({
       window.removeEventListener("keydown", handleKeyPress)
       window.removeEventListener("keyup", handleKeyUnPress)
     }
-  }, [])
+  }, [currentlyEditing, editingKeyboard])
 
-  return <div className={`keyboard keyboard-size-${size}`}>{renderKeyboard()}</div>
+  return (
+    <div className={`keyboard keyboard-${keyboardType} keyboard-size-${size}`}>
+      {renderKeyboard()}
+    </div>
+  )
 }
 export default EditableKeyboard

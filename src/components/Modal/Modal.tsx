@@ -40,7 +40,7 @@ const Modal = ({
       >
         {modalTitle || showCloseButton ? (
           <div className="modal-top-bar">
-            {modalTitle ? <h2 className="modal-title">{t("modalTitle")}</h2> : null}
+            {modalTitle ? <h2 className="modal-title">{modalTitle}</h2> : null}
             <button
               onClick={closeModal}
               className="close-modal-button"
