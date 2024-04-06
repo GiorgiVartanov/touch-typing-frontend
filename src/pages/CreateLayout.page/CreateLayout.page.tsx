@@ -7,7 +7,7 @@ import { KeyInterface } from "../../types/keyboard.types"
 
 import PageLayout from "../../layout/Page.layout/Page.layout"
 import Keyboard from "../../components/Keyboard/Keyboard"
-import EditableKeyboard from "../../components/Keyboard/EditableKeyboard"
+import EditableKeyboard from "../../components/Keyboard/EditableKeyboard/EditableKeyboard"
 import Button from "../../components/Form/Button"
 
 import { keyboard as qwertyLayout } from "../../keyboardLayouts/qwerty.json"
@@ -44,43 +44,17 @@ const CreateLayoutPage = () => {
       currentKeyboard = qwertyLayout
   }
 
-  const handleStartEditing = () => {
-    setIsEditing(true)
-  }
+  // const handleStartEditing = () => {
+  //   setIsEditing(true)
+  // }
 
-  const handleFinishEditing = () => {
-    setIsEditing(false)
-  }
+  // const handleFinishEditing = () => {
+  //   setIsEditing(false)
+  // }
 
   return (
     <PageLayout className="create-layout-page">
-      <div className="keyboard-holder">
-        <div className="keyboard-edit-buttons">
-          <Button
-            onClick={handleStartEditing}
-            className={`${isEditing ? "active" : ""}`}
-          >
-            start editing
-          </Button>
-          <Button
-            onClick={handleFinishEditing}
-            className={`${isEditing ? "" : "active"}`}
-          >
-            finish editing
-          </Button>
-        </div>
-        {isEditing ? (
-          <EditableKeyboard
-            size="medium"
-            startingKeyboard={currentKeyboard as KeyInterface[]}
-          />
-        ) : (
-          <Keyboard
-            size="medium"
-            keyboard={currentKeyboard as KeyInterface[]}
-          />
-        )}
-      </div>
+      <EditableKeyboard startingKeyboard={currentKeyboard as KeyInterface[]} />
     </PageLayout>
   )
 }

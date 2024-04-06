@@ -36,11 +36,9 @@
   flex-direction: column;
   padding: 0.5rem 0.5rem;
   border-radius: var(--border-radius);
-  transition:
-    transform 300ms var(--animation-function),
-    box-shadow 300ms var(--animation-function),
-    opacity 300ms var(--animation-function),
-    visibility 300ms var(--animation-function);
+  // transition:
+  //   transform 100ms var(--animation-function),
+  //   opacity 100ms var(--animation-function);
   transform: translate(-50%, -50%);
   box-shadow: 0 2px 6px -1px var(--shadow-color);
 
@@ -148,12 +146,15 @@
 }
 
 @keyframes modalAppear {
-  from {
+  0% {
     // scale: 0;
     transform: translateX(-50%) translateY(-47.5%);
     opacity: 0;
   }
-  to {
+  75% {
+    opacity: 1;
+  }
+  100% {
     // scale: 1;
     transform: translateX(-50%) translateY(-50%);
     opacity: 1;

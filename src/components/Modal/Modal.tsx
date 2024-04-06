@@ -52,7 +52,7 @@ const Modal = ({
         <div className="modal-content">{children}</div>
         <span className="close-modal-message">{t("click anywhere to close")}</span>
       </div>
-      <div className="modal-background"></div>
+      {/* <div className="modal-background"></div> */}
     </>
   )
 }

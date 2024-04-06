@@ -1,9 +1,8 @@
 .header {
   width: 100vw;
-  background-color: transparent;
-  background-color: var(--background-color);
+  background-color: var(--secondary-background-color);
   box-shadow: 0 1px 3px -1px var(--shadow-color);
-  z-index: 10;
+  z-index: 20;
 
   .menu-button {
     display: none;
@@ -31,7 +30,6 @@
     max-width: 1280px;
     padding: 0.5rem;
     position: relative;
-
     margin: 0 auto;
 
     h1 {
@@ -134,13 +132,12 @@
           .nav-item-children {
             .dropdown-menu {
               transition: opacity 300ms var(--animation-function);
-              margin-top: 0.5rem;
+              // margin-top: 3rem;
               position: absolute;
               width: 200px;
-              top: 2.65rem;
+              top: 3.25rem;
               right: 0rem;
               box-shadow: 0 2px 4px -1px var(--shadow-color);
-              border-radius: 0 0 0.5rem 0.5rem;
               overflow: hidden;
 
               animation: dropdownAppear 300ms var(--animation-function) forwards;
@@ -243,6 +240,10 @@
           }
 
           .dropdown-menu {
+            // border-radius: var(--border-radius);
+            // background-color: var(--secondary-background-color);
+            // background-color: var(--secondary-background-color);
+
             &.hidden {
               // animation: closeDropdown 300ms ease-in-out forwards;
             }
@@ -254,7 +255,7 @@
               display: flex;
               flex-direction: row;
               user-select: none;
-              background-color: var(--background-color);
+              background-color: var(--secondary-background-color);
               backdrop-filter: blur(2.5px);
 
               &:hover,
@@ -279,22 +280,24 @@
               }
 
               &:first-of-type {
-                border-radius: 0.5rem 0.5rem 0 0;
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
               }
 
               &:last-of-type {
-                border-radius: 0 0 0.5rem 0.5rem;
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
               }
 
-              &.logout-button {
-                border-radius: 0 0 0.5rem 0.5rem;
+              &.logout-button-item {
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                background-color: transparent !important;
 
-                button {
-                  border-radius: 0 0 0.5rem 0.5rem;
-                }
+                .logout-button {
+                  background-color: var(--secondary-background-color);
+                  border-radius: 0 0 var(--border-radius) var(--border-radius);
 
-                &:hover {
-                  background-color: var(--warning-color);
+                  &:hover {
+                    background-color: var(--warning-color);
+                  }
                 }
               }
 
@@ -379,28 +382,9 @@
 
   &:hover {
     box-shadow: 0 2px 4px -1px var(--shadow-color);
-    // background-color: var(--secondary-background-color);
     background-color: var(--cta-color-active);
   }
 }
-
-// @keyframes headerSlideInFromTop {
-//   0% {
-//     padding: 0 0;
-//   }
-//   100% {
-//     padding: 0.25rem 0;
-//   }
-// }
-
-// @keyframes headerSlideOutToTop {
-//   0% {
-//     padding: 0.25rem 0;
-//   }
-//   100% {
-//     padding: 0 0;
-//   }
-// }
 
 @keyframes navbarSlide {
   0% {
@@ -414,8 +398,10 @@
 }
 
 @media screen and (max-width: 1280px) {
-  .header-content {
-    // padding: 0.5rem 0.75rem !important;
+  .header {
+    .header-content {
+      width: calc(100% - 1rem);
+    }
   }
 }
 
@@ -498,31 +484,25 @@
             width: 100% !important;
 
             .dropdown-menu {
-              // transition:
-              //   opacity 300ms var(--animation-function),
-              //   max-height 300ms linear,
-              //   visibility 300ms var(--animation-function);
-
               width: 100% !important;
               position: static !important;
               box-shadow: none !important;
               border-radius: 0 !important;
-              // padding-right: 1rem;
-              background-color: var(--secondary-background-color);
+              // background-color: var(--secondary-background-color);
               position: absolute;
               width: 200px;
               top: 2.5rem;
               right: 0 !important;
               box-shadow: 0 2px 4px -1px var(--shadow-color);
-              border-radius: 0.5rem 0 0.5rem 0.5rem;
+              border-radius: var(--border-radius) 0 var(--border-radius) var(--border-radius);
               overflow: hidden;
-              // outline: 1px solid red;
 
               .dropdown-item {
                 border-radius: 0 !important;
                 display: flex !important;
                 padding-right: 1.75rem;
                 transition: 300ms var(--animation-function);
+                // background-color: var(--secondary-background-color);
 
                 &:hover,
                 &:active {
@@ -537,7 +517,7 @@
                   }
                 }
 
-                &.logout-button {
+                &.logout-button-item {
                   border-radius: 0 0 0 0 !important;
 
                   button {
@@ -555,7 +535,7 @@
                   // transition: all 300ms var(--animation-function);
                 }
 
-                &.logout-button {
+                &.logout-button-item {
                   border-radius: 0 0 0 0 !important;
 
                   button {

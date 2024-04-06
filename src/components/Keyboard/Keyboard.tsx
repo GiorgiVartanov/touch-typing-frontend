@@ -9,15 +9,13 @@ import Key from "./Key"
 interface Props {
   keyboard: KeyInterface[]
   inactiveKeys?: string[]
-  keyboardPosition?: "normal" | "bottom"
-  size?: "small" | "medium"
+  keySize?: number
 }
 
 const Keyboard = ({
   keyboard,
   inactiveKeys = ["Tab", "AltRight", "AltLeft", "MetaRight", "MetaLeft", "ContextMenu", ""],
-  keyboardPosition = "normal",
-  size = "small",
+  keySize = 3.25,
 }: Props) => {
   const { keyboardType } = useTypingSettingsStore()
 
@@ -30,7 +28,7 @@ const Keyboard = ({
 
     const phantomKey: KeyInterface = {
       code: "Phantom",
-      value: "",
+      value: [""],
       type: "Letter",
     }
 
@@ -73,13 +71,14 @@ const Keyboard = ({
       <Key
         value={key.value}
         key={key.code}
-        type={key.type}
         isPressed={pressedKeys.includes(key.code)}
         isActive={!inactiveKeys.includes(key.code)}
         inUppercase={
           (pressedKeys.includes("ShiftLeft") ||
             pressedKeys.includes("ShiftRight") ||
-            (pressedKeys.includes("CapsLock") && key.type === "Letter")) &&
+            (pressedKeys.includes("CapsLock") &&
+              key.type === "Letter" &&
+              key.value[0]?.toLocaleLowerCase() === key.value[1]?.toLowerCase())) &&
           !(
             (pressedKeys.includes("ShiftLeft") && pressedKeys.includes("CapsLock")) ||
             (pressedKeys.includes("ShiftRight") && pressedKeys.includes("CapsLock"))
@@ -94,7 +93,13 @@ const Keyboard = ({
     const handleKeyPress = (event: KeyboardEvent) => {
       const pressedKey = event.code
 
-      if (pressedKey === "Alt" || pressedKey === "Space") event.preventDefault()
+      if (
+        pressedKey === "Alt" ||
+        pressedKey === "Space" ||
+        pressedKey === "Quote" ||
+        pressedKey === "Slash"
+      )
+        event.preventDefault()
 
       if (pressedKey === "CapsLock") {
         setPressedKeys((prevState) => {
@@ -121,7 +126,13 @@ const Keyboard = ({
     const handleKeyUnPress = (event: KeyboardEvent) => {
       const pressedKey = event.code
 
-      if (pressedKey === "Alt" || pressedKey === "Space") event.preventDefault()
+      if (
+        pressedKey === "Alt" ||
+        pressedKey === "Space" ||
+        pressedKey === "Quote" ||
+        pressedKey === "Slash"
+      )
+        event.preventDefault()
 
       if (pressedKey === "CapsLock") return
 
@@ -139,7 +150,8 @@ const Keyboard = ({
 
   return (
     <div
-      className={`keyboard keyboard-position-${keyboardPosition} keyboard-${keyboardType} keyboard-size-${size}`}
+      style={{ "--key-size": `${keySize}rem` } as React.CSSProperties}
+      className={`keyboard keyboard-${keyboardType}`}
     >
       {renderKeyboard()}
     </div>

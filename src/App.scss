@@ -18,7 +18,7 @@ body {
 
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: background-color 300ms var(--animation-function);
+  // transition: background-color 300ms var(--animation-function);
 
   --red-color: #ca3f3f;
   --success-color: #27bd47; // change
@@ -28,34 +28,16 @@ body {
 
   --small-screen: 576px;
   --medium-screen: 768px;
-  --large-screen: 1200px;
+  --large-screen: 1280px;
 
-  // --finger-color-1: rgba(222, 106, 106, 0.6); // Q A Z row
-  // --finger-color-2: rgba(106, 117, 222, 0.6); // W S X row
-  // --finger-color-3: rgba(106, 222, 139, 0.6); // E D C row
-  // --finger-color-4: rgba(222, 197, 106, 0.6); // R F V row
-  // --finger-color-7: rgba(114, 119, 167, 0.6); // U J M row
-  // --finger-color-8: rgba(106, 222, 139, 0.6); // I K row
-  // --finger-color-9: rgba(106, 117, 222, 0.6); // O L . row
-  // --finger-color-10: rgba(222, 106, 106, 0.6); // P , ; row
-
-  // --finger-color-1-hover: rgba(222, 106, 106, 0.9);
-  // --finger-color-2-hover: rgba(106, 117, 222, 0.9);
-  // --finger-color-3-hover: rgba(106, 222, 139, 0.9);
-  // --finger-color-4-hover: rgba(222, 197, 106, 0.9);
-  // --finger-color-7-hover: rgba(114, 119, 167, 0.9);
-  // --finger-color-8-hover: rgba(106, 222, 139, 0.9);
-  // --finger-color-9-hover: rgba(106, 117, 222, 0.9);
-  // --finger-color-10-hover: rgba(222, 106, 106, 0.9);
-
-  --finger-color-1: rgba(233, 90, 90, 0.6); // Q A Z row
-  --finger-color-2: rgba(98, 111, 226, 0.6); // W S X row
-  --finger-color-3: rgba(81, 224, 122, 0.6); // E D C row
-  --finger-color-4: rgba(228, 194, 72, 0.6); // R F V row
-  --finger-color-7: rgba(55, 175, 169, 0.6); // U J M row
-  --finger-color-8: rgba(81, 224, 122, 0.6); // I K row
-  --finger-color-9: rgba(79, 91, 201, 0.6); // O L . row
-  --finger-color-10: rgba(233, 90, 90, 0.6); // P , ; row
+  --finger-color-1: rgba(233, 90, 90, 0.65); // Q A Z row
+  --finger-color-2: rgba(98, 111, 226, 0.65); // W S X row
+  --finger-color-3: rgba(81, 224, 122, 0.65); // E D C row
+  --finger-color-4: rgba(228, 194, 72, 0.65); // R F V row
+  --finger-color-7: rgba(55, 175, 169, 0.65); // U J M row
+  --finger-color-8: rgba(81, 224, 122, 0.65); // I K row
+  --finger-color-9: rgba(79, 91, 201, 0.65); // O L . row
+  --finger-color-10: rgba(233, 90, 90, 0.65); // P , ; row
 
   --finger-color-1-hover: rgba(233, 90, 90, 0.9); // Q A Z row
   --finger-color-2-hover: rgba(98, 111, 226, 0.9); // W S X row
@@ -76,13 +58,13 @@ body {
     --primary-color: rgb(87, 82, 180);
     // --complementary-color: #8780e4;
     --cta-color: #9792eb;
-    --cta-color-active: #a9a5f5;
+    --cta-color-active: #a09cf1;
     --secondary-color: #4b5057;
 
     --accent-color: #1c1b1d;
     --accent-color-dim: #575358;
 
-    --shadow-color: rgb(0 0 0 / 0.1);
+    --shadow-color: rgb(0 0 0 / 0.15);
     --warning-color: #d43737;
     // --warning-color: #ee6868;
 
@@ -92,7 +74,7 @@ body {
 
     --secondary-background-color: #fafbfb;
     // --secondary-background-color: #ffffff70;
-    --secondary-background-color-active: rgba(244, 245, 245, 0.842);
+    --secondary-background-color-active: rgb(244, 245, 245);
 
     --text-color: #1f1e24;
 
@@ -107,7 +89,7 @@ body {
     --green-adjusted: rgb(133, 187, 133);
 
     .background-image {
-      filter: opacity(0.25) blur(3px);
+      filter: opacity(0.2);
     }
   }
 
@@ -122,14 +104,14 @@ body {
     --accent-color: #ffffff;
     --accent-color-dim: #c8c4ca;
 
-    --shadow-color: rgb(0 0 0 / 0.2);
+    --shadow-color: rgb(0 0 0 / 0.25);
     --warning-color: #ca3f3f;
 
     --background-color: #262533;
     --background-color-transparent: #26253375;
 
-    --secondary-background-color: #44435ab0;
-    --secondary-background-color-active: #555470b4;
+    --secondary-background-color: #44435a;
+    --secondary-background-color-active: #555470;
 
     --text-color: #e2e6eb;
 
@@ -144,7 +126,7 @@ body {
     --green-adjusted: rgb(11, 59, 11);
 
     .background-image {
-      filter: opacity(0.2) blur(3px);
+      filter: opacity(0.2);
     }
   }
 
@@ -164,11 +146,13 @@ body {
 // overriding toastify colors
 
 :root {
-  --toastify-text-color-light: #1f1e24;
-  --toastify-text-color-dark: #e2e6eb;
+  --toastify-text-color-light: #1f1e24 !important;
+  --toastify-text-color-dark: #e2e6eb !important;
 
-  --toastify-color-light: #ffffff;
-  --toastify-color-dark: #44435a;
+  --toastify-color-light: #fafbfbd7 !important;
+  --toastify-color-dark: #44435ab0 !important;
+
+  --toastify-font-family: "Poppins", "Noto Sans Georgian", sans-serif;
 }
 
 // scrollbar
@@ -207,4 +191,9 @@ html.dark {
 /* chromium browser's dark mode scrollbar */
 .dark ::-webkit-scrollbar-thumb {
   background-color: #262533;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
 }

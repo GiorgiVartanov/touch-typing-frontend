@@ -106,7 +106,7 @@ const Header = () => {
           >
             <NavLink to={`/profile/${username}/`}>{t("profile")}</NavLink>
           </DropDownItem>
-          <DropDownItem
+          {/* <DropDownItem
             icon={<BellIcon />}
             closeNavigation={handleCloseNavigation}
           >
@@ -117,12 +117,17 @@ const Header = () => {
               {token ? <NotificationsAmount token={token} /> : null}
               {t("notifications")}
             </NavLink>
-          </DropDownItem>
+          </DropDownItem> */}
           <DropDownItem
             icon={<LogoutIcon />}
-            className="logout-button"
+            className="logout-button-item"
           >
-            <button onClick={handleLogout}>{t("log out")}</button>
+            <button
+              className="logout-button"
+              onClick={handleLogout}
+            >
+              {t("log out")}
+            </button>
           </DropDownItem>
         </DropDownMenu>
       </NavItem>

@@ -1,7 +1,7 @@
 {
   "keyboard": [
     {
-      "code": "backquote",
+      "code": "Backquote",
       "value": ["„", "“"],
       "type": "Symbol"
     },
@@ -77,52 +77,52 @@
     },
     {
       "code": "KeyQ",
-      "value": "ქ",
+      "value": ["ქ"],
       "type": "Letter"
     },
     {
       "code": "KeyW",
       "value": ["წ", "ჭ"],
-      "type": "Letters"
+      "type": "Letter"
     },
     {
       "code": "KeyE",
-      "value": "ე",
+      "value": ["ე"],
       "type": "Letter"
     },
     {
       "code": "KeyR",
       "value": ["რ", "ღ"],
-      "type": "Letters"
+      "type": "Letter"
     },
     {
       "code": "KeyT",
       "value": ["ტ", "თ"],
-      "type": "Letters"
+      "type": "Letter"
     },
     {
       "code": "KeyY",
-      "value": "ყ",
+      "value": ["ყ"],
       "type": "Letter"
     },
     {
       "code": "KeyU",
-      "value": "უ",
+      "value": ["უ"],
       "type": "Letter"
     },
     {
       "code": "KeyI",
-      "value": "ი",
+      "value": ["ი"],
       "type": "Letter"
     },
     {
       "code": "KeyO",
-      "value": "ო",
+      "value": ["ო"],
       "type": "Letter"
     },
     {
       "code": "KeyP",
-      "value": "პ",
+      "value": ["პ"],
       "type": "Letter"
     },
     {
@@ -142,52 +142,52 @@
     },
     {
       "code": "CapsLock",
-      "value": "CapsLock",
+      "value": "Caps Lock",
       "type": "Modifier"
     },
     {
       "code": "KeyA",
-      "value": "ა",
+      "value": ["ა"],
       "type": "Letter"
     },
     {
       "code": "KeyS",
       "value": ["ს", "შ"],
-      "type": "Letters"
+      "type": "Letter"
     },
     {
       "code": "KeyD",
-      "value": "დ",
+      "value": ["დ"],
       "type": "Letter"
     },
     {
       "code": "KeyF",
-      "value": "ფ",
+      "value": ["ფ"],
       "type": "Letter"
     },
     {
       "code": "KeyG",
-      "value": "გ",
+      "value": ["გ"],
       "type": "Letter"
     },
     {
       "code": "KeyH",
-      "value": "ჰ",
+      "value": ["ჰ"],
       "type": "Letter"
     },
     {
       "code": "KeyJ",
       "value": ["ჯ", "ჟ"],
-      "type": "Letters"
+      "type": "Letter"
     },
     {
       "code": "KeyK",
-      "value": "კ",
+      "value": ["კ"],
       "type": "Letter"
     },
     {
       "code": "KeyL",
-      "value": "ლ",
+      "value": ["ლ"],
       "type": "Letter"
     },
     {
@@ -213,36 +213,36 @@
     {
       "code": "KeyZ",
       "value": ["ზ", "ძ"],
-      "type": "Letters"
+      "type": "Letter"
     },
     {
       "code": "KeyX",
-      "value": "ხ",
+      "value": ["ხ"],
       "type": "Letter"
     },
     {
       "code": "KeyC",
       "value": ["ც", "ჩ"],
-      "type": "Letters"
+      "type": "Letter"
     },
     {
       "code": "KeyV",
-      "value": "ვ",
+      "value": ["ვ"],
       "type": "Letter"
     },
     {
       "code": "KeyB",
-      "value": "ბ",
+      "value": ["ბ"],
       "type": "Letter"
     },
     {
       "code": "KeyN",
-      "value": "ნ",
+      "value": ["ნ"],
       "type": "Letter"
     },
     {
       "code": "KeyM",
-      "value": "მ",
+      "value": ["მ"],
       "type": "Letter"
     },
     {

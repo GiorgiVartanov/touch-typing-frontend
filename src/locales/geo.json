@@ -19,10 +19,17 @@
     "settings": "პარამეტრები",
     "profile": "პროფილი",
     "notifications": "შეტყობინებები",
-    "log out": "გასხვა",
+    "log out": "გასვლა",
     "register": "რეგისტრაცია",
     "log in": "ავტორიზაცია",
     "stay": "დარჩენა"
+  },
+
+  "keyboard": {
+    "Empty every editable key": "Empty editable keys",
+    "Reset keyboard": "Reset keyboard",
+    "Save": "შენახვა",
+    "Optimize": "ოპტიმიზაცია"
   },
 
   "typer": {

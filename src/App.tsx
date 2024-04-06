@@ -8,7 +8,7 @@ import "./App.scss"
 import { useAppSettingsStore } from "./store/context/appSettingsContext"
 
 // pages
-import Layout from "./layout/AppLayout/App.layout"
+import Layout from "./layout/App.layout/App.layout"
 import MainPage from "./pages/Main.page/Main.page"
 import LoginPage from "./pages/Login.page/Login.page"
 import RegisterPage from "./pages/Register.page/Register.page"

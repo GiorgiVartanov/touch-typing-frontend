@@ -25,9 +25,16 @@
     "stay": "stay"
   },
 
+  "keyboard": {
+    "Empty every editable key": "Empty editable keys",
+    "Reset keyboard": "Reset keyboard",
+    "Save": "შენახვა",
+    "Optimize": "ოპტიმიზირება"
+  },
+
   "typer": {
     "WPM": "WPM",
-    "WPM definition": "Word Per Minute",
+    "WPM definition": "Words Per Minute",
     "accuracy": "accuracy",
     "time": "time"
   },
@@ -49,7 +56,7 @@
     "confirm password": "confirm password",
     "log in": "log in",
     "register": "register",
-    "don't have account yet? register": "Don't have account yet? register",
+    "don't have account yet? register": "Don't have account yet? Register",
     "already have account? log in": "Already have account? Log in",
     "this field should not be empty": "this field should not be empty",
     "user with this username does not exist": "user with this username does not exist",

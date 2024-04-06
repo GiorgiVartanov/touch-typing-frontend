@@ -1,22 +1,14 @@
 .keyboard {
-  $keySize: 4rem;
+  $keySize: var(--key-size);
+  width: fit-content;
+  margin: auto;
 
   display: grid;
   grid-template-columns: repeat(58, calc($keySize/7));
   grid-template-rows: repeat(5, $keySize);
   grid-gap: calc($keySize/7);
 
-  font-size: calc($keySize/3);
-
-  &.keyboard-position-bottom {
-    position: absolute;
-    bottom: 10%;
-    right: 50%;
-    transform: translateX(50%);
-  }
-
-  &.keyboard-position-normal {
-  }
+  font-size: calc($keySize/2.75);
 
   .key {
     background-color: var(--secondary-background-color);
@@ -24,8 +16,8 @@
     justify-content: center;
     align-items: center;
     transition:
-      background-color 100ms var(--animation-function),
-      color 100ms var(--animation-function);
+      box-shadow 300ms var(--animation-function),
+      background-color 100ms var(--animation-function);
     backdrop-filter: blur(6px);
     box-shadow: 0 2px 4px -1px var(--shadow-color);
     user-select: none;
@@ -33,6 +25,10 @@
     border-radius: var(--border-radius);
 
     grid-column: auto / span 4;
+
+    &.editing {
+      outline: 2px solid var(--primary-color);
+    }
 
     &.pressed {
       background-color: var(--secondary-background-color-active);
@@ -44,6 +40,10 @@
 
       &.pressed {
         background-color: var(--secondary-background-color) !important;
+
+        &:after {
+          background-color: var(--secondary-background-color) !important;
+        }
       }
     }
 
@@ -52,7 +52,13 @@
     }
 
     &.uppercase {
-      &.Letters-key,
+      .key-value {
+        &.same-key {
+          opacity: 1 !important;
+        }
+      }
+
+      &.Letter-key,
       &.Symbol-key,
       &.Digit-key {
         .key-value {
@@ -81,7 +87,7 @@
       }
     }
 
-    &.Letters-key {
+    &.Letter-key {
       position: relative;
 
       .key-value {
@@ -124,7 +130,7 @@
       }
     }
 
-    &.Letters-key,
+    &.Letter-key,
     &.Symbol-key,
     &.Digit-key {
       .key-value {
@@ -261,7 +267,7 @@
     &.Backspace-key,
     &.MetaRight-key,
     &.ContextMenu-key {
-      font-size: 0.85rem;
+      font-size: calc($keySize/4.5);
     }
 
     &.Tab-key {
@@ -323,6 +329,10 @@
     &.Backspace-key {
       grid-column: auto / span 6;
     }
+
+    &.Backslash-key {
+      grid-column: auto / span 4;
+    }
   }
 
   &.keyboard-ISO {
@@ -380,6 +390,7 @@
       &.Enter-key {
         grid-column: auto / span 6;
         position: relative;
+        border-radius: var(--border-radius) var(--border-radius) 0 var(--border-radius);
 
         &:after {
           content: " ";
@@ -391,11 +402,18 @@
           right: 0;
           transition: 100ms var(--animation-function);
           box-shadow: 0 2px 4px -1px var(--shadow-color);
+          border-radius: 0 0 var(--border-radius) var(--border-radius);
         }
 
         &.pressed {
           &:after {
             background-color: var(--secondary-background-color-active);
+          }
+        }
+
+        &.uneditable {
+          &:after {
+            background-color: var(--secondary-background-color) !important;
           }
         }
       }
@@ -424,80 +442,21 @@
 
 .key.editable {
   cursor: pointer;
-  transition: opacity 300ms var(--animation-function);
 
-  &:hover {
-    opacity: 0.85;
-  }
+  // transition: opacity 300ms var(--animation-function);
+
+  // &:hover {
+  //   opacity: 0.85;
+  // }
 }
 
-.key.editing {
-  $keySize: 4rem;
-
-  outline: 1px solid var(--primary-color);
-  opacity: 1;
-  position: absolute !important;
-  top: 15%;
-  right: 50%;
-  z-index: 225;
-  width: 4rem;
-  height: 4rem;
-  transform: scale(2.5);
-
-  cursor: default;
-
-  &.Letter-key {
-    .key-value {
-      position: absolute !important;
-
-      &:nth-of-type(1) {
-        top: calc($keySize/12) !important;
-        left: calc($keySize/8) !important;
-        right: auto !important;
-        bottom: auto !important;
-      }
-      &:nth-of-type(2) {
-        bottom: calc($keySize/12) !important;
-        right: calc($keySize/8) !important;
-        left: auto !important;
-        top: auto !important;
-      }
-    }
-  }
-
-  .key-editing-message {
-    transform: scale(0.25);
-    width: 24rem;
-    white-space: none;
-    position: absolute;
-    text-align: center;
-    bottom: -1.5rem;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-
-  // &.pressed {
-  //   background-color:;
-  // }
-
-  .key-input {
-    width: 1.5rem;
-    background-color: transparent;
-    align-items: center;
-
-    &:first-of-type {
-      position: absolute;
-      top: 0rem;
-      left: 0rem;
-    }
-    &:last-of-type {
-      position: absolute;
-      bottom: 0rem;
-      right: 0rem;
-    }
-  }
+.editable-keyboard-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
 }
 
 .key.uneditable {

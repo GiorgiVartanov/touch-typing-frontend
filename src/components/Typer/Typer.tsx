@@ -65,12 +65,7 @@ const Typer = ({
         className={className}
         keyboard={currentKeyboard as KeyInterface[]}
       />
-      {showKeyboard ? (
-        <Keyboard
-          keyboard={currentKeyboard as KeyInterface[]}
-          keyboardPosition="bottom"
-        />
-      ) : null}
+      {showKeyboard ? <Keyboard keyboard={currentKeyboard as KeyInterface[]} /> : null}
     </div>
   )
 }

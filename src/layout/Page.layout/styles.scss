@@ -9,7 +9,7 @@
   flex-direction: column;
 
   .background-image {
-    background-image: url("./main.jpg");
+    // background-image: url("./main.jpg");
     position: fixed;
     top: 0;
     left: 0;
@@ -18,7 +18,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transform: blur 300ms var(--animation-function);
+    // transform: blur 300ms var(--animation-function);
     z-index: 1;
 
     pointer-events: none;
@@ -27,8 +27,9 @@
   .page-content {
     max-width: 1280px;
     width: 100%;
+    padding: 0.5rem;
     margin: auto;
-    position: relative;
+    // position: relative;
     z-index: 2;
     flex: 1;
   }
