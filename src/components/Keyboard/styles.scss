@@ -1,0 +1,468 @@
+.keyboard {
+  $keySize: var(--key-size);
+  width: fit-content;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(58, calc($keySize/7));
+  grid-template-rows: repeat(5, $keySize);
+  grid-gap: calc($keySize/7);
+
+  font-size: calc($keySize/2.75);
+
+  .key {
+    background-color: var(--secondary-background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:
+      box-shadow 300ms var(--animation-function),
+      background-color 100ms var(--animation-function);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 4px -1px var(--shadow-color);
+    user-select: none;
+    font-weight: 500;
+    border-radius: var(--border-radius);
+
+    grid-column: auto / span 4;
+
+    &.editing {
+      outline: 2px solid var(--primary-color);
+    }
+
+    &.pressed {
+      background-color: var(--secondary-background-color-active);
+    }
+
+    &.inactive {
+      opacity: 0.5;
+      background-color: var(--secondary-background-color) !important;
+
+      &.pressed {
+        background-color: var(--secondary-background-color) !important;
+
+        &:after {
+          background-color: var(--secondary-background-color) !important;
+        }
+      }
+    }
+
+    &.editing-key-placeholder {
+      outline: 2px solid var(--primary-color);
+    }
+
+    &.uppercase {
+      .key-value {
+        &.same-key {
+          opacity: 1 !important;
+        }
+      }
+
+      &.Letter-key,
+      &.Symbol-key,
+      &.Digit-key {
+        .key-value {
+          &:nth-of-type(1) {
+            opacity: 0.5;
+          }
+          &:nth-of-type(2) {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &.Letter-key {
+      position: relative;
+
+      .key-value {
+        position: absolute;
+
+        &:nth-of-type(1) {
+          top: calc($keySize/12);
+          left: calc($keySize/8);
+          right: auto !important;
+          bottom: auto !important;
+        }
+      }
+    }
+
+    &.Letter-key {
+      position: relative;
+
+      .key-value {
+        position: absolute;
+
+        &:nth-of-type(1) {
+          top: calc($keySize/12);
+          left: calc($keySize/8);
+          right: auto !important;
+          bottom: auto !important;
+        }
+        &:nth-of-type(2) {
+          bottom: calc($keySize/12);
+          right: calc($keySize/8);
+          left: auto !important;
+          top: auto !important;
+        }
+      }
+    }
+
+    &.Symbol-key,
+    &.Digit-key {
+      position: relative;
+
+      .key-value {
+        position: absolute;
+
+        &:nth-of-type(2) {
+          top: calc($keySize/12);
+          left: calc($keySize/8);
+          right: auto !important;
+          bottom: auto !important;
+        }
+        &:nth-of-type(1) {
+          bottom: calc($keySize/12);
+          right: calc($keySize/8);
+          left: auto !important;
+          top: auto !important;
+        }
+      }
+    }
+
+    &.Letter-key,
+    &.Symbol-key,
+    &.Digit-key {
+      .key-value {
+        &:nth-of-type(1) {
+          // top: 0.1rem;
+          // left: 0.6rem;
+          opacity: 1;
+        }
+        &:nth-of-type(2) {
+          // bottom: 0.1rem;
+          // right: 0.6rem;
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &.KeyF-key,
+    &.KeyJ-key {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        content: "";
+        background-color: var(--background-color);
+        height: calc($keySize/16);
+        width: calc($keySize/4);
+        bottom: calc($keySize * 0.0875);
+        right: calc($keySize * 0.375);
+        opacity: 0.35;
+        box-shadow: 0 2px 4px -1px var(--shadow-color);
+      }
+    }
+
+    &.KeyQ-key,
+    &.KeyA-key,
+    &.KeyZ-key {
+      background-color: var(--finger-color-1);
+
+      &.pressed {
+        background-color: var(--finger-color-1-hover);
+      }
+    }
+
+    &.KeyW-key,
+    &.KeyS-key,
+    &.KeyX-key {
+      background-color: var(--finger-color-2);
+
+      &.pressed {
+        background-color: var(--finger-color-2-hover);
+      }
+    }
+
+    &.KeyE-key,
+    &.KeyD-key,
+    &.KeyC-key {
+      background-color: var(--finger-color-3);
+
+      &.pressed {
+        background-color: var(--finger-color-3-hover);
+      }
+    }
+
+    &.KeyR-key,
+    &.KeyF-key,
+    &.KeyV-key,
+    &.KeyT-key,
+    &.KeyG-key,
+    &.KeyB-key {
+      background-color: var(--finger-color-4);
+
+      &.pressed {
+        background-color: var(--finger-color-4-hover);
+      }
+    }
+
+    &.KeyY-key,
+    &.KeyH-key,
+    &.KeyN-key,
+    &.KeyU-key,
+    &.KeyJ-key,
+    &.KeyM-key {
+      background-color: var(--finger-color-7);
+
+      &.pressed {
+        background-color: var(--finger-color-7-hover);
+      }
+    }
+
+    &.KeyI-key,
+    &.KeyK-key,
+    &.Comma-key {
+      background-color: var(--finger-color-8);
+
+      &.pressed {
+        background-color: var(--finger-color-8-hover);
+      }
+    }
+
+    &.KeyO-key,
+    &.KeyL-key,
+    &.Period-key {
+      background-color: var(--finger-color-9);
+
+      &.pressed {
+        background-color: var(--finger-color-9-hover);
+      }
+    }
+
+    &.KeyP-key,
+    &.Semicolon-key,
+    &.Slash-key {
+      background-color: var(--finger-color-10);
+
+      &.pressed {
+        background-color: var(--finger-color-10-hover);
+      }
+    }
+
+    &.Phantom-key {
+      opacity: 0;
+    }
+
+    &.Tab-key,
+    &.CapsLock-key,
+    &.ShiftLeft-key,
+    &.ControlLeft-key,
+    &.MetaLeft-key,
+    &.AltLeft-key,
+    &.AltRight-key,
+    &.ControlRight-key,
+    &.ShiftRight-key,
+    &.Enter-key,
+    &.Backspace-key,
+    &.MetaRight-key,
+    &.ContextMenu-key {
+      font-size: calc($keySize/4.5);
+    }
+
+    &.Tab-key {
+      grid-column: auto / span 6;
+    }
+
+    &.Tab-key {
+      grid-column: auto / span 6;
+    }
+
+    &.CapsLock-key {
+      grid-column: auto / span 7;
+    }
+
+    &.ShiftLeft-key {
+      grid-column: auto / span 9;
+    }
+
+    &.ControlLeft-key {
+      grid-column: auto / span 5;
+    }
+
+    &.MetaLeft-key {
+      grid-column: auto / span 5;
+    }
+
+    &.AltLeft-key {
+      grid-column: auto / span 5;
+    }
+
+    &.Space-key {
+      grid-column: auto / span 24;
+    }
+
+    &.AltRight-key {
+      grid-column: auto / span 5;
+    }
+
+    &.MetaRight-key {
+      grid-column: auto / span 5;
+    }
+
+    &.ContextMenu-key {
+      grid-column: auto / span 4;
+    }
+
+    &.ControlRight-key {
+      grid-column: auto / span 5;
+    }
+
+    &.ShiftRight-key {
+      grid-column: auto / span 9;
+    }
+
+    &.Enter-key {
+      grid-column: auto / span 7;
+    }
+
+    &.Backspace-key {
+      grid-column: auto / span 6;
+    }
+
+    &.Backslash-key {
+      grid-column: auto / span 4;
+    }
+  }
+
+  &.keyboard-ISO {
+    grid-template-columns: repeat(59, calc($keySize/7));
+
+    .key {
+      &.Enter-key {
+        grid-column: auto / span 6;
+        position: relative;
+
+        &:after {
+          content: " ";
+          position: absolute;
+          width: calc($keySize * 1.25);
+          height: calc($keySize + $keySize/7);
+          background-color: var(--secondary-background-color);
+          top: calc($keySize);
+          right: 0;
+          transition: 100ms var(--animation-function);
+          box-shadow: 0 2px 4px -1px var(--shadow-color);
+        }
+
+        &.pressed {
+          &:after {
+            background-color: var(--secondary-background-color-active);
+          }
+        }
+      }
+
+      &.Backspace-key {
+        grid-column: auto / span 7;
+      }
+      &.Tab-key {
+        grid-column: auto / span 5;
+      }
+      &.CapsLock-key {
+        grid-column: auto / span 6;
+      }
+      &.ShiftLeft-key {
+        grid-column: auto / span 4;
+      }
+      &.ShiftRight-key {
+        grid-column: auto / span 11;
+      }
+      &.ContextMenu-key {
+        grid-column: auto / span 5;
+      }
+    }
+  }
+
+  &.keyboard-ANSI-ISO {
+    grid-template-columns: repeat(59, calc($keySize/7));
+
+    .key {
+      &.Enter-key {
+        grid-column: auto / span 6;
+        position: relative;
+        border-radius: var(--border-radius) var(--border-radius) 0 var(--border-radius);
+
+        &:after {
+          content: " ";
+          position: absolute;
+          width: calc($keySize * 1.25);
+          height: calc($keySize + $keySize/7);
+          background-color: var(--secondary-background-color);
+          top: calc($keySize);
+          right: 0;
+          transition: 100ms var(--animation-function);
+          box-shadow: 0 2px 4px -1px var(--shadow-color);
+          border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        &.pressed {
+          &:after {
+            background-color: var(--secondary-background-color-active);
+          }
+        }
+
+        &.uneditable {
+          &:after {
+            background-color: var(--secondary-background-color) !important;
+          }
+        }
+      }
+
+      &.Backspace-key {
+        grid-column: auto / span 7;
+      }
+      &.Tab-key {
+        grid-column: auto / span 5;
+      }
+      &.CapsLock-key {
+        grid-column: auto / span 6;
+      }
+      &.ShiftLeft-key {
+        grid-column: auto / span 8;
+      }
+      &.ShiftRight-key {
+        grid-column: auto / span 11;
+      }
+      &.ContextMenu-key {
+        grid-column: auto / span 5;
+      }
+    }
+  }
+}
+
+.key.editable {
+  cursor: pointer;
+
+  // transition: opacity 300ms var(--animation-function);
+
+  // &:hover {
+  //   opacity: 0.85;
+  // }
+}
+
+.editable-keyboard-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
+}
+
+.key.uneditable {
+  opacity: 0.55;
+
+  &.pressed {
+    background-color: var(--secondary-background-color) !important;
+  }
+}

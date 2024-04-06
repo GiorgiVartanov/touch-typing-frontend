@@ -7,6 +7,8 @@ import Timer from "./Timer"
 import "./styles.scss"
 import { useTranslation } from "react-i18next"
 
+import PageLayout from "../../layout/Page.layout/Page.layout"
+
 const Match = () => {
   const {
     uid,
@@ -55,8 +57,7 @@ const Match = () => {
   const match = matches[match_id] // Update variable
 
   return (
-    <div className="page match">
-      {" "}
+    <PageLayout className="match">
       {/* Update class name */}
       {match.has_started !== true ? (
         <>
@@ -117,7 +118,7 @@ const Match = () => {
           )}
         </>
       )}
-    </div>
+    </PageLayout>
   )
 }
 

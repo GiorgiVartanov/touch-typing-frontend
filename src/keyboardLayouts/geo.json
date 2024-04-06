@@ -1,0 +1,309 @@
+{
+  "keyboard": [
+    {
+      "code": "Backquote",
+      "value": ["„", "“"],
+      "type": "Symbol"
+    },
+    {
+      "code": "Digit1",
+      "value": ["1", "!"],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit2",
+      "value": ["2", "@"],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit3",
+      "value": ["3", "#"],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit4",
+      "value": ["4", "$"],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit5",
+      "value": ["5", "%"],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit6",
+      "value": ["6", "^"],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit7",
+      "value": ["7", "&"],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit8",
+      "value": ["8", "*"],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit9",
+      "value": ["9", "("],
+      "type": "Digit"
+    },
+    {
+      "code": "Digit0",
+      "value": ["0", ")"],
+      "type": "Digit"
+    },
+    {
+      "code": "minus",
+      "value": ["-", "_"],
+      "type": "Symbol"
+    },
+    {
+      "code": "equal",
+      "value": ["=", "+"],
+      "type": "Symbol"
+    },
+    {
+      "code": "Backspace",
+      "value": "Backspace",
+      "type": "Modifier"
+    },
+    {
+      "code": "Tab",
+      "value": "Tab",
+      "type": "Modifier"
+    },
+    {
+      "code": "KeyQ",
+      "value": ["ქ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyW",
+      "value": ["წ", "ჭ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyE",
+      "value": ["ე"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyR",
+      "value": ["რ", "ღ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyT",
+      "value": ["ტ", "თ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyY",
+      "value": ["ყ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyU",
+      "value": ["უ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyI",
+      "value": ["ი"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyO",
+      "value": ["ო"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyP",
+      "value": ["პ"],
+      "type": "Letter"
+    },
+    {
+      "code": "BracketLeft",
+      "value": ["[", "{"],
+      "type": "Symbol"
+    },
+    {
+      "code": "BracketRight",
+      "value": ["]", "}"],
+      "type": "Symbol"
+    },
+    {
+      "code": "Backslash",
+      "value": ["\\", "|"],
+      "type": "Symbol"
+    },
+    {
+      "code": "CapsLock",
+      "value": "Caps Lock",
+      "type": "Modifier"
+    },
+    {
+      "code": "KeyA",
+      "value": ["ა"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyS",
+      "value": ["ს", "შ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyD",
+      "value": ["დ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyF",
+      "value": ["ფ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyG",
+      "value": ["გ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyH",
+      "value": ["ჰ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyJ",
+      "value": ["ჯ", "ჟ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyK",
+      "value": ["კ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyL",
+      "value": ["ლ"],
+      "type": "Letter"
+    },
+    {
+      "code": "Semicolon",
+      "value": [";", ":"],
+      "type": "Symbol"
+    },
+    {
+      "code": "Quote",
+      "value": ["'", "\""],
+      "type": "Symbol"
+    },
+    {
+      "code": "Enter",
+      "value": "Enter",
+      "type": "Modifier"
+    },
+    {
+      "code": "ShiftLeft",
+      "value": "Shift",
+      "type": "Modifier"
+    },
+    {
+      "code": "KeyZ",
+      "value": ["ზ", "ძ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyX",
+      "value": ["ხ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyC",
+      "value": ["ც", "ჩ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyV",
+      "value": ["ვ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyB",
+      "value": ["ბ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyN",
+      "value": ["ნ"],
+      "type": "Letter"
+    },
+    {
+      "code": "KeyM",
+      "value": ["მ"],
+      "type": "Letter"
+    },
+    {
+      "code": "Comma",
+      "value": [",", "<"],
+      "type": "Symbol"
+    },
+    {
+      "code": "Period",
+      "value": [".", ">"],
+      "type": "Symbol"
+    },
+    {
+      "code": "Slash",
+      "value": ["/", "?"],
+      "type": "Symbol"
+    },
+    {
+      "code": "ShiftRight",
+      "value": "Shift",
+      "type": "Modifier"
+    },
+    {
+      "code": "ControlLeft",
+      "value": "Ctrl",
+      "type": "Modifier"
+    },
+    {
+      "code": "MetaLeft",
+      "value": "Meta",
+      "type": "Modifier"
+    },
+    {
+      "code": "AltLeft",
+      "value": "Alt",
+      "type": "Modifier"
+    },
+    {
+      "code": "Space",
+      "value": " ",
+      "type": "Space"
+    },
+    {
+      "code": "AltRight",
+      "value": "Alt",
+      "type": "Modifier"
+    },
+    {
+      "code": "MetaRight",
+      "value": "Meta",
+      "type": "Modifier"
+    },
+    {
+      "code": "ContextMenu",
+      "value": "Menu",
+      "type": "Modifier"
+    },
+    {
+      "code": "ControlRight",
+      "value": "Ctrl",
+      "type": "Modifier"
+    }
+  ]
+}

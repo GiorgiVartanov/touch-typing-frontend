@@ -8,7 +8,7 @@ import "./App.scss"
 import { useAppSettingsStore } from "./store/context/appSettingsContext"
 
 // pages
-import Layout from "./App.layout"
+import Layout from "./layout/App.layout/App.layout"
 import MainPage from "./pages/Main.page/Main.page"
 import LoginPage from "./pages/Login.page/Login.page"
 import RegisterPage from "./pages/Register.page/Register.page"
@@ -18,13 +18,13 @@ import PlayPage from "./pages/Play.page/Play.page"
 import PageNotFoundPage from "./pages/PageNotFound.page/PageNotFound.page"
 import ProfilePage from "./pages/Profile.page/Profile.page"
 import FakeWordsPage from "./pages/FakeWords.page/FakeWords"
-import SettingsPage from "./pages/Settings.page/Settings.page"
 import LeaderboardsPage from "./pages/Leaderboards.page/Leaderboards.page"
 import NotificationsPage from "./pages/Notifications.page/Notifications.page"
 import LessonList from "./pages/LessonList.page/LessonList.page"
 import Lesson from "./pages/Lesson.page/Lesson.page"
 import GamesPage from "./pages/Games.page/Games.page"
 import SocialPage from "./pages/Social.page/Social.page"
+import CreateLayoutPage from "./pages/CreateLayout.page/CreateLayout.page"
 
 // sub pages
 import Friends from "./pages/Profile.page/Friends"
@@ -73,6 +73,10 @@ const App = () => {
               <RegisterPage />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/create"
+          element={<CreateLayoutPage />}
         />
         <Route
           path="/practice"
@@ -138,10 +142,6 @@ const App = () => {
               <NotificationsPage />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/settings"
-          element={<SettingsPage />}
         />
         <Route
           path="/social"

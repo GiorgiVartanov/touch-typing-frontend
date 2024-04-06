@@ -2,8 +2,12 @@
 
 .typer {
   margin-top: 0.5rem;
-  max-width: 720px;
-  margin: 0 auto;
+  // max-width: 720px;
+  // margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .typing-panel {
     margin: 1rem 0;
@@ -19,6 +23,10 @@
       }
     }
   }
+
+  .keyboard {
+    margin-top: 4rem;
+  }
 }
 
 .text {
@@ -26,6 +34,7 @@
   flex-wrap: wrap;
   font-size: 1rem;
   user-select: none;
+  width: 100%;
   transition:
     font-size 300ms var(--animation-function),
     color 300ms var(--animation-function),

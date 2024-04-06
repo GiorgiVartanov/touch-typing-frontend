@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 
@@ -23,17 +24,21 @@ const Modal = ({
   closeModal,
   className = "",
 }: Props) => {
+  const { t } = useTranslation("translation", { keyPrefix: "modal" })
+
   const modalRef = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(modalRef, closeModal)
+
+  if (!isVisible) return
 
   return (
     <>
       <div
         ref={modalRef}
-        className={`modal ${isVisible ? "modal-shown" : "modal-hidden"} ${className}`}
+        className={`modal ${className}`}
       >
-        {modalTitle && showCloseButton ? (
+        {modalTitle || showCloseButton ? (
           <div className="modal-top-bar">
             {modalTitle ? <h2 className="modal-title">{modalTitle}</h2> : null}
             <button
@@ -44,15 +49,10 @@ const Modal = ({
             </button>
           </div>
         ) : null}
-
-        {children}
-        <span className="close-modal-message">click anywhere to close</span>
+        <div className="modal-content">{children}</div>
+        <span className="close-modal-message">{t("click anywhere to close")}</span>
       </div>
-      <div
-        className={`modal-background ${
-          isVisible ? "modal-background-shown" : "modal-background-hidden"
-        } `}
-      ></div>
+      {/* <div className="modal-background"></div> */}
     </>
   )
 }

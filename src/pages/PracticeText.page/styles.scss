@@ -1,4 +1,14 @@
-.lesson-page {
+.practice-page {
+  width: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: fit-content;
+  justify-content: center;
+  // min-height: 50vh;
+
+  // align-items: center;
   .description {
     max-width: 720px;
     margin: 0 auto 2rem;
@@ -12,6 +22,19 @@
         color: var(--accent-color-dim);
         opacity: 0.5;
       }
+    }
+  }
+
+  .typer {
+    // position: relative;
+    margin-top: 5%;
+    // top: 40%;
+    // left: 50%;
+    // transform: translateX(-50%) translateY(-50%);
+
+    .text {
+      max-width: 720px;
+      margin: 0 auto 2rem;
     }
   }
 }

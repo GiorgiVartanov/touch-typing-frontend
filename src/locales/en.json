@@ -1,5 +1,13 @@
 {
+  "modal": {
+    "click anywhere to close": "click anywhere to close",
+    "are you sure you want to log out?": "are you sure you want to log out?",
+
+    "log out": "log out"
+  },
+
   "header": {
+    "touch typing": "Touch Typing",
     "learn": "learn",
     "lessons": "lessons",
     "competition": "competition",
@@ -13,7 +21,22 @@
     "notifications": "notifications",
     "log out": "log out",
     "register": "register",
-    "log in": "log in"
+    "log in": "log in",
+    "stay": "stay"
+  },
+
+  "keyboard": {
+    "Empty every editable key": "Empty editable keys",
+    "Reset keyboard": "Reset keyboard",
+    "Save": "შენახვა",
+    "Optimize": "ოპტიმიზირება"
+  },
+
+  "typer": {
+    "WPM": "WPM",
+    "WPM definition": "Words Per Minute",
+    "accuracy": "accuracy",
+    "time": "time"
   },
 
   "main page": {
@@ -23,8 +46,8 @@
     "competition message": "challenge other people",
     "games": "Games",
     "games message": "play games",
-    "practice": "Practice",
-    "practice message": "type texts"
+    "create": "Create",
+    "create message": "create keyboard layout"
   },
 
   "auth page": {
@@ -33,18 +56,39 @@
     "confirm password": "confirm password",
     "log in": "log in",
     "register": "register",
-    "don't have account yet? register": "Don't have account yet? register",
-    "already have account? log in": "Already have account? Log in"
+    "don't have account yet? register": "Don't have account yet? Register",
+    "already have account? log in": "Already have account? Log in",
+    "this field should not be empty": "this field should not be empty",
+    "user with this username does not exist": "user with this username does not exist",
+    "username too short": "username should be longer than {{minUsernameLength}} characters",
+    "username too long": "username should be shorter than {{maxUsernameLength}} characters",
+    "passwords do not match": "passwords do not match"
   },
 
   "settings page": {
+    "settings": "settings",
     "app settings": "App Settings",
     "theme": "theme",
     "System Default": "System Default",
     "Dark": "Dark",
     "Light": "Light",
-    "language": "language",
+    "keyboard settings": "Keyboard Settings",
+    "keyboard type": "Keyboard Type",
+    "ANSI": "ANSI",
+    "ANSI-ISO": "ANSI-ISO",
+    "ISO": "ISO",
+    "ABNT": "ABNT",
+    "KS": "KS",
+    "JIS": "JIS",
+    "Custom": "Custom",
+    "app language": "app language",
     "Geo": "ქართული",
+    "keyboard layout": "keyboard layout",
+    "QWERTY": "QWERTY",
+    "QWERTY georgian": "QWERTY georgian",
+    "Dvorak": "Dvorak",
+    "Colemak": "Colemak",
+    "Workman": "Workman",
     "En": "English",
     "typing settings": "Typing settings",
     "font": "font",

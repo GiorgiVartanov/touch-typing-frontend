@@ -38,9 +38,7 @@ const NavItem = ({ icon, closeNavigation, children }: Props) => {
         <div className="nav-item-icon">{icon}</div>
         {children ? <DropdownArrow isOpen={isOpen} /> : null}
       </button>
-      <div className={`nav-item-children ${isOpen ? "nav-item-open" : "nav-item-closed"}`}>
-        {children}
-      </div>
+      {isOpen ? <div className="nav-item-children">{children}</div> : null}
     </li>
   )
 }

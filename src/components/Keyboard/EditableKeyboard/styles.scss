@@ -1,0 +1,187 @@
+.editable-keyboard {
+  // pointer-events: none;
+}
+
+.editing-key {
+  position: relative;
+
+  font-weight: 600 !important;
+  width: 8rem;
+  height: 8rem;
+  border-radius: calc(var(--border-radius) * 2);
+  background-color: var(--secondary-background-color);
+  box-shadow: 0 2px 4px -1px var(--shadow-color);
+  opacity: 0;
+  height: 0;
+
+  &:hover {
+    box-shadow: 0 2px 6px 2px var(--shadow-color);
+  }
+
+  &.selected-key-open {
+    opacity: 0;
+    height: 0;
+
+    animation: 200ms var(--animation-function) selectedEditableKeyAppear forwards;
+  }
+
+  &.selected-key-closed {
+    opacity: 1;
+    height: 8rem;
+
+    animation: 200ms var(--animation-function) selectedEditableKeyDisappear forwards;
+  }
+
+  .editable-key-value {
+    font-size: 2rem;
+    height: 3rem;
+    width: 3rem;
+    // opacity: 0;
+    text-align: center;
+    font-weight: 400;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // font-family: monospace;
+
+    // animation: 200ms 50ms linear selectedEditableKeyValuesAppear forwards;
+  }
+
+  input.editable-key-value {
+    box-shadow: 0 1px 4px -1px var(--shadow-color);
+  }
+
+  .selected-key-options {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: -10rem;
+  }
+
+  &.Letter-key {
+    position: relative;
+
+    .editable-key-value {
+      position: absolute;
+
+      &.first-value {
+        top: 0.75rem;
+        left: 0.75rem;
+        right: auto !important;
+        bottom: auto !important;
+      }
+      &.second-value {
+        bottom: 0.75rem;
+        right: 0.75rem;
+        left: auto !important;
+        top: auto !important;
+      }
+    }
+  }
+
+  &.Symbol-key,
+  &.Digit-key {
+    position: relative;
+
+    .editable-key-value {
+      position: absolute;
+
+      &:nth-of-type(2),
+      &.second-value {
+        top: 0.75rem;
+        left: 0.75rem;
+        right: auto !important;
+        bottom: auto !important;
+      }
+      &:nth-of-type(1),
+      &.first-value {
+        bottom: 0.75rem;
+        right: 0.75rem;
+        left: auto !important;
+        top: auto !important;
+      }
+    }
+  }
+}
+
+.key {
+  &.editable {
+    &.empty-key {
+      opacity: 0.75;
+    }
+
+    &.duplicate {
+      outline: 2px solid var(--warning color);
+      color: var(--warning-color);
+    }
+  }
+}
+
+.editable-keyboard-buttons {
+  position: absolute;
+  bottom: -3.5rem;
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  gap: 0.5rem;
+
+  .optimize-layout-button {
+    background-color: var(--cta-color);
+
+    &:hover {
+      background-color: var(--cta-color-active);
+    }
+  }
+  .save-layout-button {
+    margin-left: auto;
+    background-color: var(--cta-color);
+
+    &:hover {
+      background-color: var(--cta-color-active);
+    }
+  }
+
+  .empty-editable-keys-button {
+  }
+}
+
+.reset-key-button {
+  // padding: 0.25rem 0.5rem;
+}
+
+@keyframes selectedEditableKeyAppear {
+  0% {
+    opacity: 0;
+    height: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 8rem;
+  }
+}
+@keyframes selectedEditableKeyDisappear {
+  0% {
+    opacity: 1;
+    height: 8rem;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+  }
+}
+
+@keyframes selectedEditableKeyValuesAppear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

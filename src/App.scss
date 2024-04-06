@@ -2,7 +2,6 @@ html,
 body,
 #root {
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 body {
@@ -19,59 +18,63 @@ body {
 
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: background-color 300ms var(--animation-function);
+  // transition: background-color 300ms var(--animation-function);
 
   --red-color: #ca3f3f;
   --success-color: #27bd47; // change
   --large-font-size: 1.5rem;
   --animation-function: cubic-bezier(0.36, 0.56, 0.52, 0.97);
-  --border-radius: 0.5rem;
+  --border-radius: 0.25rem;
 
   --small-screen: 576px;
   --medium-screen: 768px;
-  --large-screen: 1200px;
+  --large-screen: 1280px;
+
+  --finger-color-1: rgba(233, 90, 90, 0.65); // Q A Z row
+  --finger-color-2: rgba(98, 111, 226, 0.65); // W S X row
+  --finger-color-3: rgba(81, 224, 122, 0.65); // E D C row
+  --finger-color-4: rgba(228, 194, 72, 0.65); // R F V row
+  --finger-color-7: rgba(55, 175, 169, 0.65); // U J M row
+  --finger-color-8: rgba(81, 224, 122, 0.65); // I K row
+  --finger-color-9: rgba(79, 91, 201, 0.65); // O L . row
+  --finger-color-10: rgba(233, 90, 90, 0.65); // P , ; row
+
+  --finger-color-1-hover: rgba(233, 90, 90, 0.9); // Q A Z row
+  --finger-color-2-hover: rgba(98, 111, 226, 0.9); // W S X row
+  --finger-color-3-hover: rgba(81, 224, 122, 0.9); // E D C row
+  --finger-color-4-hover: rgba(228, 194, 72, 0.9); // R F V row
+  --finger-color-7-hover: rgba(55, 175, 169, 0.9); // U J M row
+  --finger-color-8-hover: rgba(81, 224, 122, 0.9); // I K row
+  --finger-color-9-hover: rgba(79, 91, 201, 0.9); // O L . row
+  --finger-color-10-hover: rgba(233, 90, 90, 0.9); // P , ; row
 
   background-repeat: no-repeat;
   background-size: cover;
 
   font-family: "Poppins", "Noto Sans Georgian", sans-serif;
 
-  .background-image {
-    background-image: url("./assets/hero.jpg");
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transform: blur 300ms var(--animation-function);
-    z-index: 1;
-
-    pointer-events: none;
-  }
-
   // light theme
   &:not(.dark) {
     --primary-color: rgb(87, 82, 180);
     // --complementary-color: #8780e4;
     --cta-color: #9792eb;
-    --cta-color-active: #a9a5f5;
+    --cta-color-active: #a09cf1;
     --secondary-color: #4b5057;
 
     --accent-color: #1c1b1d;
     --accent-color-dim: #575358;
 
-    --shadow-color: rgb(0 0 0 / 0.1);
+    --shadow-color: rgb(0 0 0 / 0.15);
     --warning-color: #d43737;
     // --warning-color: #ee6868;
 
-    --background-color: #c0cee4;
+    // --background-color: #fefffe;
+    --background-color: #f0f0f2;
     --background-color-transparent: #e3e8f04d;
 
-    --secondary-background-color: #ffffff70;
-    --secondary-background-color-active: #eff0f8b6;
+    --secondary-background-color: #fafbfb;
+    // --secondary-background-color: #ffffff70;
+    --secondary-background-color-active: rgb(244, 245, 245);
 
     --text-color: #1f1e24;
 
@@ -86,7 +89,7 @@ body {
     --green-adjusted: rgb(133, 187, 133);
 
     .background-image {
-      filter: opacity(0.25) blur(3px);
+      filter: opacity(0.2);
     }
   }
 
@@ -101,14 +104,14 @@ body {
     --accent-color: #ffffff;
     --accent-color-dim: #c8c4ca;
 
-    --shadow-color: rgb(0 0 0 / 0.2);
+    --shadow-color: rgb(0 0 0 / 0.25);
     --warning-color: #ca3f3f;
 
     --background-color: #262533;
     --background-color-transparent: #26253375;
 
-    --secondary-background-color: #44435ab0;
-    --secondary-background-color-active: #555470b4;
+    --secondary-background-color: #44435a;
+    --secondary-background-color-active: #555470;
 
     --text-color: #e2e6eb;
 
@@ -123,18 +126,8 @@ body {
     --green-adjusted: rgb(11, 59, 11);
 
     .background-image {
-      filter: opacity(0.2) blur(3px);
+      filter: opacity(0.2);
     }
-  }
-
-  .page {
-    padding: 0.5rem;
-    max-width: 1280px;
-    width: 100%;
-    margin: 4.5rem auto;
-    flex: 1;
-    position: relative;
-    z-index: 2;
   }
 
   .icon {
@@ -153,11 +146,13 @@ body {
 // overriding toastify colors
 
 :root {
-  --toastify-text-color-light: #1f1e24;
-  --toastify-text-color-dark: #e2e6eb;
+  --toastify-text-color-light: #1f1e24 !important;
+  --toastify-text-color-dark: #e2e6eb !important;
 
-  --toastify-color-light: #ffffff;
-  --toastify-color-dark: #44435a;
+  --toastify-color-light: #fafbfbd7 !important;
+  --toastify-color-dark: #44435ab0 !important;
+
+  --toastify-font-family: "Poppins", "Noto Sans Georgian", sans-serif;
 }
 
 // scrollbar
@@ -196,4 +191,9 @@ html.dark {
 /* chromium browser's dark mode scrollbar */
 .dark ::-webkit-scrollbar-thumb {
   background-color: #262533;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
 }

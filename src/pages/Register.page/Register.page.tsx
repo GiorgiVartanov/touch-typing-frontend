@@ -6,6 +6,7 @@ import "./styles.scss"
 import { RegisterCredentials, RegisterCredentialsError } from "../../types/auth.types"
 import { useAuthStore } from "../../store/context/authContext"
 
+import PageLayout from "../../layout/Page.layout/Page.layout"
 import Form from "../../components/Form/Form"
 import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
@@ -108,11 +109,11 @@ const RegisterPage = () => {
     }
 
     if (credentials.username.length < minUsernameLength && credentials.username.length !== 0) {
-      usernameErrors.push(t(`username should be longer than ${minUsernameLength} characters`))
+      usernameErrors.push(t(`username too short`, { minUsernameLength }))
     }
 
     if (credentials.username.length > maxUsernameLength) {
-      usernameErrors.push(t(`username should be shorter than ${maxUsernameLength} characters`))
+      usernameErrors.push(t(`username too long`, { minUsernameLength }))
     }
 
     if (credentials.password.length === 0) {
@@ -120,11 +121,11 @@ const RegisterPage = () => {
     }
 
     if (credentials.password.length < minPasswordLength && credentials.password.length !== 0) {
-      passwordErrors.push(t(`password should be longer than ${minUsernameLength} characters`))
+      passwordErrors.push(t(`password too short`, { minPasswordLength }))
     }
 
     if (credentials.password.length > maxPasswordLength) {
-      passwordErrors.push(t(`password should be shorter than ${minUsernameLength} characters`))
+      passwordErrors.push(t(`password too long`, { maxPasswordLength }))
     }
 
     if (credentials.password !== credentials.confirmPassword) {
@@ -153,7 +154,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="page register-page">
+    <PageLayout className="register-page">
       <Form onSubmit={handleSubmit}>
         <Input
           name={t("username")}
@@ -167,7 +168,10 @@ const RegisterPage = () => {
           isVisibilityChangeable={false}
           value={credentials.password}
           onChange={handlePasswordChange}
-          errors={[...registerErrorMessage.passwordError, ...credentialsError.passwordError]}
+          errors={[
+            ...registerErrorMessage.passwordError.map((error) => t(error)),
+            ...credentialsError.passwordError,
+          ]}
         />
         <Input
           name={t("confirm password")}
@@ -176,7 +180,7 @@ const RegisterPage = () => {
           value={credentials.confirmPassword}
           onChange={handleConfirmPasswordChange}
           errors={[
-            ...registerErrorMessage.confirmPasswordError,
+            ...registerErrorMessage.confirmPasswordError.map((error) => t(error)),
             ...credentialsError.confirmPasswordError,
           ]}
         />
@@ -188,7 +192,7 @@ const RegisterPage = () => {
       >
         {t("already have account? log in")}
       </Link>
-    </div>
+    </PageLayout>
   )
 }
 export default RegisterPage

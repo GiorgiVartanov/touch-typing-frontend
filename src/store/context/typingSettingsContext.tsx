@@ -1,6 +1,11 @@
 import { createContext, useContext, useReducer, useEffect } from "react"
 
-import { setFontAction, setFontSizeAction } from "../actions/typingSettingsActions"
+import {
+  setKeyboardLayoutAction,
+  setKeyboardTypeAction,
+  setFontAction,
+  setFontSizeAction,
+} from "../actions/typingSettingsActions"
 import typingSettingsReducer from "../reducers/typingSettingsReducers"
 import {
   typingSettingsInitialState,
@@ -8,6 +13,8 @@ import {
   defaultFontSize,
 } from "../initial/typingSettingsInitialState"
 import {
+  KeyboardLayoutType,
+  KeyboardTypeType,
   FontType,
   FontSizeType,
   TypingSettingsOptions,
@@ -36,6 +43,15 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const { token } = useAuthStore()
 
+  const keyboardLayoutOptions = [
+    "QWERTY",
+    "QWERTY georgian",
+    "Dvorak",
+    "Colemak",
+    "Workman",
+    "Custom",
+  ] as KeyboardLayoutType[]
+  const keyboardTypeOptions = ["ANSI", "ANSI-ISO", "ISO", "ABNT", "KS", "JIS"] as KeyboardTypeType[]
   const fontOptions = ["sans", "serif", "sanet"] as FontType[]
   const fontSizeOptions = ["small", "medium", "large", "extra large"] as FontSizeType[]
 
@@ -52,10 +68,20 @@ const TypingSettingsProvider = ({ children }: Props) => {
     saveTypingSetting(typingSettingToChange, value, token)
   }
 
+  const setKeyboardLayout = (newValue: KeyboardLayoutType, saveOnServer: boolean = true) => {
+    saveSetting("keyboardLayout", newValue, saveOnServer)
+    dispatch(setKeyboardLayoutAction(newValue))
+  }
+
+  const setKeyboardType = (newValue: KeyboardTypeType, saveOnServer: boolean = true) => {
+    saveSetting("keyboardType", newValue, saveOnServer)
+    dispatch(setKeyboardTypeAction(newValue))
+  }
+
   const setFont = (newValue: FontType, saveOnServer: boolean = true) => {
     // saves font to the localStorage and on a server (if user is logged in)
     saveSetting("font", newValue, saveOnServer)
-    // changes font on the reducer state
+    // changes font in the reducer state
     dispatch(setFontAction(newValue))
   }
 
@@ -94,6 +120,10 @@ const TypingSettingsProvider = ({ children }: Props) => {
     ...state,
     fontOptions,
     fontSizeOptions,
+    keyboardLayoutOptions,
+    keyboardTypeOptions,
+    setKeyboardLayout,
+    setKeyboardType,
     setFont,
     setFontSize,
     resetTypingSettings,

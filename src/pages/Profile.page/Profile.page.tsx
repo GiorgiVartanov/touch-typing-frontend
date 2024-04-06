@@ -8,6 +8,7 @@ import RemoveUserIcon from "../../assets/icons/user-minus.svg?react"
 import HistoryIcon from "../../assets/icons/history.svg?react"
 // import BlockUserIcon from "../../assets/icons/user-slash.svg?react"
 import FriendListIcon from "../../assets/icons/user-group.svg?react"
+import PageLayout from "../../layout/Page.layout/Page.layout"
 
 import "./styles.scss"
 
@@ -241,9 +242,7 @@ const ProfilePage = () => {
         <div className="user-actions">
           <div className="profile-buttons-left">{renderLeftButtons()}</div>
           <div className="profile-page-icon">
-            <UserIcon
-              username={username}
-            />
+            <UserIcon username={username} />
             <p className="username">{username}</p>
           </div>
           <div className="profile-buttons-right">{renderRightButtons(isOwnPage, isFriend)}</div>
@@ -253,7 +252,7 @@ const ProfilePage = () => {
     )
   }
 
-  return <div className="page profile-page">{renderUserData()}</div>
+  return <PageLayout className="profile-page">{renderUserData()}</PageLayout>
 }
 
 export default ProfilePage

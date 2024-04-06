@@ -34,8 +34,8 @@ const AppSettingsProvider = ({ children }: Props) => {
 
   const { token } = useAuthStore()
 
-  const themeOptions = ["System Default", "Dark", "Light"] as ThemeType[]
   const languageOptions = ["System Default", "Geo", "En"] as LanguageType[]
+  const themeOptions = ["System Default", "Dark", "Light"] as ThemeType[]
 
   // saves a setting in the localStorage and on the server (if saveOnServer is true and a token is available)
   const saveSetting = (

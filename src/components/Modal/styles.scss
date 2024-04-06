@@ -4,21 +4,24 @@
   left: 0;
   will-change: opacity;
 
-  &.modal-background-shown {
-    z-index: 200;
-    background-color: rgba(0, 0, 0, 0.25);
-    width: 100vw;
-    height: 100vh;
+  z-index: 250;
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100vw;
+  height: 100vh;
 
-    backdrop-filter: blur(2px);
+  animation: modalBackgroundAppear 300ms var(--animation-function);
 
-    animation: backgroundAppear 300ms var(--animation-function) forwards;
-  }
-  &.modal-background-hidden {
+  outline: 1px solid red;
+}
+
+.dark {
+  .modal-content {
+    scrollbar-color: #e3e8f0 #262533 !important;
   }
 }
 
 .modal {
+  z-index: 300;
   position: fixed;
   z-index: 300;
   top: 50%;
@@ -27,31 +30,25 @@
   background-color: var(--background-color);
   max-width: 600px;
   min-height: 650px;
+  max-height: 650px;
   width: calc(100% - 2rem);
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.5rem;
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 6px 2px transparent;
-  transition:
-    transform 300ms var(--animation-function),
-    box-shadow 300ms var(--animation-function),
-    opacity 300ms var(--animation-function),
-    visibility 300ms var(--animation-function);
+  // transition:
+  //   transform 100ms var(--animation-function),
+  //   opacity 100ms var(--animation-function);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 6px -1px var(--shadow-color);
 
-  // will-change: transform;
+  animation: modalAppear 300ms var(--animation-function);
 
-  &.modal-shown {
-    visibility: visible;
-    opacity: 1;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 2px 6px -1px var(--shadow-color);
-  }
+  .modal-content {
+    overflow-y: auto;
 
-  &.modal-hidden {
-    visibility: hidden;
-    opacity: 0;
-    box-shadow: 0 2px 4px -1px transparent;
+    scrollbar-color: #262533 #e3e8f0;
+    scrollbar-width: thin;
   }
 
   .modal-top-bar {
@@ -100,6 +97,7 @@
   min-height: fit-content;
   padding: 0.5rem;
   max-width: 400px;
+  z-index: 300;
 
   p {
     // font-weight: 500;
@@ -148,14 +146,26 @@
 }
 
 @keyframes modalAppear {
-  from {
+  0% {
     // scale: 0;
-    transform: translateX(-50%) translateY(-35%);
+    transform: translateX(-50%) translateY(-47.5%);
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    // scale: 1;
+    transform: translateX(-50%) translateY(-50%);
+    opacity: 1;
+  }
+}
+
+@keyframes modalBackgroundAppear {
+  from {
     opacity: 0;
   }
   to {
-    // scale: 1;
-    transform: translateX(-50%) translateY(-50%);
     opacity: 1;
   }
 }

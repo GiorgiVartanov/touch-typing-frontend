@@ -6,6 +6,7 @@ import "./styles.scss"
 import { useNavigate } from "react-router-dom"
 import DataForm from "../../components/Form/Data/DataForm"
 import { useTranslation } from "react-i18next"
+import PageLayout from "../../layout/Page.layout/Page.layout"
 
 const PlayPage = () => {
   const { username, users, match_id, matches, CreateMatch, JoinMatch } = usePlayStore()
@@ -37,7 +38,7 @@ const PlayPage = () => {
   // Modal component for creating a match
   const CreateMatchModal = () => {
     return (
-      <div className="page play-modal">
+      <div className="play-modal">
         <div className="please-work">
           <DataForm {...{ CreateMatch, setShowModal }} />
         </div>
@@ -46,11 +47,11 @@ const PlayPage = () => {
   }
 
   return (
-    <div className="playPage">
+    <PageLayout className="playPage">
       {showModal ? (
         CreateMatchModal()
       ) : (
-        <div className="page play">
+        <div className="play">
           <h2 className="play-head">
             {t("Active users")}: {users.length}
           </h2>
@@ -67,7 +68,7 @@ const PlayPage = () => {
           </div>
         </div>
       )}
-    </div>
+    </PageLayout>
   )
 }
 

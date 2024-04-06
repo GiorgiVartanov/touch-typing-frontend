@@ -3,14 +3,23 @@ import { useState } from "react"
 import Results from "./Results/Results"
 import { MetricsProvider } from "../../store/context/MetricsContext"
 
+import "./styles.scss"
+
 interface Props {
   text: string
   wordSeparator?: string
   handleTextFinish?: () => void
+  showKeyboard?: boolean
   className?: string
 }
 
-const TypingAreaDisplay = ({ text, wordSeparator, handleTextFinish, className }: Props) => {
+const TypingAreaDisplay = ({
+  text,
+  wordSeparator,
+  handleTextFinish,
+  showKeyboard = true,
+  className,
+}: Props) => {
   const [displayResults, setDisplayResults] = useState(false)
   const handleOnTextFinish = () => {
     console.log(handleTextFinish)
@@ -33,6 +42,7 @@ const TypingAreaDisplay = ({ text, wordSeparator, handleTextFinish, className }:
             text={text}
             wordSeparator={wordSeparator}
             handleTextFinish={handleOnTextFinish}
+            showKeyboard={showKeyboard}
             className={className}
           />
         )}
@@ -41,13 +51,20 @@ const TypingAreaDisplay = ({ text, wordSeparator, handleTextFinish, className }:
   )
 }
 
-const TypingArea = ({ text, wordSeparator, handleTextFinish, className }: Props) => {
+const TypingArea = ({
+  text,
+  wordSeparator,
+  handleTextFinish,
+  showKeyboard = true,
+  className,
+}: Props) => {
   return (
     <MetricsProvider>
       <TypingAreaDisplay
         text={text}
         wordSeparator={wordSeparator}
         handleTextFinish={handleTextFinish}
+        showKeyboard={showKeyboard}
         className={className}
       />
     </MetricsProvider>

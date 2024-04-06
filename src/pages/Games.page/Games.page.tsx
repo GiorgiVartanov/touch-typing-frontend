@@ -1,4 +1,6 @@
+import PageLayout from "../../layout/Page.layout/Page.layout"
+
 const GamesPage = () => {
-  return <div className="page">Games</div>
+  return <PageLayout>Games</PageLayout>
 }
 export default GamesPage

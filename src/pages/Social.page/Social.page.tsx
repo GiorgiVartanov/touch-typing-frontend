@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query"
 
 import "./styles.scss"
 
+import PageLayout from "../../layout/Page.layout/Page.layout"
+
 // import { useAuthStore } from "../../store/context/authContext"
 import { getUsers } from "../../services/authServices"
 
@@ -49,14 +51,13 @@ const SocialPage = () => {
   }
 
   return (
-    <div className="page social-page">
-      {/* {user && user.username ? <FriendSuggestions username={user.username} /> : null} */}
+    <PageLayout className="social-page">
       <SearchBar
         value={searchValue}
         handleTextChange={handleTextChange}
       />
       {renderUserData()}
-    </div>
+    </PageLayout>
   )
 }
 export default SocialPage

@@ -6,6 +6,7 @@ import "./styles.scss"
 import { LoginCredentials, LoginCredentialsError } from "../../types/auth.types"
 import { useAuthStore } from "../../store/context/authContext"
 
+import PageLayout from "../../layout/Page.layout/Page.layout"
 import Form from "../../components/Form/Form"
 import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
@@ -57,6 +58,8 @@ const LoginPage = () => {
   const handleLogIn = async (credentials: LoginCredentials) => {
     // FIX HERE !!!!!!!
 
+    // I don't remember what I want to fix here
+
     await loginUser(credentials)
   }
 
@@ -67,11 +70,11 @@ const LoginPage = () => {
     const passwordErrors: string[] = []
 
     if (credentials.username.length === 0) {
-      usernameErrors.push("this field should not be empty")
+      usernameErrors.push(t("this field should not be empty"))
     }
 
     if (credentials.password.length === 0) {
-      passwordErrors.push("this field should not be empty")
+      passwordErrors.push(t("this field should not be empty"))
     }
 
     if (usernameErrors.length > 0 || passwordErrors.length > 0) {
@@ -85,25 +88,27 @@ const LoginPage = () => {
     handleLogIn(credentials)
   }
 
-  // useEffect(() => {
-  //   if (isLoggedIn) navigate("/")
-  // }, [isLoggedIn, navigate])
-
   return (
-    <div className="page register-page">
+    <PageLayout className="register-page">
       <Form onSubmit={handleSubmit}>
         <Input
           name={t("username")}
           value={credentials.username}
           onChange={handleUsernameChange}
-          errors={[...loginErrorMessage.usernameError, ...credentialsError.usernameError]}
+          errors={[
+            ...loginErrorMessage.usernameError.map((error) => t(error)),
+            ...credentialsError.usernameError,
+          ]}
         />
         <Input
           name={t("password")}
           type="password"
           value={credentials.password}
           onChange={handlePasswordChange}
-          errors={[...loginErrorMessage.passwordError, ...credentialsError.passwordError]}
+          errors={[
+            ...loginErrorMessage.passwordError.map((error) => t(error)),
+            ...credentialsError.passwordError,
+          ]}
         />
         <Button className="cta-button">log in</Button>
       </Form>
@@ -113,7 +118,8 @@ const LoginPage = () => {
       >
         {t("don't have account yet? register")}
       </Link>
-    </div>
+    </PageLayout>
   )
 }
+
 export default LoginPage
