@@ -22,14 +22,16 @@
     "log out": "გასვლა",
     "register": "რეგისტრაცია",
     "log in": "ავტორიზაცია",
-    "stay": "დარჩენა"
+    "stay": "დარჩენა",
+    "go back": "უკან"
   },
 
   "keyboard": {
     "Empty every editable key": "Empty editable keys",
     "Reset keyboard": "Reset keyboard",
     "Save": "შენახვა",
-    "Optimize": "ოპტიმიზაცია"
+    "Optimize": "ოპტიმიზაცია",
+    "Analyze": "გაანალიზირება"
   },
 
   "typer": {

@@ -314,15 +314,21 @@ const EditableKeyboard = ({
         ) : null}
         <Button
           onClick={optimizeLayout}
-          className="save-layout-button"
+          className="analyze-layout-button"
         >
-          {t("Save")}
+          {t("Analyze")}
         </Button>
         <Button
           onClick={optimizeLayout}
           className="optimize-layout-button"
         >
           {t("Optimize")}
+        </Button>
+        <Button
+          onClick={optimizeLayout}
+          className="save-layout-button"
+        >
+          {t("Save")}
         </Button>
       </div>
     )

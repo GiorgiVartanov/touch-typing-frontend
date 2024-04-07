@@ -22,14 +22,16 @@
     "log out": "log out",
     "register": "register",
     "log in": "log in",
-    "stay": "stay"
+    "stay": "stay",
+    "go back": "back"
   },
 
   "keyboard": {
     "Empty every editable key": "Empty editable keys",
     "Reset keyboard": "Reset keyboard",
-    "Save": "შენახვა",
-    "Optimize": "ოპტიმიზირება"
+    "Save": "Save",
+    "Optimize": "Optimize",
+    "Analyze": "Analyze"
   },
 
   "typer": {
