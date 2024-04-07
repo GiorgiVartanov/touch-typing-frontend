@@ -211,6 +211,8 @@ const Header = () => {
     return (
       <nav className={isNavigationOpen ? "nav-shown" : "nav-hidden"}>
         <ul className="nav">
+          <NavItem icon={<ChangeTheme />} />
+          <NavItem icon={<ChangeLanguage />} />
           <button
             onClick={handleOpenSettingsMenu}
             className="open-settings-button"

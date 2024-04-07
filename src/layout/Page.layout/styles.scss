@@ -27,10 +27,41 @@
   .page-content {
     max-width: 1280px;
     width: 100%;
-    padding: 0.5rem;
+    padding: 3rem 0.5rem 0.5rem 0.5rem;
     margin: auto;
-    // position: relative;
+    position: relative;
     z-index: 2;
     flex: 1;
+
+    .go-back-button {
+      width: fit-content;
+      padding: 0.25rem 0.75rem;
+      // background-color: var(--secondary-background-color);
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      align-items: center;
+
+      .go-back-icon {
+        transform: rotate(270deg);
+        height: 1rem;
+        width: 1rem;
+      }
+      .go-back-text {
+        transition: 300ms var(--animation-function);
+      }
+
+      &:hover {
+        .go-back-icon {
+          transform: translateX(-15%) rotate(270deg);
+        }
+        .go-back-text {
+          transform: translateX(5%);
+        }
+      }
+    }
   }
 }

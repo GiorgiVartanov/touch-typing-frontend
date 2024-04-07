@@ -84,12 +84,14 @@ body {
 
     --penalty-word-yellow: #f5e856;
 
-    background: var(--background-color);
+    // background: var(--background-color);
     --tertiary-background-color: #becee6;
     --green-adjusted: rgb(133, 187, 133);
 
     .background-image {
-      filter: opacity(0.2);
+      filter: opacity(0.15);
+      background: var(--background-color);
+      background: radial-gradient(circle, var(--background-color) 0%, var(--primary-color) 100%);
     }
   }
 
@@ -126,7 +128,9 @@ body {
     --green-adjusted: rgb(11, 59, 11);
 
     .background-image {
-      filter: opacity(0.2);
+      filter: opacity(0.25);
+      background: var(--background-color);
+      background: radial-gradient(circle, var(--primary-color) 0%, var(--background-color) 100%);
     }
   }
 

@@ -44,28 +44,28 @@
       align-items: center;
 
       .change-language-button {
-        margin-right: 1rem;
+        // margin-right: 1rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        margin-right: 1.75rem;
       }
 
       .change-theme-button {
-        background-color: var(--secondary-background-color);
+        background-color: var(--background-color);
         transition:
           background-color 300ms var(--animation-function),
           color 300ms var(--animation-function);
         height: 1.75rem;
         width: 3.5rem;
         border-radius: 10px;
-        margin-right: 1rem;
 
         padding: 0;
         align-content: center;
         box-shadow: 0 2px 4px -1px var(--shadow-color);
 
         &:hover {
-          background-color: var(--secondary-background-color-active);
+          background-color: var(--background-color-transparent);
           color: var(--accent-color-dim);
         }
 
@@ -110,6 +110,10 @@
           position: relative;
 
           color: var(--accent-color);
+
+          .nav-item-icon {
+            display: flex;
+          }
 
           &.header-buttons {
             position: absolute;
@@ -354,6 +358,14 @@
   }
 }
 
+.flag-icon {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1.33rem;
+  width: 2rem;
+}
+
 .scroll-to-top-button {
   bottom: 20px;
   right: 20px;
@@ -448,8 +460,7 @@
 
         .nav-item {
           font-size: 1rem;
-          justify-content: end;
-          flex-direction: column;
+          display: flex;
 
           &.nav-item-link {
             padding: 1rem !important;

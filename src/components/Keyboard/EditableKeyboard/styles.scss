@@ -134,6 +134,13 @@
     }
   }
   .save-layout-button {
+    background-color: var(--cta-color);
+
+    &:hover {
+      background-color: var(--cta-color-active);
+    }
+  }
+  .analyze-layout-button {
     margin-left: auto;
     background-color: var(--cta-color);
 
