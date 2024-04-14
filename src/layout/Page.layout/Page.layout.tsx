@@ -24,8 +24,6 @@ const PageLayout = ({ children, className = "" }: Props) => {
     navigate(-1)
   }
 
-  console.log(pathname)
-
   return (
     <div className="page">
       <Header />

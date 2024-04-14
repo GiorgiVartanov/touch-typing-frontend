@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
+import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 import { KeyInterface } from "../../types/keyboard.types"
 
 import Word from "./Word"

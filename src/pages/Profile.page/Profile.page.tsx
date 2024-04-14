@@ -9,6 +9,7 @@ import HistoryIcon from "../../assets/icons/history.svg?react"
 // import BlockUserIcon from "../../assets/icons/user-slash.svg?react"
 import FriendListIcon from "../../assets/icons/user-group.svg?react"
 import PageLayout from "../../layout/Page.layout/Page.layout"
+import Keyboard from "../../components/Keyboard/Keyboard"
 
 import "./styles.scss"
 
@@ -45,180 +46,9 @@ const ProfilePage = () => {
     staleTime: 1000000,
   })
 
-  // mutation to unfriend user
-  const removeFriendMutation = useMutation({
-    mutationFn: () => {
-      if (!token || !pageOwnerUsername) throw new Error("no token")
-
-      return removeFriend(pageOwnerUsername, token)
-    },
-    mutationKey: ["removeFriend"],
-    onMutate: async () => {
-      const pageOwner = queryClient.getQueryData<{ data: User }>([
-        "profile",
-        pageOwnerUsername,
-      ])?.data
-
-      const currentUser = queryClient.getQueryData<{ data: User }>([
-        "profile",
-        currentUserUsername,
-      ])?.data
-
-      if (!pageOwner) return
-
-      const updatedPageOwner = {
-        ...pageOwner,
-        friends: pageOwner.friends.filter((friend) => friend !== currentUserUsername),
-      }
-      queryClient.cancelQueries({ queryKey: ["profile", pageOwnerUsername] })
-      queryClient.setQueryData(["profile", pageOwnerUsername], { data: updatedPageOwner })
-
-      if (!currentUser) return
-
-      const updatedCurrentUser = {
-        ...currentUser,
-        friends: currentUser.friends.filter((friend) => friend !== pageOwnerUsername),
-      }
-      queryClient.cancelQueries({ queryKey: ["profile", currentUserUsername] })
-      queryClient.setQueryData(["profile", currentUserUsername], { data: updatedCurrentUser })
-    },
-    onSuccess: () => {
-      toast.success("Friend successfully removed")
-    },
-    onError: (error) => {
-      // ADD SOMETHING HERE
-      toast.error(error?.message || "Something went wrong")
-    },
-  })
-
-  // function to send a friend request
-  const handleSendFriendRequest = async () => {
-    if (!pageOwnerUsername || !token) return
-
-    toast.success("Friend request successfully sent")
-
-    addUserToSentFriendRequests(pageOwnerUsername)
-    sendFriendRequest(pageOwnerUsername, token)
-  }
-
-  // function to unfriend user
-  const handleRemoveFriend = async () => {
-    if (!pageOwnerUsername || !token) return
-    removeFriendMutation.mutate()
-  }
-
   // if user does not exist
   if (!pageOwnerUsername) {
     return <div className="fetch-error-message">user with this username does not exist</div>
-  }
-
-  // renders right side of user buttons
-  const renderLeftButtons = () => {
-    return (
-      <>
-        <NavLink
-          to="./friends"
-          className="user-action-button tooltip"
-          data-tooltip="friends"
-        >
-          <FriendListIcon className="icon" />
-        </NavLink>
-        <NavLink
-          to="./"
-          className="user-action-button tooltip"
-          data-tooltip="history"
-        >
-          <HistoryIcon className="icon" />
-        </NavLink>
-        {/* <NavLink
-          to="./history"
-          className="user-action-button tooltip"
-          data-tooltip="history"
-        >
-          <HistoryIcon className="icon" />
-        </NavLink> */}
-      </>
-    )
-  }
-
-  // renders left side of user buttons
-  const renderRightButtons = (isOwnPage: boolean, isFriend: boolean) => {
-    // renders buttons for page owner
-    const renderRightButtonsForSelf = () => {
-      return (
-        <>
-          <Link
-            to="../settings"
-            className="user-action-button tooltip"
-            data-tooltip="settings"
-          >
-            <SettingIcon className="icon" />
-          </Link>
-        </>
-      )
-    }
-
-    // renders buttons for page owner's friends
-    const renderRightButtonsForFriend = () => {
-      return (
-        <>
-          <Button
-            onClick={handleRemoveFriend}
-            className="user-action-button tooltip"
-            data-tooltip="unfriend"
-          >
-            <RemoveUserIcon className="icon" />
-          </Button>
-        </>
-      )
-    }
-
-    const renderRightButtonsForUserWhoSentFriendRequest = () => {
-      const handleOnClick = () => {
-        // toast.dismiss() // it will remove other toasts
-        toast.warning("Friend request to this user was already sent")
-      }
-
-      return (
-        <>
-          <Button
-            onClick={handleOnClick}
-            className="user-action-button tooltip"
-            data-tooltip="already sent"
-            disabled={true}
-          >
-            <AddUserIcon className="icon" />
-          </Button>
-        </>
-      )
-    }
-
-    // renders buttons for other users
-    const renderRightButtonsForUser = () => {
-      return (
-        <>
-          <Button
-            onClick={handleSendFriendRequest}
-            className="user-action-button tooltip"
-            data-tooltip="add friend"
-          >
-            <AddUserIcon className="icon" />
-          </Button>
-        </>
-      )
-    }
-
-    // renders buttons for guest users
-    const renderRightButtonsForGuest = () => {
-      return <></>
-    }
-
-    if (isOwnPage) return renderRightButtonsForSelf()
-    if (isFriend) return renderRightButtonsForFriend()
-    if (user?.sentFriendRequests?.includes(pageOwnerUsername))
-      return renderRightButtonsForUserWhoSentFriendRequest()
-    if (isLoggedIn) return renderRightButtonsForUser()
-    return renderRightButtonsForGuest()
   }
 
   // renders user data
@@ -232,22 +62,17 @@ const ProfilePage = () => {
 
     if (!data?.data) return <div className="fetch-error-message">something went wrong</div>
 
-    const { username, friends } = data.data
-
-    const isOwnPage = username === currentUserUsername
-    const isFriend = friends?.includes(currentUserUsername)
+    const { username } = data.data
 
     return (
       <div className="profile-user-data">
-        <div className="user-actions">
-          <div className="profile-buttons-left">{renderLeftButtons()}</div>
-          <div className="profile-page-icon">
-            <UserIcon username={username} />
-            <p className="username">{username}</p>
-          </div>
-          <div className="profile-buttons-right">{renderRightButtons(isOwnPage, isFriend)}</div>
+        <div className="user-panel">
+          <p className="username">{username}</p>
+          <span className="username-text">'s profile page</span>
         </div>
-        <Outlet />
+        <div className="profile-page-keyboard">
+          <Keyboard mode="editable" />
+        </div>
       </div>
     )
   }

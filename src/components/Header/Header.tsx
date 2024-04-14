@@ -40,9 +40,9 @@ const Header = () => {
 
   const { isLoggedIn, logoutUser, user, token } = useAuthStore()
 
-  const [previousScrollPosition, setPreviousScrollPosition] = useState<number>(0)
-  const [isVisible, setIsVisible] = useState<boolean>(true)
-  const [isOnTop, setIsOnTop] = useState<boolean>(true)
+  // const [previousScrollPosition, setPreviousScrollPosition] = useState<number>(0)
+  // const [isVisible, setIsVisible] = useState<boolean>(true)
+  // const [isOnTop, setIsOnTop] = useState<boolean>(true)
   const [showScrollToTopButton, setScrollToTopButton] = useState<boolean>(false)
   const [isConfirmLogoutModalVisible, setIsConfirmLogoutModalVisible] = useState<boolean>(false)
   const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
@@ -74,25 +74,25 @@ const Header = () => {
     setIsSettingsMenuOpen(false)
   }
 
-  useEffect(() => {
-    // fix latter
+  // useEffect(() => {
+  //   // fix latter
 
-    const handleScroll = () => {
-      const currentScrollPosition = window.scrollY
+  //   const handleScroll = () => {
+  //     const currentScrollPosition = window.scrollY
 
-      setIsVisible(currentScrollPosition < previousScrollPosition)
-      setIsOnTop(currentScrollPosition < 30)
-      setScrollToTopButton(currentScrollPosition > 600)
+  //     setIsVisible(currentScrollPosition < previousScrollPosition)
+  //     setIsOnTop(currentScrollPosition < 30)
+  //     setScrollToTopButton(currentScrollPosition > 600)
 
-      setPreviousScrollPosition(currentScrollPosition)
-    }
+  //     setPreviousScrollPosition(currentScrollPosition)
+  //   }
 
-    window.addEventListener("scroll", handleScroll)
+  //   window.addEventListener("scroll", handleScroll)
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [previousScrollPosition])
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll)
+  //   }
+  // }, [previousScrollPosition])
 
   useOnClickOutside(navRef, handleCloseNavigation)
 
@@ -211,8 +211,12 @@ const Header = () => {
     return (
       <nav className={isNavigationOpen ? "nav-shown" : "nav-hidden"}>
         <ul className="nav">
-          <NavItem icon={<ChangeTheme />} />
-          <NavItem icon={<ChangeLanguage />} />
+          <li className="nav-button-li">
+            <ChangeTheme />
+          </li>
+          <li className="nav-button-li">
+            <ChangeLanguage />
+          </li>
           <button
             onClick={handleOpenSettingsMenu}
             className="open-settings-button"
@@ -248,7 +252,7 @@ const Header = () => {
             </DropDownMenu>
           </NavItem>
           {isLoggedIn ? renderAuthenticatedNavigation() : renderGuestNavigation()}
-          {renderSettingsMenu()}
+          {isSettingsMenuOpen ? renderSettingsMenu() : null}
         </ul>
       </nav>
     )
@@ -257,9 +261,7 @@ const Header = () => {
   return (
     <header
       ref={navRef}
-      className={`header ${isVisible ? "header-visible" : "header-hidden "} ${
-        isOnTop ? "header-top" : "header-not-top"
-      }`}
+      className="header"
     >
       {renderGoToTopButton()}
       {renderConfirmLogoutModal()}

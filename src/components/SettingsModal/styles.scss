@@ -21,6 +21,15 @@
     }
   }
 
+  .select-keyboard-layout-link {
+    display: block;
+    padding: 0.25rem 0.75rem;
+    margin: 0.75rem 0.25rem 0.25rem 0.25rem;
+    width: fit-content;
+    background-color: var(--secondary-background-color);
+    border-radius: var(--border-radius);
+  }
+
   .text-example {
     margin-top: 1.5rem;
 

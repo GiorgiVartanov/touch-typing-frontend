@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
@@ -26,16 +27,17 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
 
   const {
     // all available values for each setting (they will be options in select)
-    keyboardLayoutOptions,
+    keyboardLanguageOptions,
     keyboardTypeOptions,
     fontOptions,
     fontSizeOptions,
     // function to set each setting
-    setKeyboardLayout,
+    setKeyboardLanguage,
     setKeyboardType,
     setFont,
     setFontSize,
     // value of each setting
+    keyboardLanguage,
     keyboardLayout,
     keyboardType,
     font,
@@ -83,11 +85,11 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
   // keyboard settings
   const keyboardSettings = [
     {
-      name: t("keyboard layout"),
-      selectedValue: t(keyboardLayout),
-      valueOptions: keyboardLayoutOptions,
-      valueToShow: keyboardLayoutOptions.map((option) => t(option)),
-      selectValue: setKeyboardLayout,
+      name: "keyboard language",
+      selectedValue: keyboardLanguage,
+      valueOptions: keyboardLanguageOptions,
+      valueToShow: keyboardLanguageOptions,
+      selectValue: setKeyboardLanguage,
     },
     {
       name: t("keyboard type"),
@@ -167,8 +169,14 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
         sectionTitle={t("keyboard settings")}
         settingsList={keyboardSettings}
       >
-        {keyboardLayout === "Custom" ? <CustomKeyboardSelector /> : null}
-        <KeyboardTypeSelector />
+        currently selected keyboard layout:
+        <Link
+          to="../keyboardlayout"
+          className="select-keyboard-layout-link button"
+        >
+          Select Keyboard Layout
+        </Link>
+        {/* <KeyboardTypeSelector /> */}
       </SettingsSection>
       <SettingsSection
         sectionTitle={t("typing settings")}

@@ -1,4 +1,9 @@
 {
+  "_id": "661a4f84ba6289bbe8874fbf",
+  "language": "En",
+  "title": "QWERTY",
+  "public": true,
+  "official": true,
   "keyboard": [
     {
       "code": "Backquote",

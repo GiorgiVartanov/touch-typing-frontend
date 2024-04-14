@@ -1,4 +1,8 @@
 {
+  "language": "En",
+  "title": "colemak",
+  "public": true,
+  "official": true,
   "keyboard": [
     {
       "code": "Backquote",

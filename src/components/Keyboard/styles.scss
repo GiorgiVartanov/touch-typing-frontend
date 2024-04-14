@@ -440,6 +440,51 @@
   }
 }
 
+.editable-keyboard-content {
+  position: relative;
+}
+.keyboard-options {
+  display: flex;
+  // gap: 0.25rem;
+  // margin-bottom: 0.5rem;
+  // opacity: 0.75;
+  align-items: end;
+
+  .select-wrapper {
+    margin-bottom: 0.5rem;
+
+    &:first-of-type {
+      margin-right: 1.25rem;
+    }
+  }
+
+  .keyboard-options-right-side-buttons {
+    margin-left: auto;
+  }
+
+  .keyboard-options-button {
+    display: flex;
+    background-color: transparent;
+    box-shadow: none;
+    transition: 300ms var(--animation-function);
+
+    &:first-of-type {
+      margin-left: auto;
+    }
+
+    &:hover {
+      background-color: transparent;
+      box-shadow: none;
+      opacity: 0.85;
+    }
+  }
+}
+
+.keyboard-wrapper {
+  width: fit-content;
+  margin: auto;
+}
+
 .key.editable {
   cursor: pointer;
 

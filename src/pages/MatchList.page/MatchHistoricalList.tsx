@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import Button from "../../components/Form/Button"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import { useTranslation } from "react-i18next"
+import PageLayout from "../../layout/Page.layout/Page.layout"
 
 const MatchHistoricalList = () => {
   // State to hold the list of matches and loading state
@@ -14,8 +15,8 @@ const MatchHistoricalList = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [userSearch, setUserSearch] = useState<string>("") //has to be saved when navigating...
   const navigate = useNavigate()
-  const t_form = useTranslation("translation", { keyPrefix: "forms" })["t"]
-  const t_play = useTranslation("translation", { keyPrefix: "play page" })["t"]
+  const { t: t_form } = useTranslation("translation", { keyPrefix: "forms" })
+  const { t: t_play } = useTranslation("translation", { keyPrefix: "play page" })
 
   useEffect(() => {
     setIsLoading(true)
@@ -30,7 +31,6 @@ const MatchHistoricalList = () => {
   }, [userSearch])
 
   // If data is still loading or match data is not available, display loading component
-  if (isLoading || !matches) return <Loading />
 
   // Function to handle navigation to a specific match
   const onClick = (match_id: string) => {
@@ -42,33 +42,34 @@ const MatchHistoricalList = () => {
     setUserSearch(newText)
   }
 
+  const renderMatches = () => {
+    if (isLoading || !matches) return <Loading />
+
+    return matches
+      .slice(0)
+      .reverse()
+      .map((match, ind) => {
+        return (
+          <MatchHistoricalCard
+            match={match}
+            onClick={onClick}
+            key={ind}
+          />
+        )
+      })
+  }
+
   return (
-    <div className="page match-body">
+    <PageLayout className="match-body">
       <SearchBar
         value={userSearch}
         handleTextChange={handleTextChange}
         placeholder={t_play("Search by username") + "..."}
       />
       <div className="match-body-main">
-        <div className="match-body-main-list">
-          {matches
-            .slice(0)
-            .reverse()
-            .map((match, ind) => {
-              return (
-                <MatchHistoricalCard
-                  match={match}
-                  onClick={onClick}
-                  key={ind}
-                />
-              )
-            })}
-        </div>
-        <div className="back">
-          <Button onClick={() => navigate("../play")}>{t_form("Back")}</Button>
-        </div>
+        <div className="match-body-main-list">{renderMatches()}</div>
       </div>
-    </div>
+    </PageLayout>
   )
 }
 

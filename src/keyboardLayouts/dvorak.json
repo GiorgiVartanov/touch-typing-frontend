@@ -1,4 +1,8 @@
 {
+  "language": "En",
+  "title": "dvorak",
+  "public": true,
+  "official": true,
   "keyboard": [
     {
       "code": "Backquote",

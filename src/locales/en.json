@@ -27,11 +27,13 @@
   },
 
   "keyboard": {
-    "Empty every editable key": "Empty editable keys",
+    "Erase every key": "Erase every key",
     "Reset keyboard": "Reset keyboard",
     "Save": "Save",
     "Optimize": "Optimize",
-    "Analyze": "Analyze"
+    "Analyze": "Analyze",
+    "Import": "Import",
+    "Export": "Export"
   },
 
   "typer": {

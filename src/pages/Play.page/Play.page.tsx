@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import DataForm from "../../components/Form/Data/DataForm"
 import { useTranslation } from "react-i18next"
 import PageLayout from "../../layout/Page.layout/Page.layout"
+import { Link } from "react-router-dom"
 
 const PlayPage = () => {
   const { username, users, match_id, matches, CreateMatch, JoinMatch } = usePlayStore()
@@ -58,8 +59,18 @@ const PlayPage = () => {
           <div className="play-body">
             <div className="play-create">
               {/*აქ იქნება matchSetting Modal*/}
-              <Button onClick={clickCreateMatchHandler}>{t("Create a match")}</Button>
-              <Button onClick={() => navigate("../matches")}>{t("Match history")}</Button>
+              <Button
+                className="create-match-button"
+                onClick={clickCreateMatchHandler}
+              >
+                {t("Create a match")}
+              </Button>
+              <Link
+                className="play-page-link"
+                to="../matches"
+              >
+                {t("Match history")}
+              </Link>
             </div>
             <PlayMatchesList
               matches={matches}

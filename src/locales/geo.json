@@ -27,11 +27,13 @@
   },
 
   "keyboard": {
-    "Empty every editable key": "Empty editable keys",
-    "Reset keyboard": "Reset keyboard",
+    "Erase every key": "ყველა ღილაკის წაშლა",
+    "Reset keyboard": "კლავიატურის საწყის მდგომარეობაზე დაბრუნება",
     "Save": "შენახვა",
     "Optimize": "ოპტიმიზაცია",
-    "Analyze": "გაანალიზირება"
+    "Analyze": "გაანალიზირება",
+    "Import": "იმპორტი",
+    "Export": "ექსპორტი"
   },
 
   "typer": {

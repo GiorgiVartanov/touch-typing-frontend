@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useEffect } from "react"
 
 import {
+  setKeyboardLanguageAction,
   setKeyboardLayoutAction,
   setKeyboardTypeAction,
   setFontAction,
@@ -13,7 +14,8 @@ import {
   defaultFontSize,
 } from "../initial/typingSettingsInitialState"
 import {
-  KeyboardLayoutType,
+  KeyboardLanguageType,
+  savedKeyboardLayoutInterface,
   KeyboardTypeType,
   FontType,
   FontSizeType,
@@ -43,33 +45,39 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const { token } = useAuthStore()
 
-  const keyboardLayoutOptions = [
-    "QWERTY",
-    "QWERTY georgian",
-    "Dvorak",
-    "Colemak",
-    "Workman",
-    "Custom",
-  ] as KeyboardLayoutType[]
-  const keyboardTypeOptions = ["ANSI", "ANSI-ISO", "ISO", "ABNT", "KS", "JIS"] as KeyboardTypeType[]
-  const fontOptions = ["sans", "serif", "sanet"] as FontType[]
-  const fontSizeOptions = ["small", "medium", "large", "extra large"] as FontSizeType[]
+  const keyboardLanguageOptions: KeyboardLanguageType[] = ["Geo", "En"]
+  const keyboardTypeOptions: KeyboardTypeType[] = ["ANSI", "ANSI-ISO", "ISO", "ABNT", "KS", "JIS"]
+  const fontOptions: FontType[] = ["sans", "serif", "sanet"]
+  const fontSizeOptions: FontSizeType[] = ["small", "medium", "large", "extra large"]
 
   // saves a setting in the localStorage and on the server (if saveOnServer is true and a token is available)
-  const saveSetting = (
-    typingSettingToChange: string,
-    value: string | number | boolean,
-    saveOnServer: boolean
-  ) => {
-    localStorage.setItem(typingSettingToChange, value.toString())
+  const saveSetting = (typingSettingToChange: string, value: any, saveOnServer: boolean) => {
+    let itemToSave
+
+    if (typingSettingToChange === "keyboardLayout") {
+      itemToSave = JSON.stringify(value)
+    } else {
+      itemToSave = value.toString()
+    }
+
+    localStorage.setItem(typingSettingToChange, itemToSave)
 
     if (!token || !saveOnServer) return
 
     saveTypingSetting(typingSettingToChange, value, token)
   }
 
-  const setKeyboardLayout = (newValue: KeyboardLayoutType, saveOnServer: boolean = true) => {
+  const setKeyboardLanguage = (newValue: KeyboardLanguageType, saveOnServer: boolean = true) => {
+    saveSetting("keyboardLanguage", newValue, saveOnServer)
+    dispatch(setKeyboardLanguageAction(newValue))
+  }
+
+  const setKeyboardLayout = (
+    newValue: savedKeyboardLayoutInterface,
+    saveOnServer: boolean = true
+  ) => {
     saveSetting("keyboardLayout", newValue, saveOnServer)
+
     dispatch(setKeyboardLayoutAction(newValue))
   }
 
@@ -120,8 +128,9 @@ const TypingSettingsProvider = ({ children }: Props) => {
     ...state,
     fontOptions,
     fontSizeOptions,
-    keyboardLayoutOptions,
+    keyboardLanguageOptions,
     keyboardTypeOptions,
+    setKeyboardLanguage,
     setKeyboardLayout,
     setKeyboardType,
     setFont,

@@ -29,7 +29,7 @@
   }
   .history-body {
     .history-body-list {
-      max-width: 650px;
+      // max-width: 650px;
       .title {
         font-size: large;
         margin-bottom: 7px;
@@ -72,18 +72,19 @@
 
   //SearchBar
   > input {
-    max-width: 960px;
+    // max-width: 960px;
     align-self: center;
   }
 
   .match-body-main {
-    margin-top: 55px;
+    margin-top: 1.5rem;
     display: flex;
-    width: 100%;
-    max-width: 960px;
+    // width: 100%;
+    // max-width: 960px;
     justify-content: space-between;
-    padding: 0 15px;
+    // padding: 0 15px;
     position: relative;
+    width: 100%;
 
     .match-body-main-list {
       display: flex;
@@ -91,8 +92,10 @@
       align-items: center;
       flex-direction: column;
       gap: 0.75rem;
+      width: 100%;
       flex-grow: 1;
       .match-card {
+        width: 100%;
         padding: 0.5rem;
         background-color: var(--secondary-background-color);
         border-radius: 10px;
@@ -104,8 +107,8 @@
           0 2px 4px -2px rgb(0 0 0 / 0.1);
         min-height: 100px;
         justify-content: start;
-        width: 80%;
-        min-width: 360px;
+        // width: 80%;
+        // min-width: 360px;
         justify-content: space-between;
 
         animation: slideInFromLeft 500ms ease-in-out forwards;
@@ -118,12 +121,17 @@
           display: flex;
           flex-direction: row;
           justify-content: space-between;
+          align-items: end;
+
           .button {
             font-weight: 300;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             background-color: var(--tertiary-background-color);
+            padding: 0.25rem 0.75rem;
+            transition: 300ms var(--animation-function);
+
             &:hover {
-              filter: opacity(75%);
+              opacity: 0.75;
             }
           }
           p {

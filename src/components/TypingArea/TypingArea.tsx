@@ -7,6 +7,7 @@ import "./styles.scss"
 
 interface Props {
   text: string
+  textLanguage: "En" | "Geo"
   wordSeparator?: string
   handleTextFinish?: () => void
   showKeyboard?: boolean
@@ -16,6 +17,7 @@ interface Props {
 const TypingAreaDisplay = ({
   text,
   wordSeparator,
+  textLanguage,
   handleTextFinish,
   showKeyboard = true,
   className,
@@ -40,6 +42,7 @@ const TypingAreaDisplay = ({
         ) : (
           <Typer
             text={text}
+            textLanguage={textLanguage}
             wordSeparator={wordSeparator}
             handleTextFinish={handleOnTextFinish}
             showKeyboard={showKeyboard}
@@ -54,6 +57,7 @@ const TypingAreaDisplay = ({
 const TypingArea = ({
   text,
   wordSeparator,
+  textLanguage,
   handleTextFinish,
   showKeyboard = true,
   className,
@@ -62,6 +66,7 @@ const TypingArea = ({
     <MetricsProvider>
       <TypingAreaDisplay
         text={text}
+        textLanguage={textLanguage}
         wordSeparator={wordSeparator}
         handleTextFinish={handleTextFinish}
         showKeyboard={showKeyboard}

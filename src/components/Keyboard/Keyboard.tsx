@@ -2,159 +2,65 @@ import { useEffect, useState } from "react"
 
 import "./styles.scss"
 import { KeyInterface } from "../../types/keyboard.types"
+import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 
-import Key from "./Key"
+import Key from "./TypeableKeyboard/Key"
+import KeyboardOptions from "./KeyboardOptions"
+
+import EditableKeyboard from "./EditableKeyboard/EditableKeyboard"
+import TypeableKeyboard from "./TypeableKeyboard/TypeableKeyboard"
 
 interface Props {
-  keyboard: KeyInterface[]
+  forcedKeyboardLayout?: KeyboardLayoutInterface
+  forcedLanguage?: "En" | "Geo"
   inactiveKeys?: string[]
+  showSelectButton?: boolean
+  showEditButton?: boolean
+  showLanguageSelector?: boolean
   keySize?: number
+  mode: "editing" | "editable" | "uneditable"
+  startingKeyboard?: KeyInterface[]
 }
 
 const Keyboard = ({
-  keyboard,
+  forcedKeyboardLayout,
+  forcedLanguage,
+  showSelectButton = true,
+  showEditButton = false,
   inactiveKeys = ["Tab", "AltRight", "AltLeft", "MetaRight", "MetaLeft", "ContextMenu", ""],
+  showLanguageSelector = true,
   keySize = 3.25,
+  mode = "editable",
+  startingKeyboard,
 }: Props) => {
-  const { keyboardType } = useTypingSettingsStore()
+  const [isEditing, setIsEditing] = useState<boolean>(false)
 
-  const [pressedKeys, setPressedKeys] = useState<string[]>([])
-
-  const renderKeyboard = () => {
-    const backslashKeyIndex = 27
-    const secondBackslashIndex = 43
-    const enterKeyIndex = 40
-
-    const phantomKey: KeyInterface = {
-      code: "Phantom",
-      value: [""],
-      type: "Letter",
-    }
-
-    const secondBackslash: KeyInterface = {
-      ...keyboard[backslashKeyIndex],
-      code: "Backslash-2",
-    }
-
-    const tempKeyboard = [...keyboard]
-
-    switch (keyboardType) {
-      case "ANSI":
-        return tempKeyboard.map((key) => renderKey(key))
-      case "ISO":
-        tempKeyboard[enterKeyIndex] = keyboard[backslashKeyIndex]
-        tempKeyboard[backslashKeyIndex] = keyboard[enterKeyIndex]
-
-        tempKeyboard.splice(secondBackslashIndex - 2, 0, phantomKey)
-        tempKeyboard.splice(secondBackslashIndex, 0, secondBackslash)
-
-        return tempKeyboard.map((key) => renderKey(key))
-      case "ANSI-ISO":
-        tempKeyboard[enterKeyIndex] = keyboard[backslashKeyIndex]
-        tempKeyboard[backslashKeyIndex] = keyboard[enterKeyIndex]
-
-        return tempKeyboard.map((key) => renderKey(key))
-      case "ABNT":
-        return tempKeyboard.map((key) => renderKey(key))
-      case "KS":
-        return tempKeyboard.map((key) => renderKey(key))
-      case "JIS":
-        return tempKeyboard.map((key) => renderKey(key))
-      default:
-        return tempKeyboard.map((key) => renderKey(key))
-    }
+  const handleEditing = () => {
+    setIsEditing((prevState) => !prevState)
   }
 
-  const renderKey = (key: KeyInterface) => {
+  if ((isEditing || mode === "editing") && startingKeyboard) {
     return (
-      <Key
-        value={key.value}
-        key={key.code}
-        isPressed={pressedKeys.includes(key.code)}
-        isActive={!inactiveKeys.includes(key.code)}
-        inUppercase={
-          (pressedKeys.includes("ShiftLeft") ||
-            pressedKeys.includes("ShiftRight") ||
-            (pressedKeys.includes("CapsLock") &&
-              key.type === "Letter" &&
-              key.value[0]?.toLocaleLowerCase() === key.value[1]?.toLowerCase())) &&
-          !(
-            (pressedKeys.includes("ShiftLeft") && pressedKeys.includes("CapsLock")) ||
-            (pressedKeys.includes("ShiftRight") && pressedKeys.includes("CapsLock"))
-          )
-        }
-        className={`${key.type}-key ${key.code}-key`}
+      <EditableKeyboard
+        startingKeyboard={startingKeyboard}
+        handleEditing={handleEditing}
+        keySize={keySize}
+      />
+    )
+  } else {
+    return (
+      <TypeableKeyboard
+        forcedKeyboardLayout={forcedKeyboardLayout}
+        forcedLanguage={forcedLanguage}
+        handleEditing={handleEditing}
+        showSelectButton={showSelectButton}
+        showEditButton={showEditButton}
+        inactiveKeys={inactiveKeys}
+        showLanguageSelector={showLanguageSelector}
+        keySize={keySize}
       />
     )
   }
-
-  useEffect(() => {
-    const handleKeyPress = (event: KeyboardEvent) => {
-      const pressedKey = event.code
-
-      if (
-        pressedKey === "Alt" ||
-        pressedKey === "Space" ||
-        pressedKey === "Quote" ||
-        pressedKey === "Slash"
-      )
-        event.preventDefault()
-
-      if (pressedKey === "CapsLock") {
-        setPressedKeys((prevState) => {
-          if (prevState.includes("capslock")) {
-            return prevState.filter((key) => key !== "CapsLock")
-          } else {
-            return [...prevState, pressedKey]
-          }
-        })
-      } else {
-        setPressedKeys((prevState) => {
-          if (prevState.includes(pressedKey)) return prevState
-          return [...prevState, pressedKey]
-        })
-      }
-
-      if (event.getModifierState("CapsLock")) {
-        setPressedKeys((prevState) => [...prevState, pressedKey])
-      } else {
-        setPressedKeys((prevState) => prevState.filter((key) => key !== "CapsLock"))
-      }
-    }
-
-    const handleKeyUnPress = (event: KeyboardEvent) => {
-      const pressedKey = event.code
-
-      if (
-        pressedKey === "Alt" ||
-        pressedKey === "Space" ||
-        pressedKey === "Quote" ||
-        pressedKey === "Slash"
-      )
-        event.preventDefault()
-
-      if (pressedKey === "CapsLock") return
-
-      setPressedKeys((prevState) => prevState.filter((key) => key !== pressedKey))
-    }
-
-    window.addEventListener("keydown", handleKeyPress)
-    window.addEventListener("keyup", handleKeyUnPress)
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress)
-      window.removeEventListener("keyup", handleKeyUnPress)
-    }
-  }, [])
-
-  return (
-    <div
-      style={{ "--key-size": `${keySize}rem` } as React.CSSProperties}
-      className={`keyboard keyboard-${keyboardType}`}
-    >
-      {renderKeyboard()}
-    </div>
-  )
 }
 export default Keyboard

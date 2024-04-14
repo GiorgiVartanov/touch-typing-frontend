@@ -12,12 +12,14 @@ const MainPageText = () => {
   }
 
   return (
-    <TypingArea
-      text={text}
-      className="typing-area-main-page"
-      handleTextFinish={changeText}
-      showKeyboard={false}
-    />
+    <div className="main-page-typing-area-wrapper">
+      <TypingArea
+        text={text}
+        className="typing-area-main-page"
+        handleTextFinish={changeText}
+        showKeyboard={false}
+      />
+    </div>
   )
 }
 export default MainPageText

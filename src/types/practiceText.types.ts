@@ -15,6 +15,7 @@ export interface PvPMatch {
 export interface Text {
   _id: string
   title: string
+  language: "En" | "Geo"
   description: string
   author: string
   level: DifficultyLevel

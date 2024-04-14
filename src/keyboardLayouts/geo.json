@@ -1,4 +1,9 @@
 {
+  "_id": "661a4f9bba6289bbe8874fc1",
+  "language": "Geo",
+  "title": "QWERTY (georgian)",
+  "public": true,
+  "official": true,
   "keyboard": [
     {
       "code": "Backquote",

@@ -1,4 +1,8 @@
 {
+  "language": "En",
+  "title": "workman",
+  "public": true,
+  "official": true,
   "keyboard": [
     {
       "code": "Backquote",

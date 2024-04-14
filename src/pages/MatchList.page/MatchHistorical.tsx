@@ -7,6 +7,7 @@ import Button from "../../components/Form/Button"
 import "./styles.scss"
 import TypingArea from "../../components/TypingArea/TypingArea"
 import { useTranslation } from "react-i18next"
+import PageLayout from "../../layout/Page.layout/Page.layout"
 
 const MatchHistorical = () => {
   const { id } = useParams()
@@ -14,9 +15,8 @@ const MatchHistorical = () => {
   // State to hold the match data and loading state
   const [match, setMatch] = useState<MatchState | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const navigate = useNavigate()
-  const t_form = useTranslation("translation", { keyPrefix: "forms" })["t"]
-  const t_play = useTranslation("translation", { keyPrefix: "play page" })["t"]
+  const { t: t_form } = useTranslation("translation", { keyPrefix: "forms" })
+  const { t: t_play } = useTranslation("translation", { keyPrefix: "play page" })
 
   useEffect(() => {
     setIsLoading(true)
@@ -34,29 +34,18 @@ const MatchHistorical = () => {
   // If data is still loading or match data is not available, display loading component
   if (isLoading || !match) return <Loading />
 
-  // Function to handle click event for navigating back to previous route
-  const onClick = () => {
-    navigate("../matches")
-  }
-
   return (
-    <div className="page history-main">
+    <PageLayout className="history-main">
       <div className="history-header">
-        <div
-          key={1}
-          className="history-header-top"
-        >
-          <h1 key={1}>
+        <div className="history-header-top">
+          <h1>
             {t_form("User limit")}: {match.user_limit}
           </h1>
-          <h1 key={2}>
+          <h1>
             {t_form("Time limit")}: {match.time_limit} {t_form("seconds")}
           </h1>
         </div>
-        <div
-          key={2}
-          className="history-header-date"
-        >
+        <div className="history-header-date">
           <h1>{new Date(match.date).toString()}</h1>
         </div>
       </div>
@@ -69,9 +58,9 @@ const MatchHistorical = () => {
                 key={ind}
                 className="card"
               >
-                <h1 key={1}>{key}</h1>
+                <h1>{key}</h1>
                 {match.players[key].WPM != -1 ? (
-                  <h1 key={2}>WPM: {match.players[key].WPM.toFixed(2)}</h1>
+                  <h1>WPM: {match.players[key].WPM.toFixed(2)}</h1>
                 ) : (
                   t_play("Disconnected")
                 )}
@@ -83,10 +72,7 @@ const MatchHistorical = () => {
           <TypingArea text={match.text} />
         </div>
       </div>
-      <div className="history-button">
-        <Button onClick={onClick}>{t_form("Back")}</Button>
-      </div>
-    </div>
+    </PageLayout>
   )
 }
 

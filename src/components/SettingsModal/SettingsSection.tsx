@@ -1,3 +1,5 @@
+import { TypingSettingItem } from "../../types/typer.types/typingSettings.types"
+
 import SelectSetting from "./SelectSetting"
 
 interface Props {

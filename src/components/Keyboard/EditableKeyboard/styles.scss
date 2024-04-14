@@ -1,5 +1,28 @@
 .editable-keyboard {
   // pointer-events: none;
+  .key {
+    &.editable {
+      transition:
+        background-color 300ms var(--animation-function),
+        opacity 300ms var(--animation-function),
+        box-shadow 300ms var(--animation-function);
+      box-shadow: 0 2px 4px -1px var(--shadow-color);
+
+      &:hover {
+        opacity: 0.85;
+        box-shadow: 0 2px 6px 2px var(--shadow-color);
+      }
+
+      &.empty-key {
+        opacity: 0.75;
+      }
+
+      &.duplicate {
+        outline: 2px solid var(--warning color);
+        color: var(--warning-color);
+      }
+    }
+  }
 }
 
 .editing-key {
@@ -14,9 +37,9 @@
   opacity: 0;
   height: 0;
 
-  &:hover {
-    box-shadow: 0 2px 6px 2px var(--shadow-color);
-  }
+  // &:hover {
+  //   box-shadow: 0 2px 6px 2px var(--shadow-color);
+  // }
 
   &.selected-key-open {
     opacity: 0;
@@ -44,6 +67,11 @@
     align-items: center;
     justify-content: center;
     // font-family: monospace;
+    // caret-color: transparent; // blinking vertical line
+
+    &:focus {
+      // outline: 2px solid var(--primary-color);
+    }
 
     // animation: 200ms 50ms linear selectedEditableKeyValuesAppear forwards;
   }
@@ -105,51 +133,115 @@
   }
 }
 
-.key {
-  &.editable {
-    &.empty-key {
-      opacity: 0.75;
-    }
-
-    &.duplicate {
-      outline: 2px solid var(--warning color);
-      color: var(--warning-color);
-    }
-  }
-}
-
 .editable-keyboard-buttons {
   position: absolute;
   bottom: -3.5rem;
-  display: flex;
-  justify-content: start;
   width: 100%;
-  gap: 0.5rem;
+  display: flex;
+  justify-content: space-between;
 
-  .optimize-layout-button {
-    background-color: var(--cta-color);
-
-    &:hover {
-      background-color: var(--cta-color-active);
-    }
-  }
-  .save-layout-button {
-    background-color: var(--cta-color);
-
-    &:hover {
-      background-color: var(--cta-color-active);
-    }
-  }
-  .analyze-layout-button {
-    margin-left: auto;
-    background-color: var(--cta-color);
-
-    &:hover {
-      background-color: var(--cta-color-active);
-    }
+  .keyboard-button-list {
+    display: flex;
+    gap: 0.5rem;
   }
 
-  .empty-editable-keys-button {
+  .keyboard-left-side-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    .button {
+      display: flex;
+      background-color: transparent;
+      box-shadow: none;
+      .icon {
+        transition: 300ms var(--animation-function);
+      }
+
+      &:hover {
+        .icon {
+          opacity: 0.85;
+        }
+      }
+    }
+  }
+
+  .keyboard-right-side-buttons {
+    .keyboard-button-list {
+      align-items: center;
+
+      .button {
+        opacity: 0;
+        transform: translateX(50%);
+        user-select: none;
+        display: flex;
+        border-radius: 0;
+
+        animation: 300ms slideInFromRight var(--animation-function) forwards;
+
+        background-color: transparent;
+        box-shadow: none;
+
+        .icon {
+          transition: 300ms var(--animation-function);
+        }
+
+        // &.how-to-install-link {
+        //   border-right: 2px solid var(--accent-color);
+        //   margin-right: 0.25rem;
+        // }
+
+        &:hover {
+          .icon {
+            opacity: 0.85;
+          }
+        }
+      }
+
+      .how-to-install-button-link {
+        position: absolute;
+        right: 0.25rem;
+        top: 4rem;
+        font-size: 0.75rem;
+        white-space: none;
+        color: var(--cta-color);
+        transition: color 300ms var(--animation-function);
+        opacity: 0;
+        transform: translateX(50%);
+        animation: 300ms slideInFromRight var(--animation-function) forwards;
+        white-space: nowrap;
+
+        &:hover {
+          color: var(--cta-color-active);
+        }
+      }
+
+      .export-button-wrapper {
+        // position: relative;
+      }
+    }
+
+    .show-more-keyboard-action-buttons-button {
+      display: flex;
+      background-color: transparent !important;
+      box-shadow: none;
+      position: absolute;
+      right: 0;
+      transition: 300ms var(--animation-function);
+
+      &.active {
+        transform: translateX(125%);
+        opacity: 0.65;
+      }
+
+      &:hover {
+        opacity: 0.85;
+      }
+
+      .icon {
+        // opacity: 0.85;
+      }
+    }
   }
 }
 
@@ -157,12 +249,38 @@
   // padding: 0.25rem 0.5rem;
 }
 
+.save-layout-modal {
+  // height: 100%;
+  min-height: fit-content !important;
+  // width: fit-content;
+
+  .modal-content {
+    // height: 100%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .save-keyboard-submit-button {
+      background-color: var(--cta-color);
+      margin-top: 5rem;
+      margin-bottom: 1rem;
+
+      &:hover {
+        background-color: var(--cta-color-active);
+      }
+    }
+  }
+}
+
 @keyframes selectedEditableKeyAppear {
   0% {
     opacity: 0;
     height: 0;
   }
-  50% {
+  25% {
     opacity: 0;
   }
   100% {
@@ -175,7 +293,7 @@
     opacity: 1;
     height: 8rem;
   }
-  75% {
+  25% {
     opacity: 1;
   }
   100% {
@@ -190,5 +308,16 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
