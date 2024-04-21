@@ -22,4 +22,24 @@
       font-size: 400;
     }
   }
+
+  .profile-user-data {
+    width: fit-content;
+    margin: auto;
+
+    h2 {
+      margin: 3.5rem 0 1rem 0;
+    }
+  }
+
+  .profile-page-layout-select {
+    margin-top: 4rem;
+
+    .profile-page-layouts-link {
+    }
+  }
+
+  .profile-page-keyboard {
+    margin-top: 30%;
+  }
 }

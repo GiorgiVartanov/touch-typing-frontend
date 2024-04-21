@@ -1,13 +1,13 @@
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import "./styles.scss"
-import { KeyInterface } from "../../types/keyboard.types"
+import { KeyboardLanguageType } from "../../types/typer.types/typingSettings.types"
 
 import Text from "./Text"
 import Keyboard from "../Keyboard/Keyboard"
 
 interface Props {
   text: string
-  textLanguage?: "En" | "Geo"
+  textLanguage?: KeyboardLanguageType
   wordSeparator?: string
   handleTextFinish: () => void
   className?: string
@@ -18,7 +18,7 @@ interface Props {
 // renders Text with the passed word separator (thing between words, usually space but any string may be passed)
 const Typer = ({
   text,
-  textLanguage = "En",
+  textLanguage = "Eng",
   wordSeparator = "",
   handleTextFinish,
   showKeyboard = true,
@@ -28,6 +28,8 @@ const Typer = ({
 
   const textArray = text.split(" ")
 
+  // show toast that says that keyboard language for this text was changed. it will pop up if keyboardLanguage !== textLanguage
+
   return (
     <div className="typer">
       <Text
@@ -35,12 +37,16 @@ const Typer = ({
         wordSeparator={wordSeparator}
         handleTextFinish={handleTextFinish}
         className={className}
-        keyboard={keyboardLayout[keyboardLanguage].keyboard as KeyInterface[]}
+        keyboard={keyboardLayout[textLanguage].keyboard}
       />
       {showKeyboard ? (
         <Keyboard
           forcedLanguage={textLanguage}
           showSelectButton={false}
+          showEditButton={false}
+          showLanguageSelector={false}
+          showKeyboardTypeSelector={false}
+          showUtilityButtons={false}
         />
       ) : null}
     </div>

@@ -2,13 +2,11 @@ import { useEffect, useState, useRef } from "react"
 import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
-import { useMutation } from "@tanstack/react-query"
 
 import "./styles.scss"
 import { KeyInterface } from "../../../types/keyboard.types"
 import { useTypingSettingsStore } from "../../../store/context/typingSettingsContext"
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside"
-import { saveKeyboardOnServer } from "../../../services/keyboardServices"
 
 import WrenchIcon from "../../../assets/icons/wrench.svg?react"
 import AnalyzeIcon from "../../../assets/icons/analyze.svg?react"
@@ -123,12 +121,6 @@ const EditableKeyboard = ({
         tempKeyboard[backslashKeyIndex] = startingKeyboard[enterKeyIndex]
 
         return tempKeyboard.map((key) => renderKey(key))
-      case "ABNT":
-        return tempKeyboard.map((key) => renderKey(key))
-      case "KS":
-        return tempKeyboard.map((key) => renderKey(key))
-      case "JIS":
-        return tempKeyboard.map((key) => renderKey(key))
       default:
         return tempKeyboard.map((key) => renderKey(key))
     }
@@ -181,7 +173,7 @@ const EditableKeyboard = ({
 
     // default value
     const currentTitle = editingKeyboard
-      .slice(15, 20)
+      .slice(15, 21)
       .reduce((accumulator, currentValue) => accumulator + currentValue?.value[0], "")
 
     return (
@@ -241,8 +233,7 @@ const EditableKeyboard = ({
     // is true if this value has at least 2 copies somewhere on a keyboard
     const isDuplicate = editingKeyboard.some(
       (keyboardKey) =>
-        keyboardKey.type === "Letter" &&
-        keyboardKey.type === "Letter" &&
+        (keyboardKey.type === "Letter" || keyboardKey.type === "Symbol") &&
         keyboardKey !== key &&
         (key.value[0] === keyboardKey.value[0] ||
           (keyboardKey.value[1] != undefined && key.value[0] === keyboardKey.value[1]) ||
@@ -291,7 +282,15 @@ const EditableKeyboard = ({
     const editingKey = editingKeyboard.find((key) => key.code === currentlyEditing)
 
     const handleOnFirstValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-      const enteredCharacter = e.nativeEvent?.data
+      const enteredCharacter = e.nativeEvent?.data // it works, but typescript shows error.
+
+      let enteredCharacterType =
+        editingKeyboard.find(
+          (key) => key.value[0] === enteredCharacter || key.value[1] === enteredCharacter
+        )?.type || "Letter"
+
+      if (!["Letter", "Digit", "Symbol"].includes(enteredCharacterType))
+        enteredCharacterType = "Letter"
 
       // if (!enteredCharacter) return
 
@@ -304,7 +303,7 @@ const EditableKeyboard = ({
               value: key.value[1]
                 ? [enteredCharacter?.toLowerCase() || "", key.value[1] || ""]
                 : [enteredCharacter?.toLowerCase() || ""],
-              type: key.type,
+              type: enteredCharacterType,
             }
           } else {
             return key
@@ -318,6 +317,14 @@ const EditableKeyboard = ({
     const handleOnSecondValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       const enteredCharacter = e.nativeEvent?.data
 
+      let enteredCharacterType =
+        editingKeyboard.find(
+          (key) => key.value[0] === enteredCharacter || key.value[1] === enteredCharacter
+        )?.type || "Letter"
+
+      if (!["Letter", "Digit", "Symbol"].includes(enteredCharacterType))
+        enteredCharacterType = "Letter"
+
       // if (!enteredCharacter) return
 
       setEditingKeyboard((prevState) => {
@@ -330,7 +337,7 @@ const EditableKeyboard = ({
                 key.value[0] || "",
                 enteredCharacter?.toUpperCase() || "",
               ],
-              type: key.type,
+              type: enteredCharacterType,
             }
           } else {
             return key
@@ -505,7 +512,9 @@ const EditableKeyboard = ({
     const handleKeyPress = (event: KeyboardEvent) => {
       const pressedKey = event.code
 
-      if (pressedKey === "Alt" || pressedKey === "Space") event.preventDefault()
+      if (pressedKey === "Alt") event.preventDefault()
+
+      // if (pressedKey === "Space") event.preventDefault()
 
       if (pressedKey === "CapsLock") {
         setPressedKeys((prevState) => {
@@ -558,6 +567,8 @@ const EditableKeyboard = ({
         <KeyboardOptions
           showSelectButton={false}
           showLanguageSelector={true}
+          showKeyboardTypeSelector={true}
+          showEditButton={false}
           handleEditing={handleEditing}
         />
         <div

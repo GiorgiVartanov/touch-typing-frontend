@@ -169,22 +169,31 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
         sectionTitle={t("keyboard settings")}
         settingsList={keyboardSettings}
       >
-        currently selected keyboard layout:
-        <Link
-          to="../keyboardlayout"
-          className="select-keyboard-layout-link button"
-        >
-          Select Keyboard Layout
-        </Link>
-        {/* <KeyboardTypeSelector /> */}
+        <div className="selected-keyboard">
+          <p className="selected-keyboard-text">
+            selected layout:{" "}
+            <Link
+              to={`/layout/${keyboardLayout[keyboardLanguage]._id}`}
+              className="selected-keyboard-title"
+            >
+              {keyboardLayout[keyboardLanguage].title}
+            </Link>
+          </p>
+          <Link
+            to="../layout"
+            className="select-keyboard-layout-link button"
+          >
+            select another
+          </Link>
+        </div>
       </SettingsSection>
       <SettingsSection
         sectionTitle={t("typing settings")}
         settingsList={typingSettings}
       >
-        <TypingSettingsTextExample />
+        <TypingSettingsTextExample language={keyboardLanguage} />
       </SettingsSection>
-      <div className="settings-button-list">
+      {/* <div className="settings-button-list">
         <Button
           className="reset-settings-button"
           onClick={handleOpenConfirmResetModal}
@@ -192,7 +201,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
           {t("reset settings")}
         </Button>
       </div>
-      {renderConfirmSettingsResetModal()}
+      {renderConfirmSettingsResetModal()} */}
     </Modal>
   )
 }

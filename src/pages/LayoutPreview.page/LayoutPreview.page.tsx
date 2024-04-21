@@ -24,23 +24,27 @@ const LayoutPreviewPage = () => {
     staleTime: 100000,
   })
 
-  if (isLoading) return <Loading />
+  const renderKeyboard = () => {
+    if (isLoading) return <Loading />
 
-  if (error || !data) return <div>something went wrong</div>
+    if (error || !data) return <div>something went wrong</div>
 
-  const keyboardLayout = data.data
+    const keyboardLayout = data.data
 
-  console.log(keyboardLayout)
-
-  return (
-    <PageLayout className="layout-preview-page">
+    return (
       <Keyboard
         forcedKeyboardLayout={keyboardLayout}
-        showEditButton={true}
+        showKeyboardTypeSelector={true}
+        showSelectButton={true}
+        showLanguageSelector={false}
+        showEditButton={false}
+        showUtilityButtons={true}
         mode="editable"
       />
-    </PageLayout>
-  )
+    )
+  }
+
+  return <PageLayout className="layout-preview-page">{renderKeyboard()}</PageLayout>
 }
 
 export default LayoutPreviewPage

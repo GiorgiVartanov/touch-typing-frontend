@@ -21,17 +21,45 @@
     }
   }
 
+  .selected-keyboard {
+    margin-top: 0.75rem;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  .selected-keyboard-text {
+    display: block;
+  }
+
+  .selected-keyboard-title {
+    font-weight: 600;
+    margin-left: 0.5rem;
+    text-decoration: underline;
+    transition: opacity 300ms var(--animation-function);
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
   .select-keyboard-layout-link {
     display: block;
     padding: 0.25rem 0.75rem;
-    margin: 0.75rem 0.25rem 0.25rem 0.25rem;
+    // margin: 0.75rem 0.25rem 0.25rem 0.25rem;
     width: fit-content;
     background-color: var(--secondary-background-color);
     border-radius: var(--border-radius);
+
+    &:hover {
+      background-color: var(--secondary-background-color-active);
+    }
   }
 
   .text-example {
-    margin-top: 1.5rem;
+    margin-top: 0.75rem;
 
     p {
       padding: 0.25rem;
@@ -101,7 +129,7 @@
             background-color: var(--secondary-background-color);
             border: none;
             outline: none;
-            border-radius: 0.5rem;
+            border-radius: var(--border-radius);
             box-shadow: 0 2px 4px -1px var(--shadow-color);
 
             &:hover,

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 
-import MainPageText from "./MainPageText"
 import MainPageSection from "./MainPageSection"
 import Header from "../../components/Header/Header"
 
@@ -13,7 +12,7 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <Header />
-      <MainPageText />
+      {/* <MainPageText /> */}
       <div className="main-content">
         <MainPageSection
           title="create custom keyboard layout"
@@ -48,10 +47,10 @@ const MainPage = () => {
           description="Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency."
         >
           <Link
-            to=""
+            to="practice"
             className="main-page-section-link button"
           >
-            first lesson
+            see lessons
           </Link>
         </MainPageSection>
       </div>

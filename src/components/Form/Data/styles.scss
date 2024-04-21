@@ -1,11 +1,18 @@
 .match_form {
   max-width: 450px !important;
+  // margin-top: 1.5rem;
+  // height: auto;
+  margin-bottom: 0;
+  margin: 0;
+  height: 100%;
+
   .select-list {
     margin: 20px auto;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
+
     label {
       width: 100%;
       display: flex;
@@ -24,12 +31,13 @@
     }
   }
   .textGen {
+    height: 100%;
     text-align: center;
     width: 95%;
     margin: 5px auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    // justify-content: space-between;
+    align-items: start;
     flex-direction: column;
     label {
       display: flex;
@@ -64,21 +72,38 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
+    margin-top: auto;
+    margin: auto;
     button {
-      width: 70px;
-      padding: 3px 8px;
-      border-radius: 8px;
+      padding: 0.75rem 2.25rem;
+      margin: 3rem auto 0;
+      // width: 70px;
+      // padding: 3px 8px;
+      // border-radius: 8px;
     }
   }
   .example {
-    background-color: var(--secondary-background-color);
-    color: var(--text-color);
-    overflow-y: auto;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: var(--bolder-radius);
+    width: 100%;
+
+    .sample-text-title {
+      text-align: left;
+    }
+
+    .sample-text {
+      background-color: var(--secondary-background-color);
+      color: var(--text-color);
+      width: 100%;
+      height: 6rem;
+      overflow-y: auto;
+      display: block;
+      border-radius: 0.25rem;
+      padding: 0.5rem;
+    }
+
     p:first-child {
-      margin-bottom: 8px;
+      // margin-bottom: 8px;
     }
   }
   .basic {

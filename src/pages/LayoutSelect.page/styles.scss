@@ -11,7 +11,8 @@
   }
 
   .layout-card-list {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     flex-wrap: wrap;
     justify-content: space-between;
   }
@@ -40,6 +41,12 @@
         opacity: 0.5;
       }
     }
+  }
+
+  .layout-list-title {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    font-weight: 500;
   }
 
   .preview-keys {

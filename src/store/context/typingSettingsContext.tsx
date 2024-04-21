@@ -8,11 +8,7 @@ import {
   setFontSizeAction,
 } from "../actions/typingSettingsActions"
 import typingSettingsReducer from "../reducers/typingSettingsReducers"
-import {
-  typingSettingsInitialState,
-  defaultFont,
-  defaultFontSize,
-} from "../initial/typingSettingsInitialState"
+import { typingSettingsInitialState } from "../initial/typingSettingsInitialState"
 import {
   KeyboardLanguageType,
   savedKeyboardLayoutInterface,
@@ -23,7 +19,12 @@ import {
   TypingSettingsActions,
 } from "../../types/typer.types/typingSettings.types"
 import { TypingSettingsState } from "../../types/typer.types/typingSettings.types"
-import { saveTypingSetting, getTypingSettings } from "../../services/typingSettingsServices"
+import {
+  saveTypingSetting,
+  getTypingSettings,
+  getLayout,
+  saveLayout,
+} from "../../services/typingSettingsServices"
 
 import { useAuthStore } from "./authContext"
 
@@ -45,22 +46,18 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const { token } = useAuthStore()
 
-  const keyboardLanguageOptions: KeyboardLanguageType[] = ["Geo", "En"]
-  const keyboardTypeOptions: KeyboardTypeType[] = ["ANSI", "ANSI-ISO", "ISO", "ABNT", "KS", "JIS"]
+  const keyboardLanguageOptions: KeyboardLanguageType[] = ["Geo", "Eng"]
+  const keyboardTypeOptions: KeyboardTypeType[] = ["ANSI", "ANSI-ISO", "ISO"]
   const fontOptions: FontType[] = ["sans", "serif", "sanet"]
   const fontSizeOptions: FontSizeType[] = ["small", "medium", "large", "extra large"]
 
   // saves a setting in the localStorage and on the server (if saveOnServer is true and a token is available)
-  const saveSetting = (typingSettingToChange: string, value: any, saveOnServer: boolean) => {
-    let itemToSave
-
-    if (typingSettingToChange === "keyboardLayout") {
-      itemToSave = JSON.stringify(value)
-    } else {
-      itemToSave = value.toString()
-    }
-
-    localStorage.setItem(typingSettingToChange, itemToSave)
+  const saveSetting = (
+    typingSettingToChange: string,
+    value: string | number | boolean,
+    saveOnServer: boolean
+  ) => {
+    localStorage.setItem(typingSettingToChange, value.toString())
 
     if (!token || !saveOnServer) return
 
@@ -76,7 +73,11 @@ const TypingSettingsProvider = ({ children }: Props) => {
     newValue: savedKeyboardLayoutInterface,
     saveOnServer: boolean = true
   ) => {
-    saveSetting("keyboardLayout", newValue, saveOnServer)
+    if (token && saveOnServer) {
+      saveLayout(newValue, token)
+    }
+
+    localStorage.setItem("keyboardLayout", JSON.stringify(newValue))
 
     dispatch(setKeyboardLayoutAction(newValue))
   }
@@ -98,10 +99,16 @@ const TypingSettingsProvider = ({ children }: Props) => {
     dispatch(setFontSizeAction(newValue))
   }
 
-  // resets typing settings
+  // resets all settings to default values
   const resetTypingSettings = () => {
-    setFont(defaultFont)
-    setFontSize(defaultFontSize)
+    const { keyboardLanguage, keyboardLayout, keyboardType, font, fontSize } =
+      typingSettingsInitialState
+
+    setKeyboardLanguage(keyboardLanguage, false)
+    setKeyboardLayout(keyboardLayout, false)
+    setKeyboardType(keyboardType, false)
+    setFont(font, false)
+    setFontSize(fontSize, false)
   }
 
   useEffect(() => {
@@ -110,17 +117,23 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
       // fetch typing settings for the current user from the server
       const fetchedSettings = await getTypingSettings(token)
+      const fetchedLayout = await getLayout(token)
 
-      const { font, fontSize } = fetchedSettings.data
+      const { font, fontSize, keyboardType, keyboardLanguage } = fetchedSettings.data
+      const layout = fetchedLayout.data
 
       dispatch(setFontAction(font))
       dispatch(setFontSizeAction(fontSize))
+      dispatch(setKeyboardLanguageAction(keyboardLanguage))
+      dispatch(setKeyboardTypeAction(keyboardType))
+
+      dispatch(setKeyboardLayoutAction(layout))
     }
 
     if (token) {
       fetchTypingSettings()
     } else {
-      // resetTypingSettings()
+      resetTypingSettings()
     }
   }, [token])
 

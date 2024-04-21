@@ -1,9 +1,5 @@
-import { useState } from "react"
-
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import "./styles.scss"
-
-import { KeyInterface } from "../../types/keyboard.types"
 
 import PageLayout from "../../layout/Page.layout/Page.layout"
 import Keyboard from "../../components/Keyboard/Keyboard"
@@ -17,6 +13,11 @@ const CreateLayoutPage = () => {
     <PageLayout className="create-layout-page">
       <Keyboard
         startingKeyboard={currentKeyboard}
+        showSelectButton={false}
+        showEditButton={false}
+        showLanguageSelector={true}
+        showKeyboardTypeSelector={true}
+        showUtilityButtons={true}
         mode="editing"
       />
     </PageLayout>

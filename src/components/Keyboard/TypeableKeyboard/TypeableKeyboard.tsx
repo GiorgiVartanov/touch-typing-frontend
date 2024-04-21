@@ -1,21 +1,33 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
+import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 import { KeyInterface } from "../../../types/keyboard.types"
 import { KeyboardLayoutInterface } from "../../../types/keyboard.types"
+import { KeyboardLanguageType } from "../../../types/typer.types/typingSettings.types"
 import { useTypingSettingsStore } from "../../../store/context/typingSettingsContext"
+import { useOnClickOutside } from "../../../hooks/useOnClickOutside"
+
+import WrenchIcon from "../../../assets/icons/wrench.svg?react"
+import ExportIcon from "../../../assets/icons/export.svg?react"
+import QuestionIcon from "../../../assets/icons/question.svg?react"
 
 import Key from "./Key"
 import KeyboardOptions from "../KeyboardOptions"
+import Button from "../../Form/Button"
+import Tooltip from "../../Tooltip/Tooltip"
 
 interface Props {
   forcedKeyboardLayout?: KeyboardLayoutInterface
-  forcedLanguage?: "En" | "Geo"
+  forcedLanguage?: KeyboardLanguageType
   handleEditing: () => void
   inactiveKeys?: string[]
   showSelectButton?: boolean
-  showEditButton?: boolean
-  showLanguageSelector?: boolean
+  showEditButton: boolean
+  showKeyboardTypeSelector: boolean
+  showLanguageSelector: boolean
+  showUtilityButtons: boolean
   keySize?: number
 }
 
@@ -25,8 +37,10 @@ const TypeableKeyboard = ({
   handleEditing,
   showSelectButton = true,
   showEditButton = false,
+  showKeyboardTypeSelector,
   inactiveKeys = ["Tab", "AltRight", "AltLeft", "MetaRight", "MetaLeft", "ContextMenu", ""],
-  showLanguageSelector = true,
+  showLanguageSelector,
+  showUtilityButtons = true,
   keySize = 3.25,
 }: Props) => {
   const {
@@ -35,11 +49,25 @@ const TypeableKeyboard = ({
     keyboardLayout: currentKeyboardLayout,
   } = useTypingSettingsStore()
 
+  const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
+
+  const ref = useRef<HTMLInputElement>(null)
+
   const keyboardLayout =
     forcedKeyboardLayout || currentKeyboardLayout[forcedLanguage || keyboardLanguage]
   const keyboard = keyboardLayout.keyboard
 
   const [pressedKeys, setPressedKeys] = useState<string[]>([])
+  const [areRightSideButtonsOpen, setAreRightSideButtonsOpen] = useState<boolean>(false)
+  const [userOS, setUserOS] = useState<string | null>(null)
+
+  const handleButtonClick = () => {
+    setAreRightSideButtonsOpen((prevState) => !prevState)
+  }
+
+  const handleClose = () => {
+    setAreRightSideButtonsOpen(false)
+  }
 
   const renderKeyboard = () => {
     const backslashKeyIndex = 27
@@ -75,12 +103,6 @@ const TypeableKeyboard = ({
         tempKeyboard[backslashKeyIndex] = keyboard[enterKeyIndex]
 
         return tempKeyboard.map((key) => renderKey(key))
-      case "ABNT":
-        return tempKeyboard.map((key) => renderKey(key))
-      case "KS":
-        return tempKeyboard.map((key) => renderKey(key))
-      case "JIS":
-        return tempKeyboard.map((key) => renderKey(key))
       default:
         return tempKeyboard.map((key) => renderKey(key))
     }
@@ -108,6 +130,66 @@ const TypeableKeyboard = ({
       />
     )
   }
+
+  // renders buttons that are in a bottom right corner
+  const renderRightSideKeyboardButtons = () => {
+    return (
+      <div className="keyboard-right-side-buttons">
+        <Button
+          onClick={handleButtonClick}
+          className={`show-more-keyboard-action-buttons-button ${areRightSideButtonsOpen ? "active" : ""}`}
+        >
+          <WrenchIcon className="icon" />
+        </Button>
+        {areRightSideButtonsOpen ? (
+          <div className="keyboard-button-list">
+            <Tooltip tooltipContent={t("how to install")}>
+              <Link
+                className="button how-to-install-link"
+                style={{ animationDelay: "100ms" }}
+                to={`../guides/how_to_install_layout_on_${userOS}`}
+              >
+                <QuestionIcon className="icon" />
+              </Link>
+            </Tooltip>
+            <Tooltip tooltipContent={t("Export")}>
+              <Button
+                onClick={() => {}}
+                style={{ animationDelay: "0ms" }}
+              >
+                <ExportIcon className="icon" />
+              </Button>
+            </Tooltip>
+          </div>
+        ) : null}
+      </div>
+    )
+  }
+
+  const renderKeyboardButtons = () => {
+    return <div className="editable-keyboard-buttons">{renderRightSideKeyboardButtons()}</div>
+  }
+
+  useOnClickOutside(ref, () => {
+    handleClose()
+  })
+
+  useEffect(() => {
+    const detectOS = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase()
+      if (userAgent.includes("windows")) {
+        setUserOS("windows")
+      } else if (userAgent.includes("mac")) {
+        setUserOS("mac")
+      } else if (userAgent.includes("linux")) {
+        setUserOS("linux")
+      } else {
+        setUserOS("unknown")
+      }
+    }
+
+    detectOS()
+  }, [])
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -169,20 +251,27 @@ const TypeableKeyboard = ({
   }, [])
 
   return (
-    <div className="keyboard-wrapper">
-      <KeyboardOptions
-        forcedLanguage={(forcedKeyboardLayout?.language as "En" | "Geo") || forcedLanguage}
-        showSelectButton={showSelectButton}
-        showEditButton={showEditButton}
-        showLanguageSelector={showLanguageSelector}
-        newKeyboardLayout={keyboardLayout}
-        handleEditing={handleEditing}
-      />
-      <div
-        style={{ "--key-size": `${keySize}rem` } as React.CSSProperties}
-        className={`keyboard keyboard-${keyboardType}`}
-      >
-        {renderKeyboard()}
+    <div
+      ref={ref}
+      className="editable-keyboard-holder"
+    >
+      <div className="editable-keyboard-content">
+        <KeyboardOptions
+          forcedLanguage={forcedKeyboardLayout?.language || forcedLanguage}
+          showSelectButton={showSelectButton}
+          showEditButton={showEditButton}
+          showKeyboardTypeSelector={showKeyboardTypeSelector}
+          showLanguageSelector={showLanguageSelector}
+          newKeyboardLayout={keyboardLayout}
+          handleEditing={handleEditing}
+        />
+        <div
+          style={{ "--key-size": `${keySize}rem` } as React.CSSProperties}
+          className={`keyboard keyboard-${keyboardType}`}
+        >
+          {renderKeyboard()}
+        </div>
+        {showUtilityButtons ? renderKeyboardButtons() : null}
       </div>
     </div>
   )

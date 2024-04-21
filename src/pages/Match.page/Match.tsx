@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import Timer from "./Timer"
 import "./styles.scss"
 import { useTranslation } from "react-i18next"
+import { toast } from "react-toastify"
 
 import PageLayout from "../../layout/Page.layout/Page.layout"
 
@@ -34,6 +35,12 @@ const Match = () => {
     }
   }, [match_finished])
 
+  useEffect(() => {
+    if (match.players[uid] === undefined || match.players[uid].has_finished === true) return
+
+    toast.success(t("The match has started. Good luck!"))
+  }, [])
+
   // If match_id is undefined or user is not authorized, display "Unauthorized"
   if (
     match_id === undefined ||
@@ -56,68 +63,73 @@ const Match = () => {
 
   const match = matches[match_id] // Update variable
 
+  const renderMatchWaitingMessage = () => {
+    return (
+      <div className="waiting-message">
+        <h1>
+          {t("Waiting for users to join")}: {match.active_players}/{match.user_limit}{" "}
+        </h1>
+        <Button
+          className="leave-match-button"
+          onClick={() => leaveMatch()} // Update function call
+        >
+          {t("Leave")}
+        </Button>
+      </div>
+    )
+  }
+
+  const renderMatch = () => {
+    return (
+      <div className="ongoing-match">
+        <div className="ongoing-match-top-panel">
+          <p className="spectators">
+            {t("Spectators")}: {Object.keys(match.spectators).length}
+          </p>
+        </div>
+
+        <div className="list">
+          {Object.keys(match.players).map((uid, ind) => {
+            return (
+              <div
+                key={ind}
+                className={
+                  (match.players[uid].username === username ? "active-background" : "") +
+                  " list_element"
+                }
+              >
+                <h1 key={1}>{match.players[uid].username}</h1>
+                <h1 key={2}>
+                  {match.players[uid].WPM !== -1
+                    ? match.players[uid].has_finished
+                      ? " WPM: "
+                      : " " + t("Progress") + ": "
+                    : " " + t("Disconnected") + ": "}
+                  {match.players[uid].WPM.toFixed(2)}
+                  {match.players[uid].has_finished ? "" : "%"}
+                </h1>
+              </div>
+            )
+          })}
+        </div>
+
+        {match.players[uid] === undefined || match.players[uid].has_finished === true ? (
+          <Button onClick={() => leaveMatch()}>{t("Leave the match")}</Button>
+        ) : (
+          <TypingAreaPlay
+            ModifyMatch={ModifyMatch}
+            handleTextFinish={NotifyFinish}
+            text={match.text}
+          />
+        )}
+      </div>
+    )
+  }
+
   return (
     <PageLayout className="match">
       {/* Update class name */}
-      {match.has_started !== true ? (
-        <>
-          <h1>
-            {t("Waiting for users to join")}: {match.active_players}/{match.user_limit}{" "}
-          </h1>
-          <Button
-            onClick={() => leaveMatch()} // Update function call
-          >
-            {t("Leave")}
-          </Button>
-        </>
-      ) : (
-        <>
-          <h1 className="spectators">
-            {t("Spectators")}: {Object.keys(match.spectators).length}
-          </h1>
-          {match.players[uid] === undefined || match.players[uid].has_finished === true ? (
-            <></>
-          ) : (
-            <>
-              <h1 className="head">{t("The match has started. Good luck!")}</h1>
-              <Timer duration={match.time_limit} />
-            </>
-          )}
-          <div className="list">
-            {Object.keys(match.players).map((uid, ind) => {
-              return (
-                <div
-                  key={ind}
-                  className={
-                    (match.players[uid].username === username ? "active-background" : "") +
-                    " list_element"
-                  }
-                >
-                  <h1 key={1}>{match.players[uid].username}</h1>
-                  <h1 key={2}>
-                    {match.players[uid].WPM !== -1
-                      ? match.players[uid].has_finished
-                        ? " WPM: "
-                        : " " + t("Progress") + ": "
-                      : " " + t("Disconnected") + ": "}
-                    {match.players[uid].WPM.toFixed(2)}
-                    {match.players[uid].has_finished ? "" : "%"}
-                  </h1>
-                </div>
-              )
-            })}
-          </div>
-          {match.players[uid] === undefined || match.players[uid].has_finished === true ? (
-            <Button onClick={() => leaveMatch()}>{t("Leave the match")}</Button>
-          ) : (
-            <TypingAreaPlay
-              ModifyMatch={ModifyMatch}
-              handleTextFinish={NotifyFinish}
-              text={match.text}
-            />
-          )}
-        </>
-      )}
+      {match.has_started !== true ? renderMatchWaitingMessage() : renderMatch()}
     </PageLayout>
   )
 }

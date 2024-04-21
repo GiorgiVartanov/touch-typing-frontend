@@ -1,5 +1,3 @@
-import { KeyType } from "../../../types/keyboard.types"
-
 interface Props {
   value: string | string[]
   isPressed: boolean

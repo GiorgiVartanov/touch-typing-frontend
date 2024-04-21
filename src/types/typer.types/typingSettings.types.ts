@@ -1,12 +1,11 @@
-import { KeyInterface, KeyboardLayoutInterface } from "../keyboard.types"
-import { User } from "../auth.types"
+import { KeyboardLayoutInterface } from "../keyboard.types"
 
-export type KeyboardLanguageType = "Geo" | "En"
+export type KeyboardLanguageType = "Geo" | "Eng"
 export interface savedKeyboardLayoutInterface {
-  En: KeyboardLayoutInterface
+  Eng: KeyboardLayoutInterface
   Geo: KeyboardLayoutInterface
 }
-export type KeyboardTypeType = "ANSI" | "ANSI-ISO" | "ISO" | "ABNT" | "KS" | "JIS"
+export type KeyboardTypeType = "ANSI" | "ANSI-ISO" | "ISO"
 export type FontType = "sans" | "serif" | "sanet"
 export type FontSizeType = "small" | "medium" | "large" | "extra large"
 

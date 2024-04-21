@@ -1,34 +1,25 @@
 import { useParams, NavLink, Link, Outlet } from "react-router-dom"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { toast } from "react-toastify"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 
-import SettingIcon from "../../assets/icons/gear.svg?react"
-import AddUserIcon from "../../assets/icons/user-plus.svg?react"
-import RemoveUserIcon from "../../assets/icons/user-minus.svg?react"
-import HistoryIcon from "../../assets/icons/history.svg?react"
-// import BlockUserIcon from "../../assets/icons/user-slash.svg?react"
-import FriendListIcon from "../../assets/icons/user-group.svg?react"
 import PageLayout from "../../layout/Page.layout/Page.layout"
-import Keyboard from "../../components/Keyboard/Keyboard"
 
 import "./styles.scss"
 
 import { useAuthStore } from "../../store/context/authContext"
-import { sendFriendRequest, removeFriend } from "../../services/friendRequestServices"
 import { getUser } from "../../services/authServices"
-import { User } from "../../types/auth.types"
 
-import UserIcon from "../../components/User/UserIcon"
-import Button from "../../components/Form/Button"
 import Loading from "../../components/Loading/Loading"
+import LayoutCardList from "../LayoutSelect.page/LayoutCardList"
+import Keyboard from "../../components/Keyboard/Keyboard"
 
 // profile page
 const ProfilePage = () => {
   const { username: pageOwnerUsername } = useParams()
-  const { isLoggedIn, user, token, addUserToSentFriendRequests } = useAuthStore()
-  const queryClient = useQueryClient()
+  const { user } = useAuthStore()
 
   const currentUserUsername = user?.username
+
+  const isUserOnTheirOwnPage = currentUserUsername === pageOwnerUsername
 
   // function to fetch user for a current page
   const fetchUser = async () => {
@@ -62,7 +53,7 @@ const ProfilePage = () => {
 
     if (!data?.data) return <div className="fetch-error-message">something went wrong</div>
 
-    const { username } = data.data
+    const { username, layouts } = data.data
 
     return (
       <div className="profile-user-data">
@@ -70,9 +61,23 @@ const ProfilePage = () => {
           <p className="username">{username}</p>
           <span className="username-text">'s profile page</span>
         </div>
-        <div className="profile-page-keyboard">
-          <Keyboard mode="editable" />
-        </div>
+        <section className="profile-page-keyboard">
+          <h2>your currently selected keyboard layout</h2>
+          <Keyboard
+            mode="uneditable"
+            showLanguageSelector={true}
+            showKeyboardTypeSelector={true}
+            showEditButton={true}
+            showSelectButton={false}
+            showUtilityButtons={true}
+          />
+        </section>
+        <section className="profile-page-layout-select">
+          {layouts ? (
+            <h2>{isUserOnTheirOwnPage ? "your" : pageOwnerUsername + "'s"} layouts</h2>
+          ) : null}
+          <LayoutCardList layouts={layouts} />
+        </section>
       </div>
     )
   }

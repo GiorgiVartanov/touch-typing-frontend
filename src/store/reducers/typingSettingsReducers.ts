@@ -1,7 +1,7 @@
 import {
   KeyboardLanguageType,
-  KeyboardLayoutType,
   KeyboardTypeType,
+  savedKeyboardLayoutInterface,
   FontType,
   FontSizeType,
 } from "../../types/typer.types/typingSettings.types"
@@ -17,7 +17,7 @@ import { TypingSettingsState } from "../../types/typer.types/typingSettings.type
 
 export type TypingSettingsActions =
   | { type: typeof SET_KEYBOARD_LANGUAGE; payload: KeyboardLanguageType }
-  | { type: typeof SET_KEYBOARD_LAYOUT; payload: KeyboardLayoutType }
+  | { type: typeof SET_KEYBOARD_LAYOUT; payload: savedKeyboardLayoutInterface }
   | { type: typeof SET_KEYBOARD_TYPE; payload: KeyboardTypeType }
   | { type: typeof SET_FONT; payload: FontType }
   | { type: typeof SET_FONT_SIZE; payload: FontSizeType }

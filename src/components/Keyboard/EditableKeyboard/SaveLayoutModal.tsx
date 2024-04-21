@@ -1,10 +1,9 @@
 import { useState } from "react"
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { toast } from "react-toastify"
 
 import { KeyInterface } from "../../../types/keyboard.types"
 import { KeyboardLanguageType } from "../../../types/typer.types/typingSettings.types"
-import { useTypingSettingsStore } from "../../../store/context/typingSettingsContext"
 import { useAuthStore } from "../../../store/context/authContext"
 import { saveKeyboardOnServer } from "../../../services/keyboardServices"
 
@@ -18,13 +17,13 @@ interface Props {
   modalTitle?: string
   keyboard: KeyInterface[]
   isVisible: boolean
-  currentLanguage: "Geo" | "En"
+  currentLanguage: KeyboardLanguageType
   currentTitle: string // default title
   closeModal: () => void
   className?: string
 }
 
-const keyboardLanguageOptions = ["En", "Geo"]
+const keyboardLanguageOptions = ["Eng", "Geo"]
 
 // modal to save keyboard layout
 const SaveLayoutModal = ({
@@ -44,6 +43,8 @@ const SaveLayoutModal = ({
   const [title, setTitle] = useState<string>(currentTitle || "")
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
+
     setTitle(e.target.value)
   }
 
@@ -82,7 +83,7 @@ const SaveLayoutModal = ({
       showCloseButton={true}
       isVisible={isVisible}
       closeModal={closeModal}
-      className="save-layout-modal"
+      className={`save-layout-modal ${className}`}
     >
       <Form onSubmit={handleSubmit}>
         <Select

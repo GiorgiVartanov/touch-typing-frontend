@@ -63,10 +63,33 @@ const LayoutSelectPage = () => {
       []
     )
 
+    const { officialLayouts, nonOfficialLayouts } = pagesData.reduce(
+      (
+        acc: {
+          officialLayouts: KeyboardLayoutInterface[]
+          nonOfficialLayouts: KeyboardLayoutInterface[]
+        },
+        layout: KeyboardLayoutInterface
+      ) => {
+        if (layout.official) {
+          acc.officialLayouts.push(layout)
+        } else {
+          acc.nonOfficialLayouts.push(layout)
+        }
+        return acc
+      },
+      { officialLayouts: [], nonOfficialLayouts: [] }
+    )
+
     return (
-      <div className="text-page-body">
-        <div className="text-lists">
-          <LayoutCardList layouts={pagesData} />
+      <div className="layout-list-page-body">
+        <div className="layout-lists">
+          <h2 className="layout-list-title">standard layouts</h2>
+          <LayoutCardList layouts={officialLayouts} />
+        </div>
+        <div className="layout-lists">
+          <h2 className="layout-list-title">layouts created by our users</h2>
+          <LayoutCardList layouts={nonOfficialLayouts} />
         </div>
       </div>
     )

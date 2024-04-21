@@ -33,11 +33,11 @@ const qwertyGeorgianKeyboardLayout: KeyboardLayoutInterface =
   qwertyGeorgianLayout as KeyboardLayoutInterface
 
 export const defaultKeyboardLayout: savedKeyboardLayoutInterface = {
-  En: qwertyKeyboardLayout,
+  Eng: qwertyKeyboardLayout,
   Geo: qwertyGeorgianKeyboardLayout,
 }
 
-export const defaultKeyboardLanguage = "En"
+export const defaultKeyboardLanguage = "Eng"
 export const defaultKeyboardType = "ANSI"
 export const defaultFont = "sans"
 export const defaultFontSize = "medium"

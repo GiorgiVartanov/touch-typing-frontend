@@ -2,12 +2,13 @@ import Typer from "../Typer/Typer"
 import { useState } from "react"
 import Results from "./Results/Results"
 import { MetricsProvider } from "../../store/context/MetricsContext"
+import { KeyboardLanguageType } from "../../types/typer.types/typingSettings.types"
 
 import "./styles.scss"
 
 interface Props {
   text: string
-  textLanguage: "En" | "Geo"
+  textLanguage: KeyboardLanguageType
   wordSeparator?: string
   handleTextFinish?: () => void
   showKeyboard?: boolean
@@ -23,9 +24,8 @@ const TypingAreaDisplay = ({
   className,
 }: Props) => {
   const [displayResults, setDisplayResults] = useState(false)
-  const handleOnTextFinish = () => {
-    console.log(handleTextFinish)
 
+  const handleOnTextFinish = () => {
     if (handleTextFinish) handleTextFinish()
     else setDisplayResults(true)
   }

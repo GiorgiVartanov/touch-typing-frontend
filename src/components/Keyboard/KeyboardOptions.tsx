@@ -2,9 +2,8 @@ import { useTypingSettingsStore } from "../../store/context/typingSettingsContex
 import {
   KeyboardLanguageType,
   KeyboardTypeType,
-  savedKeyboardLayoutInterface,
 } from "../../types/typer.types/typingSettings.types"
-import { KeyInterface, KeyboardLayoutInterface } from "../../types/keyboard.types"
+import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 import { toast } from "react-toastify"
 
 import PenIcon from "../../assets/icons/pen.svg?react"
@@ -16,22 +15,24 @@ import Button from "../Form/Button"
 import Tooltip from "../Tooltip/Tooltip"
 
 interface Props {
-  className?: string
-  showLanguageSelector?: boolean
-  forcedLanguage?: "En" | "Geo" | null
-  showSelectButton?: boolean
-  showEditButton?: boolean
+  showLanguageSelector: boolean
+  showSelectButton: boolean
+  showEditButton: boolean
+  showKeyboardTypeSelector: boolean
   newKeyboardLayout?: KeyboardLayoutInterface
+  forcedLanguage?: KeyboardLanguageType
+  className?: string
   handleEditing?: () => void
 }
 
 const KeyboardOptions = ({
-  className = "",
-  showLanguageSelector = true,
+  showLanguageSelector,
+  showSelectButton,
+  showEditButton,
+  showKeyboardTypeSelector,
   forcedLanguage,
-  showSelectButton = true,
-  showEditButton = false,
   newKeyboardLayout,
+  className = "",
   handleEditing,
 }: Props) => {
   const {
@@ -47,13 +48,11 @@ const KeyboardOptions = ({
     keyboardType,
   } = useTypingSettingsStore()
 
-  // console.log(forcedLanguage)
-
   const currentLanguage = forcedLanguage || keyboardLanguage
 
   const isAlreadySelected =
     newKeyboardLayout?._id ===
-      keyboardLayout[(newKeyboardLayout?.language as "En" | "Geo") || "En"]._id || false
+      keyboardLayout[(newKeyboardLayout?.language as KeyboardLanguageType) || "Eng"]._id || false
 
   const selectKeyboardLayout = () => {
     if (!newKeyboardLayout) return
@@ -78,16 +77,18 @@ const KeyboardOptions = ({
           />
         </div>
       ) : null}
-      <div className="keyboard-option-item">
-        <Select
-          name="type"
-          value={keyboardType}
-          options={keyboardTypeOptions}
-          onChange={(value: string) => {
-            setKeyboardType(value as KeyboardTypeType)
-          }}
-        />
-      </div>
+      {showKeyboardTypeSelector ? (
+        <div className="keyboard-option-item">
+          <Select
+            name="type"
+            value={keyboardType}
+            options={keyboardTypeOptions}
+            onChange={(value: string) => {
+              setKeyboardType(value as KeyboardTypeType)
+            }}
+          />
+        </div>
+      ) : null}
       <div className="keyboard-options-right-side-buttons">
         {showEditButton ? (
           <Tooltip

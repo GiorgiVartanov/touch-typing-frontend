@@ -8,6 +8,7 @@ import DataForm from "../../components/Form/Data/DataForm"
 import { useTranslation } from "react-i18next"
 import PageLayout from "../../layout/Page.layout/Page.layout"
 import { Link } from "react-router-dom"
+import Modal from "../../components/Modal/Modal"
 
 const PlayPage = () => {
   const { username, users, match_id, matches, CreateMatch, JoinMatch } = usePlayStore()
@@ -31,54 +32,61 @@ const PlayPage = () => {
     setShowModal(true)
   }
 
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
   //here should work without [match_id], right? (since match_id comes from PlayStore) couldn't make it work...
   useEffect(() => {
     if (match_id) navigate(`../match/${match_id}`)
   }, [match_id])
 
   // Modal component for creating a match
-  const CreateMatchModal = () => {
+  const renderModal = () => {
     return (
-      <div className="play-modal">
+      <Modal
+        modalTitle="create match"
+        showCloseButton={true}
+        isVisible={showModal}
+        closeModal={handleCloseModal}
+        className="play-modal"
+      >
         <div className="please-work">
           <DataForm {...{ CreateMatch, setShowModal }} />
         </div>
-      </div>
+      </Modal>
     )
   }
 
   return (
     <PageLayout className="playPage">
-      {showModal ? (
-        CreateMatchModal()
-      ) : (
-        <div className="play">
-          <h2 className="play-head">
-            {t("Active users")}: {users.length}
-          </h2>
-          <div className="play-body">
-            <div className="play-create">
-              {/*აქ იქნება matchSetting Modal*/}
-              <Button
-                className="create-match-button"
-                onClick={clickCreateMatchHandler}
-              >
-                {t("Create a match")}
-              </Button>
-              <Link
-                className="play-page-link"
-                to="../matches"
-              >
-                {t("Match history")}
-              </Link>
-            </div>
-            <PlayMatchesList
-              matches={matches}
-              onClick={clickHandler}
-            />
+      <div className="play">
+        <h2 className="play-head">
+          {t("Active users")}: {users.length}
+        </h2>
+        <div className="play-body">
+          <div className="play-create">
+            {/*აქ იქნება matchSetting Modal*/}
+            <Button
+              className="create-match-button"
+              onClick={clickCreateMatchHandler}
+            >
+              {t("Create a match")}
+            </Button>
+            <Link
+              className="play-page-link"
+              to="../matches"
+            >
+              {t("Match history")}
+            </Link>
           </div>
+          <PlayMatchesList
+            matches={matches}
+            onClick={clickHandler}
+          />
         </div>
-      )}
+      </div>
+      {renderModal()}
     </PageLayout>
   )
 }
