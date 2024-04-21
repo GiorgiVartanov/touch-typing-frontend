@@ -3,44 +3,58 @@ import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 
-import MainPageText from "./MainPageText"
-import PageLayout from "../../layout/Page.layout/Page.layout"
+import MainPageSection from "./MainPageSection"
+import Header from "../../components/Header/Header"
 
 const MainPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "main page" })
 
-  const renderOptions = () => {
-    return (
-      <div className="options">
-        <Link to="lessons">
-          <p>{t("lessons")}</p>
-          <span>{t("lessons message")}</span>
-        </Link>
-        <Link to="create">
-          <p>{t("create")}</p>
-          <span>{t("create message")}</span>
-        </Link>
-        <div className="separate">
-          <Link to="games">
-            <p>{t("games")}</p>
-            <span>{t("games message")}</span>
-          </Link>
-          <Link to="play">
-            <p>{t("competition")}</p>
-            <span>{t("competition message")}</span>
-          </Link>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <PageLayout className="main-page">
+    <div className="main-page">
+      <Header />
+      {/* <MainPageText /> */}
       <div className="main-content">
-        <MainPageText />
-        {renderOptions()}
+        <MainPageSection
+          title="create custom keyboard layout"
+          description="On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community."
+        >
+          <Link
+            to="layout"
+            className="main-page-section-link button"
+          >
+            select layout
+          </Link>
+          <Link
+            to="create"
+            className="main-page-section-link button"
+          >
+            create layout
+          </Link>
+        </MainPageSection>
+        <MainPageSection
+          title="compete against other users"
+          description="Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions."
+        >
+          <Link
+            to="play"
+            className="main-page-section-link button"
+          >
+            compete
+          </Link>
+        </MainPageSection>
+        <MainPageSection
+          title="follow carefully crafted lessons"
+          description="Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency."
+        >
+          <Link
+            to="practice"
+            className="main-page-section-link button"
+          >
+            see lessons
+          </Link>
+        </MainPageSection>
       </div>
-    </PageLayout>
+    </div>
   )
 }
 export default MainPage

@@ -1,9 +1,15 @@
 import { useTranslation } from "react-i18next"
 
+import { KeyboardLanguageType } from "../../types/typer.types/typingSettings.types"
+
 import TypingArea from "../TypingArea/TypingArea"
 
-const TypingSettingsTextExample = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "settings page" })
+interface Props {
+  language?: KeyboardLanguageType
+}
+
+const TypingSettingsTextExample = ({ language }: Props) => {
+  const { t } = useTranslation("translation", { keyPrefix: "settings page", lng: language })
 
   return (
     <div className="text-example ">

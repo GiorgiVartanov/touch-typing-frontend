@@ -2,14 +2,27 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
+
+  &.tooltip-bottom {
+    &::before {
+      left: 0;
+      top: 100%;
+    }
+  }
+  &.tooltip-top {
+    &::before {
+      left: 0;
+      top: -50%;
+    }
+  }
 }
 
 .tooltip::before {
   content: attr(data-tooltip);
   position: absolute;
-  top: 2rem;
-  left: 100%;
-  transform: translateX(-50%);
+  // top: 2rem;
+  // left: 100%;
+  // transform: translateX(-50%);
   white-space: nowrap;
   font-size: 0.75rem;
   padding: 0.1rem 0.5rem;

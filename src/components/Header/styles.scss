@@ -1,5 +1,5 @@
 .header {
-  width: 100vw;
+  width: 100%;
   background-color: var(--secondary-background-color);
   box-shadow: 0 1px 3px -1px var(--shadow-color);
   z-index: 20;
@@ -49,6 +49,12 @@
         flex-direction: column;
         justify-content: center;
         margin-right: 1.75rem;
+      }
+
+      .nav-button-li {
+        display: flex;
+        align-items: center;
+        margin-right: 0.5rem;
       }
 
       .change-theme-button {
@@ -261,6 +267,7 @@
               user-select: none;
               background-color: var(--secondary-background-color);
               backdrop-filter: blur(2.5px);
+              transition: 300ms var(--animation-function);
 
               &:hover,
               &:active {
@@ -298,6 +305,7 @@
                 .logout-button {
                   background-color: var(--secondary-background-color);
                   border-radius: 0 0 var(--border-radius) var(--border-radius);
+                  transition: 300ms var(--animation-function);
 
                   &:hover {
                     background-color: var(--warning-color);

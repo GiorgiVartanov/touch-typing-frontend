@@ -2,11 +2,13 @@ import Typer from "../Typer/Typer"
 import { useState } from "react"
 import Results from "./Results/Results"
 import { MetricsProvider } from "../../store/context/MetricsContext"
+import { KeyboardLanguageType } from "../../types/typer.types/typingSettings.types"
 
 import "./styles.scss"
 
 interface Props {
   text: string
+  textLanguage: KeyboardLanguageType
   wordSeparator?: string
   handleTextFinish?: () => void
   showKeyboard?: boolean
@@ -16,14 +18,14 @@ interface Props {
 const TypingAreaDisplay = ({
   text,
   wordSeparator,
+  textLanguage,
   handleTextFinish,
   showKeyboard = true,
   className,
 }: Props) => {
   const [displayResults, setDisplayResults] = useState(false)
-  const handleOnTextFinish = () => {
-    console.log(handleTextFinish)
 
+  const handleOnTextFinish = () => {
     if (handleTextFinish) handleTextFinish()
     else setDisplayResults(true)
   }
@@ -40,6 +42,7 @@ const TypingAreaDisplay = ({
         ) : (
           <Typer
             text={text}
+            textLanguage={textLanguage}
             wordSeparator={wordSeparator}
             handleTextFinish={handleOnTextFinish}
             showKeyboard={showKeyboard}
@@ -54,6 +57,7 @@ const TypingAreaDisplay = ({
 const TypingArea = ({
   text,
   wordSeparator,
+  textLanguage,
   handleTextFinish,
   showKeyboard = true,
   className,
@@ -62,6 +66,7 @@ const TypingArea = ({
     <MetricsProvider>
       <TypingAreaDisplay
         text={text}
+        textLanguage={textLanguage}
         wordSeparator={wordSeparator}
         handleTextFinish={handleTextFinish}
         showKeyboard={showKeyboard}

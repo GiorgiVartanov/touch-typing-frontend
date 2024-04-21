@@ -1,23 +1,24 @@
-export type KeyboardLayoutType =
-  | "QWERTY"
-  | "QWERTY georgian"
-  | "Dvorak"
-  | "Colemak"
-  | "Workman"
-  | "Custom"
-export type KeyboardTypeType = "ANSI" | "ANSI-ISO" | "ISO" | "ABNT" | "KS" | "JIS"
+import { KeyboardLayoutInterface } from "../keyboard.types"
+
+export type KeyboardLanguageType = "Geo" | "Eng"
+export interface savedKeyboardLayoutInterface {
+  Eng: KeyboardLayoutInterface
+  Geo: KeyboardLayoutInterface
+}
+export type KeyboardTypeType = "ANSI" | "ANSI-ISO" | "ISO"
 export type FontType = "sans" | "serif" | "sanet"
 export type FontSizeType = "small" | "medium" | "large" | "extra large"
 
 export interface TypingSettingsState {
-  keyboardLayout: KeyboardLayoutType
+  keyboardLanguage: KeyboardLanguageType
+  keyboardLayout: savedKeyboardLayoutInterface
   keyboardType: KeyboardTypeType
   font: FontType
   fontSize: FontSizeType
 }
 
 export interface TypingSettingsOptions {
-  keyboardLayoutOptions: KeyboardLayoutType[]
+  keyboardLanguageOptions: KeyboardLanguageType[]
   keyboardTypeOptions: KeyboardTypeType[]
   fontOptions: FontType[]
   fontSizeOptions: FontSizeType[]
@@ -31,7 +32,8 @@ export interface TypingSettingItem {
 }
 
 export interface TypingSettingsActions {
-  setKeyboardLayout: (newValue: KeyboardLayoutType) => void
+  setKeyboardLanguage: (newValue: KeyboardLanguageType) => void
+  setKeyboardLayout: (newValue: savedKeyboardLayoutInterface) => void
   setKeyboardType: (newValue: KeyboardTypeType) => void
   setFont: (newValue: FontType) => void
   setFontSize: (newValue: FontSizeType) => void

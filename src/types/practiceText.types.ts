@@ -1,4 +1,5 @@
 import { User } from "./auth.types"
+import { KeyboardLanguageType } from "./typer.types/typingSettings.types"
 
 export interface PvPMatch {
   _id: string
@@ -15,6 +16,7 @@ export interface PvPMatch {
 export interface Text {
   _id: string
   title: string
+  language: KeyboardLanguageType
   description: string
   author: string
   level: DifficultyLevel

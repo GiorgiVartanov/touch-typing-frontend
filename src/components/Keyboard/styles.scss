@@ -440,6 +440,51 @@
   }
 }
 
+.editable-keyboard-content {
+  position: relative;
+}
+.keyboard-options {
+  display: flex;
+  // gap: 0.25rem;
+  // margin-bottom: 0.5rem;
+  // opacity: 0.75;
+  align-items: end;
+
+  .select-wrapper {
+    margin-bottom: 0.5rem;
+
+    &:first-of-type {
+      margin-right: 1.25rem;
+    }
+  }
+
+  .keyboard-options-right-side-buttons {
+    margin-left: auto;
+  }
+
+  .keyboard-options-button {
+    display: flex;
+    background-color: transparent;
+    box-shadow: none;
+    transition: 300ms var(--animation-function);
+
+    &:first-of-type {
+      margin-left: auto;
+    }
+
+    &:hover {
+      background-color: transparent;
+      box-shadow: none;
+      opacity: 0.85;
+    }
+  }
+}
+
+.keyboard-wrapper {
+  width: fit-content;
+  margin: auto;
+}
+
 .key.editable {
   cursor: pointer;
 
@@ -464,5 +509,103 @@
 
   &.pressed {
     background-color: var(--secondary-background-color) !important;
+  }
+}
+
+.editable-keyboard-buttons {
+  position: absolute;
+  bottom: -3.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+
+  height: 2.5rem;
+
+  .keyboard-button-list {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .keyboard-left-side-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: start;
+    margin-right: auto;
+
+    .button {
+      display: flex;
+      background-color: transparent;
+      box-shadow: none;
+      .icon {
+        transition: 300ms var(--animation-function);
+      }
+
+      &:hover {
+        .icon {
+          opacity: 0.85;
+        }
+      }
+    }
+  }
+
+  .keyboard-right-side-buttons {
+    .keyboard-button-list {
+      align-items: center;
+
+      .button {
+        opacity: 0;
+        transform: translateX(50%);
+        user-select: none;
+        display: flex;
+        border-radius: 0;
+
+        animation: 300ms slideInFromRight var(--animation-function) forwards;
+
+        background-color: transparent;
+        box-shadow: none;
+
+        .icon {
+          transition: 300ms var(--animation-function);
+        }
+
+        // &.how-to-install-link {
+        //   border-right: 2px solid var(--accent-color);
+        //   margin-right: 0.25rem;
+        // }
+
+        &:hover {
+          .icon {
+            opacity: 0.85;
+          }
+        }
+      }
+
+      .export-button-wrapper {
+        // position: relative;
+      }
+    }
+
+    .show-more-keyboard-action-buttons-button {
+      display: flex;
+      background-color: transparent !important;
+      box-shadow: none;
+      position: absolute;
+      right: 0;
+      transition: 300ms var(--animation-function);
+
+      &.active {
+        transform: translateX(125%);
+        opacity: 0.65;
+      }
+
+      &:hover {
+        opacity: 0.85;
+      }
+
+      .icon {
+        // opacity: 0.85;
+      }
+    }
   }
 }

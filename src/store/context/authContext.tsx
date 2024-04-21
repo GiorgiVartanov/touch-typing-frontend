@@ -111,6 +111,8 @@ const AuthProvider = ({ children }: Props) => {
       const data = await login(userData)
       const { user, token } = data.data
 
+      console.log(data)
+
       dispatch(setUser(user))
       dispatch(setToken(token))
       dispatch(setIsLoggedIn(true))

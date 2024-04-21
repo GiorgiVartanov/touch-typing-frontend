@@ -41,9 +41,10 @@ interface FormProps {
     user_limit: number
   ) => void
   setShowModal: (val: boolean) => void
+  className?: string
 }
 
-const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
+const DataForm = ({ CreateMatch, setShowModal, className = "" }: FormProps) => {
   const [textGenerationMode, setTextGenerationMode] = useState<TextGenMode>("FakeWords")
   const [textRequest, setTextRequest] = useState<TextRequestFake | TextRequestWord>()
   const [fetchedData, setFetchedData] = useState<string>("")
@@ -53,6 +54,17 @@ const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
   const [params, setParams] = useState<matchProps>(initialMatchProps)
   const { t } = useTranslation("translation", { keyPrefix: "forms" })
 
+  useEffect(() => {
+    if (!create) return
+
+    if (create === true) {
+      if (textRequest != undefined) {
+        CreateMatch(textRequest, params.time_limit, params.user_limit)
+        setCreate(false)
+      }
+    }
+  }, [create])
+
   if (loading) return <Loading />
   if (error)
     return <div>Something went wrong, check browser console for more detailed information</div>
@@ -61,15 +73,6 @@ const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
     e.preventDefault()
     setCreate(true) //CreateMatch(params.text, params.time_limit, params.user_limit) //text.params property isn't updated right away :@
   }
-
-  useEffect(() => {
-    if (create === true) {
-      if (textRequest != undefined) {
-        CreateMatch(textRequest, params.time_limit, params.user_limit)
-        setCreate(false)
-      }
-    }
-  }, [create])
 
   const handleUserLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setParams((prevState) => ({
@@ -90,7 +93,7 @@ const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
   return (
     <Form
       onSubmit={submitHandler}
-      className="match_form"
+      className={`match_form ${className}`}
     >
       <div className="basic">
         <Input
@@ -129,18 +132,20 @@ const DataForm = ({ CreateMatch, setShowModal }: FormProps) => {
         ) : (
           <></>
         )}
+
+        <div className="example">
+          <p className="sample-text-title">{t("Sample text")}:</p>
+          <p className="sample-text">
+            {fetchedData.length > 200 ? fetchedData.substring(0, 200) + "..." : fetchedData}
+          </p>
+        </div>
         <div className="but">
           <Button
-            onClick={() => setShowModal(false)}
-            {...{ type: "button" }}
+            className=""
+            {...{ type: "submit" }}
           >
-            {t("Back")}
+            {t("Create")}
           </Button>
-          <Button {...{ type: "submit" }}>{t("Create")}</Button>
-        </div>
-        <div className="example">
-          <p>{t("Sample text")}:</p>
-          <p>{fetchedData.length > 200 ? fetchedData.substring(0, 200) + "..." : fetchedData}</p>
         </div>
       </div>
     </Form>

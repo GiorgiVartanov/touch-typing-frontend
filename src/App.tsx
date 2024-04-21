@@ -25,6 +25,8 @@ import Lesson from "./pages/Lesson.page/Lesson.page"
 import GamesPage from "./pages/Games.page/Games.page"
 import SocialPage from "./pages/Social.page/Social.page"
 import CreateLayoutPage from "./pages/CreateLayout.page/CreateLayout.page"
+import LayoutSelectPage from "./pages/LayoutSelect.page/LayoutSelectPage"
+import LayoutPreviewPage from "./pages/LayoutPreview.page/LayoutPreview.page"
 
 // sub pages
 import Friends from "./pages/Profile.page/Friends"
@@ -117,20 +119,7 @@ const App = () => {
         <Route
           path="/profile/:username"
           element={<ProfilePage />}
-        >
-          <Route
-            path=""
-            element={<History />}
-          />
-          {/* <Route
-            path="history"
-            element={<History />}
-          /> */}
-          <Route
-            path="friends"
-            element={<Friends />}
-          />
-        </Route>
+        />
         <Route
           path="/leaderboards"
           element={<LeaderboardsPage />}
@@ -144,9 +133,17 @@ const App = () => {
           }
         />
         <Route
+          path="/layout"
+          element={<LayoutSelectPage />}
+        />
+        <Route
+          path="/layout/:id"
+          element={<LayoutPreviewPage />}
+        />
+        {/* <Route
           path="/social"
           element={<SocialPage />}
-        />
+        /> */}
         <Route
           path="/games"
           element={<GamesPage />}

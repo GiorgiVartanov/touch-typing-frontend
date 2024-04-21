@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
@@ -26,16 +27,17 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
 
   const {
     // all available values for each setting (they will be options in select)
-    keyboardLayoutOptions,
+    keyboardLanguageOptions,
     keyboardTypeOptions,
     fontOptions,
     fontSizeOptions,
     // function to set each setting
-    setKeyboardLayout,
+    setKeyboardLanguage,
     setKeyboardType,
     setFont,
     setFontSize,
     // value of each setting
+    keyboardLanguage,
     keyboardLayout,
     keyboardType,
     font,
@@ -83,11 +85,11 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
   // keyboard settings
   const keyboardSettings = [
     {
-      name: t("keyboard layout"),
-      selectedValue: t(keyboardLayout),
-      valueOptions: keyboardLayoutOptions,
-      valueToShow: keyboardLayoutOptions.map((option) => t(option)),
-      selectValue: setKeyboardLayout,
+      name: "keyboard language",
+      selectedValue: keyboardLanguage,
+      valueOptions: keyboardLanguageOptions,
+      valueToShow: keyboardLanguageOptions,
+      selectValue: setKeyboardLanguage,
     },
     {
       name: t("keyboard type"),
@@ -167,16 +169,31 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
         sectionTitle={t("keyboard settings")}
         settingsList={keyboardSettings}
       >
-        {keyboardLayout === "Custom" ? <CustomKeyboardSelector /> : null}
-        <KeyboardTypeSelector />
+        <div className="selected-keyboard">
+          <p className="selected-keyboard-text">
+            selected layout:{" "}
+            <Link
+              to={`/layout/${keyboardLayout[keyboardLanguage]._id}`}
+              className="selected-keyboard-title"
+            >
+              {keyboardLayout[keyboardLanguage].title}
+            </Link>
+          </p>
+          <Link
+            to="../layout"
+            className="select-keyboard-layout-link button"
+          >
+            select another
+          </Link>
+        </div>
       </SettingsSection>
       <SettingsSection
         sectionTitle={t("typing settings")}
         settingsList={typingSettings}
       >
-        <TypingSettingsTextExample />
+        <TypingSettingsTextExample language={keyboardLanguage} />
       </SettingsSection>
-      <div className="settings-button-list">
+      {/* <div className="settings-button-list">
         <Button
           className="reset-settings-button"
           onClick={handleOpenConfirmResetModal}
@@ -184,7 +201,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
           {t("reset settings")}
         </Button>
       </div>
-      {renderConfirmSettingsResetModal()}
+      {renderConfirmSettingsResetModal()} */}
     </Modal>
   )
 }

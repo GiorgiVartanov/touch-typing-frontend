@@ -32,12 +32,13 @@ const PracticeTextPage = () => {
     return <div>{error?.message || "something went wrong"}</div>
   }
 
-  const { text, wordSeparator } = data.data
+  const { text, language, wordSeparator } = data.data
 
   return (
     <PageLayout className="practice-page">
       <TypingArea
         text={text}
+        textLanguage={language}
         wordSeparator={wordSeparator}
       />
     </PageLayout>

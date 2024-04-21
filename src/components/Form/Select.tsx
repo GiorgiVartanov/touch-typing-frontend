@@ -3,9 +3,10 @@ interface Props {
   value: string
   options: string[]
   onChange: (value: string) => void
+  disabled?: boolean
 }
 
-const Select = ({ name, value, options, onChange }: Props) => {
+const Select = ({ name, value, options, onChange, disabled = false }: Props) => {
   return (
     <div className="select-wrapper">
       <label htmlFor={name}>{name}</label>
@@ -15,6 +16,7 @@ const Select = ({ name, value, options, onChange }: Props) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="border"
+        disabled={disabled}
       >
         {options.map((option) => (
           <option

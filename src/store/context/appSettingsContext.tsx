@@ -15,7 +15,7 @@ import {
   AppSettingsOptions,
 } from "../../types/appSettings.types"
 import { useAuthStore } from "./authContext"
-import { saveAppSetting } from "../../services/appSettingsServices"
+import { saveAppSetting, getAppSettings } from "../../services/appSettingsServices"
 
 interface ContextInterface extends AppSettingsState, AppSettingsActions, AppSettingsOptions {}
 
@@ -87,8 +87,31 @@ const AppSettingsProvider = ({ children }: Props) => {
 
   // resets all settings to default values
   const resetAppSettings = () => {
-    setAppSettings()
+    const { theme, language } = appSettingsInitialState
+
+    setTheme(theme)
+    setLanguage(language)
   }
+
+  useEffect(() => {
+    const fetchAppSettings = async () => {
+      if (!token) return
+
+      // fetch typing settings for the current user from the server
+      const fetchedSettings = await getAppSettings(token)
+
+      const { theme, language } = fetchedSettings.data
+
+      setTheme(theme)
+      setLanguage(language)
+    }
+
+    if (token) {
+      fetchAppSettings()
+    } else {
+      resetAppSettings()
+    }
+  }, [token])
 
   useEffect(() => {
     let languageToApply = "en"
@@ -103,7 +126,7 @@ const AppSettingsProvider = ({ children }: Props) => {
     }
 
     i18n.changeLanguage(languageToApply)
-  }, [])
+  }, [i18n, state.language])
 
   const store = {
     ...state,
