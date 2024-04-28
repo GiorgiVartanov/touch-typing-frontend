@@ -12,45 +12,50 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <Header />
-      {/* <MainPageText /> */}
       <div className="main-content">
         <MainPageSection
-          title="create custom keyboard layout"
-          description="On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community."
+          title={t("create custom keyboard layout")}
+          description={t(
+            "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community."
+          )}
         >
           <Link
             to="layout"
             className="main-page-section-link button"
           >
-            select layout
+            {t("select layout")}
           </Link>
           <Link
             to="create"
             className="main-page-section-link button"
           >
-            create layout
+            {t("create layout")}
           </Link>
         </MainPageSection>
         <MainPageSection
-          title="compete against other users"
-          description="Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions."
+          title={t("compete against other users")}
+          description={t(
+            "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions."
+          )}
         >
           <Link
             to="play"
             className="main-page-section-link button"
           >
-            compete
+            {t("compete")}
           </Link>
         </MainPageSection>
         <MainPageSection
-          title="follow carefully crafted lessons"
-          description="Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency."
+          title={t("follow carefully crafted lessons")}
+          description={t(
+            "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency."
+          )}
         >
           <Link
             to="practice"
             className="main-page-section-link button"
           >
-            see lessons
+            {t("see lessons")}
           </Link>
         </MainPageSection>
       </div>

@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 interface Props {
   title: string
   description: string
@@ -6,11 +8,27 @@ interface Props {
 }
 
 const MainPageSection = ({ title, description, className = "", children }: Props) => {
+  const [isHovering, setIsHovering] = useState<boolean>(false)
+
+  const handleMouseEnter = () => {
+    setIsHovering(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+  }
+
   return (
-    <section className={`main-page-section ${className}`}>
+    <section
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`main-page-section ${className}`}
+    >
       <div className="section-text">
         <h2>{title}</h2>
-        <p>{description}</p>
+        <p className={`section-description ${isHovering ? "description-open" : ""}`}>
+          {description}
+        </p>
       </div>
       <div className="section-content">{children}</div>
     </section>

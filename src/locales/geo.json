@@ -37,6 +37,14 @@
     "Export": "ექსპორტი"
   },
 
+  "practice": {
+    "more options": "ძებნის პარამეტრები",
+    "Search Options": "ძებნის პარამეტრები",
+    "level": "დონე",
+    "Start Search": "ძებნა",
+    "search": "ძებნა"
+  },
+
   "typer": {
     "WPM": "WPM",
     "WPM definition": "სიტყვა წუთში",
@@ -45,18 +53,24 @@
   },
 
   "main page": {
-    "lessons": "გაკვეთილები",
-    "lessons message": "ისწავლე ბრმად ბეჭდვა",
-    "competition": "შეჯიბრი",
-    "competition message": "შეეჯიბრე სხვებს",
-    "games": "თამაშები",
-    "games message": "ისწავლე თამაშებით",
-    "practice": "ტექსტები",
-    "practice message": "აკრიფე ტექსტები",
-    "create": "შექმნა",
-    "create message": "შექმენი კლავიატურის განლაგება",
-    "stay": "დარჩენა",
-    "log out": "გასვლა"
+    "lessons": "Lessons",
+    "lessons message": "learn typing by completing tasks",
+    "competition": "Competition",
+    "competition message": "challenge other people",
+    "games": "Games",
+    "games message": "play games",
+    "create": "Create",
+    "create message": "create keyboard layout",
+    "create custom keyboard layout": "შექმენით თქვენზე მორგებული კლავიატურის განლაგება",
+    "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community.": "ჩვენს ვებსაიტზე თქვენ გაქვს შესაძლებლობა შექმნა შენზე ორიენტირებული კლავიატურის განლაგება, ან აირჩიო უნვე შექმნილი",
+    "compete against other users": "შეეჯიბრე სხვა მომხმარებლებს",
+    "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.": "დაუპირისპირდით სხვა მომხმარებლებს რეალურ დროში და შეამოწმეთ თქვენი ბეჭდვის უნარი შეჯიბრებში",
+    "follow carefully crafted lessons": "ისწავლეთ ახალ განლაგებაზე ბეჭდვა",
+    "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
+    "select layout": "განლაგების არჩევა",
+    "create layout": "განლაგების შექმნა",
+    "compete": "შეჯიბრი",
+    "see lessons": "გაკვეთილების დათვალიერება"
   },
 
   "auth page": {
@@ -76,6 +90,12 @@
   },
 
   "settings page": {
+    "keyboard language": "კლავიატურის ენა",
+    "selected layout": "არჩეული განლაგება",
+    "select another": "აირჩიეთ სხვა",
+    "show keyboard while typing": "აჩვენე კლავიატურა ბეჭდვის დროს",
+    "show": "აჩვენე",
+    "hide": "დამალე",
     "settings": "პარამეტრები",
     "app settings": "აპლიკაციის პარამეტრები",
     "theme": "თემა",

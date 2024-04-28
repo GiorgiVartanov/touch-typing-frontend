@@ -4,11 +4,12 @@ interface Props {
   options: string[]
   onChange: (value: string) => void
   disabled?: boolean
+  className?: string
 }
 
-const Select = ({ name, value, options, onChange, disabled = false }: Props) => {
+const Select = ({ name, value, options, onChange, disabled = false, className = "" }: Props) => {
   return (
-    <div className="select-wrapper">
+    <div className={`select-wrapper ${className}`}>
       <label htmlFor={name}>{name}</label>
       <select
         id={name}

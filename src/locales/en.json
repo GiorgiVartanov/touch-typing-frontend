@@ -37,6 +37,14 @@
     "Export": "Export"
   },
 
+  "practice": {
+    "more options": "Search options",
+    "Search Options": "Search options",
+    "level": "Level",
+    "Start Search": "Start search",
+    "search": "search"
+  },
+
   "typer": {
     "WPM": "WPM",
     "WPM definition": "Words Per Minute",
@@ -52,7 +60,17 @@
     "games": "Games",
     "games message": "play games",
     "create": "Create",
-    "create message": "create keyboard layout"
+    "create message": "create keyboard layout",
+    "create custom keyboard layout": "create custom keyboard layout",
+    "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community.": "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community.",
+    "compete against other users": "compete against other users",
+    "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.": "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.",
+    "follow carefully crafted lessons": "follow carefully crafted lessons",
+    "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "main page.Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
+    "select layout": "select layout",
+    "create layout": "create layout",
+    "compete": "compete",
+    "see lessons": "see lessons"
   },
 
   "auth page": {
@@ -71,6 +89,12 @@
   },
 
   "settings page": {
+    "keyboard language": "keyboard language",
+    "selected layout": "selected layout",
+    "select another": "select another",
+    "show keyboard while typing": "show keyboard while typing",
+    "show": "show",
+    "hide": "hide",
     "settings": "settings",
     "app settings": "App Settings",
     "theme": "theme",
@@ -125,7 +149,9 @@
     "Disconnected": "Disconnected",
     "Results": "Results",
     "Search by username": "Search by username",
-    "Active users": "Active users"
+    "Active users": "Active users",
+    "no rooms": "there are not active rooms right now",
+    "no matches": "there are not active matches right now"
   },
 
   "forms": {

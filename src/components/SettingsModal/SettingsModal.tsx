@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
+import { toast } from "react-toastify"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
@@ -85,7 +86,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
   // keyboard settings
   const keyboardSettings = [
     {
-      name: "keyboard language",
+      name: t("keyboard language"),
       selectedValue: keyboardLanguage,
       valueOptions: keyboardLanguageOptions,
       valueToShow: keyboardLanguageOptions,
@@ -97,6 +98,15 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
       valueOptions: keyboardTypeOptions,
       valueToShow: keyboardTypeOptions.map((option) => t(option)),
       selectValue: setKeyboardType,
+    },
+    {
+      name: t("show keyboard while typing"),
+      selectedValue: t("show"),
+      valueOptions: [true, false],
+      valueToShow: [t("show"), t("hide")],
+      selectValue: () => {
+        toast.warning("not implemented yet")
+      },
     },
   ]
 
@@ -171,7 +181,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
       >
         <div className="selected-keyboard">
           <p className="selected-keyboard-text">
-            selected layout:{" "}
+            {t("selected layout")}:{" "}
             <Link
               to={`/layout/${keyboardLayout[keyboardLanguage]._id}`}
               className="selected-keyboard-title"
@@ -183,7 +193,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
             to="../layout"
             className="select-keyboard-layout-link button"
           >
-            select another
+            {t("select another")}
           </Link>
         </div>
       </SettingsSection>
