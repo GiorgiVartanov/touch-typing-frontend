@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useInfiniteQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 
@@ -20,6 +21,8 @@ import PageLayout from "../../layout/Page.layout/Page.layout"
 
 // page
 const PracticeTextListPage = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "practice" })
+
   const [searchValue, setSearchValue] = useState<string>("")
   const [searchOptions, setSearchOptions] = useState<SearchOptions>({
     level: "Any",
@@ -251,7 +254,7 @@ const PracticeTextListPage = () => {
             onClick={handleOpenTextSearchModal}
             className="search-options-button cta-button"
           >
-            more options
+            {t("more options")}
           </Button>
           {renderSearchListItems()}
           {renderSearchListItems().length > 0 ? (

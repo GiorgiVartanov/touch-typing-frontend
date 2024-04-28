@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { SearchOptions } from "../../../types/other.types"
 import { DifficultyLevel } from "../../../types/practiceText.types"
@@ -22,6 +23,8 @@ const PracticeTextSearchOptions = ({
   saveSearchOptions,
   selectedSearchOptions,
 }: Props) => {
+  const { t } = useTranslation("translation", { keyPrefix: "practice" })
+
   const [searchOptions, setSearchOptions] = useState<SearchOptions>(selectedSearchOptions)
 
   const handleValueChange = (field: string, newValue: string) => {
@@ -43,7 +46,7 @@ const PracticeTextSearchOptions = ({
   return (
     <Modal
       isVisible={isVisible}
-      modalTitle="Search Options"
+      modalTitle={t("Search Options")}
       showCloseButton={true}
       closeModal={closeSearchOptions}
     >
@@ -52,12 +55,13 @@ const PracticeTextSearchOptions = ({
         className="search-options-modal-form"
       >
         <Select
-          name="level"
+          name={t("level")}
           value={searchOptions.level || "Any"}
           options={["Any", "Easy", "Intermediate", "Normal", "Hard", "Expert", "Advanced"]}
           onChange={(selectedLevel) => handleValueChange("level", selectedLevel as DifficultyLevel)}
+          className="search-options-select"
         />
-        <Button className="submit-button cta-button">Start Search</Button>
+        <Button className="submit-button cta-button">{t("Start Search")}</Button>
       </Form>
     </Modal>
   )

@@ -5,17 +5,22 @@ import { KeyboardLanguageType } from "../../types/typer.types/typingSettings.typ
 import TypingArea from "../TypingArea/TypingArea"
 
 interface Props {
-  language?: KeyboardLanguageType
+  language: KeyboardLanguageType
 }
 
 const TypingSettingsTextExample = ({ language }: Props) => {
-  const { t } = useTranslation("translation", { keyPrefix: "settings page", lng: language })
+  const { t: tText } = useTranslation("translation", {
+    keyPrefix: "settings page",
+    lng: language.toLowerCase(),
+  })
+  const { t } = useTranslation("translation", { keyPrefix: "settings page" })
 
   return (
     <div className="text-example ">
       <p>{t("text example")}</p>
       <TypingArea
-        text={t("text example text")}
+        text={tText("text example text")}
+        textLanguage={language}
         showKeyboard={false}
       />
     </div>

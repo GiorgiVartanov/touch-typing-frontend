@@ -27,7 +27,6 @@ import NavItem from "./NavItem"
 import ScrollToTop from "./ScrollToTop"
 import ConfirmModal from "../Modal/ConfirmModal"
 import Button from "../Form/Button"
-import NotificationsAmount from "./NotificationsAmount"
 
 import "./styles.scss"
 
@@ -242,12 +241,6 @@ const Header = () => {
                 closeNavigation={handleCloseNavigation}
               >
                 <NavLink to={`/practice`}>{t("practice")}</NavLink>
-              </DropDownItem>
-              <DropDownItem
-                icon={<GamepadIcon />}
-                closeNavigation={handleCloseNavigation}
-              >
-                <NavLink to={`/games`}>{t("games")}</NavLink>
               </DropDownItem>
             </DropDownMenu>
           </NavItem>
