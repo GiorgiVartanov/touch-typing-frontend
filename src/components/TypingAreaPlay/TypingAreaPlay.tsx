@@ -1,6 +1,5 @@
 import TyperPlay from "../TyperPlay/TyperPlay"
 import { MetricsProvider } from "../../store/context/MetricsContext"
-import Keyboard from "../Keyboard/Keyboard"
 
 interface Props {
   text: string

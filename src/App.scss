@@ -17,6 +17,7 @@ body {
   flex-direction: column;
 
   background-color: var(--background-color);
+
   color: var(--text-color);
   // transition: background-color 300ms var(--animation-function);
 
@@ -55,10 +56,10 @@ body {
 
   // light theme
   &:not(.dark) {
-    --primary-color: rgb(87, 82, 180);
+    --primary-color: #918ce9;
     // --complementary-color: #8780e4;
-    --cta-color: #9792eb;
-    --cta-color-active: #a09cf1;
+    --cta-color: #918ce9;
+    --cta-color-active: #a09bec;
     --secondary-color: #4b5057;
 
     --accent-color: #1c1b1d;
@@ -85,6 +86,7 @@ body {
     --penalty-word-yellow: #f5e856;
 
     // background: var(--background-color);
+
     --tertiary-background-color: #becee6;
     --green-adjusted: rgb(133, 187, 133);
 
@@ -99,8 +101,8 @@ body {
   &.dark {
     --primary-color: #817dd8;
     // --complementary-color: #706cb9;
-    --cta-color: #706cb9;
-    --cta-color-active: #8c87e7;
+    --cta-color: #817dd8;
+    --cta-color-active: #9b97eb;
     --secondary-color: #4b5057;
 
     --accent-color: #ffffff;
@@ -123,9 +125,10 @@ body {
 
     --penalty-word-yellow: #f5e856;
 
-    background: var(--background-color);
-    --tertiary-background-color: #253850;
-    --green-adjusted: rgb(11, 59, 11);
+    // background: var(--background-color);
+
+    --tertiary-background-color: #445a75;
+    --green-adjusted: rgb(32, 100, 32);
 
     .background-image {
       filter: opacity(0.25);
@@ -153,8 +156,8 @@ body {
   --toastify-text-color-light: #1f1e24 !important;
   --toastify-text-color-dark: #e2e6eb !important;
 
-  --toastify-color-light: #fafbfbd7 !important;
-  --toastify-color-dark: #44435ab0 !important;
+  --toastify-color-light: #fafbfb !important;
+  --toastify-color-dark: #44435a !important;
 
   --toastify-font-family: "Poppins", "Noto Sans Georgian", sans-serif;
 }
@@ -197,6 +200,7 @@ html.dark {
   background-color: #262533;
 }
 
+// won't show browser's default "show password button" in edge
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
   display: none;

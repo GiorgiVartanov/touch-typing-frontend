@@ -168,7 +168,11 @@ const ActiveWord = ({
     let pressedKeyValue = ""
 
     if (pressedKey.type === "Modifier") {
-      pressedKeyValue = pressedKey.value[0] || pressedKey.value
+      if (typeof pressedKey.value === "object") {
+        pressedKeyValue = pressedKey.value[0]
+      } else {
+        pressedKeyValue = pressedKey.value
+      }
     } else {
       if (
         (e.shiftKey && !e.getModifierState("CapsLock")) ||

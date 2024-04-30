@@ -70,7 +70,8 @@
     "select layout": "select layout",
     "create layout": "create layout",
     "compete": "compete",
-    "see lessons": "see lessons"
+    "see lessons": "lessons",
+    "texts": "texts"
   },
 
   "auth page": {
@@ -163,7 +164,7 @@
     "Create": "Create",
     "Text generation options": "Text generation options",
     "Sample text": "Sample text",
-    "User limit": "User limit",
+    "User limit": "Users",
     "Time limit": "Time limit",
     "Fake words": "Fake words",
     "Corpus words": "Corpus words",

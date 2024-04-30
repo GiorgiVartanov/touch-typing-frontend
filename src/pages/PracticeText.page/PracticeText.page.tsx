@@ -24,24 +24,26 @@ const PracticeTextPage = () => {
     queryKey: ["practice text", id],
   })
 
-  if (isLoading || !data) return <Loading />
+  const renderTypingArea = () => {
+    if (isLoading || !data) return <Loading />
 
-  if (error || !data.data) {
-    console.log(error?.message || "something went wrong")
+    if (error || !data.data) {
+      console.log(error?.message || "something went wrong")
 
-    return <div>{error?.message || "something went wrong"}</div>
-  }
+      return <div>{error?.message || "something went wrong"}</div>
+    }
 
-  const { text, language, wordSeparator } = data.data
+    const { text, language, wordSeparator } = data.data
 
-  return (
-    <PageLayout className="practice-page">
+    return (
       <TypingArea
         text={text}
         textLanguage={language}
         wordSeparator={wordSeparator}
       />
-    </PageLayout>
-  )
+    )
+  }
+
+  return <PageLayout className="practice-page">{renderTypingArea()}</PageLayout>
 }
 export default PracticeTextPage

@@ -79,15 +79,15 @@ const Text = ({
   const calculateFontSize = () => {
     switch (fontSize) {
       case "small":
-        return "0.75rem"
-      case "medium":
         return "1rem"
-      case "large":
+      case "medium":
         return "1.25rem"
+      case "large":
+        return "1.5rem"
       case "extra large":
-        return "1.5rem"
+        return "1.75rem"
       default:
-        return "1.5rem"
+        return "1.25rem"
     }
   }
 

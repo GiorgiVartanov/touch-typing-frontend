@@ -7,6 +7,10 @@
   // padding: 10px;
   position: relative;
 
+  .typer {
+    margin-top: 8rem;
+  }
+
   .leave-match-button {
     width: 100%;
     margin-top: 0.5rem;
@@ -23,9 +27,20 @@
   .ongoing-match {
     .ongoing-match-top-panel {
       position: absolute;
-      top: 1rem;
+      top: 0.25rem;
+      display: flex;
+      width: calc(100% - 5.5rem);
+      justify-content: space-between;
+      // margin-left: 20rem;
+      // margin-left: 5.5rem;
+      left: 5.5rem;
 
-      right: 0;
+      .timer-wrapper {
+        // position: absolute;
+        // top: 0;
+        // left: 1rem;
+        background-color: transparent;
+      }
 
       .spectators {
         background-color: transparent;
@@ -46,9 +61,14 @@
   }
   .timer {
     margin-bottom: 10px;
-    background-color: var(--secondary-background-color);
+    // background-color: var(--secondary-background-color);
     padding: 5px;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
+
+    .timer-text {
+      opacity: 0.5;
+      margin-right: 0.25rem;
+    }
   }
   .list {
     width: fit-content;
@@ -63,8 +83,48 @@
     justify-content: space-between;
     gap: 2rem;
     border-radius: var(--border-radius);
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem;
     width: 100%;
+    font-size: 0.85rem;
+    line-height: 0.85rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .list-element-user {
+      opacity: 0.75;
+      font-weight: 600;
+    }
+    .list-element-percent {
+      font-weight: 700;
+      letter-spacing: 0.025rem;
+    }
+
+    .progress-bar {
+      position: absolute;
+      height: 100%;
+      left: 0;
+      background-color: var(--cta-color);
+      transition: width 300ms var(--animation-function);
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+      z-index: 5;
+
+      &.finished {
+        border-radius: var(--border-radius);
+        width: 100% !important;
+        background-color: var(--cta-color);
+      }
+    }
+
+    .list-element-user {
+      position: relative;
+      z-index: 10;
+    }
+
+    .list-element-percent {
+      position: relative;
+      z-index: 10;
+    }
   }
   .button {
     background: var(--tertiary-background-color);
@@ -73,6 +133,6 @@
     }
   }
   .active-background {
-    background-color: var(--tertiary-background-color) !important;
+    outline: 2px solid var(--tertiary-background-color) !important;
   }
 }

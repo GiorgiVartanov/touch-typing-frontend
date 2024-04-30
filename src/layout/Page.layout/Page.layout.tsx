@@ -20,7 +20,7 @@ const PageLayout = ({ children, className = "" }: Props) => {
 
   const { t } = useTranslation("translation", { keyPrefix: "header" })
 
-  const handleeGoBack = () => {
+  const handleGoBack = () => {
     navigate(-1)
   }
 
@@ -30,7 +30,7 @@ const PageLayout = ({ children, className = "" }: Props) => {
       <div className={`page-content ${className}`}>
         {pathname !== "/" ? (
           <Button
-            onClick={handleeGoBack}
+            onClick={handleGoBack}
             className="go-back-button"
           >
             <ArrowUp className="icon go-back-icon" />

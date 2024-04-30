@@ -70,7 +70,8 @@
     "select layout": "განლაგების არჩევა",
     "create layout": "განლაგების შექმნა",
     "compete": "შეჯიბრი",
-    "see lessons": "გაკვეთილების დათვალიერება"
+    "see lessons": "გაკვეთილები",
+    "texts": "ტექსტები"
   },
 
   "auth page": {
@@ -150,7 +151,9 @@
     "Disconnected": "გამოთიშული",
     "Results": "შედეგები",
     "Search by username": "მოძებნეთ მომხმარებლის სახელით",
-    "Active users": "აქტიური მომხმარებლები"
+    "Active users": "აქტიური მომხმარებლები",
+    "no rooms": "there are not active rooms right now",
+    "no matches": "there are not active matches right now"
   },
 
   "forms": {

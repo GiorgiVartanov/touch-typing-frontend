@@ -61,9 +61,9 @@ const PlayPage = () => {
   return (
     <PageLayout className="playPage">
       <div className="play">
-        <h2 className="play-head">
+        <div className="active-users">
           {t("Active users")}: {users.length}
-        </h2>
+        </div>
         <div className="play-body">
           <div className="play-create">
             {/*აქ იქნება matchSetting Modal*/}
