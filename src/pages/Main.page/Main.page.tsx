@@ -12,6 +12,7 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <Header />
+      <div className="background-image"></div>
       <div className="main-content">
         <MainPageSection
           title={t("create custom keyboard layout")}
@@ -56,6 +57,12 @@ const MainPage = () => {
             className="main-page-section-link button"
           >
             {t("see lessons")}
+          </Link>
+          <Link
+            to="practice"
+            className="main-page-section-link button"
+          >
+            {t("texts")}
           </Link>
         </MainPageSection>
       </div>

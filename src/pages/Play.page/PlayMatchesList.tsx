@@ -20,7 +20,7 @@ const PlayMatchesList = ({ matches, onClick }: Props) => {
 
   const renderOngoingMatches = () => {
     if (!ongoingMatches || ongoingMatches.length === 0) {
-      return <div className="no-matches-message">no matches? 😭</div>
+      return <div className="no-matches-message">{t("no matches")}</div>
     } else {
       return ongoingMatches.map((key, ind) => (
         <PlayMatchCard
@@ -36,7 +36,7 @@ const PlayMatchesList = ({ matches, onClick }: Props) => {
 
   const renderWaitingMatches = () => {
     if (!waitingMatches || waitingMatches.length === 0) {
-      return <div className="no-matches-message">no rooms? 😭</div>
+      return <div className="no-matches-message">{t("no rooms")}</div>
     } else {
       return waitingMatches.map((key, ind) => (
         <PlayMatchCard

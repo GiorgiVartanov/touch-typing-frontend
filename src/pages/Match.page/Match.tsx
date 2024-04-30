@@ -35,11 +35,22 @@ const Match = () => {
     }
   }, [match_finished])
 
-  useEffect(() => {
-    if (match.players[uid] === undefined || match.players[uid].has_finished === true) return
+  // useEffect(() => {
+  //   if (match.players[uid] === undefined || match.players[uid].has_finished === true) return
 
-    toast.success(t("The match has started. Good luck!"))
-  }, [])
+  //   // may change latter
+  //   toast.success(t("The match has started. Good luck!"))
+  // }, [])
+
+  useEffect(() => {
+    if (!match_id) return
+
+    const match = matches[match_id]
+
+    if (!match || !match.has_started) return
+
+    toast.success(t("The match has started. Good luck!"), { toastId: "match star message" })
+  }, [match_id, matches.length])
 
   // If match_id is undefined or user is not authorized, display "Unauthorized"
   if (
@@ -47,12 +58,12 @@ const Match = () => {
     matches[match_id] === undefined ||
     (matches[match_id].players[uid] === undefined &&
       matches[match_id].spectators[uid] === undefined)
-  )
-    return (
-      <div className="page">
-        <h1>{t("Unauthorized")}</h1>
-      </div>
-    )
+  ) {
+    toast.warning("unauthorized", { toastId: "unauthorized" })
+    navigate("../../")
+
+    return
+  }
 
   // Function to leave the match
   const leaveMatch = () => {
@@ -83,6 +94,9 @@ const Match = () => {
     return (
       <div className="ongoing-match">
         <div className="ongoing-match-top-panel">
+          <div className="timer-wrapper">
+            <Timer duration={match.time_limit} />
+          </div>
           <p className="spectators">
             {t("Spectators")}: {Object.keys(match.spectators).length}
           </p>
@@ -98,16 +112,20 @@ const Match = () => {
                   " list_element"
                 }
               >
-                <h1 key={1}>{match.players[uid].username}</h1>
-                <h1 key={2}>
+                <div
+                  className={`progress-bar ${Number(match.players[uid].WPM.toFixed(2)) > 98 || match.players[uid].has_finished ? "finished" : ""}`}
+                  style={{ width: `${match.players[uid].WPM.toFixed(2)}%` }}
+                />
+                <div className="list-element-user">{match.players[uid].username}</div>
+                <div className="list-element-percent">
                   {match.players[uid].WPM !== -1
                     ? match.players[uid].has_finished
                       ? " WPM: "
-                      : " " + t("Progress") + ": "
+                      : " "
                     : " " + t("Disconnected") + ": "}
                   {match.players[uid].WPM.toFixed(2)}
                   {match.players[uid].has_finished ? "" : "%"}
-                </h1>
+                </div>
               </div>
             )
           })}

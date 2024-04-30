@@ -3,7 +3,6 @@ import { useMemo, useState } from "react"
 import "../Typer/styles.scss"
 import Keyboard from "../Keyboard/Keyboard"
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
-import { KeyInterface } from "../../types/keyboard.types"
 
 interface Props {
   text: string
@@ -15,7 +14,7 @@ interface Props {
 // renders typing settings
 // renders Text with the passed word separator (thing between words, usually space but any string may be passed)
 const TyperPlay = ({ text, wordSeparator = "", handleTextFinish, ModifyMatch }: Props) => {
-  const { keyboardLayout, keyboardLanguage } = useTypingSettingsStore()
+  const { keyboardLayout } = useTypingSettingsStore()
 
   const [show, setShow] = useState<boolean>(true)
   const memoizedTyper = useMemo(() => {
@@ -27,9 +26,16 @@ const TyperPlay = ({ text, wordSeparator = "", handleTextFinish, ModifyMatch }: 
           handleTextFinish={handleTextFinish}
           ModifyMatch={ModifyMatch}
           removeTextComponent={() => setShow(false)}
-          keyboard={keyboardLayout[keyboardLanguage].keyboard as KeyInterface[]}
+          keyboard={keyboardLayout["Geo"].keyboard}
         />
-        <Keyboard forcedLanguage={"Geo"} />
+        <Keyboard
+          forcedLanguage={"Geo"}
+          showSelectButton={false}
+          showEditButton={false}
+          showLanguageSelector={false}
+          showKeyboardTypeSelector={true}
+          showUtilityButtons={false}
+        />
       </div>
     )
   }, [])
