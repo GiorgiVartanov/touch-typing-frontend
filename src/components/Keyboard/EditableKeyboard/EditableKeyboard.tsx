@@ -25,6 +25,11 @@ import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
 import KeyboardOptions from "../KeyboardOptions"
 
+import ajax_python from "../../../services/ajax_python"
+import { useSocket } from "../../../hooks/useSocket"
+import { useAuthStore } from "../../../store/context/authContext"
+import config from "../../../keyboardLayouts/config.json"
+
 interface Props {
   startingKeyboard: KeyInterface[]
   handleEditing: () => void
@@ -32,6 +37,44 @@ interface Props {
   uneditableFirstValueKeys?: string[]
   uneditableSecondValueKeys?: string[]
   keySize?: number
+}
+
+const PYTHON_SERVER_URL = import.meta.env.VITE_PYTHON_SERVER_URL
+
+const convertFromPythonApiLayoutToCurrent = (
+  characterPlacement: string[],
+  currentPlacement: KeyInterface[]
+): KeyInterface[] => {
+  const choose_type = (str: string) => {
+    const georgianAlphabet = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ"
+    if (georgianAlphabet.includes(str)) return "Letter"
+    else return "Symbol"
+  }
+  let newPlacement = structuredClone(currentPlacement)
+  characterPlacement = characterPlacement.map((str) => (str.length > 1 ? "" : str))
+  for (let i = 0; i < 12; i++) {
+    newPlacement[i + 1].value = [characterPlacement[i], characterPlacement[i + 47]]
+    newPlacement[i + 1].type = choose_type(characterPlacement[i])
+    newPlacement[i + 15].value = [characterPlacement[i + 12], characterPlacement[i + 12 + 47]]
+    newPlacement[i + 15].type = choose_type(characterPlacement[i + 12])
+
+    if (i < 11) {
+      newPlacement[i + 29].value = [
+        characterPlacement[i + 24],
+        characterPlacement[i + 24 + 47], //35
+      ]
+      newPlacement[i + 29].type = choose_type(characterPlacement[i + 24])
+    }
+    if (i < 10) {
+      newPlacement[i + 42].value = [
+        characterPlacement[i + 35],
+        characterPlacement[i + 35 + 47], //35
+      ]
+      newPlacement[i + 42].type = choose_type(characterPlacement[i + 35])
+    }
+  }
+  newPlacement[0].value = [characterPlacement[45], characterPlacement[45 + 47]]
+  return newPlacement
 }
 
 // keyboard that can be edited
@@ -85,6 +128,43 @@ const EditableKeyboard = ({
   const [areRightSideButtonsOpen, setAreRightSideButtonsOpen] = useState<boolean>(false)
   const [userOS, setUserOS] = useState<string | null>(null)
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
+
+  useEffect(() => {}, [editingKeyboard])
+
+  const socket = useSocket(PYTHON_SERVER_URL, {
+    reconnectionAttempts: 5,
+    reconnectionDelay: 1000,
+    autoConnect: false,
+  })
+  const { user, token } = useAuthStore()
+
+  useEffect(() => {
+    console.log(config)
+    if (socket.connected) {
+      socket.disconnect()
+    }
+    socket.connect()
+    // PlayDispatch(updateSocket(socket))
+    StartListeners()
+    // SendHandshake()
+  }, [user])
+
+  const StartListeners = () => {
+    socket.on("custom_event", (data: any) => {
+      console.log(data)
+    })
+
+    socket.on("result", (data: any) => {
+      console.log(data)
+      setEditingKeyboard(
+        structuredClone(convertFromPythonApiLayoutToCurrent(data.characters_set, editingKeyboard))
+      )
+    })
+
+    socket.on("progress", (data: any) => {
+      console.log(data)
+    })
+  }
 
   const renderKeyboard = () => {
     // will change letter
@@ -153,13 +233,20 @@ const EditableKeyboard = ({
   }
 
   //
-  const optimizeLayout = () => {
-    toast.warning("This feature is not yet implemented")
+  const optimizeLayout = async () => {
+    //const answer = await ajax_python.get("/")
+    //console.log(answer.data)
+    //socket.emit("custom_event", { data: "oh hey" })
+    socket.emit("generate_keyboard_layout", config)
   }
 
   //
   const handleOpenSaveKeyboardModal = () => {
     setIsSaveModalOpen(true)
+  }
+
+  const handleNotImplemented = () => {
+    toast.warning("This feature is not yet implemented")
   }
 
   //
@@ -381,7 +468,7 @@ const EditableKeyboard = ({
             </Tooltip>
             <Tooltip tooltipContent={t("Import")}>
               <Button
-                onClick={optimizeLayout}
+                onClick={handleNotImplemented}
                 style={{ animationDelay: "300ms" }}
               >
                 <ImportIcon className="icon" />
@@ -389,7 +476,7 @@ const EditableKeyboard = ({
             </Tooltip>
             <Tooltip tooltipContent={t("Export")}>
               <Button
-                onClick={optimizeLayout}
+                onClick={handleNotImplemented}
                 style={{ animationDelay: "300ms" }}
               >
                 <ExportIcon className="icon" />
@@ -397,7 +484,7 @@ const EditableKeyboard = ({
             </Tooltip>
             <Tooltip tooltipContent={t("Analyze")}>
               <Button
-                onClick={optimizeLayout}
+                onClick={handleNotImplemented}
                 style={{ animationDelay: "200ms" }}
               >
                 <AnalyzeIcon className="icon" />
