@@ -4,11 +4,21 @@
   margin: auto;
 
   display: grid;
-  grid-template-columns: repeat(58, calc($keySize/7));
+  grid-template-columns: repeat(60, calc($keySize/7));
   grid-template-rows: repeat(5, $keySize);
   grid-gap: calc($keySize/7);
 
   font-size: calc($keySize/2.75);
+
+  &.same-color-keys {
+    .key {
+      background-color: var(--secondary-background-color) !important;
+
+      &.pressed {
+        background-color: var(--secondary-background-color-active) !important;
+      }
+    }
+  }
 
   .key {
     background-color: var(--secondary-background-color);
@@ -17,6 +27,7 @@
     align-items: center;
     transition:
       box-shadow 300ms var(--animation-function),
+      color 100ms var(--animation-function),
       background-color 100ms var(--animation-function);
     backdrop-filter: blur(6px);
     box-shadow: 0 2px 4px -1px var(--shadow-color);
@@ -115,13 +126,13 @@
       .key-value {
         position: absolute;
 
-        &:nth-of-type(2) {
+        &:nth-of-type(1) {
           top: calc($keySize/12);
           left: calc($keySize/8);
           right: auto !important;
           bottom: auto !important;
         }
-        &:nth-of-type(1) {
+        &:nth-of-type(2) {
           bottom: calc($keySize/12);
           right: calc($keySize/8);
           left: auto !important;
@@ -251,7 +262,7 @@
     }
 
     &.Phantom-key {
-      opacity: 0;
+      opacity: 0 !important;
     }
 
     &.Tab-key,
@@ -271,19 +282,15 @@
     }
 
     &.Tab-key {
-      grid-column: auto / span 6;
-    }
-
-    &.Tab-key {
-      grid-column: auto / span 6;
-    }
-
-    &.CapsLock-key {
       grid-column: auto / span 7;
     }
 
+    &.CapsLock-key {
+      grid-column: auto / span 8;
+    }
+
     &.ShiftLeft-key {
-      grid-column: auto / span 9;
+      grid-column: auto / span 10;
     }
 
     &.ControlLeft-key {
@@ -299,7 +306,7 @@
     }
 
     &.Space-key {
-      grid-column: auto / span 24;
+      grid-column: auto / span 25;
     }
 
     &.AltRight-key {
@@ -311,7 +318,7 @@
     }
 
     &.ContextMenu-key {
-      grid-column: auto / span 4;
+      grid-column: auto / span 5;
     }
 
     &.ControlRight-key {
@@ -319,72 +326,24 @@
     }
 
     &.ShiftRight-key {
-      grid-column: auto / span 9;
+      grid-column: auto / span 10;
     }
 
     &.Enter-key {
-      grid-column: auto / span 7;
+      grid-column: auto / span 8;
     }
 
     &.Backspace-key {
-      grid-column: auto / span 6;
+      grid-column: auto / span 8;
     }
 
     &.Backslash-key {
-      grid-column: auto / span 4;
+      grid-column: auto / span 5;
     }
   }
 
   &.keyboard-ISO {
-    grid-template-columns: repeat(59, calc($keySize/7));
-
-    .key {
-      &.Enter-key {
-        grid-column: auto / span 6;
-        position: relative;
-
-        &:after {
-          content: " ";
-          position: absolute;
-          width: calc($keySize * 1.25);
-          height: calc($keySize + $keySize/7);
-          background-color: var(--secondary-background-color);
-          top: calc($keySize);
-          right: 0;
-          transition: 100ms var(--animation-function);
-          box-shadow: 0 2px 4px -1px var(--shadow-color);
-        }
-
-        &.pressed {
-          &:after {
-            background-color: var(--secondary-background-color-active);
-          }
-        }
-      }
-
-      &.Backspace-key {
-        grid-column: auto / span 7;
-      }
-      &.Tab-key {
-        grid-column: auto / span 5;
-      }
-      &.CapsLock-key {
-        grid-column: auto / span 6;
-      }
-      &.ShiftLeft-key {
-        grid-column: auto / span 4;
-      }
-      &.ShiftRight-key {
-        grid-column: auto / span 11;
-      }
-      &.ContextMenu-key {
-        grid-column: auto / span 5;
-      }
-    }
-  }
-
-  &.keyboard-ANSI-ISO {
-    grid-template-columns: repeat(59, calc($keySize/7));
+    grid-template-columns: repeat(60, calc($keySize/7));
 
     .key {
       &.Enter-key {
@@ -395,7 +354,66 @@
         &:after {
           content: " ";
           position: absolute;
-          width: calc($keySize * 1.25);
+          width: calc($keySize * 1.285);
+          height: calc($keySize + $keySize/7);
+          background-color: var(--secondary-background-color);
+          top: calc($keySize);
+          right: 0;
+          transition: 100ms var(--animation-function);
+          box-shadow: 0 2px 4px -1px var(--shadow-color);
+          border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        &.pressed {
+          &:after {
+            background-color: var(--secondary-background-color-active);
+          }
+        }
+      }
+
+      &.Backspace-key {
+        grid-column: auto / span 8;
+      }
+
+      &.Tab-key {
+        grid-column: auto / span 6;
+      }
+
+      &.CapsLock-key {
+        grid-column: auto / span 7;
+      }
+
+      &.ShiftLeft-key {
+        grid-column: auto / span 5;
+      }
+
+      &.ShiftRight-key {
+        grid-column: auto / span 11;
+      }
+
+      &.ContextMenu-key {
+        grid-column: auto / span 5;
+      }
+
+      &.Backslash-key {
+        grid-column: auto / span 4;
+      }
+    }
+  }
+
+  &.keyboard-ANSI-ISO {
+    grid-template-columns: repeat(60, calc($keySize/7));
+
+    .key {
+      &.Enter-key {
+        grid-column: auto / span 6;
+        position: relative;
+        border-radius: var(--border-radius) var(--border-radius) 0 var(--border-radius);
+
+        &:after {
+          content: " ";
+          position: absolute;
+          width: calc($keySize * 1.285);
           height: calc($keySize + $keySize/7);
           background-color: var(--secondary-background-color);
           top: calc($keySize);
@@ -419,22 +437,31 @@
       }
 
       &.Backspace-key {
-        grid-column: auto / span 7;
-      }
-      &.Tab-key {
-        grid-column: auto / span 5;
-      }
-      &.CapsLock-key {
-        grid-column: auto / span 6;
-      }
-      &.ShiftLeft-key {
         grid-column: auto / span 8;
       }
+
+      &.Tab-key {
+        grid-column: auto / span 6;
+      }
+
+      &.CapsLock-key {
+        grid-column: auto / span 7;
+      }
+
+      &.ShiftLeft-key {
+        grid-column: auto / span 9;
+      }
+
       &.ShiftRight-key {
         grid-column: auto / span 11;
       }
+
       &.ContextMenu-key {
         grid-column: auto / span 5;
+      }
+
+      &.Backslash-key {
+        grid-column: auto / span 4;
       }
     }
   }
@@ -450,6 +477,13 @@
   // opacity: 0.75;
   align-items: end;
 
+  .keyboard-language-selector,
+  .keyboard-type-selector {
+    option {
+      background-color: var(--secondary-background-color);
+    }
+  }
+
   .select-wrapper {
     margin-bottom: 0.5rem;
 
@@ -464,7 +498,7 @@
 
   .keyboard-options-button {
     display: flex;
-    background-color: transparent;
+    background-color: transparent !important;
     box-shadow: none;
     transition: 300ms var(--animation-function);
 

@@ -21,11 +21,13 @@ import Tooltip from "../../Tooltip/Tooltip"
 interface Props {
   forcedKeyboardLayout?: KeyboardLayoutInterface
   forcedLanguage?: KeyboardLanguageType
+  forceVisible?: boolean
   handleEditing: () => void
   inactiveKeys?: string[]
   showSelectButton?: boolean
   showEditButton: boolean
   showKeyboardTypeSelector: boolean
+  showHideKeyboardButton: boolean
   showLanguageSelector: boolean
   showUtilityButtons: boolean
   keySize?: number
@@ -34,10 +36,12 @@ interface Props {
 const TypeableKeyboard = ({
   forcedKeyboardLayout,
   forcedLanguage,
+  forceVisible = false,
   handleEditing,
   showSelectButton = true,
   showEditButton = false,
   showKeyboardTypeSelector,
+  showHideKeyboardButton,
   inactiveKeys = ["Tab", "AltRight", "AltLeft", "MetaRight", "MetaLeft", "ContextMenu", ""],
   showLanguageSelector,
   showUtilityButtons = true,
@@ -46,6 +50,9 @@ const TypeableKeyboard = ({
   const {
     keyboardType,
     keyboardLanguage,
+    showColoredKeys,
+    showKeyboardWhileTyping,
+    setShowKeyboardWhileTyping,
     keyboardLayout: currentKeyboardLayout,
   } = useTypingSettingsStore()
 
@@ -139,11 +146,20 @@ const TypeableKeyboard = ({
           onClick={handleButtonClick}
           className={`show-more-keyboard-action-buttons-button ${areRightSideButtonsOpen ? "active" : ""}`}
         >
-          <WrenchIcon className="icon" />
+          <Tooltip
+            tooltipContent={t("expand")}
+            tooltipPosition="bottom-left"
+          >
+            <WrenchIcon className="icon" />
+          </Tooltip>
         </Button>
+
         {areRightSideButtonsOpen ? (
           <div className="keyboard-button-list">
-            <Tooltip tooltipContent={t("how to install")}>
+            <Tooltip
+              tooltipContent={t("how to install")}
+              tooltipPosition="bottom-center"
+            >
               <Link
                 className="button how-to-install-link"
                 style={{ animationDelay: "100ms" }}
@@ -152,7 +168,10 @@ const TypeableKeyboard = ({
                 <QuestionIcon className="icon" />
               </Link>
             </Tooltip>
-            <Tooltip tooltipContent={t("Export")}>
+            <Tooltip
+              tooltipContent={t("Export")}
+              tooltipPosition="bottom-left"
+            >
               <Button
                 onClick={() => {}}
                 style={{ animationDelay: "0ms" }}
@@ -250,6 +269,8 @@ const TypeableKeyboard = ({
     }
   }, [])
 
+  console.log(showKeyboardWhileTyping, forceVisible)
+
   return (
     <div
       ref={ref}
@@ -258,16 +279,21 @@ const TypeableKeyboard = ({
       <div className="editable-keyboard-content">
         <KeyboardOptions
           forcedLanguage={forcedKeyboardLayout?.language || forcedLanguage}
+          forceVisible={forceVisible}
           showSelectButton={showSelectButton}
           showEditButton={showEditButton}
           showKeyboardTypeSelector={showKeyboardTypeSelector}
           showLanguageSelector={showLanguageSelector}
+          showHideKeyboardButton={showHideKeyboardButton}
           newKeyboardLayout={keyboardLayout}
           handleEditing={handleEditing}
+          changeVisibility={() => {
+            setShowKeyboardWhileTyping(!showKeyboardWhileTyping)
+          }}
         />
         <div
           style={{ "--key-size": `${keySize}rem` } as React.CSSProperties}
-          className={`keyboard keyboard-${keyboardType}`}
+          className={`keyboard keyboard-${keyboardType} ${showColoredKeys ? "" : "same-color-keys"} ${showKeyboardWhileTyping || forceVisible ? "" : "keyboard-hidden"}`}
         >
           {renderKeyboard()}
         </div>

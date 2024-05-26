@@ -1,5 +1,6 @@
 import { useParams, NavLink, Link, Outlet } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 
 import PageLayout from "../../layout/Page.layout/Page.layout"
 
@@ -16,6 +17,8 @@ import Keyboard from "../../components/Keyboard/Keyboard"
 const ProfilePage = () => {
   const { username: pageOwnerUsername } = useParams()
   const { user } = useAuthStore()
+
+  const { t } = useTranslation("translation", { keyPrefix: "profile page" })
 
   const currentUserUsername = user?.username
 
@@ -39,7 +42,7 @@ const ProfilePage = () => {
 
   // if user does not exist
   if (!pageOwnerUsername) {
-    return <div className="fetch-error-message">user with this username does not exist</div>
+    return <div className="fetch-error-message">{t("user with this username does not exist")}</div>
   }
 
   // renders user data
@@ -51,18 +54,18 @@ const ProfilePage = () => {
       return <div className="fetch-error-message">{error?.message}</div>
     }
 
-    if (!data?.data) return <div className="fetch-error-message">something went wrong</div>
+    if (!data?.data) return <div className="fetch-error-message">{t("something went wrong")}</div>
 
-    const { username, layouts } = data.data
+    const { username, createdLayouts } = data.data
 
     return (
       <div className="profile-user-data">
         <div className="user-panel">
           <p className="username">{username}</p>
-          <span className="username-text">'s profile page</span>
+          <span className="username-text">{t("'s profile page")}</span>
         </div>
         <section className="profile-page-keyboard">
-          <h2>your currently selected keyboard layout</h2>
+          <h2>{t("currently selected layout")}</h2>
           <Keyboard
             mode="uneditable"
             showLanguageSelector={true}
@@ -70,13 +73,17 @@ const ProfilePage = () => {
             showEditButton={true}
             showSelectButton={false}
             showUtilityButtons={true}
+            forceVisible={true}
+            showHideKeyboardButton={false}
           />
         </section>
         <section className="profile-page-layout-select">
-          {layouts ? (
-            <h2>{isUserOnTheirOwnPage ? "your" : pageOwnerUsername + "'s"} layouts</h2>
+          {createdLayouts?.length > 0 ? (
+            <h2>
+              {isUserOnTheirOwnPage ? t("your") : pageOwnerUsername + t("'s")} {t("layouts")}
+            </h2>
           ) : null}
-          <LayoutCardList layouts={layouts} />
+          <LayoutCardList layouts={createdLayouts} />
         </section>
       </div>
     )

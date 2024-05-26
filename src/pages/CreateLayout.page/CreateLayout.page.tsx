@@ -9,6 +9,8 @@ const CreateLayoutPage = () => {
 
   const currentKeyboard = keyboardLayout[keyboardLanguage].keyboard
 
+  console.log({ keyboardLayout })
+
   return (
     <PageLayout className="create-layout-page">
       <Keyboard
@@ -18,6 +20,7 @@ const CreateLayoutPage = () => {
         showLanguageSelector={true}
         showKeyboardTypeSelector={true}
         showUtilityButtons={true}
+        showHideKeyboardButton={false}
         mode="editing"
       />
     </PageLayout>

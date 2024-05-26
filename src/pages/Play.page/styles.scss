@@ -65,6 +65,15 @@
       .create-match-button {
         background-color: var(--green-adjusted);
         transition: 300ms var(--animation-function) !important;
+
+        &:hover {
+          background-color: var(--green-adjusted-active);
+          box-shadow:
+            0 0 6px 0 var(--green-adjusted-shadow),
+            0 0 10px 0 var(--green-adjusted-shadow),
+            0 0 14px 0 var(--green-adjusted-shadow),
+            0 0 20px 0 var(--green-adjusted-shadow) !important;
+        }
       }
 
       .option-button {

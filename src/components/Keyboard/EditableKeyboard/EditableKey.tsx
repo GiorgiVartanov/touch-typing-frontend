@@ -1,3 +1,5 @@
+import { useMemo } from "react"
+
 interface Props {
   value: string | string[]
   code: string
@@ -5,8 +7,10 @@ interface Props {
   isPressed: boolean
   isEditable: boolean
   inUppercase: boolean
-  isDuplicate: boolean
+  isFirstValueDuplicate: boolean
+  isSecondValueDuplicate: boolean
   isEmpty: boolean
+  canBeDuplicate?: boolean
   onClick: () => void
   onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void // right click
   className?: string
@@ -22,31 +26,35 @@ const EditableKey = ({
   inUppercase,
   onClick,
   onContextMenu,
-  isDuplicate,
+  isFirstValueDuplicate,
+  isSecondValueDuplicate,
   isEmpty,
+  canBeDuplicate = false,
   className = "",
   style = {},
 }: Props) => {
-  const renderKeyValues = () => {
-    if (typeof value === "string") return <div className="key-value">{value}</div>
+  const renderKeyValues = useMemo(() => {
+    return () => {
+      if (typeof value === "string") return <div className="key-value">{value}</div>
 
-    return (
-      <>
-        <div
-          className={`key-value ${value[0]?.toLocaleLowerCase() === value[1]?.toLowerCase() ? "same-key" : "different-key"}`}
-        >
-          {value[0]?.toLocaleLowerCase() === value[1]?.toLowerCase()
-            ? value[inUppercase ? 1 : 0]
-            : value[0]}
-        </div>
-        <div
-          className={`key-value ${value[0]?.toLocaleLowerCase() === value[1]?.toLowerCase() ? "same-key" : "different-key"}`}
-        >
-          {value[0]?.toLocaleLowerCase() === value[1]?.toLowerCase() ? "" : value[1] || ""}
-        </div>
-      </>
-    )
-  }
+      return (
+        <>
+          <div
+            className={`key-value ${isFirstValueDuplicate ? "duplicate" : ""} ${value[0]?.toLocaleLowerCase() === value[1]?.toLowerCase() ? "same-key" : "different-key"}`}
+          >
+            {value[0]?.toLocaleLowerCase() === value[1]?.toLowerCase()
+              ? value[inUppercase ? 1 : 0]
+              : value[0]}
+          </div>
+          <div
+            className={`key-value ${isSecondValueDuplicate ? "duplicate" : ""} ${value[0]?.toLocaleLowerCase() === value[1]?.toLowerCase() ? "same-key" : "different-key"}`}
+          >
+            {value[0]?.toLocaleLowerCase() === value[1]?.toLowerCase() ? "" : value[1] || ""}
+          </div>
+        </>
+      )
+    }
+  }, [value, inUppercase])
 
   return (
     <div
@@ -55,7 +63,7 @@ const EditableKey = ({
         onClick()
       }}
       onContextMenu={onContextMenu}
-      className={`key ${isEditable ? "editable" : "uneditable"} ${isEmpty ? "empty-key" : ""} ${isDuplicate ? "duplicate" : ""} ${isEditing ? "editing" : ""} ${isPressed ? "pressed" : ""} ${inUppercase && typeof value !== "string" && value.length > 1 ? "uppercase" : ""} ${className}`}
+      className={`key ${isEditable ? "editable" : "uneditable"} ${isEmpty ? "empty-key" : ""} ${isEditing ? "editing" : ""} ${isPressed ? "pressed" : ""} ${inUppercase && typeof value !== "string" && value.length > 1 ? "uppercase" : ""} ${className}`}
       style={style}
     >
       {renderKeyValues()}

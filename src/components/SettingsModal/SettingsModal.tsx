@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
+import { createPortal } from "react-dom"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
@@ -13,8 +14,6 @@ import SettingsSection from "./SettingsSection"
 import ConfirmModal from "../Modal/ConfirmModal"
 import Button from "../Form/Button"
 import TypingSettingsTextExample from "./TypingSettingsTextExample"
-import KeyboardTypeSelector from "./KeyboardTypeSelector"
-import CustomKeyboardSelector from "./CustomKeyboardSelector"
 
 interface Props {
   isVisible: boolean
@@ -32,17 +31,24 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
     keyboardTypeOptions,
     fontOptions,
     fontSizeOptions,
+    keyboardSizeOptions,
     // function to set each setting
     setKeyboardLanguage,
     setKeyboardType,
     setFont,
     setFontSize,
+    setKeyboardSize,
+    setShowColoredKeys,
+    setShowKeyboardWhileTyping,
     // value of each setting
     keyboardLanguage,
     keyboardLayout,
     keyboardType,
     font,
     fontSize,
+    keyboardSize,
+    showColoredKeys,
+    showKeyboardWhileTyping,
     // function to reset setting (set them back to default)
     resetTypingSettings,
   } = useTypingSettingsStore()
@@ -100,13 +106,25 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
       selectValue: setKeyboardType,
     },
     {
-      name: t("show keyboard while typing"),
-      selectedValue: t("show"),
+      name: t("keyboard size"),
+      selectedValue: t(keyboardSize),
+      valueOptions: keyboardSizeOptions,
+      valueToShow: keyboardSizeOptions.map((option) => t(option)),
+      selectValue: setKeyboardSize,
+    },
+    {
+      name: t("show colored keys"),
+      selectedValue: showColoredKeys ? t("show") : t("hide"),
       valueOptions: [true, false],
       valueToShow: [t("show"), t("hide")],
-      selectValue: () => {
-        toast.warning("not implemented yet")
-      },
+      selectValue: setShowColoredKeys,
+    },
+    {
+      name: t("show keyboard while typing"),
+      selectedValue: showKeyboardWhileTyping ? t("show") : t("hide"),
+      valueOptions: [true, false],
+      valueToShow: [t("show"), t("hide")],
+      selectValue: setShowKeyboardWhileTyping,
     },
   ]
 
@@ -134,7 +152,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
 
     if (!appElement) return
 
-    return (
+    return createPortal(
       <ConfirmModal
         closeModal={handleCloseConfirmResetModal}
         isVisible={isConfirmResetModalOpen}
@@ -159,7 +177,8 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
             </Button>
           </>
         }
-      />
+      />,
+      appElement
     )
   }
 
@@ -203,7 +222,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
       >
         <TypingSettingsTextExample language={keyboardLanguage} />
       </SettingsSection>
-      {/* <div className="settings-button-list">
+      <div className="settings-button-list">
         <Button
           className="reset-settings-button"
           onClick={handleOpenConfirmResetModal}
@@ -211,7 +230,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
           {t("reset settings")}
         </Button>
       </div>
-      {renderConfirmSettingsResetModal()} */}
+      {renderConfirmSettingsResetModal()}
     </Modal>
   )
 }

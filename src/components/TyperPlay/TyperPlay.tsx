@@ -35,6 +35,7 @@ const TyperPlay = ({ text, wordSeparator = "", handleTextFinish, ModifyMatch }: 
           showLanguageSelector={false}
           showKeyboardTypeSelector={true}
           showUtilityButtons={false}
+          showHideKeyboardButton={true}
         />
       </div>
     )

@@ -7,7 +7,7 @@
   },
 
   "header": {
-    "touch typing": "ბრმად ბეჭდვა",
+    "website name": "keyForge",
     "learn": "სწავლა",
     "lessons": "გაკვეთილები",
     "competition": "შეჯიბრი",
@@ -23,7 +23,12 @@
     "register": "რეგისტრაცია",
     "log in": "ავტორიზაცია",
     "stay": "დარჩენა",
-    "go back": "უკან"
+    "go back": "უკან",
+    "type": "ბეჭდვა",
+    "keyboard": "კლავიატურა",
+    "search": "ძებნა",
+    "create": "შექმნა",
+    "are you sure you want to log out?": "გასვლა ნამდვილად გსურთ?"
   },
 
   "keyboard": {
@@ -34,7 +39,23 @@
     "Optimize": "ოპტიმიზაცია",
     "Analyze": "გაანალიზირება",
     "Import": "იმპორტი",
-    "Export": "ექსპორტი"
+    "Export": "ექსპორტი",
+    "language": "ენა",
+    "type": "ტიპი",
+    "select": "არჩევა",
+    "selected": "არჩეულია",
+    "edit": "დაედითება",
+    "expand": "გაფართიება",
+    "hide": "კლავიატურის დამალვა",
+    "show": "კლავიატურის ჩვენება"
+  },
+
+  "profile page": {
+    "currently selected layout": "არჩეული განლაგება",
+    "'s profile page": "ის პროფილი",
+    "your": "თქვენი",
+    "layouts": "განლაგებები",
+    "'s": " ის"
   },
 
   "practice": {
@@ -52,6 +73,14 @@
     "time": "დრო"
   },
 
+  "layout page": {
+    "create your own layout": "შექმენით თქვენი განლაგება",
+    "search": "ძებნა",
+    "standard layouts": "სტანდარტული განლაგებები",
+    "layouts created by our users": "ჩვენი მომხმარებლების განალგებები",
+    "more options": "მეტი პარამეტრი"
+  },
+
   "main page": {
     "lessons": "Lessons",
     "lessons message": "learn typing by completing tasks",
@@ -61,14 +90,14 @@
     "games message": "play games",
     "create": "Create",
     "create message": "create keyboard layout",
-    "create custom keyboard layout": "შექმენით თქვენზე მორგებული კლავიატურის განლაგება",
+    "create custom keyboard layout": "თქვენზე მორგებული კლავიატურის განლაგება",
     "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community.": "ჩვენს ვებსაიტზე თქვენ გაქვს შესაძლებლობა შექმნა შენზე ორიენტირებული კლავიატურის განლაგება, ან აირჩიო უნვე შექმნილი",
     "compete against other users": "შეეჯიბრე სხვა მომხმარებლებს",
     "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.": "დაუპირისპირდით სხვა მომხმარებლებს რეალურ დროში და შეამოწმეთ თქვენი ბეჭდვის უნარი შეჯიბრებში",
-    "follow carefully crafted lessons": "ისწავლეთ ახალ განლაგებაზე ბეჭდვა",
+    "follow carefully crafted lessons": "ისწავლეთ ბეჭდვა ახალ განლაგებაზე",
     "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
-    "select layout": "განლაგების არჩევა",
-    "create layout": "განლაგების შექმნა",
+    "select layout": "არჩევა",
+    "create layout": "შექმნა",
     "compete": "შეჯიბრი",
     "see lessons": "გაკვეთილები",
     "texts": "ტექსტები"
@@ -95,6 +124,7 @@
     "selected layout": "არჩეული განლაგება",
     "select another": "აირჩიეთ სხვა",
     "show keyboard while typing": "აჩვენე კლავიატურა ბეჭდვის დროს",
+    "show colored keys": "აჩვენე გაფერადებული ღილაკები",
     "show": "აჩვენე",
     "hide": "დამალე",
     "settings": "პარამეტრები",
