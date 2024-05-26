@@ -45,7 +45,8 @@ const Typer = ({
           showSelectButton={false}
           showEditButton={false}
           showLanguageSelector={false}
-          showKeyboardTypeSelector={false}
+          showHideKeyboardButton={true}
+          showKeyboardTypeSelector={true}
           showUtilityButtons={false}
         />
       ) : null}

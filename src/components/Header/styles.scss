@@ -3,6 +3,13 @@
   background-color: var(--secondary-background-color);
   box-shadow: 0 1px 3px -1px var(--shadow-color);
   z-index: 20;
+  transition: background-color 300ms var(--animation-function);
+
+  &.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 
   .menu-button {
     display: none;
@@ -13,12 +20,16 @@
     box-shadow: none;
     display: flex;
     align-items: center;
-    margin-right: 1rem;
 
     &:hover,
     &:focus {
       svg {
+        transition: 300ms var(--animation-function);
         fill: var(--accent-color-dim);
+
+        path {
+          transition: 300ms var(--animation-function);
+        }
       }
     }
   }
@@ -37,6 +48,20 @@
         color: var(--primary-color);
         white-space: nowrap;
         font-size: 1.5rem;
+        text-shadow: 0px 0px 2px var(--shadow-color);
+        font-weight: 600;
+        transition: 300ms var(--animation-function);
+
+        &:hover {
+          color: var(--primary-color-active);
+
+          text-shadow:
+            0 0 6px 0 var(--primary-shadow),
+            0 0 10px 0 var(--primary-shadow),
+            0 0 14px 0 var(--primary-shadow),
+            0 0 20px 0 var(--primary-shadow),
+            0px 0px 2px var(--shadow-color);
+        }
       }
     }
 
@@ -48,7 +73,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-right: 1.75rem;
+        // margin-right: 1.75rem;
+        transition: opacity 300ms var(--animation-function);
+
+        &:hover {
+          opacity: 0.85;
+        }
       }
 
       .nav-button-li {
@@ -64,7 +94,7 @@
           color 300ms var(--animation-function);
         height: 1.75rem;
         width: 3.5rem;
-        border-radius: 10px;
+        border-radius: 0.5rem;
 
         padding: 0;
         align-content: center;
@@ -73,6 +103,13 @@
         &:hover {
           background-color: var(--background-color-transparent);
           color: var(--accent-color-dim);
+
+          .theme-icon {
+            .moon-icon,
+            .sun-icon {
+              fill: var(--accent-color-dim);
+            }
+          }
         }
 
         .theme-icon {
@@ -92,7 +129,13 @@
           .sun-icon {
             height: 1.5rem;
             width: 1.5rem;
+
             fill: var(--accent-color);
+            transition: 300ms var(--animation-function);
+
+            path {
+              transition: 300ms var(--animation-function);
+            }
           }
         }
       }
@@ -102,10 +145,35 @@
         height: fit-content;
         // gap: 0.5rem;
         // transition: 300ms var(--animation-function);
+        position: relative;
+
+        .header-buttons {
+          position: absolute;
+          height: 100%;
+          right: 31rem;
+
+          .header-button-list {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            height: 100%;
+
+            .header-button-list-item {
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
 
         a {
+          transition: color 300ms var(--animation-function);
+
           &.active {
             color: var(--primary-color);
+
+            &:hover {
+              color: var(--primary-color-active);
+            }
           }
         }
 

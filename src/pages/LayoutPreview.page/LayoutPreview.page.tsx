@@ -34,6 +34,8 @@ const LayoutPreviewPage = () => {
     return (
       <Keyboard
         forcedKeyboardLayout={keyboardLayout}
+        forceVisible={true}
+        showHideKeyboardButton={false}
         showKeyboardTypeSelector={true}
         showSelectButton={true}
         showLanguageSelector={false}

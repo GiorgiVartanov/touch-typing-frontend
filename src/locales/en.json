@@ -7,7 +7,7 @@
   },
 
   "header": {
-    "touch typing": "Touch Typing",
+    "website name": "keyForge",
     "learn": "learn",
     "lessons": "lessons",
     "competition": "competition",
@@ -23,7 +23,12 @@
     "register": "register",
     "log in": "log in",
     "stay": "stay",
-    "go back": "back"
+    "go back": "back",
+    "type": "type",
+    "keyboard": "keyboard",
+    "search": "search",
+    "create": "create",
+    "are you sure you want to log out?": "are you sure you want to log out?"
   },
 
   "keyboard": {
@@ -34,7 +39,23 @@
     "Optimize": "Optimize",
     "Analyze": "Analyze",
     "Import": "Import",
-    "Export": "Export"
+    "Export": "Export",
+    "language": "language",
+    "type": "type",
+    "select": "select",
+    "selected": "selected",
+    "edit": "edit",
+    "expand": "expand",
+    "hide": "hide keyboard",
+    "show": "show keyboard"
+  },
+
+  "profile page": {
+    "currently selected layout": "currently selected layout",
+    "'s profile page": "'s profile page",
+    "your": "your",
+    "layouts": "layouts",
+    "'s": "'s"
   },
 
   "practice": {
@@ -52,6 +73,14 @@
     "time": "time"
   },
 
+  "layout page": {
+    "create your own layout": "create your own layout",
+    "search": "search",
+    "standard layouts": "standard layouts",
+    "layouts created by our users": "layouts created by our users",
+    "more options": "more options"
+  },
+
   "main page": {
     "lessons": "Lessons",
     "lessons message": "learn typing by completing tasks",
@@ -61,14 +90,14 @@
     "games message": "play games",
     "create": "Create",
     "create message": "create keyboard layout",
-    "create custom keyboard layout": "create custom keyboard layout",
+    "create custom keyboard layout": "custom keyboard layout",
     "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community.": "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community.",
     "compete against other users": "compete against other users",
     "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.": "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.",
     "follow carefully crafted lessons": "follow carefully crafted lessons",
-    "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "main page.Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
-    "select layout": "select layout",
-    "create layout": "create layout",
+    "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
+    "select layout": "select",
+    "create layout": "create",
     "compete": "compete",
     "see lessons": "lessons",
     "texts": "texts"
@@ -94,6 +123,7 @@
     "selected layout": "selected layout",
     "select another": "select another",
     "show keyboard while typing": "show keyboard while typing",
+    "show colored keys": "show colored keys",
     "show": "show",
     "hide": "hide",
     "settings": "settings",

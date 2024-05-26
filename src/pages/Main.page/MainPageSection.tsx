@@ -24,13 +24,15 @@ const MainPageSection = ({ title, description, className = "", children }: Props
       onMouseLeave={handleMouseLeave}
       className={`main-page-section ${className}`}
     >
-      <div className="section-text">
-        <h2>{title}</h2>
-        <p className={`section-description ${isHovering ? "description-open" : ""}`}>
-          {description}
-        </p>
+      <div className="section-children">
+        <div className="section-text">
+          <h2>{title}</h2>
+          <p className={`section-description ${isHovering ? "description-open" : ""}`}>
+            {description}
+          </p>
+        </div>
+        <div className="section-content">{children}</div>
       </div>
-      <div className="section-content">{children}</div>
     </section>
   )
 }

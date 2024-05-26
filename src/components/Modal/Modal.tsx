@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
@@ -29,6 +29,20 @@ const Modal = ({
   const modalRef = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(modalRef, closeModal)
+
+  useEffect(() => {
+    const closeModalOnEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeModal()
+      }
+    }
+
+    document.addEventListener("keydown", closeModalOnEscape)
+
+    return () => {
+      document.removeEventListener("keydown", closeModalOnEscape)
+    }
+  }, [])
 
   if (!isVisible) return
 

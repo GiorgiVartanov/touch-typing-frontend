@@ -2,6 +2,7 @@ import {
   KeyboardLanguageType,
   savedKeyboardLayoutInterface,
   KeyboardTypeType,
+  KeyboardSizeType,
   FontType,
   FontSizeType,
   TypingSettingsState,
@@ -17,12 +18,19 @@ const KeyboardLanguage: KeyboardLanguageType | null = localStorage.getItem(
 const keyboardType: KeyboardTypeType | null = localStorage.getItem(
   "keyboardType"
 ) as KeyboardTypeType
+const keyboardSize: KeyboardSizeType | null = localStorage.getItem(
+  "keyboardSize"
+) as KeyboardSizeType
+const showColoredKeys = localStorage.getItem("showColoredKeys") === "true"
+const showKeyboardWhileTyping = localStorage.getItem("showKeyboardWhileTyping") === "true"
 const font: FontType | null = localStorage.getItem("font") as FontType
 const fontSize: FontSizeType | null = localStorage.getItem("fontSize") as FontSizeType
 
 let keyboardLayout: savedKeyboardLayoutInterface | null = null
 
 const storedLayout = localStorage.getItem("keyboardLayout")
+
+console.log({ showKeyboardWhileTyping })
 
 if (storedLayout) {
   keyboardLayout = JSON.parse(storedLayout) as savedKeyboardLayoutInterface
@@ -39,6 +47,9 @@ export const defaultKeyboardLayout: savedKeyboardLayoutInterface = {
 
 export const defaultKeyboardLanguage = "Eng"
 export const defaultKeyboardType = "ANSI"
+export const defaultKeyboardSize = "medium"
+export const defaultShowColoredKeys = true
+export const defaultShowKeyboardWhileTyping = true
 export const defaultFont = "sans"
 export const defaultFontSize = "medium"
 
@@ -46,6 +57,9 @@ export const typingSettingsInitialState: TypingSettingsState = {
   keyboardLanguage: KeyboardLanguage || defaultKeyboardLanguage,
   keyboardLayout: keyboardLayout || defaultKeyboardLayout,
   keyboardType: keyboardType || defaultKeyboardType,
+  keyboardSize: keyboardSize || defaultKeyboardSize,
+  showColoredKeys: showColoredKeys !== undefined || defaultShowColoredKeys,
+  showKeyboardWhileTyping: showKeyboardWhileTyping,
   font: font || defaultFont,
   fontSize: fontSize || defaultFontSize,
 }

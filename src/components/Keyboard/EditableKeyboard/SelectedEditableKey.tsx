@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 
 import { KeyInterface } from "../../../types/keyboard.types"
 import "./styles.scss"
@@ -18,10 +18,23 @@ const SelectedEditableKey = ({
   wasSelectedAtLeaseOnce,
 }: Props) => {
   const firstValueRef = useRef<HTMLInputElement>(null)
+  const secondValueRef = useRef<HTMLInputElement>(null)
+
+  const [currentlyEditing, setCurrentlyEditing] = useState<0 | 1 | 2>(1)
+
+  const startEditingFirstValue = () => {
+    setCurrentlyEditing(1)
+  }
+
+  const startEditingSecondValue = () => {
+    setCurrentlyEditing(2)
+  }
 
   useEffect(() => {
-    if (firstValueRef.current) {
+    if (firstValueRef.current && currentlyEditing === 1) {
       firstValueRef.current.focus()
+    } else if (secondValueRef.current && currentlyEditing === 2) {
+      secondValueRef.current.focus()
     }
   }, [editingKey])
 
@@ -37,11 +50,14 @@ const SelectedEditableKey = ({
           className="editable-key-value first-value"
           value={value[0]}
           onChange={onFirstValueChange}
+          onClick={startEditingFirstValue}
         />
         <input
+          ref={secondValueRef}
           className="editable-key-value second-value"
           value={value[1] || ""}
           onChange={onSecondValueChange}
+          onClick={startEditingSecondValue}
         />
       </>
     )
