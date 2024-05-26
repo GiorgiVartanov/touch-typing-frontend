@@ -108,18 +108,18 @@ form {
       padding: 0 0.75rem;
       display: flex;
       align-items: center;
-      background-color: transparent;
+      // background-color: transparent;
       border-radius: 0 calc(var(--border-radius) - 0.15rem) calc(var(--border-radius) - 0.15rem) 0;
 
       .eye-icon {
         height: 1.5rem;
         width: 1.5rem;
-        transition: color 300ms var(--animation-function);
+        transition: 300ms var(--animation-function);
         fill: var(--accent-color-dim);
       }
 
       &:hover {
-        background-color: var(--secondary-background-color-active);
+        // background-color: var(--secondary-background-color-active);
 
         .eye-icon {
           fill: var(--accent-color);

@@ -7,15 +7,12 @@ import { useAuthStore } from "../../store/context/authContext"
 import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 
 import ProfileIcon from "../../assets/icons/user.svg?react"
-import SettingsIcon from "../../assets/icons/gear.svg?react"
 import LogoutIcon from "../../assets/icons/arrow-right-from-bracket.svg?react"
 import KeyboardIcon from "../../assets/icons/keyboard.svg?react"
-import UserGroupIcon from "../../assets/icons/user-group.svg?react"
 import GlobeIcon from "../../assets/icons/globe.svg?react"
 import LaptopIcon from "../../assets/icons/laptop.svg?react"
-import TrophyIcon from "../../assets/icons/trophy.svg?react"
-import BellIcon from "../../assets/icons/bell.svg?react"
-import GamepadIcon from "../../assets/icons/gamepad.svg?react"
+import HammerIcon from "../../assets/icons/hammer.svg?react"
+import SearchIcon from "../../assets/icons/search.svg?react"
 import GearIcon from "../../assets/icons/gear.svg?react"
 
 import SettingsModal from "../SettingsModal/SettingsModal"
@@ -30,18 +27,19 @@ import Button from "../Form/Button"
 
 import "./styles.scss"
 
-const Header = () => {
+interface Props {
+  isSticky?: boolean
+}
+
+const Header = ({ isSticky = false }: Props) => {
   const { t } = useTranslation("translation", { keyPrefix: "header" })
 
   const navRef = useRef<HTMLElement>(null)
 
   const navigate = useNavigate()
 
-  const { isLoggedIn, logoutUser, user, token } = useAuthStore()
+  const { isLoggedIn, logoutUser, user } = useAuthStore()
 
-  // const [previousScrollPosition, setPreviousScrollPosition] = useState<number>(0)
-  // const [isVisible, setIsVisible] = useState<boolean>(true)
-  // const [isOnTop, setIsOnTop] = useState<boolean>(true)
   const [showScrollToTopButton, setScrollToTopButton] = useState<boolean>(false)
   const [isConfirmLogoutModalVisible, setIsConfirmLogoutModalVisible] = useState<boolean>(false)
   const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
@@ -72,26 +70,6 @@ const Header = () => {
   const handleCloseSettingsMenu = () => {
     setIsSettingsMenuOpen(false)
   }
-
-  // useEffect(() => {
-  //   // fix latter
-
-  //   const handleScroll = () => {
-  //     const currentScrollPosition = window.scrollY
-
-  //     setIsVisible(currentScrollPosition < previousScrollPosition)
-  //     setIsOnTop(currentScrollPosition < 30)
-  //     setScrollToTopButton(currentScrollPosition > 600)
-
-  //     setPreviousScrollPosition(currentScrollPosition)
-  //   }
-
-  //   window.addEventListener("scroll", handleScroll)
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll)
-  //   }
-  // }, [previousScrollPosition])
 
   useOnClickOutside(navRef, handleCloseNavigation)
 
@@ -163,7 +141,7 @@ const Header = () => {
       <ConfirmModal
         closeModal={closeLogoutConfirmationModal}
         isVisible={isConfirmLogoutModalVisible}
-        text="are you sure you want to log out?"
+        text={t("are you sure you want to log out?")}
         buttons={
           <>
             <Button
@@ -210,19 +188,42 @@ const Header = () => {
     return (
       <nav className={isNavigationOpen ? "nav-shown" : "nav-hidden"}>
         <ul className="nav">
-          <li className="nav-button-li">
-            <ChangeTheme />
+          <li className="header-buttons">
+            <ul className="header-button-list">
+              <li className="header-button-list-item">
+                <ChangeTheme />
+              </li>
+              <li className="header-button-list-item">
+                <ChangeLanguage />
+              </li>
+              <li className="header-button-list-item">
+                <button
+                  onClick={handleOpenSettingsMenu}
+                  className="open-settings-button"
+                >
+                  <GearIcon className="icon" />
+                </button>
+              </li>
+            </ul>
           </li>
-          <li className="nav-button-li">
-            <ChangeLanguage />
-          </li>
-          <button
-            onClick={handleOpenSettingsMenu}
-            className="open-settings-button"
-          >
-            <GearIcon className="icon" />
-          </button>
-          <NavItem icon={t("learn")}>
+
+          <NavItem icon={t("keyboard")}>
+            <DropDownMenu>
+              <DropDownItem
+                icon={<SearchIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
+                <NavLink to={`/layout`}>{t("search")}</NavLink>
+              </DropDownItem>
+              <DropDownItem
+                icon={<HammerIcon />}
+                closeNavigation={handleCloseNavigation}
+              >
+                <NavLink to={`/create`}>{t("create")}</NavLink>
+              </DropDownItem>
+            </DropDownMenu>
+          </NavItem>
+          <NavItem icon={t("type")}>
             <DropDownMenu>
               <DropDownItem
                 icon={<LaptopIcon />}
@@ -254,14 +255,14 @@ const Header = () => {
   return (
     <header
       ref={navRef}
-      className="header"
+      className={`header ${isSticky ? "sticky" : ""}`}
     >
       {renderGoToTopButton()}
       {renderConfirmLogoutModal()}
 
       <div className="header-content">
         <h1>
-          <NavLink to="/">{t("touch typing")}</NavLink>
+          <NavLink to="/">{t("website name")}</NavLink>
         </h1>
         <button
           className={`menu-button ${isNavigationOpen ? "navigation-open" : ""}`}

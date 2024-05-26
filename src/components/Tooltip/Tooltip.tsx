@@ -2,14 +2,22 @@ import "./styles.scss"
 
 interface Props {
   children: React.ReactNode
-  tooltipPosition?: "top" | "right" | "bottom" | "left"
+  tooltipPosition?:
+    | "top-left"
+    | "top-center"
+    | "top-right"
+    | "right"
+    | "bottom-left"
+    | "bottom-right"
+    | "bottom-center"
+    | "left"
   tooltipContent: string
   className?: string
 }
 
 const Tooltip = ({
   children,
-  tooltipPosition = "bottom",
+  tooltipPosition = "bottom-right",
   tooltipContent,
   className = "",
 }: Props) => {

@@ -244,27 +244,30 @@ const PracticeTextListPage = () => {
 
   return (
     <PageLayout className="text-list-page">
-      <SearchBar
-        value={searchValue}
-        handleTextChange={handleTextChange}
-      />
-      <div className="search-options-button-list">
-        <div className="search-options-list">
-          <Button
-            onClick={handleOpenTextSearchModal}
-            className="search-options-button cta-button"
-          >
-            {t("more options")}
-          </Button>
-          {renderSearchListItems()}
-          {renderSearchListItems().length > 0 ? (
+      <div className="search-panel">
+        <SearchBar
+          value={searchValue}
+          placeholder={t("search")}
+          handleTextChange={handleTextChange}
+        />
+        <div className="search-options-button-list">
+          <div className="search-options-list">
             <Button
-              onClick={handleClearSearchOptions}
-              className="search-options-button search-options-clear"
+              onClick={handleOpenTextSearchModal}
+              className="search-options-button"
             >
-              <TrashIcon className="trash-icon" />
+              {t("more options")}
             </Button>
-          ) : null}
+            {renderSearchListItems()}
+            {/* {renderSearchListItems().length > 0 ? (
+              <Button
+                onClick={handleClearSearchOptions}
+                className="search-options-button search-options-clear"
+              >
+                <TrashIcon className="trash-icon" />
+              </Button>
+            ) : null} */}
+          </div>
         </div>
       </div>
 

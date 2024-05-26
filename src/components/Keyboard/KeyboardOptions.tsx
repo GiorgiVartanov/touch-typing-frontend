@@ -4,36 +4,45 @@ import {
   KeyboardTypeType,
 } from "../../types/typer.types/typingSettings.types"
 import { KeyboardLayoutInterface } from "../../types/keyboard.types"
+import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
 
 import PenIcon from "../../assets/icons/pen.svg?react"
 import EmptyCircleCheck from "../../assets/icons/circle-check-empty.svg?react"
 import FilledCircleCheck from "../../assets/icons/circle-check-full.svg?react"
+import EyeIcon from "../../assets/icons/eye.svg?react"
+import EyeSlashIcon from "../../assets/icons/eye-slash.svg?react"
 
 import Select from "../Form/Select"
 import Button from "../Form/Button"
 import Tooltip from "../Tooltip/Tooltip"
 
 interface Props {
+  forceVisible: boolean
   showLanguageSelector: boolean
   showSelectButton: boolean
   showEditButton: boolean
   showKeyboardTypeSelector: boolean
+  showHideKeyboardButton: boolean
   newKeyboardLayout?: KeyboardLayoutInterface
   forcedLanguage?: KeyboardLanguageType
   className?: string
   handleEditing?: () => void
+  changeVisibility?: () => void
 }
 
 const KeyboardOptions = ({
+  forceVisible,
   showLanguageSelector,
   showSelectButton,
   showEditButton,
+  showHideKeyboardButton,
   showKeyboardTypeSelector,
   forcedLanguage,
   newKeyboardLayout,
   className = "",
   handleEditing,
+  changeVisibility,
 }: Props) => {
   const {
     keyboardLanguageOptions,
@@ -46,6 +55,7 @@ const KeyboardOptions = ({
 
     keyboardLanguage,
     keyboardType,
+    showKeyboardWhileTyping,
   } = useTypingSettingsStore()
 
   const currentLanguage = forcedLanguage || keyboardLanguage
@@ -53,6 +63,8 @@ const KeyboardOptions = ({
   const isAlreadySelected =
     newKeyboardLayout?._id ===
       keyboardLayout[(newKeyboardLayout?.language as KeyboardLanguageType) || "Eng"]._id || false
+
+  const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
   const selectKeyboardLayout = () => {
     if (!newKeyboardLayout) return
@@ -64,36 +76,41 @@ const KeyboardOptions = ({
 
   return (
     <div className={`keyboard-options ${className}`}>
-      {showLanguageSelector ? (
+      {(showLanguageSelector && (!showHideKeyboardButton || showKeyboardWhileTyping)) ||
+      (showLanguageSelector && forceVisible) ? (
         <div className="keyboard-option-item">
           <Select
-            name="language"
+            name={t("language")}
             value={currentLanguage}
             options={keyboardLanguageOptions}
             onChange={(value: string) => {
               setKeyboardLanguage(value as KeyboardLanguageType)
             }}
             disabled={forcedLanguage ? true : false}
+            className="keyboard-language-selector"
           />
         </div>
       ) : null}
-      {showKeyboardTypeSelector ? (
+      {(showKeyboardTypeSelector && (!showHideKeyboardButton || showKeyboardWhileTyping)) ||
+      (showLanguageSelector && forceVisible) ? (
         <div className="keyboard-option-item">
           <Select
-            name="type"
+            name={t("type")}
             value={keyboardType}
             options={keyboardTypeOptions}
             onChange={(value: string) => {
               setKeyboardType(value as KeyboardTypeType)
             }}
+            className="keyboard-type-selector"
           />
         </div>
       ) : null}
       <div className="keyboard-options-right-side-buttons">
-        {showEditButton ? (
+        {/* {(showEditButton && (!showHideKeyboardButton || showKeyboardWhileTyping)) ||
+        (showLanguageSelector && forceVisible) ? (
           <Tooltip
-            tooltipContent="edit"
-            tooltipPosition="top"
+            tooltipContent={t("edit")}
+            tooltipPosition="top-left"
           >
             <Button
               onClick={handleEditing}
@@ -102,11 +119,41 @@ const KeyboardOptions = ({
               <PenIcon className="icon" />
             </Button>
           </Tooltip>
+        ) : null} */}
+        {showHideKeyboardButton ? (
+          <>
+            {showKeyboardWhileTyping ? (
+              <Tooltip
+                tooltipContent={t("hide")}
+                tooltipPosition="top-left"
+              >
+                <Button
+                  onClick={changeVisibility}
+                  className="keyboard-options-button"
+                >
+                  <EyeSlashIcon className="icon" />
+                </Button>
+              </Tooltip>
+            ) : (
+              <Tooltip
+                tooltipContent={t("show")}
+                tooltipPosition="top-left"
+              >
+                <Button
+                  onClick={changeVisibility}
+                  className="keyboard-options-button"
+                >
+                  <EyeIcon className="icon" />
+                </Button>
+              </Tooltip>
+            )}
+          </>
         ) : null}
-        {showSelectButton ? (
+        {(showSelectButton && (!showHideKeyboardButton || showKeyboardWhileTyping)) ||
+        (showLanguageSelector && forceVisible) ? (
           <Tooltip
-            tooltipContent="select"
-            tooltipPosition="top"
+            tooltipContent={isAlreadySelected ? t("selected") : t("select")}
+            tooltipPosition="top-left"
           >
             {isAlreadySelected ? (
               <Button

@@ -3,6 +3,11 @@
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
+  margin-bottom: 20%;
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 15%;
+  // gap: 2rem;
 
   .metric {
     opacity: 0;
@@ -37,9 +42,10 @@
   .restart {
     width: 3rem;
     height: 3rem;
-    margin-left: auto;
-    margin-right: 1.5rem;
+    // margin-left: auto;
+    // margin-right: 1.5rem;
     padding: 0;
+    margin-left: 4rem;
 
     svg {
       height: 3rem;

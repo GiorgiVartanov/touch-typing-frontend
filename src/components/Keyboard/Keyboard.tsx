@@ -11,11 +11,13 @@ import TypeableKeyboard from "./TypeableKeyboard/TypeableKeyboard"
 interface Props {
   forcedKeyboardLayout?: KeyboardLayoutInterface // keyboard layout that will be user even if user has selected a different one
   forcedLanguage?: KeyboardLanguageType // language that user will be forced to use (they won't be able to change it)
+  forceVisible?: boolean //
   inactiveKeys?: string[] // keys that wont have a visual effect when user presses on their corresponding key on a keyboard
   showSelectButton: boolean // shows button to select a keyboard
   showEditButton: boolean // shows button to edit a keyboard
   showLanguageSelector: boolean // shows language selector
   showKeyboardTypeSelector: boolean
+  showHideKeyboardButton: boolean
   keySize?: number // size of a single key in rems
   showUtilityButtons: boolean
 
@@ -30,11 +32,13 @@ interface Props {
 const Keyboard = ({
   forcedKeyboardLayout,
   forcedLanguage,
+  forceVisible = false,
   showSelectButton,
   showEditButton,
   inactiveKeys = ["Tab", "AltRight", "AltLeft", "MetaRight", "MetaLeft", "ContextMenu", ""],
   showLanguageSelector,
   showKeyboardTypeSelector,
+  showHideKeyboardButton,
   keySize = 3.25,
   mode = "uneditable",
   showUtilityButtons = false,
@@ -67,7 +71,9 @@ const Keyboard = ({
         showKeyboardTypeSelector={showKeyboardTypeSelector}
         inactiveKeys={inactiveKeys}
         showLanguageSelector={showLanguageSelector}
+        showHideKeyboardButton={showHideKeyboardButton}
         showUtilityButtons={showUtilityButtons}
+        forceVisible={forceVisible}
         keySize={keySize}
       />
     )

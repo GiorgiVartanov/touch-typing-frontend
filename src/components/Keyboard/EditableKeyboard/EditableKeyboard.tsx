@@ -7,6 +7,11 @@ import "./styles.scss"
 import { KeyInterface } from "../../../types/keyboard.types"
 import { useTypingSettingsStore } from "../../../store/context/typingSettingsContext"
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside"
+import { useAuthStore } from "../../../store/context/authContext"
+
+import georgianLetters from "../../../letters/georgian.json"
+import englishLetters from "../../../letters/english.json"
+import symbols from "../../../letters/symbols.json"
 
 import WrenchIcon from "../../../assets/icons/wrench.svg?react"
 import AnalyzeIcon from "../../../assets/icons/analyze.svg?react"
@@ -67,6 +72,7 @@ const EditableKeyboard = ({
     "Digit8",
     "Digit9",
     "Backslash",
+    "Backslash-2", // backslash that is next to left shift on ISO layout
   ],
   uneditableFirstValueKeys = [], // keys that have their first (default, without shift/caps lock) value uneditable
   uneditableSecondValueKeys = [], // keys that have their second (one accessed with shift/caps lock) value uneditable
@@ -84,7 +90,8 @@ const EditableKeyboard = ({
 
   const ref = useRef<HTMLInputElement>(null)
 
-  const { keyboardType, keyboardLanguage } = useTypingSettingsStore()
+  const { keyboardType, keyboardLanguage, showColoredKeys } = useTypingSettingsStore()
+  const { isLoggedIn } = useAuthStore()
 
   const [pressedKeys, setPressedKeys] = useState<string[]>([])
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null)
@@ -174,16 +181,20 @@ const EditableKeyboard = ({
     startOptimization()
   }
 
-  //
+  // opens save layout modal
   const handleOpenSaveKeyboardModal = () => {
-    setIsSaveModalOpen(true)
+    if (isLoggedIn) {
+      setIsSaveModalOpen(true)
+    } else {
+      toast.warning("log in to save your layout", { toastId: "log in to save your layout" })
+    }
   }
 
   const handleNotImplemented = () => {
     toast.warning("This feature is not yet implemented")
   }
 
-  //
+  // closes save layout modal
   const handleCloseSaveKeyboardModal = () => {
     setIsSaveModalOpen(false)
   }
@@ -196,6 +207,8 @@ const EditableKeyboard = ({
     const currentTitle = editingKeyboard
       .slice(15, 21)
       .reduce((accumulator, currentValue) => accumulator + currentValue?.value[0], "")
+
+    console.log(startingKeyboard)
 
     return (
       <SaveLayoutModal
@@ -251,17 +264,29 @@ const EditableKeyboard = ({
 
   // renders single key
   const renderKey = (key: KeyInterface) => {
-    // is true if this value has at least 2 copies somewhere on a keyboard
-    const isDuplicate = editingKeyboard.some(
+    // console.log(
+    //   editingKeyboard[33].value[0],
+    //   editingKeyboard[33].value[1],
+    //   editingKeyboard[17].value[0],
+    //   editingKeyboard[17].value[1]
+    // )
+
+    // is true if this value has copy somewhere on a keyboard
+    const isFirstValueDuplicate = editingKeyboard.some(
       (keyboardKey) =>
         (keyboardKey.type === "Letter" || keyboardKey.type === "Symbol") &&
         keyboardKey !== key &&
-        (key.value[0] === keyboardKey.value[0] ||
-          (keyboardKey.value[1] != undefined && key.value[0] === keyboardKey.value[1]) ||
-          (key.value[1] != undefined && key.value[1] === keyboardKey.value[0]) ||
-          (key.value[1] != undefined &&
-            keyboardKey.value[1] != undefined &&
-            key.value[1] === keyboardKey.value[1]))
+        (key.value[0]?.toLowerCase() === keyboardKey.value[0]?.toLowerCase() ||
+          key.value[0]?.toLowerCase() === keyboardKey.value[1]?.toLowerCase())
+    )
+
+    // is true if this value has copy somewhere on a keyboard
+    const isSecondValueDuplicate = editingKeyboard.some(
+      (keyboardKey) =>
+        (keyboardKey.type === "Letter" || keyboardKey.type === "Symbol") &&
+        keyboardKey !== key &&
+        (key.value[1]?.toLowerCase() === keyboardKey.value[1]?.toLowerCase() ||
+          key.value[1]?.toLowerCase() === keyboardKey.value[0]?.toLowerCase())
     )
 
     return (
@@ -276,7 +301,8 @@ const EditableKeyboard = ({
         isPressed={pressedKeys.includes(key.code)}
         isEditable={!uneditableKeys.includes(key.code)}
         isEmpty={key.value[0] === ""}
-        isDuplicate={isDuplicate}
+        isFirstValueDuplicate={isFirstValueDuplicate}
+        isSecondValueDuplicate={isSecondValueDuplicate}
         onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => {
           e.preventDefault()
 
@@ -293,6 +319,7 @@ const EditableKeyboard = ({
             (pressedKeys.includes("ShiftRight") && pressedKeys.includes("CapsLock"))
           )
         }
+        canBeDuplicate={key.code === "Backslash" || key.code === "Backslash-2"}
         className={`${key.type}-key ${key.code}-key`}
       />
     )
@@ -302,8 +329,55 @@ const EditableKeyboard = ({
   const renderSelectedKey = () => {
     const editingKey = editingKeyboard.find((key) => key.code === currentlyEditing)
 
-    const handleOnFirstValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-      const enteredCharacter = e.nativeEvent?.data // it works, but typescript shows error.
+    const keysThatWontShowWarning = [
+      "Tab",
+      "AltRight",
+      "AltLeft",
+      "MetaRight",
+      "MetaLeft",
+      "ContextMenu",
+      "Space",
+      "ControlLeft",
+      "ControlRight",
+      "ShiftLeft",
+      "ShiftRight",
+      "CapsLock",
+      "Enter",
+      "Backspace",
+      "Backquote",
+    ]
+
+    const handleOnFirstValueChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+      const enteredCharacter = event.nativeEvent?.data // it works, but typescript shows error.
+
+      if (
+        keyboardLanguage === "Geo" &&
+        ![...georgianLetters, ...symbols].includes(enteredCharacter) &&
+        enteredCharacter !== null
+      ) {
+        toast.warning("sorry, this character can't be used")
+
+        return
+      }
+
+      if (
+        keyboardLanguage === "Eng" &&
+        ![...englishLetters, ...symbols].includes(enteredCharacter) &&
+        enteredCharacter !== null
+      ) {
+        toast.warning("sorry, this character can't be used")
+
+        return
+      }
+
+      if (
+        uneditableKeys.includes(enteredCharacter) &&
+        !keysThatWontShowWarning.includes(enteredCharacter)
+      ) {
+        toast.warning("this key can't be used")
+
+        return
+      }
 
       let enteredCharacterType =
         editingKeyboard.find(
@@ -335,8 +409,37 @@ const EditableKeyboard = ({
       })
     }
 
-    const handleOnSecondValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-      const enteredCharacter = e.nativeEvent?.data
+    const handleOnSecondValueChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+      const enteredCharacter = event.nativeEvent?.data
+
+      if (
+        keyboardLanguage === "Geo" &&
+        ![...georgianLetters, ...symbols].includes(enteredCharacter) &&
+        enteredCharacter !== null
+      ) {
+        toast.warning("sorry, this character can't be used")
+
+        return
+      }
+
+      if (
+        keyboardLanguage === "Eng" &&
+        ![...englishLetters, ...symbols].includes(enteredCharacter) &&
+        enteredCharacter !== null
+      ) {
+        toast.warning("sorry, this character can't be used")
+
+        return
+      }
+
+      if (
+        uneditableKeys.includes(enteredCharacter) &&
+        !keysThatWontShowWarning.includes(enteredCharacter)
+      ) {
+        toast.warning("this key can't be used")
+
+        return
+      }
 
       let enteredCharacterType =
         editingKeyboard.find(
@@ -379,7 +482,7 @@ const EditableKeyboard = ({
     )
   }
 
-  // renders buttons that are in a bottom right corner
+  // renders buttons that are in the bottom right corner
   const renderRightButtons = () => {
     return (
       <div className="keyboard-right-side-buttons">
@@ -387,11 +490,20 @@ const EditableKeyboard = ({
           onClick={handleRightSideButtons}
           className={`show-more-keyboard-action-buttons-button ${areRightSideButtonsOpen ? "active" : ""}`}
         >
-          <WrenchIcon className="icon" />
+          <Tooltip
+            tooltipContent={t("expand")}
+            tooltipPosition="bottom-left"
+          >
+            <WrenchIcon className="icon" />
+          </Tooltip>
         </Button>
+
         {areRightSideButtonsOpen ? (
           <div className="keyboard-button-list">
-            <Tooltip tooltipContent={t("how to install")}>
+            <Tooltip
+              tooltipContent={t("how to install")}
+              tooltipPosition="bottom-center"
+            >
               <Link
                 className="button how-to-install-link"
                 style={{ animationDelay: "400ms" }}
@@ -400,7 +512,10 @@ const EditableKeyboard = ({
                 <QuestionIcon className="icon" />
               </Link>
             </Tooltip>
-            <Tooltip tooltipContent={t("Import")}>
+            <Tooltip
+              tooltipContent={t("Import")}
+              tooltipPosition="bottom-center"
+            >
               <Button
                 onClick={handleNotImplemented}
                 style={{ animationDelay: "300ms" }}
@@ -408,7 +523,10 @@ const EditableKeyboard = ({
                 <ImportIcon className="icon" />
               </Button>
             </Tooltip>
-            <Tooltip tooltipContent={t("Export")}>
+            <Tooltip
+              tooltipContent={t("Export")}
+              tooltipPosition="bottom-center"
+            >
               <Button
                 onClick={handleNotImplemented}
                 style={{ animationDelay: "300ms" }}
@@ -416,7 +534,10 @@ const EditableKeyboard = ({
                 <ExportIcon className="icon" />
               </Button>
             </Tooltip>
-            <Tooltip tooltipContent={t("Analyze")}>
+            <Tooltip
+              tooltipContent={t("Analyze")}
+              tooltipPosition="bottom-center"
+            >
               <Button
                 onClick={handleNotImplemented}
                 style={{ animationDelay: "200ms" }}
@@ -424,7 +545,10 @@ const EditableKeyboard = ({
                 <AnalyzeIcon className="icon" />
               </Button>
             </Tooltip>
-            <Tooltip tooltipContent={t("Optimize")}>
+            <Tooltip
+              tooltipContent={t("Optimize")}
+              tooltipPosition="bottom-center"
+            >
               <Button
                 onClick={optimizeLayout}
                 style={{ animationDelay: "100ms" }}
@@ -432,7 +556,10 @@ const EditableKeyboard = ({
                 <RobotIcon className="icon" />
               </Button>
             </Tooltip>
-            <Tooltip tooltipContent={t("Save")}>
+            <Tooltip
+              tooltipContent={t("Save")}
+              tooltipPosition="bottom-center"
+            >
               <Button
                 onClick={handleOpenSaveKeyboardModal}
                 style={{ animationDelay: "0ms" }}
@@ -598,10 +725,11 @@ const EditableKeyboard = ({
           showKeyboardTypeSelector={true}
           showEditButton={false}
           handleEditing={handleEditing}
+          showHideKeyboardButton={false}
         />
         <div
           style={{ "--key-size": `${keySize}rem` } as React.CSSProperties}
-          className={`keyboard editable-keyboard keyboard-${keyboardType}`}
+          className={`keyboard editable-keyboard keyboard-${keyboardType} ${showColoredKeys ? "" : "same-color-keys"}`}
         >
           {renderKeyboard()}
         </div>

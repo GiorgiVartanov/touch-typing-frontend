@@ -4,6 +4,9 @@ import {
   setKeyboardLanguageAction,
   setKeyboardLayoutAction,
   setKeyboardTypeAction,
+  setKeyboardSizeAction,
+  setShowColoredKeysAction,
+  setShowKeyboardWhileTypingAction,
   setFontAction,
   setFontSizeAction,
 } from "../actions/typingSettingsActions"
@@ -13,6 +16,7 @@ import {
   KeyboardLanguageType,
   savedKeyboardLayoutInterface,
   KeyboardTypeType,
+  KeyboardSizeType,
   FontType,
   FontSizeType,
   TypingSettingsOptions,
@@ -48,6 +52,7 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   const keyboardLanguageOptions: KeyboardLanguageType[] = ["Geo", "Eng"]
   const keyboardTypeOptions: KeyboardTypeType[] = ["ANSI", "ANSI-ISO", "ISO"]
+  const keyboardSizeOptions: KeyboardSizeType[] = ["small", "medium", "large"]
   const fontOptions: FontType[] = ["sans", "serif", "sanet"]
   const fontSizeOptions: FontSizeType[] = ["small", "medium", "large", "extra large"]
 
@@ -58,6 +63,8 @@ const TypingSettingsProvider = ({ children }: Props) => {
     saveOnServer: boolean
   ) => {
     localStorage.setItem(typingSettingToChange, value.toString())
+
+    console.log(typingSettingToChange, value.toString())
 
     if (!token || !saveOnServer) return
 
@@ -87,6 +94,21 @@ const TypingSettingsProvider = ({ children }: Props) => {
     dispatch(setKeyboardTypeAction(newValue))
   }
 
+  const setKeyboardSize = (newValue: KeyboardSizeType, saveOnServer: boolean = true) => {
+    saveSetting("keyboardSize", newValue, saveOnServer)
+    dispatch(setKeyboardSizeAction(newValue))
+  }
+
+  const setShowColoredKeys = (newValue: boolean, saveOnServer: boolean = true) => {
+    saveSetting("showColoredKeys", newValue, saveOnServer)
+    dispatch(setShowColoredKeysAction(newValue))
+  }
+
+  const setShowKeyboardWhileTyping = (newValue: boolean, saveOnServer: boolean = true) => {
+    saveSetting("showKeyboardWhileTyping", newValue, saveOnServer)
+    dispatch(setShowKeyboardWhileTypingAction(newValue))
+  }
+
   const setFont = (newValue: FontType, saveOnServer: boolean = true) => {
     // saves font to the localStorage and on a server (if user is logged in)
     saveSetting("font", newValue, saveOnServer)
@@ -101,14 +123,25 @@ const TypingSettingsProvider = ({ children }: Props) => {
 
   // resets all settings to default values
   const resetTypingSettings = () => {
-    const { keyboardLanguage, keyboardLayout, keyboardType, font, fontSize } =
-      typingSettingsInitialState
+    const {
+      keyboardLanguage,
+      keyboardLayout,
+      keyboardType,
+      font,
+      fontSize,
+      showColoredKeys,
+      showKeyboardWhileTyping,
+      keyboardSize,
+    } = typingSettingsInitialState
 
     setKeyboardLanguage(keyboardLanguage, false)
     setKeyboardLayout(keyboardLayout, false)
     setKeyboardType(keyboardType, false)
     setFont(font, false)
     setFontSize(fontSize, false)
+    setShowColoredKeys(showColoredKeys, false)
+    setShowKeyboardWhileTyping(showKeyboardWhileTyping, false)
+    setKeyboardSize(keyboardSize, false)
   }
 
   useEffect(() => {
@@ -119,14 +152,25 @@ const TypingSettingsProvider = ({ children }: Props) => {
       const fetchedSettings = await getTypingSettings(token)
       const fetchedLayout = await getLayout(token)
 
-      const { font, fontSize, keyboardType, keyboardLanguage } = fetchedSettings.data
+      const {
+        font,
+        fontSize,
+        keyboardType,
+        keyboardLanguage,
+        showColoredKeys,
+        showKeyboardWhileTyping,
+        keyboardSize,
+      } = fetchedSettings.data
+
       const layout = fetchedLayout.data
 
       dispatch(setFontAction(font))
       dispatch(setFontSizeAction(fontSize))
       dispatch(setKeyboardLanguageAction(keyboardLanguage))
       dispatch(setKeyboardTypeAction(keyboardType))
-
+      dispatch(setShowColoredKeysAction(showColoredKeys))
+      dispatch(setShowKeyboardWhileTypingAction(showKeyboardWhileTyping))
+      dispatch(setKeyboardSizeAction(keyboardSize))
       dispatch(setKeyboardLayoutAction(layout))
     }
 
@@ -143,9 +187,13 @@ const TypingSettingsProvider = ({ children }: Props) => {
     fontSizeOptions,
     keyboardLanguageOptions,
     keyboardTypeOptions,
+    keyboardSizeOptions,
     setKeyboardLanguage,
     setKeyboardLayout,
     setKeyboardType,
+    setKeyboardSize,
+    setShowColoredKeys,
+    setShowKeyboardWhileTyping,
     setFont,
     setFontSize,
     resetTypingSettings,

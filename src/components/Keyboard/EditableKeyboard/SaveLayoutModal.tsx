@@ -68,7 +68,9 @@ const SaveLayoutModal = ({
       return saveKeyboardOnServer(layout, token)
     },
     mutationKey: ["post new text", title],
-    onMutate: () => {},
+    onMutate: () => {
+      // there will be optimistic update
+    },
     onSuccess: () => {
       toast.success("Layout successfully saved ")
     },

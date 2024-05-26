@@ -7,6 +7,8 @@ export const saveKeyboardOnServer = (
   layout: { keyboard: KeyInterface[]; title: string; language: string },
   token: string
 ) => {
+  console.log(layout.keyboard)
+
   return ajax.post(
     "/layout/add",
     { layout: layout },
@@ -19,7 +21,7 @@ export const saveKeyboardOnServer = (
 }
 
 export const getLayouts = (text: string, language: string, pageParam: number) => {
-  // CHANGE HERE !!!
+  // don't forget to change it
   return ajax.get(`layout/search?text=${text}&language=${language}&page=${pageParam}`)
 }
 
