@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useContext } from "react"
 import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -25,10 +25,7 @@ import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
 import KeyboardOptions from "../KeyboardOptions"
 
-import ajax_python from "../../../services/ajax_python"
-import { useSocket } from "../../../hooks/useSocket"
-import { useAuthStore } from "../../../store/context/authContext"
-import config from "../../../keyboardLayouts/config.json"
+import { useOptimizationStore } from "../../../store/context/optimizationContext"
 
 interface Props {
   startingKeyboard: KeyInterface[]
@@ -37,44 +34,6 @@ interface Props {
   uneditableFirstValueKeys?: string[]
   uneditableSecondValueKeys?: string[]
   keySize?: number
-}
-
-const PYTHON_SERVER_URL = import.meta.env.VITE_PYTHON_SERVER_URL
-
-const convertFromPythonApiLayoutToCurrent = (
-  characterPlacement: string[],
-  currentPlacement: KeyInterface[]
-): KeyInterface[] => {
-  const choose_type = (str: string) => {
-    const georgianAlphabet = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ"
-    if (georgianAlphabet.includes(str)) return "Letter"
-    else return "Symbol"
-  }
-  let newPlacement = structuredClone(currentPlacement)
-  characterPlacement = characterPlacement.map((str) => (str.length > 1 ? "" : str))
-  for (let i = 0; i < 12; i++) {
-    newPlacement[i + 1].value = [characterPlacement[i], characterPlacement[i + 47]]
-    newPlacement[i + 1].type = choose_type(characterPlacement[i])
-    newPlacement[i + 15].value = [characterPlacement[i + 12], characterPlacement[i + 12 + 47]]
-    newPlacement[i + 15].type = choose_type(characterPlacement[i + 12])
-
-    if (i < 11) {
-      newPlacement[i + 29].value = [
-        characterPlacement[i + 24],
-        characterPlacement[i + 24 + 47], //35
-      ]
-      newPlacement[i + 29].type = choose_type(characterPlacement[i + 24])
-    }
-    if (i < 10) {
-      newPlacement[i + 42].value = [
-        characterPlacement[i + 35],
-        characterPlacement[i + 35 + 47], //35
-      ]
-      newPlacement[i + 42].type = choose_type(characterPlacement[i + 35])
-    }
-  }
-  newPlacement[0].value = [characterPlacement[45], characterPlacement[45 + 47]]
-  return newPlacement
 }
 
 // keyboard that can be edited
@@ -113,6 +72,14 @@ const EditableKeyboard = ({
   uneditableSecondValueKeys = [], // keys that have their second (one accessed with shift/caps lock) value uneditable
   keySize = 3.25, // size of one key in rem
 }: Props) => {
+  const {
+    progress,
+    startOptimization,
+    optimizationStatus,
+    optimizedEditingKeyboard,
+    setOptimizedEditingKeyboard,
+  } = useOptimizationStore()
+
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
   const ref = useRef<HTMLInputElement>(null)
@@ -128,42 +95,12 @@ const EditableKeyboard = ({
   const [areRightSideButtonsOpen, setAreRightSideButtonsOpen] = useState<boolean>(false)
   const [userOS, setUserOS] = useState<string | null>(null)
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
-
-  useEffect(() => {}, [editingKeyboard])
-
-  const socket = useSocket(PYTHON_SERVER_URL, {
-    reconnectionAttempts: 5,
-    reconnectionDelay: 1000,
-    autoConnect: false,
-  })
-  const { user, token } = useAuthStore()
-
   useEffect(() => {
-    console.log(config)
-    if (socket.connected) {
-      socket.disconnect()
-    }
-    socket.connect()
-    // PlayDispatch(updateSocket(socket))
-    StartListeners()
-    // SendHandshake()
-  }, [user])
+    if (editingKeyboard === optimizedEditingKeyboard) setOptimizedEditingKeyboard(undefined)
+  }, [editingKeyboard])
 
-  const StartListeners = () => {
-    socket.on("custom_event", (data: any) => {
-      console.log(data)
-    })
-
-    socket.on("result", (data: any) => {
-      console.log(data)
-      setEditingKeyboard(
-        structuredClone(convertFromPythonApiLayoutToCurrent(data.characters_set, editingKeyboard))
-      )
-    })
-
-    socket.on("progress", (data: any) => {
-      console.log(data)
-    })
+  if (optimizedEditingKeyboard) {
+    if (editingKeyboard !== optimizedEditingKeyboard) setEditingKeyboard(optimizedEditingKeyboard)
   }
 
   const renderKeyboard = () => {
@@ -234,10 +171,7 @@ const EditableKeyboard = ({
 
   //
   const optimizeLayout = async () => {
-    //const answer = await ajax_python.get("/")
-    //console.log(answer.data)
-    //socket.emit("custom_event", { data: "oh hey" })
-    socket.emit("generate_keyboard_layout", config)
+    startOptimization()
   }
 
   //
@@ -649,6 +583,13 @@ const EditableKeyboard = ({
       ref={ref}
       className="editable-keyboard-holder"
     >
+      {optimizationStatus ? (
+        <p>
+          Generations Complete: {progress.current_generation} / {progress.total_generations}
+        </p>
+      ) : (
+        <></>
+      )}
       {renderSelectedKey()}
       <div className="editable-keyboard-content">
         <KeyboardOptions
