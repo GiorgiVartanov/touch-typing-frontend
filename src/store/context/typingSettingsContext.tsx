@@ -64,8 +64,6 @@ const TypingSettingsProvider = ({ children }: Props) => {
   ) => {
     localStorage.setItem(typingSettingToChange, value.toString())
 
-    console.log(typingSettingToChange, value.toString())
-
     if (!token || !saveOnServer) return
 
     saveTypingSetting(typingSettingToChange, value, token)

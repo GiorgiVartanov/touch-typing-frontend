@@ -24,7 +24,8 @@ const Results: React.FC<{ handleRestart: () => void }> = ({ handleRestart }) => 
         <div className="value">{calculateWPM(time / 1000, metrics.letterStatuses)}</div>
         <Tooltip
           className="name"
-          tooltipPosition="bottom"
+          tooltipPosition="bottom-right"
+          showAsterisk={true}
           tooltipContent={t("WPM definition")}
         >
           {t("WPM")}

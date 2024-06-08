@@ -2,4 +2,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .preview-page-keyboard-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .layout-title {
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent-color);
+
+      display: flex;
+      gap: 0.5rem;
+
+      .layout-title-name {
+        opacity: 1;
+      }
+
+      .creation-message {
+        font-size: 1rem;
+        margin-top: auto;
+        opacity: 0.5;
+      }
+
+      .layout-creator {
+        opacity: 0.5;
+      }
+    }
+  }
 }

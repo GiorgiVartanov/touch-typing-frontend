@@ -2,6 +2,17 @@
   display: grid;
   place-content: center;
 
+  .registration-benefits {
+    padding: 0.25rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+
+    ul {
+      margin-left: 1.5rem;
+      list-style: circle;
+    }
+  }
+
   form {
     input {
       background-color: var(--secondary-background-color);

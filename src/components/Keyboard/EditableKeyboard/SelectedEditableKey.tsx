@@ -46,19 +46,24 @@ const SelectedEditableKey = ({
     return (
       <>
         <input
+          name="key-value"
           ref={firstValueRef}
           className="editable-key-value first-value"
           value={value[0]}
           onChange={onFirstValueChange}
           onClick={startEditingFirstValue}
         />
-        <input
-          ref={secondValueRef}
-          className="editable-key-value second-value"
-          value={value[1] || ""}
-          onChange={onSecondValueChange}
-          onClick={startEditingSecondValue}
-        />
+        <label htmlFor="key-shift-value">
+          <p className="shift-value-text">shift</p>
+          <input
+            name="key-shift-value"
+            ref={secondValueRef}
+            className="editable-key-value second-value"
+            value={value[1] || ""}
+            onChange={onSecondValueChange}
+            onClick={startEditingSecondValue}
+          />
+        </label>
       </>
     )
   }

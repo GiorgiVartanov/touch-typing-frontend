@@ -146,13 +146,9 @@
     &.Digit-key {
       .key-value {
         &:nth-of-type(1) {
-          // top: 0.1rem;
-          // left: 0.6rem;
           opacity: 1;
         }
         &:nth-of-type(2) {
-          // bottom: 0.1rem;
-          // right: 0.6rem;
           opacity: 0.5;
         }
       }
@@ -161,6 +157,8 @@
     &.KeyF-key,
     &.KeyJ-key {
       position: relative;
+
+      transition: filter 300ms var(--animation-function);
 
       &::after {
         position: absolute;
@@ -172,6 +170,7 @@
         right: calc($keySize * 0.375);
         opacity: 0.35;
         box-shadow: 0 2px 4px -1px var(--shadow-color);
+        filter: invert(100%);
       }
     }
 
@@ -470,6 +469,7 @@
 .editable-keyboard-content {
   position: relative;
 }
+
 .keyboard-options {
   display: flex;
   // gap: 0.25rem;
@@ -521,12 +521,6 @@
 
 .key.editable {
   cursor: pointer;
-
-  // transition: opacity 300ms var(--animation-function);
-
-  // &:hover {
-  //   opacity: 0.85;
-  // }
 }
 
 .editable-keyboard-holder {
@@ -588,13 +582,9 @@
       align-items: center;
 
       .button {
-        opacity: 0;
-        transform: translateX(50%);
         user-select: none;
         display: flex;
         border-radius: 0;
-
-        animation: 300ms slideInFromRight var(--animation-function) forwards;
 
         background-color: transparent;
         box-shadow: none;
@@ -603,20 +593,11 @@
           transition: 300ms var(--animation-function);
         }
 
-        // &.how-to-install-link {
-        //   border-right: 2px solid var(--accent-color);
-        //   margin-right: 0.25rem;
-        // }
-
         &:hover {
           .icon {
             opacity: 0.85;
           }
         }
-      }
-
-      .export-button-wrapper {
-        // position: relative;
       }
     }
 
@@ -635,10 +616,6 @@
 
       &:hover {
         opacity: 0.85;
-      }
-
-      .icon {
-        // opacity: 0.85;
       }
     }
   }

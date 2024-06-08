@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
-import { toast } from "react-toastify"
 import { createPortal } from "react-dom"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
@@ -27,17 +26,13 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
 
   const {
     // all available values for each setting (they will be options in select)
-    keyboardLanguageOptions,
     keyboardTypeOptions,
     fontOptions,
     fontSizeOptions,
-    keyboardSizeOptions,
     // function to set each setting
-    setKeyboardLanguage,
     setKeyboardType,
     setFont,
     setFontSize,
-    setKeyboardSize,
     setShowColoredKeys,
     setShowKeyboardWhileTyping,
     // value of each setting
@@ -46,7 +41,6 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
     keyboardType,
     font,
     fontSize,
-    keyboardSize,
     showColoredKeys,
     showKeyboardWhileTyping,
     // function to reset setting (set them back to default)
@@ -92,13 +86,6 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
   // keyboard settings
   const keyboardSettings = [
     {
-      name: t("keyboard language"),
-      selectedValue: keyboardLanguage,
-      valueOptions: keyboardLanguageOptions,
-      valueToShow: keyboardLanguageOptions,
-      selectValue: setKeyboardLanguage,
-    },
-    {
       name: t("keyboard type"),
       selectedValue: t(keyboardType),
       valueOptions: keyboardTypeOptions,
@@ -106,24 +93,17 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
       selectValue: setKeyboardType,
     },
     {
-      name: t("keyboard size"),
-      selectedValue: t(keyboardSize),
-      valueOptions: keyboardSizeOptions,
-      valueToShow: keyboardSizeOptions.map((option) => t(option)),
-      selectValue: setKeyboardSize,
-    },
-    {
       name: t("show colored keys"),
-      selectedValue: showColoredKeys ? t("show") : t("hide"),
+      selectedValue: showColoredKeys ? "show" : "hide",
       valueOptions: [true, false],
-      valueToShow: [t("show"), t("hide")],
+      valueToShow: ["show", "hide"],
       selectValue: setShowColoredKeys,
     },
     {
       name: t("show keyboard while typing"),
-      selectedValue: showKeyboardWhileTyping ? t("show") : t("hide"),
+      selectedValue: showKeyboardWhileTyping ? "show" : "hide",
       valueOptions: [true, false],
-      valueToShow: [t("show"), t("hide")],
+      valueToShow: ["show", "hide"],
       selectValue: setShowKeyboardWhileTyping,
     },
   ]
