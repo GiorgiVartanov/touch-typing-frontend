@@ -1,8 +1,10 @@
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react"
 import {
+  OptimizationConfig,
   OptimizationActions,
   OptimizationProgress,
   OptimizationState,
+  ProcessStatus,
 } from "../../types/optimization.types"
 import {
   optimizationInitialState,
@@ -11,10 +13,8 @@ import {
 import { useAuthStore } from "./authContext"
 import { useSocket } from "../../hooks/useSocket"
 import { Socket } from "socket.io-client"
-import keyboardLayoutConverter from "../../util/keyboardLayoutConverter"
+import { convertFromPythonApiLayoutToCurrent } from "../../util/keyboardLayoutConverter"
 import { KeyInterface } from "../../types/keyboard.types"
-import config from "../../keyboardLayouts/config.json"
-import { defaultKeyboardLayout } from "../initial/typingSettingsInitialState"
 
 const PYTHON_SERVER_URL = import.meta.env.VITE_PYTHON_SERVER_URL
 
@@ -53,17 +53,25 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     socket.on("result", (data: any) => {
       console.log("result: ", data)
       setOptimizedEditingKeyboard(
-        structuredClone(
-          keyboardLayoutConverter(data.characters_set, defaultKeyboardLayout.Geo.keyboard)
-        )
+        structuredClone(convertFromPythonApiLayoutToCurrent(data.characters_set))
       )
-      setOptimizationStatus(false)
+      setOptimizationStatus(ProcessStatus.process_idle)
       setProgress(optimizationProgressInitialState)
     })
 
     socket.on("progress", (data: OptimizationProgress) => {
       console.log("progress: ", data)
       setProgress(data)
+    })
+
+    socket.on("initialization_start", () => {
+      console.log("initialization_start")
+      setOptimizationStatus(ProcessStatus.initialization_started)
+    })
+
+    socket.on("initialization_finish", () => {
+      console.log("initialization_finish")
+      setOptimizationStatus(ProcessStatus.initialization_finished)
     })
   }
 
@@ -81,7 +89,7 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     }))
   }
 
-  const setOptimizationStatus = (data_optimizationStatus: boolean) => {
+  const setOptimizationStatus = (data_optimizationStatus: ProcessStatus) => {
     setOptimizationState((prevOptimization) => ({
       ...prevOptimization,
       optimizationStatus: data_optimizationStatus,
@@ -97,9 +105,9 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     }))
   }
 
-  const startOptimization = async () => {
-    socket.emit("generate_keyboard_layout", config)
-    setOptimizationStatus(true)
+  const startOptimization = async (optimization_config: OptimizationConfig) => {
+    socket.emit("generate_keyboard_layout", optimization_config)
+    setOptimizationStatus(ProcessStatus.process_idle)
   }
 
   const store = {

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext } from "react"
+import { useEffect, useState, useRef, useContext, ChangeEvent } from "react"
 import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -31,6 +31,10 @@ import SaveLayoutModal from "./SaveLayoutModal"
 import KeyboardOptions from "../KeyboardOptions"
 
 import { useOptimizationStore } from "../../../store/context/optimizationContext"
+import { OptimizationConfig, ProcessStatus } from "../../../types/optimization.types"
+import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
+import Form from "../../Form/Form"
+import Input from "../../Form/Input"
 
 interface Props {
   startingKeyboard: KeyInterface[]
@@ -85,6 +89,9 @@ const EditableKeyboard = ({
     optimizedEditingKeyboard,
     setOptimizedEditingKeyboard,
   } = useOptimizationStore()
+  const [optimizationConfig, setOptimizationConfig] =
+    useState<OptimizationConfig>(initialOptimizationConfig)
+  const [showOptimizationConfig, setShowOptimizationConfig] = useState<boolean>(true)
 
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
@@ -109,6 +116,7 @@ const EditableKeyboard = ({
   if (optimizedEditingKeyboard) {
     if (editingKeyboard !== optimizedEditingKeyboard) setEditingKeyboard(optimizedEditingKeyboard)
   }
+  useEffect(() => {}, [optimizationConfig])
 
   const renderKeyboard = () => {
     // will change letter
@@ -178,7 +186,42 @@ const EditableKeyboard = ({
 
   //
   const optimizeLayout = async () => {
-    startOptimization()
+    startOptimization(optimizationConfig)
+  }
+
+  const optimizationModal = () => {
+    return (
+      <Form
+        onSubmit={() => {}}
+        className="optimization_form"
+      >
+        <Input
+          name="number_of_generations"
+          type="number"
+          value={optimizationConfig.number_of_generations}
+          onChange={(e) => {
+            setOptimizationConfig((prevstate) => ({
+              ...prevstate,
+              number_of_generations: Number(e.target.value),
+            }))
+          }}
+        ></Input>
+        <Input
+          name="modifier_overhead_weight"
+          type="number"
+          value={optimizationConfig.effort_parameters.modifier_overhead_weight}
+          onChange={(e) => {
+            setOptimizationConfig((prevState) => ({
+              ...prevState,
+              effort_parameters: {
+                ...prevState.effort_parameters,
+                modifier_overhead_weight: Number(e.target.value),
+              },
+            }))
+          }}
+        ></Input>
+      </Form>
+    )
   }
 
   // opens save layout modal
@@ -710,13 +753,16 @@ const EditableKeyboard = ({
       ref={ref}
       className="editable-keyboard-holder"
     >
-      {optimizationStatus ? (
+      {optimizationStatus == ProcessStatus.initialization_started ? (
+        <p>Optimization process is being initialized</p>
+      ) : optimizationStatus == ProcessStatus.initialization_finished ? (
         <p>
           Generations Complete: {progress.current_generation} / {progress.total_generations}
         </p>
       ) : (
         <></>
       )}
+      {showOptimizationConfig ? optimizationModal() : <></>}
       {renderSelectedKey()}
       <div className="editable-keyboard-content">
         <KeyboardOptions
