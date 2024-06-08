@@ -551,7 +551,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Import")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={optimizeLayout}>
+            <Button onClick={handleNotImplemented}>
               <ImportIcon className="icon" />
             </Button>
           </Tooltip>
@@ -559,7 +559,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Export")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={optimizeLayout}>
+            <Button onClick={handleNotImplemented}>
               <ExportIcon className="icon" />
             </Button>
           </Tooltip>
@@ -567,7 +567,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Analyze")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={optimizeLayout}>
+            <Button onClick={handleNotImplemented}>
               <AnalyzeIcon className="icon" />
             </Button>
           </Tooltip>
