@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useContext, ChangeEvent } from "react"
 import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -29,6 +29,12 @@ import Button from "../../Form/Button"
 import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
 import KeyboardOptions from "../KeyboardOptions"
+
+import { useOptimizationStore } from "../../../store/context/optimizationContext"
+import { OptimizationConfig, ProcessStatus } from "../../../types/optimization.types"
+import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
+import Form from "../../Form/Form"
+import Input from "../../Form/Input"
 
 interface Props {
   startingKeyboard: KeyInterface[]
@@ -76,6 +82,17 @@ const EditableKeyboard = ({
   uneditableSecondValueKeys = [], // keys that have their second (one accessed with shift/caps lock) value uneditable
   keySize = 3.25, // size of one key in rem
 }: Props) => {
+  const {
+    progress,
+    startOptimization,
+    optimizationStatus,
+    optimizedEditingKeyboard,
+    setOptimizedEditingKeyboard,
+  } = useOptimizationStore()
+  const [optimizationConfig, setOptimizationConfig] =
+    useState<OptimizationConfig>(initialOptimizationConfig)
+  const [showOptimizationConfig, setShowOptimizationConfig] = useState<boolean>(true)
+
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
   const ref = useRef<HTMLInputElement>(null)
@@ -92,6 +109,14 @@ const EditableKeyboard = ({
   const [areRightSideButtonsOpen, setAreRightSideButtonsOpen] = useState<boolean>(false)
   const [userOS, setUserOS] = useState<string | null>(null)
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
+  useEffect(() => {
+    if (editingKeyboard === optimizedEditingKeyboard) setOptimizedEditingKeyboard(undefined)
+  }, [editingKeyboard])
+
+  if (optimizedEditingKeyboard) {
+    if (editingKeyboard !== optimizedEditingKeyboard) setEditingKeyboard(optimizedEditingKeyboard)
+  }
+  useEffect(() => {}, [optimizationConfig])
 
   const renderKeyboard = () => {
     // will change letter
@@ -160,8 +185,43 @@ const EditableKeyboard = ({
   }
 
   //
-  const optimizeLayout = () => {
-    toast.warning("This feature is not yet implemented")
+  const optimizeLayout = async () => {
+    startOptimization(optimizationConfig)
+  }
+
+  const optimizationModal = () => {
+    return (
+      <Form
+        onSubmit={() => {}}
+        className="optimization_form"
+      >
+        <Input
+          name="number_of_generations"
+          type="number"
+          value={optimizationConfig.number_of_generations}
+          onChange={(e) => {
+            setOptimizationConfig((prevstate) => ({
+              ...prevstate,
+              number_of_generations: Number(e.target.value),
+            }))
+          }}
+        ></Input>
+        <Input
+          name="modifier_overhead_weight"
+          type="number"
+          value={optimizationConfig.effort_parameters.modifier_overhead_weight}
+          onChange={(e) => {
+            setOptimizationConfig((prevState) => ({
+              ...prevState,
+              effort_parameters: {
+                ...prevState.effort_parameters,
+                modifier_overhead_weight: Number(e.target.value),
+              },
+            }))
+          }}
+        ></Input>
+      </Form>
+    )
   }
 
   // opens save layout modal
@@ -171,6 +231,10 @@ const EditableKeyboard = ({
     } else {
       toast.warning("log in to save your layout", { toastId: "log in to save your layout" })
     }
+  }
+
+  const handleNotImplemented = () => {
+    toast.warning("This feature is not yet implemented")
   }
 
   // closes save layout modal
@@ -487,7 +551,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Import")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={optimizeLayout}>
+            <Button onClick={handleNotImplemented}>
               <ImportIcon className="icon" />
             </Button>
           </Tooltip>
@@ -495,7 +559,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Export")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={optimizeLayout}>
+            <Button onClick={handleNotImplemented}>
               <ExportIcon className="icon" />
             </Button>
           </Tooltip>
@@ -503,7 +567,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Analyze")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={optimizeLayout}>
+            <Button onClick={handleNotImplemented}>
               <AnalyzeIcon className="icon" />
             </Button>
           </Tooltip>
@@ -668,6 +732,16 @@ const EditableKeyboard = ({
       ref={ref}
       className="editable-keyboard-holder"
     >
+      {optimizationStatus == ProcessStatus.initialization_started ? (
+        <p>Optimization process is being initialized</p>
+      ) : optimizationStatus == ProcessStatus.initialization_finished ? (
+        <p>
+          Generations Complete: {progress.current_generation} / {progress.total_generations}
+        </p>
+      ) : (
+        <></>
+      )}
+      {showOptimizationConfig ? optimizationModal() : <></>}
       {renderSelectedKey()}
       <div className="editable-keyboard-content">
         <KeyboardOptions

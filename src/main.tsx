@@ -15,6 +15,7 @@ import AuthProvider from "./store/context/authContext.tsx"
 import AppSettingsProvider from "./store/context/appSettingsContext.tsx"
 import TypingSettingsProvider from "./store/context/typingSettingsContext.tsx"
 import PlayProvider from "./store/context/playContext.tsx"
+import { OptimizationProvider } from "./store/context/optimizationContext.tsx"
 
 const queryClient = new QueryClient()
 
@@ -24,12 +25,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <AppSettingsProvider>
         <TypingSettingsProvider>
           <PlayProvider>
-            <QueryClientProvider client={queryClient}>
-              <BrowserRouter>
-                <App />
-                <ReactQueryDevtools initialIsOpen={false} />
-              </BrowserRouter>
-            </QueryClientProvider>
+            <OptimizationProvider>
+              <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                  <App />
+                  <ReactQueryDevtools initialIsOpen={false} />
+                </BrowserRouter>
+              </QueryClientProvider>
+            </OptimizationProvider>
           </PlayProvider>
         </TypingSettingsProvider>
       </AppSettingsProvider>

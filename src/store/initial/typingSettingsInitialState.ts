@@ -33,7 +33,11 @@ const storedLayout = localStorage.getItem("keyboardLayout")
 console.log({ showKeyboardWhileTyping })
 
 if (storedLayout) {
-  keyboardLayout = JSON.parse(storedLayout) as savedKeyboardLayoutInterface
+  try {
+    keyboardLayout = JSON.parse(storedLayout) as savedKeyboardLayoutInterface
+  } catch (e: any) {
+    keyboardLayout = null
+  }
 }
 
 const qwertyKeyboardLayout: KeyboardLayoutInterface = qwertyLayout as KeyboardLayoutInterface
