@@ -13,25 +13,7 @@
   .modal {
     display: flex;
   }
-  .play-modal {
-    // height: 100%;
-    .please-work {
-      margin: 5px auto;
-      display: flex;
-      flex-direction: start;
-      align-items: center;
-      justify-content: center;
-      min-width: 400px;
-      // height: fit-content;
-      // height: 100%;
-      display: flex;
-    }
-    .modal-content {
-      // height: 100%;
-      display: flex;
-      flex: 1;
-    }
-  }
+
   .play {
     height: 100%;
     flex: 1;
@@ -226,5 +208,25 @@
         }
       }
     }
+  }
+}
+
+.play-modal {
+  // height: 100%;
+  .please-work {
+    margin: 5px auto;
+    display: flex;
+    flex-direction: start;
+    align-items: center;
+    justify-content: center;
+    min-width: 400px;
+    // height: fit-content;
+    // height: 100%;
+    display: flex;
+  }
+  .modal-content {
+    // height: 100%;
+    display: flex;
+    flex: 1;
   }
 }

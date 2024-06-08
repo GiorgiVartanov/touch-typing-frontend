@@ -42,8 +42,6 @@ export const postPracticeText = (
   description: string,
   level: string,
   text: string,
-  // author: string = "Unknown",
-  // publishedOn: string,
   token: string
 ) => {
   return ajax.post(

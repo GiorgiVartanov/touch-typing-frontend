@@ -12,6 +12,7 @@ interface Props {
     | "bottom-center"
     | "left"
   tooltipContent: string
+  showAsterisk?: boolean
   className?: string
 }
 
@@ -19,6 +20,7 @@ const Tooltip = ({
   children,
   tooltipPosition = "bottom-right",
   tooltipContent,
+  showAsterisk = false,
   className = "",
 }: Props) => {
   return (
@@ -27,6 +29,7 @@ const Tooltip = ({
       className={`tooltip tooltip-${tooltipPosition} ${className}`}
     >
       {children}
+      {showAsterisk ? "*" : ""}
     </div>
   )
 }

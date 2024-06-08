@@ -41,6 +41,14 @@
   //   box-shadow: 0 2px 6px 2px var(--shadow-color);
   // }
 
+  .shift-value-text {
+    position: absolute;
+    left: 2.25rem;
+    bottom: 0.5rem;
+    font-size: 0.75rem;
+    opacity: 0.75;
+  }
+
   &.selected-key-open {
     opacity: 0;
     height: 0;

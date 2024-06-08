@@ -251,8 +251,6 @@ const EditableKeyboard = ({
       .slice(15, 21)
       .reduce((accumulator, currentValue) => accumulator + currentValue?.value[0], "")
 
-    console.log(startingKeyboard)
-
     return (
       <SaveLayoutModal
         modalTitle="save layout"
@@ -307,13 +305,6 @@ const EditableKeyboard = ({
 
   // renders single key
   const renderKey = (key: KeyInterface) => {
-    // console.log(
-    //   editingKeyboard[33].value[0],
-    //   editingKeyboard[33].value[1],
-    //   editingKeyboard[17].value[0],
-    //   editingKeyboard[17].value[1]
-    // )
-
     // is true if this value has copy somewhere on a keyboard
     const isFirstValueDuplicate = editingKeyboard.some(
       (keyboardKey) =>
@@ -398,7 +389,10 @@ const EditableKeyboard = ({
         ![...georgianLetters, ...symbols].includes(enteredCharacter) &&
         enteredCharacter !== null
       ) {
-        toast.warning("sorry, this character can't be used")
+        toast.dismiss("character-not-allowed-toast")
+        toast.warning("sorry, this character can't be used", {
+          toastId: "character-not-allowed-toast",
+        })
 
         return
       }
@@ -408,7 +402,10 @@ const EditableKeyboard = ({
         ![...englishLetters, ...symbols].includes(enteredCharacter) &&
         enteredCharacter !== null
       ) {
-        toast.warning("sorry, this character can't be used")
+        toast.dismiss("character-not-allowed-toast")
+        toast.warning("sorry, this character can't be used", {
+          toastId: "character-not-allowed-toast",
+        })
 
         return
       }
@@ -417,7 +414,10 @@ const EditableKeyboard = ({
         uneditableKeys.includes(enteredCharacter) &&
         !keysThatWontShowWarning.includes(enteredCharacter)
       ) {
-        toast.warning("this key can't be used")
+        toast.dismiss("character-not-allowed-toast")
+        toast.warning("sorry, this character can't be used", {
+          toastId: "character-not-allowed-toast",
+        })
 
         return
       }
@@ -460,7 +460,10 @@ const EditableKeyboard = ({
         ![...georgianLetters, ...symbols].includes(enteredCharacter) &&
         enteredCharacter !== null
       ) {
-        toast.warning("sorry, this character can't be used")
+        toast.dismiss("character-not-allowed-toast")
+        toast.warning("sorry, this character can't be used", {
+          toastId: "character-not-allowed-toast",
+        })
 
         return
       }
@@ -470,7 +473,10 @@ const EditableKeyboard = ({
         ![...englishLetters, ...symbols].includes(enteredCharacter) &&
         enteredCharacter !== null
       ) {
-        toast.warning("sorry, this character can't be used")
+        toast.dismiss("character-not-allowed-toast")
+        toast.warning("sorry, this character can't be used", {
+          toastId: "character-not-allowed-toast",
+        })
 
         return
       }
@@ -529,89 +535,51 @@ const EditableKeyboard = ({
   const renderRightButtons = () => {
     return (
       <div className="keyboard-right-side-buttons">
-        <Button
-          onClick={handleRightSideButtons}
-          className={`show-more-keyboard-action-buttons-button ${areRightSideButtonsOpen ? "active" : ""}`}
-        >
+        <div className="keyboard-button-list">
           <Tooltip
-            tooltipContent={t("expand")}
-            tooltipPosition="bottom-left"
+            tooltipContent={t("how to install")}
+            tooltipPosition="bottom-center"
           >
-            <WrenchIcon className="icon" />
+            <Link
+              className="button how-to-install-link"
+              to={`../guides/how_to_install_layout_on_${userOS}`}
+            >
+              <QuestionIcon className="icon" />
+            </Link>
           </Tooltip>
-        </Button>
-
-        {areRightSideButtonsOpen ? (
-          <div className="keyboard-button-list">
-            <Tooltip
-              tooltipContent={t("how to install")}
-              tooltipPosition="bottom-center"
-            >
-              <Link
-                className="button how-to-install-link"
-                style={{ animationDelay: "400ms" }}
-                to={`../guides/how_to_install_layout_on_${userOS}`}
-              >
-                <QuestionIcon className="icon" />
-              </Link>
-            </Tooltip>
-            <Tooltip
-              tooltipContent={t("Import")}
-              tooltipPosition="bottom-center"
-            >
-              <Button
-                onClick={handleNotImplemented}
-                style={{ animationDelay: "300ms" }}
-              >
-                <ImportIcon className="icon" />
-              </Button>
-            </Tooltip>
-            <Tooltip
-              tooltipContent={t("Export")}
-              tooltipPosition="bottom-center"
-            >
-              <Button
-                onClick={handleNotImplemented}
-                style={{ animationDelay: "300ms" }}
-              >
-                <ExportIcon className="icon" />
-              </Button>
-            </Tooltip>
-            <Tooltip
-              tooltipContent={t("Analyze")}
-              tooltipPosition="bottom-center"
-            >
-              <Button
-                onClick={handleNotImplemented}
-                style={{ animationDelay: "200ms" }}
-              >
-                <AnalyzeIcon className="icon" />
-              </Button>
-            </Tooltip>
-            <Tooltip
-              tooltipContent={t("Optimize")}
-              tooltipPosition="bottom-center"
-            >
-              <Button
-                onClick={optimizeLayout}
-                style={{ animationDelay: "100ms" }}
-              >
-                <RobotIcon className="icon" />
-              </Button>
-            </Tooltip>
-            <Tooltip
-              tooltipContent={t("Save")}
-              tooltipPosition="bottom-center"
-            >
-              <Button
-                onClick={handleOpenSaveKeyboardModal}
-                style={{ animationDelay: "0ms" }}
-              >
-                <FloppyDiskIcon className="icon" />
-              </Button>
-            </Tooltip>
-          </div>
-        ) : null}
+          <Tooltip
+            tooltipContent={t("Import")}
+            tooltipPosition="bottom-center"
+          >
+            <Button onClick={optimizeLayout}>
+              <ImportIcon className="icon" />
+            </Button>
+          </Tooltip>
+          <Tooltip
+            tooltipContent={t("Export")}
+            tooltipPosition="bottom-center"
+          >
+            <Button onClick={optimizeLayout}>
+              <ExportIcon className="icon" />
+            </Button>
+          </Tooltip>
+          <Tooltip
+            tooltipContent={t("Analyze")}
+            tooltipPosition="bottom-center"
+          >
+            <Button onClick={optimizeLayout}>
+              <AnalyzeIcon className="icon" />
+            </Button>
+          </Tooltip>
+          <Tooltip
+            tooltipContent={t("Optimize")}
+            tooltipPosition="bottom-center"
+          >
+            <Button onClick={optimizeLayout}>
+              <RobotIcon className="icon" />
+            </Button>
+          </Tooltip>
+        </div>
       </div>
     )
   }
@@ -619,12 +587,23 @@ const EditableKeyboard = ({
   const renderLeftButtons = (wasKeyboardChanged: boolean) => {
     return (
       <div className="keyboard-left-side-buttons">
-        <Tooltip tooltipContent={t("Erase every key")}>
+        <Tooltip
+          tooltipContent={t("Erase")}
+          tooltipPosition="bottom-center"
+        >
           <Button
             onClick={emptyEditableKeys}
             className="empty-editable-keys-button"
           >
             <EraserIcon className="icon" />
+          </Button>
+        </Tooltip>
+        <Tooltip
+          tooltipContent={t("Save")}
+          tooltipPosition="bottom-center"
+        >
+          <Button onClick={handleOpenSaveKeyboardModal}>
+            <FloppyDiskIcon className="icon" />
           </Button>
         </Tooltip>
         {wasKeyboardChanged ? (
@@ -767,11 +746,12 @@ const EditableKeyboard = ({
       <div className="editable-keyboard-content">
         <KeyboardOptions
           showSelectButton={false}
-          showLanguageSelector={true}
+          showLanguageSelector={false}
           showKeyboardTypeSelector={true}
           showEditButton={false}
           handleEditing={handleEditing}
           showHideKeyboardButton={false}
+          forceVisible={true}
         />
         <div
           style={{ "--key-size": `${keySize}rem` } as React.CSSProperties}

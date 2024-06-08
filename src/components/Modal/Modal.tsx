@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import { createPortal } from "react-dom"
 
 import "./styles.scss"
 
@@ -46,7 +47,7 @@ const Modal = ({
 
   if (!isVisible) return
 
-  return (
+  const modalContent = (
     <>
       <div
         ref={modalRef}
@@ -55,12 +56,14 @@ const Modal = ({
         {modalTitle || showCloseButton ? (
           <div className="modal-top-bar">
             {modalTitle ? <h2 className="modal-title">{modalTitle}</h2> : null}
-            <button
-              onClick={closeModal}
-              className="close-modal-button"
-            >
-              {showCloseButton ? <CloseIcon className="close-icon" /> : null}
-            </button>
+            {showCloseButton ? (
+              <button
+                onClick={closeModal}
+                className="close-modal-button"
+              >
+                <CloseIcon className="close-icon" />
+              </button>
+            ) : null}
           </div>
         ) : null}
         <div className="modal-content">{children}</div>
@@ -69,5 +72,8 @@ const Modal = ({
       <div className="modal-background"></div>
     </>
   )
+
+  const appElement = document.querySelector(".App")
+  return appElement ? createPortal(modalContent, appElement) : null
 }
 export default Modal

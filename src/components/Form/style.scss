@@ -186,6 +186,17 @@ form {
   &:hover {
     background-color: var(--secondary-background-color-active);
   }
+
+  &:disabled {
+    opacity: 0.5;
+    background-color: var(--secondary-background-color) !important;
+
+    &:hover {
+      cursor: default;
+      background-color: var(--secondary-background-color) !important;
+      opacity: 0.5;
+    }
+  }
 }
 
 .cta-button {

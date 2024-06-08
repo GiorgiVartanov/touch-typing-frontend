@@ -7,7 +7,6 @@ import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
 
-import PenIcon from "../../assets/icons/pen.svg?react"
 import EmptyCircleCheck from "../../assets/icons/circle-check-empty.svg?react"
 import FilledCircleCheck from "../../assets/icons/circle-check-full.svg?react"
 import EyeIcon from "../../assets/icons/eye.svg?react"
@@ -35,13 +34,11 @@ const KeyboardOptions = ({
   forceVisible,
   showLanguageSelector,
   showSelectButton,
-  showEditButton,
   showHideKeyboardButton,
   showKeyboardTypeSelector,
   forcedLanguage,
   newKeyboardLayout,
   className = "",
-  handleEditing,
   changeVisibility,
 }: Props) => {
   const {
@@ -81,8 +78,9 @@ const KeyboardOptions = ({
         <div className="keyboard-option-item">
           <Select
             name={t("language")}
-            value={currentLanguage}
+            value={t(currentLanguage)}
             options={keyboardLanguageOptions}
+            optionsToShow={keyboardLanguageOptions.map((keyboardLanguage) => t(keyboardLanguage))}
             onChange={(value: string) => {
               setKeyboardLanguage(value as KeyboardLanguageType)
             }}
@@ -96,8 +94,9 @@ const KeyboardOptions = ({
         <div className="keyboard-option-item">
           <Select
             name={t("type")}
-            value={keyboardType}
+            value={t(keyboardType)}
             options={keyboardTypeOptions}
+            optionsToShow={keyboardTypeOptions.map((keyboardTypeOption) => t(keyboardTypeOption))}
             onChange={(value: string) => {
               setKeyboardType(value as KeyboardTypeType)
             }}
@@ -106,20 +105,6 @@ const KeyboardOptions = ({
         </div>
       ) : null}
       <div className="keyboard-options-right-side-buttons">
-        {/* {(showEditButton && (!showHideKeyboardButton || showKeyboardWhileTyping)) ||
-        (showLanguageSelector && forceVisible) ? (
-          <Tooltip
-            tooltipContent={t("edit")}
-            tooltipPosition="top-left"
-          >
-            <Button
-              onClick={handleEditing}
-              className="keyboard-options-button"
-            >
-              <PenIcon className="icon" />
-            </Button>
-          </Tooltip>
-        ) : null} */}
         {showHideKeyboardButton ? (
           <>
             {showKeyboardWhileTyping ? (

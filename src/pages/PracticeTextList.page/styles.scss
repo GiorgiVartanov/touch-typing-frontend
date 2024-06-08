@@ -4,22 +4,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  // margin-top: 1rem !important;
-  // position: relative;
-
-  // .search-options-modal-form {
-  //   max-width: 960px;
-  //   flex: 1;
-  //   width: 100%;
-  //   margin: 0;
-  //   height: 100%;
-
-  //   outline: 1px solid red !important;
-  //   background-color: red !important;
-
-  //   &.modal-content {
-  //   }
-  // }
 
   .search-options-button-list {
     display: flex;
@@ -73,67 +57,11 @@
     }
   }
 
-  .modal-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .search-options-modal-form {
-    max-width: 960px;
-    flex: 1;
-    width: 100%;
-    margin: 0;
-
-    .search-options-select {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    h2 {
-      color: var(--accent-color);
-    }
-
-    .submit-button {
-      width: 200px;
-      margin: auto auto 0.25rem;
-    }
-  }
-
-  .add-new-text-modal-form {
-    max-width: 960px;
-    width: 100%;
-    margin: 0;
-    flex: 1;
-
-    .textarea-text {
-      height: 200px;
-    }
-
-    .textarea-description {
-      height: 120px;
-    }
-
-    .add-new-text-button {
-      margin-top: auto !important;
-    }
-  }
-
-  .add-new-text-modal {
-    display: flex;
-    flex-direction: column;
-
-    h2 {
-      color: var(--accent-color);
-    }
-
-    .submit-button {
-      width: 200px;
-      margin: 3rem auto 0.25rem;
-    }
-  }
+  // .modal-content {
+  //   flex: 1;
+  //   display: flex;
+  //   flex-direction: column;
+  // }
 
   .text-page-body {
     max-width: 1280px;
@@ -211,6 +139,11 @@
       width: calc(100% - 200px);
 
       .text-card-list {
+        .add-new-text-button {
+          font-size: 1.25rem;
+          font-weight: 500;
+        }
+
         .text-card {
           height: 11.25rem;
 
@@ -250,6 +183,64 @@
         }
       }
     }
+  }
+}
+
+.add-new-text-modal-form {
+  max-width: 960px;
+  width: 100%;
+  // margin: 0 0 auto 0;
+  flex: 1;
+
+  .textarea-text {
+    height: 200px;
+  }
+
+  .textarea-description {
+    height: 120px;
+  }
+
+  .add-new-text-button {
+    margin-top: auto !important;
+  }
+}
+
+.add-new-text-modal {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    color: var(--accent-color);
+  }
+
+  .submit-button {
+    width: 200px;
+    margin: 3rem auto 0.25rem;
+  }
+}
+
+.search-options-modal-form {
+  max-width: 960px;
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  display: flex;
+
+  .search-options-select {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  h2 {
+    color: var(--accent-color);
+  }
+
+  .submit-button {
+    width: 200px;
+    margin: auto auto 0.25rem;
   }
 }
 
