@@ -9,13 +9,10 @@ import { SearchOptions } from "../../types/other.types"
 import { Text } from "../../types/practiceText.types"
 import { getPracticeTexts } from "../../services/practiceText"
 
-import TrashIcon from "../../assets/icons/trash.svg?react"
-
 import TextCardList from "./components/PracticeTextCardList"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import Loading from "../../components/Loading/Loading"
 import AddNewLessonModal from "./components/AddNewPracticeTextModal"
-import PracticeTextSearchOptions from "./components/PracticeTextSearchOptions"
 import Button from "../../components/Form/Button"
 import PageLayout from "../../layout/Page.layout/Page.layout"
 
@@ -36,7 +33,6 @@ const PracticeTextListPage = () => {
   })
 
   const [isAddTextModalOpen, setIsAddTextModalOpen] = useState<boolean>(false)
-  const [isSearchTextModalOpen, setIsSearchTextModalOpen] = useState<boolean>(false)
 
   const { user } = useAuthStore()
   const isAdmin = user?.accountType === "Admin"
@@ -82,117 +78,6 @@ const PracticeTextListPage = () => {
   // closes AddNewTextModal
   const handleCloseAddNewTextModal = () => {
     setIsAddTextModalOpen(false)
-  }
-
-  // opens TextSearchModal, where user can select text search options
-  const handleOpenTextSearchModal = () => {
-    setIsSearchTextModalOpen(true)
-  }
-
-  // closes TextSearchModal
-  const handleCloseTextSearchModal = () => {
-    setIsSearchTextModalOpen(false)
-  }
-
-  // sets search options to default values
-  const handleClearSearchOptions = () => {
-    setSearchOptions({
-      level: "Any",
-      author: null,
-      textLength: {
-        from: null,
-        to: null,
-      },
-      written: { from: null, to: null },
-      added: { from: null, to: null },
-    })
-  }
-
-  // renders selected search options
-  const renderSearchListItems = () => {
-    const items = []
-
-    if (searchOptions.level !== null && searchOptions.level !== "Any") {
-      items.push(
-        <SearchListItem
-          key="level"
-          name={searchOptions.level}
-          removeItem={() => {
-            setSearchOptions((prevState) => {
-              const updatedState = { ...prevState }
-              updatedState.level = null
-              return updatedState
-            })
-          }}
-        />
-      )
-    }
-
-    // checks and adds length to the search items
-    if (searchOptions.textLength.from !== null || searchOptions.textLength.to !== null) {
-      const lengthRange = `${searchOptions.textLength.from || ""}-${
-        searchOptions.textLength.to || ""
-      }`
-      items.push(
-        <SearchListItem
-          key="length"
-          name={`Length: ${lengthRange}`}
-          removeItem={() => {
-            setSearchOptions((prevState) => {
-              const updatedState = { ...prevState }
-              updatedState.textLength.from = null
-              updatedState.textLength.to = null
-              return updatedState
-            })
-          }}
-        />
-      )
-    }
-
-    // checks and adds written to the search items
-    if (searchOptions.written.from !== null || searchOptions.written.to !== null) {
-      const writtenRange = `${searchOptions.written.from || ""}-${searchOptions.written.to || ""}`
-      items.push(
-        <SearchListItem
-          key="written"
-          name={`Written: ${writtenRange}`}
-          removeItem={() => {
-            setSearchOptions((prevState) => {
-              const updatedState = { ...prevState }
-              updatedState.written.from = null
-              updatedState.written.to = null
-              return updatedState
-            })
-          }}
-        />
-      )
-    }
-
-    // checks and adds added to the search items
-    if (searchOptions.added.from !== null || searchOptions.added.to !== null) {
-      const addedRange = `${searchOptions.added.from || ""}-${searchOptions.added.to || ""}`
-      items.push(
-        <SearchListItem
-          key="added"
-          name={`Added: ${addedRange}`}
-          removeItem={() => {
-            setSearchOptions((prevState) => {
-              const updatedState = { ...prevState }
-              updatedState.added.from = null
-              updatedState.added.to = null
-              return updatedState
-            })
-          }}
-        />
-      )
-    }
-
-    return items
-  }
-
-  // function to update search options
-  const handleChangeSearchOptions = (updatedSearchOptions: SearchOptions) => {
-    setSearchOptions(updatedSearchOptions)
   }
 
   // renders fetched texts
@@ -250,35 +135,8 @@ const PracticeTextListPage = () => {
           placeholder={t("search")}
           handleTextChange={handleTextChange}
         />
-        <div className="search-options-button-list">
-          <div className="search-options-list">
-            <Button
-              onClick={handleOpenTextSearchModal}
-              className="search-options-button"
-            >
-              {t("more options")}
-            </Button>
-            {renderSearchListItems()}
-            {/* {renderSearchListItems().length > 0 ? (
-              <Button
-                onClick={handleClearSearchOptions}
-                className="search-options-button search-options-clear"
-              >
-                <TrashIcon className="trash-icon" />
-              </Button>
-            ) : null} */}
-          </div>
-        </div>
+        <div className="search-options-button-list"></div>
       </div>
-
-      {/* it works, but its incorrect */}
-      <PracticeTextSearchOptions
-        isVisible={isSearchTextModalOpen}
-        closeSearchOptions={handleCloseTextSearchModal}
-        selectedSearchOptions={searchOptions}
-        saveSearchOptions={handleChangeSearchOptions}
-        key={JSON.stringify(searchOptions)}
-      />
       <AddNewLessonModal
         isVisible={isAddTextModalOpen}
         closeModal={handleCloseAddNewTextModal}
@@ -288,21 +146,3 @@ const PracticeTextListPage = () => {
   )
 }
 export default PracticeTextListPage
-
-interface SearchListItemProps {
-  name: string | null
-  removeItem: () => void
-}
-
-const SearchListItem = ({ name, removeItem }: SearchListItemProps) => {
-  if (name === null) return
-
-  return (
-    <button
-      onClick={removeItem}
-      className="search-list-item"
-    >
-      {name}
-    </button>
-  )
-}

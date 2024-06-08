@@ -47,7 +47,8 @@
     "edit": "edit",
     "expand": "expand",
     "hide": "hide keyboard",
-    "show": "show keyboard"
+    "show": "show keyboard",
+    "Erase": "Erase"
   },
 
   "profile page": {
@@ -159,7 +160,8 @@
     "extra large": "extra large",
     "text example": "text example",
     "text example text": "your text will look like this. words after that are only for length, so you will see how text looks on more than one line",
-    "reset settings": "reset settings"
+    "reset settings": "reset settings",
+    "Eng": "English"
   },
 
   "play page": {

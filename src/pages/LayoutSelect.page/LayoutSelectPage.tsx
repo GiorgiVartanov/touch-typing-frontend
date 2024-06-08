@@ -1,23 +1,20 @@
 import { useState } from "react"
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query"
+import { useInfiniteQuery } from "@tanstack/react-query"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 import { getLayouts } from "../../services/keyboardServices"
-import { KeyInterface, KeyboardLayoutInterface } from "../../types/keyboard.types"
+import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 
 import PageLayout from "../../layout/Page.layout/Page.layout"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import Loading from "../../components/Loading/Loading"
-import CardList from "../../components/Card/CardList"
-import LayoutCard from "./LayoutCard"
 import LayoutCardList from "./LayoutCardList"
-import Button from "../../components/Form/Button"
 
 const LayoutSelectPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("All")
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("Geo")
 
   const { t } = useTranslation("translation", { keyPrefix: "layout page" })
 
@@ -87,14 +84,18 @@ const LayoutSelectPage = () => {
 
     return (
       <div className="layout-list-page-body">
-        <div className="layout-lists">
-          <h2 className="layout-list-title">{t("standard layouts")}</h2>
-          <LayoutCardList layouts={officialLayouts} />
-        </div>
-        <div className="layout-lists">
-          <h2 className="layout-list-title">{t("layouts created by our users")}</h2>
-          <LayoutCardList layouts={nonOfficialLayouts} />
-        </div>
+        {officialLayouts?.length > 0 ? (
+          <div className="layout-lists">
+            <h2 className="layout-list-title">{t("standard layouts")}</h2>
+            <LayoutCardList layouts={officialLayouts} />
+          </div>
+        ) : null}
+        {nonOfficialLayouts?.length > 0 ? (
+          <div className="layout-lists">
+            <h2 className="layout-list-title">{t("layouts created by our users")}</h2>
+            <LayoutCardList layouts={nonOfficialLayouts} />
+          </div>
+        ) : null}
       </div>
     )
   }
@@ -115,21 +116,6 @@ const LayoutSelectPage = () => {
           >
             {t("create your own layout")}
           </Link>
-          {/* <Button
-            onClick={handleOpenTextSearchModal}
-            className="search-options-button"
-          >
-            {t("more options")}
-          </Button> */}
-          {/* {renderSearchListItems()}
-          {renderSearchListItems().length > 0 ? (
-            <Button
-              onClick={handleClearSearchOptions}
-              className="search-options-button search-options-clear"
-            >
-              <TrashIcon className="trash-icon" />
-            </Button>
-          ) : null} */}
         </div>
       </div>
       {renderLayouts()}

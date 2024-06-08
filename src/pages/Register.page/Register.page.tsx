@@ -155,6 +155,13 @@ const RegisterPage = () => {
 
   return (
     <PageLayout className="register-page">
+      <div className="registration-benefits">
+        <h2>after registration, you will be able to</h2>
+        <ul>
+          <li>save and share your layouts</li>
+          <li>save your preferences</li>
+        </ul>
+      </div>
       <Form onSubmit={handleSubmit}>
         <Input
           name={t("username")}

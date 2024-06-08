@@ -142,7 +142,7 @@ const TypeableKeyboard = ({
   const renderRightSideKeyboardButtons = () => {
     return (
       <div className="keyboard-right-side-buttons">
-        <Button
+        {/* <Button
           onClick={handleButtonClick}
           className={`show-more-keyboard-action-buttons-button ${areRightSideButtonsOpen ? "active" : ""}`}
         >
@@ -152,35 +152,29 @@ const TypeableKeyboard = ({
           >
             <WrenchIcon className="icon" />
           </Tooltip>
-        </Button>
+        </Button> */}
 
-        {areRightSideButtonsOpen ? (
-          <div className="keyboard-button-list">
-            <Tooltip
-              tooltipContent={t("how to install")}
-              tooltipPosition="bottom-center"
+        <div className="keyboard-button-list">
+          <Tooltip
+            tooltipContent={t("how to install")}
+            tooltipPosition="bottom-center"
+          >
+            <Link
+              className="button how-to-install-link"
+              to={`../guides/how_to_install_layout_on_${userOS}`}
             >
-              <Link
-                className="button how-to-install-link"
-                style={{ animationDelay: "100ms" }}
-                to={`../guides/how_to_install_layout_on_${userOS}`}
-              >
-                <QuestionIcon className="icon" />
-              </Link>
-            </Tooltip>
-            <Tooltip
-              tooltipContent={t("Export")}
-              tooltipPosition="bottom-left"
-            >
-              <Button
-                onClick={() => {}}
-                style={{ animationDelay: "0ms" }}
-              >
-                <ExportIcon className="icon" />
-              </Button>
-            </Tooltip>
-          </div>
-        ) : null}
+              <QuestionIcon className="icon" />
+            </Link>
+          </Tooltip>
+          <Tooltip
+            tooltipContent={t("Export")}
+            tooltipPosition="bottom-left"
+          >
+            <Button onClick={() => {}}>
+              <ExportIcon className="icon" />
+            </Button>
+          </Tooltip>
+        </div>
       </div>
     )
   }
@@ -268,8 +262,6 @@ const TypeableKeyboard = ({
       window.removeEventListener("keyup", handleKeyUnPress)
     }
   }, [])
-
-  console.log(showKeyboardWhileTyping, forceVisible)
 
   return (
     <div

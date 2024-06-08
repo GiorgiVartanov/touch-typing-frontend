@@ -6,6 +6,7 @@ import { KeyInterface } from "../../../types/keyboard.types"
 import { KeyboardLanguageType } from "../../../types/typer.types/typingSettings.types"
 import { useAuthStore } from "../../../store/context/authContext"
 import { saveKeyboardOnServer } from "../../../services/keyboardServices"
+import checkIfKeyboardHasEmptyKeys from "../../../util/checkIfKeyboardHasEmptyKeys"
 
 import Modal from "../../Modal/Modal"
 import Form from "../../Form/Form"
@@ -42,9 +43,11 @@ const SaveLayoutModal = ({
   )
   const [title, setTitle] = useState<string>(currentTitle || "")
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
+  const hasEmptyKeys = checkIfKeyboardHasEmptyKeys(keyboard)
 
+  console.log(hasEmptyKeys)
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
 
@@ -88,20 +91,29 @@ const SaveLayoutModal = ({
       className={`save-layout-modal ${className}`}
     >
       <Form onSubmit={handleSubmit}>
-        <Select
+        {/* <Select
           name="layout language"
           value={selectedLanguage}
           options={keyboardLanguageOptions}
           onChange={handleSelectLanguage}
-        />
+        /> */}
         <Input
           name="title"
           value={title}
           onChange={handleTitleChange}
         />
+        {hasEmptyKeys ? (
+          <div className="ul">
+            <p>warnings:</p>
+            <ul>
+              <li></li>
+            </ul>
+          </div>
+        ) : null}
         <Button
           className="save-keyboard-submit-button"
           type="submit"
+          disabled={hasEmptyKeys}
         >
           Save
         </Button>

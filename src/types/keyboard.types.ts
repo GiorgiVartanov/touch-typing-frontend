@@ -28,5 +28,5 @@ export interface KeyboardLayoutInterface {
   language: KeyboardLanguageType
   public: boolean
   official: boolean
-  user: User
+  creator: User | string
 }

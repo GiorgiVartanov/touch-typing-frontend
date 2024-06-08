@@ -17,20 +17,12 @@ import PracticePage from "./pages/PracticeText.page/PracticeText.page"
 import PlayPage from "./pages/Play.page/Play.page"
 import PageNotFoundPage from "./pages/PageNotFound.page/PageNotFound.page"
 import ProfilePage from "./pages/Profile.page/Profile.page"
-import FakeWordsPage from "./pages/FakeWords.page/FakeWords"
-import LeaderboardsPage from "./pages/Leaderboards.page/Leaderboards.page"
-import NotificationsPage from "./pages/Notifications.page/Notifications.page"
 import LessonList from "./pages/LessonList.page/LessonList.page"
 import Lesson from "./pages/Lesson.page/Lesson.page"
-import GamesPage from "./pages/Games.page/Games.page"
-import SocialPage from "./pages/Social.page/Social.page"
 import CreateLayoutPage from "./pages/CreateLayout.page/CreateLayout.page"
 import LayoutSelectPage from "./pages/LayoutSelect.page/LayoutSelectPage"
 import LayoutPreviewPage from "./pages/LayoutPreview.page/LayoutPreview.page"
-
-// sub pages
-import Friends from "./pages/Profile.page/Friends"
-import History from "./pages/Profile.page/History"
+import InstallationGuidePage from "./pages/InstallationGuide.page/InstallationGuide.page"
 
 // components
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
@@ -97,10 +89,6 @@ const App = () => {
           element={<Lesson />}
         />
         <Route
-          path="/fake"
-          element={<FakeWordsPage />}
-        />
-        <Route
           path="/play"
           element={<PlayPage />}
         />
@@ -121,18 +109,6 @@ const App = () => {
           element={<ProfilePage />}
         />
         <Route
-          path="/leaderboards"
-          element={<LeaderboardsPage />}
-        />
-        <Route
-          path="/notifications"
-          element={
-            <ProtectedRoute level="User">
-              <NotificationsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/layout"
           element={<LayoutSelectPage />}
         />
@@ -140,13 +116,9 @@ const App = () => {
           path="/layout/:id"
           element={<LayoutPreviewPage />}
         />
-        {/* <Route
-          path="/social"
-          element={<SocialPage />}
-        /> */}
         <Route
-          path="/games"
-          element={<GamesPage />}
+          path="/guides/how_to_install_layout_on_windows"
+          element={<InstallationGuidePage />}
         />
         <Route
           path="/*"

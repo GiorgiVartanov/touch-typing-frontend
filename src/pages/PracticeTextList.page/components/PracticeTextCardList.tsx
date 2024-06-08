@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next"
+
 import { Text } from "../../../types/practiceText.types"
 
 import PracticeTextCard from "./PracticeTextCard"
@@ -19,6 +21,7 @@ const PracticeTextCardList = ({
   addNewTextModal,
 }: Props) => {
   // if (textList.length === 0) return
+  const { t } = useTranslation("translation", { keyPrefix: "practice" })
 
   return (
     <CardList className="text-card-list">
@@ -27,7 +30,7 @@ const PracticeTextCardList = ({
           onClick={addNewTextModal}
           className="add-new-text-button"
         >
-          Add New Text
+          {t("Add New Text")}
         </Button>
       ) : null}
       {textList?.map((text, index) => (

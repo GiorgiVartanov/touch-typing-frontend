@@ -45,7 +45,7 @@ export const defaultKeyboardLayout: savedKeyboardLayoutInterface = {
   Geo: qwertyGeorgianKeyboardLayout,
 }
 
-export const defaultKeyboardLanguage = "Eng"
+export const defaultKeyboardLanguage = "Geo"
 export const defaultKeyboardType = "ANSI"
 export const defaultKeyboardSize = "medium"
 export const defaultShowColoredKeys = true

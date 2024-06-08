@@ -4,13 +4,17 @@ import { useParams } from "react-router-dom"
 import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 import { getLayout } from "../../services/keyboardServices"
 import "./styles.scss"
+import { useAuthStore } from "../../store/context/authContext"
 
 import Loading from "../../components/Loading/Loading"
 import Keyboard from "../../components/Keyboard/Keyboard"
 import PageLayout from "../../layout/Page.layout/Page.layout"
+import Button from "../../components/Form/Button"
 
 const LayoutPreviewPage = () => {
   const { id } = useParams()
+
+  const { user } = useAuthStore()
 
   const fetchLayout = async (): Promise<{ data: KeyboardLayoutInterface } | null> => {
     if (!id) return null
@@ -32,17 +36,28 @@ const LayoutPreviewPage = () => {
     const keyboardLayout = data.data
 
     return (
-      <Keyboard
-        forcedKeyboardLayout={keyboardLayout}
-        forceVisible={true}
-        showHideKeyboardButton={false}
-        showKeyboardTypeSelector={true}
-        showSelectButton={true}
-        showLanguageSelector={false}
-        showEditButton={false}
-        showUtilityButtons={true}
-        mode="editable"
-      />
+      <div className="preview-page-keyboard-wrapper">
+        <h2 className="layout-title">
+          <span className="layout-title-name"> {keyboardLayout?.title}</span>
+          {keyboardLayout?.creator ? (
+            <>
+              <span className="creation-message">by</span>
+              <span className="layout-creator">{keyboardLayout?.creator as string}</span>
+            </>
+          ) : null}
+        </h2>
+        <Keyboard
+          forcedKeyboardLayout={keyboardLayout}
+          forceVisible={true}
+          showHideKeyboardButton={false}
+          showKeyboardTypeSelector={true}
+          showSelectButton={true}
+          showLanguageSelector={false}
+          showEditButton={false}
+          showUtilityButtons={true}
+          mode="editable"
+        />
+      </div>
     )
   }
 
