@@ -11,7 +11,7 @@
     "learn": "learn",
     "lessons": "lessons",
     "competition": "competition",
-    "practice": "practice",
+    "practice": "texts",
     "games": "games",
     "other": "other",
     "social": "social",
@@ -24,11 +24,12 @@
     "log in": "log in",
     "stay": "stay",
     "go back": "back",
-    "type": "type",
+    "type": "typing",
     "keyboard": "keyboard",
     "search": "search",
     "create": "create",
-    "are you sure you want to log out?": "are you sure you want to log out?"
+    "are you sure you want to log out?": "are you sure you want to log out?",
+    "account": "account"
   },
 
   "keyboard": {
@@ -48,7 +49,8 @@
     "expand": "expand",
     "hide": "hide keyboard",
     "show": "show keyboard",
-    "Erase": "Erase"
+    "Erase": "Erase",
+    "Optimize Layout": "Optimize Layout"
   },
 
   "profile page": {
@@ -64,7 +66,16 @@
     "Search Options": "Search options",
     "level": "Level",
     "Start Search": "Start search",
-    "search": "search"
+    "search": "search",
+    "Easy": "Easy",
+    "Medium": "Medium",
+    "Hard": "Hard",
+    "Add New Text": "Add New Text",
+    "title": "title",
+    "text": "text",
+    "description": "description",
+    "Add New Practice Text": "Add New Text",
+    "Add Text": "Add Text"
   },
 
   "typer": {
@@ -99,9 +110,10 @@
     "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
     "select layout": "select",
     "create layout": "create",
-    "compete": "compete",
+    "compete": "Compete",
     "see lessons": "lessons",
-    "texts": "texts"
+    "texts": "texts",
+    "keyboard": "Keyboard"
   },
 
   "auth page": {
@@ -116,7 +128,10 @@
     "user with this username does not exist": "user with this username does not exist",
     "username too short": "username should be longer than {{minUsernameLength}} characters",
     "username too long": "username should be shorter than {{maxUsernameLength}} characters",
-    "passwords do not match": "passwords do not match"
+    "passwords do not match": "passwords do not match",
+    "after registration, you will be able to": "after registration, you will be able to",
+    "save and share your layouts": "save and share your layouts",
+    "save your preferences": "save your preferences"
   },
 
   "settings page": {

@@ -22,6 +22,7 @@ const defaultTextDate: Text = {
   text: "",
   author: "",
   publishedOn: "",
+  language: "Geo",
 }
 
 interface Props {
@@ -114,18 +115,11 @@ const AddNewPracticeTextModal = ({ isVisible, closeModal }: Props) => {
         <Select
           name={t("level")}
           value={newTextData.level}
-          options={["Easy", "Intermediate", "Normal", "Hard", "Expert", "Advanced"]}
-          optionsToShow={[
-            t("Easy"),
-            t("Intermediate"),
-            t("Normal"),
-            t("Hard"),
-            t("Expert"),
-            t("Advanced"),
-          ]}
+          options={["Easy", "Medium", "Hard"]}
+          optionsToShow={[t("Easy"), t("Medium"), t("Hard")]}
           onChange={(selectedLevel) => handleLevelChange(selectedLevel as DifficultyLevel)}
         />
-        <Button className="submit-button cta-button add-new-text-button">Add Text</Button>
+        <Button className="submit-button cta-button add-new-text-button">{t("Add Text")}</Button>
       </Form>
     </Modal>
   )

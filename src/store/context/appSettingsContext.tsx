@@ -34,7 +34,7 @@ const AppSettingsProvider = ({ children }: Props) => {
 
   const { token } = useAuthStore()
 
-  const languageOptions = ["System Default", "Geo", "En"] as LanguageType[]
+  const languageOptions = ["System Default", "Geo", "Eng"] as LanguageType[]
   const themeOptions = ["System Default", "Dark", "Light"] as ThemeType[]
 
   // saves a setting in the localStorage and on the server (if saveOnServer is true and a token is available)
@@ -70,14 +70,14 @@ const AppSettingsProvider = ({ children }: Props) => {
     saveSetting("language", newValue, saveOnServer)
     dispatch(setLanguageAction(newValue))
 
-    let languageToApply = "en"
+    let languageToApply = "eng"
 
     if (newValue === "System Default") {
       // user's browser's language
       const systemDefaultLanguage = navigator.language.split("-")[0]
 
       if (systemDefaultLanguage === "ka") languageToApply = "geo"
-      else languageToApply = "en"
+      else languageToApply = "eng"
     } else {
       languageToApply = newValue.toLowerCase()
     }
@@ -114,13 +114,13 @@ const AppSettingsProvider = ({ children }: Props) => {
   }, [token])
 
   useEffect(() => {
-    let languageToApply = "en"
+    let languageToApply = "eng"
 
     if (state.language === "System Default") {
       const systemDefaultLanguage = navigator.language.split("-")[0]
 
       if (systemDefaultLanguage === "ka") languageToApply = "geo"
-      else languageToApply = "en"
+      else languageToApply = "eng"
     } else {
       languageToApply = state.language.toLowerCase()
     }

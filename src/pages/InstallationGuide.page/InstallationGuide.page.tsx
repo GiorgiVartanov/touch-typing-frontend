@@ -12,7 +12,10 @@ const InstallationGuidePage = () => {
         <li>
           <p>
             Installl{" "}
-            <a href="https://www.microsoft.com/en-us/download/details.aspx?id=102134">
+            <a
+              href="https://www.microsoft.com/en-us/download/details.aspx?id=102134"
+              target="_blank"
+            >
               Microsoft Keyboard Layout Creator Tool 1.4
             </a>{" "}
           </p>

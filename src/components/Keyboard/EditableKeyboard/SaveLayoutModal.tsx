@@ -91,12 +91,6 @@ const SaveLayoutModal = ({
       className={`save-layout-modal ${className}`}
     >
       <Form onSubmit={handleSubmit}>
-        {/* <Select
-          name="layout language"
-          value={selectedLanguage}
-          options={keyboardLanguageOptions}
-          onChange={handleSelectLanguage}
-        /> */}
         <Input
           name="title"
           value={title}

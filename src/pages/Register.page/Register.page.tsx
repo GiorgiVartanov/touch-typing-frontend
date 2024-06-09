@@ -35,12 +35,6 @@ const RegisterPage = () => {
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > maxUsernameLength) {
-      // setCredentialsError((prevState) => ({
-      //   usernameError: [`username should be shorter than ${maxUsernameLength}`],
-      //   passwordError: prevState.passwordError,
-      //   confirmPasswordError: prevState.confirmPasswordError,
-      // }))
-
       return
     }
 
@@ -59,12 +53,6 @@ const RegisterPage = () => {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > maxPasswordLength) {
-      // setCredentialsError((prevState) => ({
-      //   usernameError: prevState.usernameError,
-      //   passwordError: [`password should be shorter than ${maxPasswordLength}`],
-      //   confirmPasswordError: prevState.confirmPasswordError,
-      // }))
-
       return
     }
 
@@ -156,10 +144,10 @@ const RegisterPage = () => {
   return (
     <PageLayout className="register-page">
       <div className="registration-benefits">
-        <h2>after registration, you will be able to</h2>
+        <h2>{t("after registration, you will be able to")}</h2>
         <ul>
-          <li>save and share your layouts</li>
-          <li>save your preferences</li>
+          <li>{t("save and share your layouts")}</li>
+          <li>{t("save your preferences")}</li>
         </ul>
       </div>
       <Form onSubmit={handleSubmit}>

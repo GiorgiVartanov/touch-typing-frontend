@@ -83,18 +83,6 @@ const Header = ({ isSticky = false }: Props) => {
           >
             <NavLink to={`/profile/${username}/`}>{t("profile")}</NavLink>
           </DropDownItem>
-          {/* <DropDownItem
-            icon={<BellIcon />}
-            closeNavigation={handleCloseNavigation}
-          >
-            <NavLink
-              to={`/notifications`}
-              className="notifications-link"
-            >
-              {token ? <NotificationsAmount token={token} /> : null}
-              {t("notifications")}
-            </NavLink>
-          </DropDownItem> */}
           <DropDownItem
             icon={<LogoutIcon />}
             className="logout-button-item"
@@ -114,20 +102,34 @@ const Header = ({ isSticky = false }: Props) => {
   const renderGuestNavigation = () => {
     return (
       <>
-        <NavLink
-          to={`/register`}
-          className="nav-item nav-item-link"
-          onClick={handleCloseNavigation}
-        >
-          {t("register")}
-        </NavLink>
-        <NavLink
-          to={`/login`}
-          className="nav-item nav-item-link"
-          onClick={handleCloseNavigation}
-        >
-          {t("log in")}
-        </NavLink>
+        <NavItem icon={t("account")}>
+          <DropDownMenu>
+            <DropDownItem
+              icon={<ProfileIcon />}
+              // closeNavigation={handleCloseNavigation}
+            >
+              <NavLink
+                to={`/register`}
+                className="nav-item nav-item-link"
+                onClick={handleCloseNavigation}
+              >
+                {t("register")}
+              </NavLink>
+            </DropDownItem>
+            <DropDownItem
+              icon={<LogoutIcon />}
+              // className="logout-button-item"
+            >
+              <NavLink
+                to={`/login`}
+                className="nav-item nav-item-link"
+                onClick={handleCloseNavigation}
+              >
+                {t("log in")}
+              </NavLink>
+            </DropDownItem>
+          </DropDownMenu>
+        </NavItem>
       </>
     )
   }
