@@ -11,8 +11,6 @@ export interface PvPMatch {
   ratingChange: number
 }
 
-// export type PracticeTextTag =
-
 export interface Text {
   _id: string
   title: string
@@ -34,15 +32,7 @@ export interface HistoryItem {
   item: Text | PvPMatch
 }
 
-export type DifficultyLevel =
-  | "Any"
-  | "Easy"
-  | "Intermediate"
-  | "Normal"
-  | "Hard"
-  | "Advanced"
-  | "Expert"
-  | "none"
+export type DifficultyLevel = "Easy" | "Medium" | "Hard"
 
 export interface PracticeTextApiResponse {
   data: Text[]

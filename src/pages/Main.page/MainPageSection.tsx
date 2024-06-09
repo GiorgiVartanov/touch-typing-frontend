@@ -2,12 +2,13 @@ import { useState } from "react"
 
 interface Props {
   title: string
+  id: string
   description: string
   className?: string
   children?: React.ReactNode
 }
 
-const MainPageSection = ({ title, description, className = "", children }: Props) => {
+const MainPageSection = ({ title, id, description, className = "", children }: Props) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
 
   const handleMouseEnter = () => {

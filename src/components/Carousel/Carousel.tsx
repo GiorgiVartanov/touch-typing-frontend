@@ -3,24 +3,29 @@ import "./styles.scss"
 
 interface Props {
   children: React.ReactNode[]
+  showTitleOfNextPage?: boolean
 }
 
-const Carousel = ({ children }: Props) => {
+const Carousel = ({ children, showTitleOfNextPage = true }: Props) => {
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const [previousDirection, setPreviousDirection] = useState<"left" | "right" | "none">("none")
 
-  const nextSlide = () => {
-    // if (currentSlide >= lastSlide) return
+  const calculateNextSlide = (slide: number) => {
+    if (slide >= children.length - 1) return 0
+    return slide + 1
+  }
 
-    setPreviousDirection("left")
-    setCurrentSlide((prev) => (prev === children.length - 1 ? 0 : prev + 1))
+  const calculatePreviousSlide = (slide: number) => {
+    if (slide <= 0) return children.length - 1
+    return slide - 1
+  }
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => calculateNextSlide(prev))
   }
 
   const prevSlide = () => {
-    // if (currentSlide <= 0) return
-
-    setPreviousDirection("right")
-    setCurrentSlide((prev) => (prev === 0 ? children.length - 1 : prev - 1))
+    setCurrentSlide((prev) => calculatePreviousSlide(prev))
   }
 
   return (
@@ -37,12 +42,22 @@ const Carousel = ({ children }: Props) => {
           onClick={prevSlide}
         >
           &#10094;
+          {showTitleOfNextPage ? (
+            <div className="prev-slide-title">
+              {children[calculatePreviousSlide(currentSlide)]?.props.id}
+            </div>
+          ) : null}
         </button>
         <button
           className={"next"}
           onClick={nextSlide}
         >
           &#10095;
+          {showTitleOfNextPage ? (
+            <div className="next-slide-title">
+              {children[calculateNextSlide(currentSlide)]?.props.id}
+            </div>
+          ) : null}
         </button>
       </div>
       <div className="carousel-buttons">

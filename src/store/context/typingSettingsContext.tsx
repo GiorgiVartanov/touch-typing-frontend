@@ -53,7 +53,7 @@ const TypingSettingsProvider = ({ children }: Props) => {
   const keyboardLanguageOptions: KeyboardLanguageType[] = ["Geo", "Eng"]
   const keyboardTypeOptions: KeyboardTypeType[] = ["ANSI", "ANSI-ISO", "ISO"]
   const keyboardSizeOptions: KeyboardSizeType[] = ["small", "medium", "large"]
-  const fontOptions: FontType[] = ["sans", "serif", "sanet"]
+  const fontOptions: FontType[] = ["sans", "serif"]
   const fontSizeOptions: FontSizeType[] = ["small", "medium", "large", "extra large"]
 
   // saves a setting in the localStorage and on the server (if saveOnServer is true and a token is available)

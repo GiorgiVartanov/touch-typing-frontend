@@ -18,6 +18,7 @@ const MainPage = () => {
         <Carousel>
           <MainPageSection
             title={t("create custom keyboard layout")}
+            id={t("keyboard")}
             description={t(
               "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community."
             )}
@@ -37,6 +38,7 @@ const MainPage = () => {
           </MainPageSection>
           <MainPageSection
             title={t("compete against other users")}
+            id={t("compete")}
             description={t(
               "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions."
             )}
@@ -50,6 +52,7 @@ const MainPage = () => {
           </MainPageSection>
           <MainPageSection
             title={t("follow carefully crafted lessons")}
+            id={t("lessons")}
             description={t(
               "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency."
             )}

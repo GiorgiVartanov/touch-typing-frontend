@@ -28,6 +28,7 @@ import SelectedEditableKey from "./SelectedEditableKey"
 import Button from "../../Form/Button"
 import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
+import OptimizeLayoutModal from "./OptimizeLayoutModal"
 import KeyboardOptions from "../KeyboardOptions"
 
 import { useOptimizationStore } from "../../../store/context/optimizationContext"
@@ -82,16 +83,7 @@ const EditableKeyboard = ({
   uneditableSecondValueKeys = [], // keys that have their second (one accessed with shift/caps lock) value uneditable
   keySize = 3.25, // size of one key in rem
 }: Props) => {
-  const {
-    progress,
-    startOptimization,
-    optimizationStatus,
-    optimizedEditingKeyboard,
-    setOptimizedEditingKeyboard,
-  } = useOptimizationStore()
-  const [optimizationConfig, setOptimizationConfig] =
-    useState<OptimizationConfig>(initialOptimizationConfig)
-  const [showOptimizationConfig, setShowOptimizationConfig] = useState<boolean>(true)
+  const { optimizedEditingKeyboard, setOptimizedEditingKeyboard } = useOptimizationStore()
 
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
@@ -106,9 +98,10 @@ const EditableKeyboard = ({
   const [editingKeyboard, setEditingKeyboard] = useState<KeyInterface[]>(
     structuredClone(startingKeyboard) // deep copy
   ) // startingKeyboard prop is used as a default value here
-  const [areRightSideButtonsOpen, setAreRightSideButtonsOpen] = useState<boolean>(false)
   const [userOS, setUserOS] = useState<string | null>(null)
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
+  const [isOptimizeLayoutModalOpen, setIsOptimizeLayoutOpen] = useState<boolean>(false)
+
   useEffect(() => {
     if (editingKeyboard === optimizedEditingKeyboard) setOptimizedEditingKeyboard(undefined)
   }, [editingKeyboard])
@@ -116,10 +109,8 @@ const EditableKeyboard = ({
   if (optimizedEditingKeyboard) {
     if (editingKeyboard !== optimizedEditingKeyboard) setEditingKeyboard(optimizedEditingKeyboard)
   }
-  useEffect(() => {}, [optimizationConfig])
 
   const renderKeyboard = () => {
-    // will change letter
     const backslashKeyIndex = 27
     const secondBackslashIndex = 43
     const enterKeyIndex = 40
@@ -169,59 +160,13 @@ const EditableKeyboard = ({
     setCurrentlyEditing(null)
   }
 
-  // when user clicks on button to open/close buttons in a bottom right corner of a keyboard
-  const handleRightSideButtons = () => {
-    setAreRightSideButtonsOpen((prevState) => !prevState)
-  }
-
-  // closes buttons in a bottom right corner
-  const handleCloseRightSideButtons = () => {
-    setAreRightSideButtonsOpen(false)
-  }
-
   // resets keyboard to default value (one that user has selected)
   const resetKeys = () => {
     setEditingKeyboard(startingKeyboard)
   }
 
-  //
-  const optimizeLayout = async () => {
-    startOptimization(optimizationConfig)
-  }
-
-  const optimizationModal = () => {
-    return (
-      <Form
-        onSubmit={() => {}}
-        className="optimization_form"
-      >
-        <Input
-          name="number_of_generations"
-          type="number"
-          value={optimizationConfig.number_of_generations}
-          onChange={(e) => {
-            setOptimizationConfig((prevstate) => ({
-              ...prevstate,
-              number_of_generations: Number(e.target.value),
-            }))
-          }}
-        ></Input>
-        <Input
-          name="modifier_overhead_weight"
-          type="number"
-          value={optimizationConfig.effort_parameters.modifier_overhead_weight}
-          onChange={(e) => {
-            setOptimizationConfig((prevState) => ({
-              ...prevState,
-              effort_parameters: {
-                ...prevState.effort_parameters,
-                modifier_overhead_weight: Number(e.target.value),
-              },
-            }))
-          }}
-        ></Input>
-      </Form>
-    )
+  const handleNotImplemented = () => {
+    toast.warning("This feature is not yet implemented")
   }
 
   // opens save layout modal
@@ -231,10 +176,6 @@ const EditableKeyboard = ({
     } else {
       toast.warning("log in to save your layout", { toastId: "log in to save your layout" })
     }
-  }
-
-  const handleNotImplemented = () => {
-    toast.warning("This feature is not yet implemented")
   }
 
   // closes save layout modal
@@ -259,6 +200,25 @@ const EditableKeyboard = ({
         currentLanguage={keyboardLanguage}
         currentTitle={currentTitle}
         closeModal={handleCloseSaveKeyboardModal}
+      />
+    )
+  }
+
+  const handleOpenOptimizeKeyboardLayoutModal = () => {
+    setIsOptimizeLayoutOpen(true)
+  }
+
+  const handleCloseOptimizeKeyboardLayoutModal = () => {
+    setIsOptimizeLayoutOpen(false)
+  }
+
+  const renderOptimizeKeyboardLayoutModal = () => {
+    if (!isOptimizeLayoutModalOpen) return
+
+    return (
+      <OptimizeLayoutModal
+        isVisible={isOptimizeLayoutModalOpen}
+        closeModal={handleCloseOptimizeKeyboardLayoutModal}
       />
     )
   }
@@ -575,7 +535,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Optimize")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={optimizeLayout}>
+            <Button onClick={handleOpenOptimizeKeyboardLayoutModal}>
               <RobotIcon className="icon" />
             </Button>
           </Tooltip>
@@ -649,10 +609,7 @@ const EditableKeyboard = ({
     )
   }
 
-  useOnClickOutside(ref, () => {
-    handleOnClickOutside()
-    handleCloseRightSideButtons()
-  })
+  useOnClickOutside(ref, handleOnClickOutside)
 
   // detects user's OS
   useEffect(() => {
@@ -732,16 +689,6 @@ const EditableKeyboard = ({
       ref={ref}
       className="editable-keyboard-holder"
     >
-      {optimizationStatus == ProcessStatus.initialization_started ? (
-        <p>Optimization process is being initialized</p>
-      ) : optimizationStatus == ProcessStatus.initialization_finished ? (
-        <p>
-          Generations Complete: {progress.current_generation} / {progress.total_generations}
-        </p>
-      ) : (
-        <></>
-      )}
-      {showOptimizationConfig ? optimizationModal() : <></>}
       {renderSelectedKey()}
       <div className="editable-keyboard-content">
         <KeyboardOptions
@@ -761,6 +708,7 @@ const EditableKeyboard = ({
         </div>
         {renderEditableKeyboardButtons()}
         {renderSaveKeyboardLayoutModal()}
+        {renderOptimizeKeyboardLayoutModal()}
       </div>
     </div>
   )
