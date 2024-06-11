@@ -14,6 +14,7 @@ interface Props {
 const TextGenModesText: { [key: string]: string } = {
   FakeWords: "Fake words",
   CorpusWords: "Corpus words",
+  Sentences: "Sentences",
 }
 
 const PlayMatchCard = ({ match, match_key, onClick, option }: Props) => {

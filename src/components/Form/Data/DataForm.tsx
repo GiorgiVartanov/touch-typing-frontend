@@ -8,12 +8,14 @@ import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 import Button from "../../Form/Button"
+import SentencesForm from "./SentencesForm"
 
-type TextGenMode = "FakeWords" | "CorpusWords" //FakeWords, Corpus Words,
-const TextGenModes = ["FakeWords", "CorpusWords"]
+type TextGenMode = "FakeWords" | "CorpusWords" | "Sentences" //FakeWords, Corpus Words,
+const TextGenModes = ["FakeWords", "CorpusWords", "Sentences"]
 const TextGenModesText: { [key: string]: string } = {
   FakeWords: "Fake words",
   CorpusWords: "Corpus words",
+  Sentences: "Sentences",
 }
 
 interface matchProps {
@@ -129,6 +131,10 @@ const DataForm = ({ CreateMatch, setShowModal, className = "" }: FormProps) => {
           <FakeWordsForm {...{ setFetchedData, setLoading, setError, setTextRequest }} />
         ) : textGenerationMode === "CorpusWords" ? (
           <CorpusForm {...{ setFetchedData, setLoading, setError, setTextRequest }} />
+        ) : textGenerationMode === "Sentences" ? (
+          <SentencesForm
+            {...{ setFetchedData, setLoading, setError, setTextRequest }}
+          ></SentencesForm>
         ) : (
           <></>
         )}
