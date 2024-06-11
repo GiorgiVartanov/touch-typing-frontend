@@ -3,14 +3,10 @@ import ajax from "../../../services/ajax"
 import { Props } from "./DataForm"
 import Input from "../../Form/Input"
 import { useTranslation } from "react-i18next"
-
-export interface TextRequestWord {
-  type?: string
-  amount: Number
-}
+import { TextRequestSentence } from "../../../types/play.types"
 
 interface SentencesFormProps extends Props {
-  setTextRequest: (req: TextRequestWord) => void
+  setTextRequest: (req: TextRequestSentence) => void
 }
 
 const SentencesForm = ({

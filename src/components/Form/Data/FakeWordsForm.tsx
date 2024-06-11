@@ -2,19 +2,12 @@ import { useEffect, useState } from "react"
 import ajax from "../../../services/ajax"
 import { Props } from "./DataForm"
 import { useTranslation } from "react-i18next"
+import { TextRequestFake } from "../../../types/play.types"
 
 const georgianLetters = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ".split("")
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100]
 const minAmountOfSyllablesOptions = [1, 2, 3, 4, 5]
 const maxAmountOfSyllablesOptions = [1, 2, 3, 4, 5]
-
-export interface TextRequestFake {
-  type?: string
-  letter: string
-  amount: number
-  minAmountOfSyllables: number
-  maxAmountOfSyllables: number
-}
 
 interface fakeWordsProps extends Props {
   setTextRequest: (req: TextRequestFake) => void
