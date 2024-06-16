@@ -52,7 +52,20 @@
     "Erase": "წაშლა",
     "Optimize Layout": "განლაგების ოპტიმიზაცია",
     "number of generations": "number of generations",
-    "modifier overhead weight": "modifier overhead weight"
+    "modifier overhead weight": "modifier overhead weight",
+    "hit direction weight": "hit direction weight",
+    "hand alternation weight": "hand alternation weight",
+    "consecutive finger usage weight": "consecutive finger usage weight",
+    "same hand finger steps weight": "same hand finger steps weight",
+    "left to right ratio": "left to right ratio",
+    "finger distance weight": "finger distance weight",
+    "punctation placement variants": "punctation placement variants",
+    "Custom": "Custom",
+    "Qwerty": "Qwerty",
+    "Dvorjak": "Dvorjak",
+    "Left": "Left",
+    "Middle row free": "Middle row free",
+    "Spread": "Spread"
   },
 
   "profile page": {

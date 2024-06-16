@@ -65,3 +65,16 @@ export interface Character {
   character: string
   button_id: number | null
 }
+
+export enum PunctuationPlacement {
+  custom = 0,
+  qwerty = 1,
+  dvorjak = 2,
+  left = 3,
+  middle_free = 4,
+  spread = 5,
+}
+
+export interface PunctuationPlacementDictionary {
+  [placement: number]: number[]
+}

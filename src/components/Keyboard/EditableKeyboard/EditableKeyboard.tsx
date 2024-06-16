@@ -8,6 +8,7 @@ import { KeyInterface } from "../../../types/keyboard.types"
 import { useTypingSettingsStore } from "../../../store/context/typingSettingsContext"
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside"
 import { useAuthStore } from "../../../store/context/authContext"
+import { downloadKLCFile, transformKeyboardLayout } from "../../../util/generateKLCFile"
 
 import georgianLetters from "../../../letters/georgian.json"
 import englishLetters from "../../../letters/english.json"
@@ -167,6 +168,22 @@ const EditableKeyboard = ({
 
   const handleNotImplemented = () => {
     toast.warning("This feature is not yet implemented")
+  }
+
+  // lets user download layout in a .klc format
+  const handleExportLayout = () => {
+    const currentLayout = {
+      _id: "null",
+      language: "Geo",
+      title: "test",
+      public: true,
+      official: false,
+      keyboard: editingKeyboard,
+    }
+
+    downloadKLCFile(transformKeyboardLayout(currentLayout, "Geo", "ka-geo", "test"), `test.klc`)
+
+    toast.success("Layout exported", { toastId: "layout exported" })
   }
 
   // opens save layout modal
@@ -519,7 +536,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Export")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={handleNotImplemented}>
+            <Button onClick={handleExportLayout}>
               <ExportIcon className="icon" />
             </Button>
           </Tooltip>
