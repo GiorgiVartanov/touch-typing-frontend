@@ -229,3 +229,8 @@ input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
   display: none;
 }
+
+// changes color of autofilled input
+input:-webkit-autofill {
+  -webkit-box-shadow: inset 0 0 0px 9999px #8e8cc4;
+}
