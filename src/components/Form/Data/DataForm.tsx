@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react"
-import FakeWordsForm, { TextRequestFake } from "./FakeWordsForm"
+import FakeWordsForm from "./FakeWordsForm"
 import Loading from "../../Loading/Loading"
-import CorpusForm, { TextRequestWord } from "./CorpusForm"
+import CorpusForm from "./CorpusForm"
 import Form from "../../../components/Form/Form"
 import Input from "../../../components/Form/Input"
 import { useTranslation } from "react-i18next"
 
 import "./styles.scss"
 import Button from "../../Form/Button"
+import SentencesForm from "./SentencesForm"
+import { RequestProps } from "../../../types/play.types"
 
-type TextGenMode = "FakeWords" | "CorpusWords" //FakeWords, Corpus Words,
-const TextGenModes = ["FakeWords", "CorpusWords"]
+type TextGenMode = "FakeWords" | "CorpusWords" | "Sentences" //FakeWords, Corpus Words,
+const TextGenModes = ["FakeWords", "CorpusWords", "Sentences"]
 const TextGenModesText: { [key: string]: string } = {
   FakeWords: "Fake words",
   CorpusWords: "Corpus words",
+  Sentences: "Sentences",
 }
 
 interface matchProps {
@@ -35,18 +38,14 @@ export interface Props {
 }
 
 interface FormProps {
-  CreateMatch: (
-    req: TextRequestFake | TextRequestWord,
-    time_limit: number,
-    user_limit: number
-  ) => void
+  CreateMatch: (req: RequestProps, time_limit: number, user_limit: number) => void
   setShowModal: (val: boolean) => void
   className?: string
 }
 
 const DataForm = ({ CreateMatch, setShowModal, className = "" }: FormProps) => {
   const [textGenerationMode, setTextGenerationMode] = useState<TextGenMode>("FakeWords")
-  const [textRequest, setTextRequest] = useState<TextRequestFake | TextRequestWord>()
+  const [textRequest, setTextRequest] = useState<RequestProps>()
   const [fetchedData, setFetchedData] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
@@ -129,6 +128,10 @@ const DataForm = ({ CreateMatch, setShowModal, className = "" }: FormProps) => {
           <FakeWordsForm {...{ setFetchedData, setLoading, setError, setTextRequest }} />
         ) : textGenerationMode === "CorpusWords" ? (
           <CorpusForm {...{ setFetchedData, setLoading, setError, setTextRequest }} />
+        ) : textGenerationMode === "Sentences" ? (
+          <SentencesForm
+            {...{ setFetchedData, setLoading, setError, setTextRequest }}
+          ></SentencesForm>
         ) : (
           <></>
         )}

@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react"
 import { useSocket } from "../../hooks/useSocket"
-import { PlayActions, PlayState } from "../../types/play.types"
+import { PlayActions, PlayState, RequestProps } from "../../types/play.types"
 import { playInitialState } from "../initial/playInitialState"
 import { PlayReducer } from "../reducers/playReducers"
 import {
@@ -23,8 +23,6 @@ import {
 import Loading from "../../components/Loading/Loading"
 import { MatchStateList } from "../../types/match.types"
 import { useAuthStore } from "./authContext"
-import { TextRequestFake } from "../../components/Form/Data/FakeWordsForm"
-import { TextRequestWord } from "../../components/Form/Data/CorpusForm"
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL
 
@@ -149,11 +147,7 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
     setLoading(false)
   }
 
-  const CreateMatch = async (
-    req: TextRequestFake | TextRequestWord,
-    time_limit: number,
-    user_limit: number
-  ) => {
+  const CreateMatch = async (req: RequestProps, time_limit: number, user_limit: number) => {
     //trying to create a match
     socket.emit(
       "create_match",
