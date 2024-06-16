@@ -5,6 +5,7 @@
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  z-index: 200;
 
   .spinner {
     height: 60px;
@@ -13,6 +14,16 @@
     border-left: 10px solid var(--accent-color);
     border-radius: 100%;
     animation: spin 750ms linear infinite;
+  }
+
+  .loading-message {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    top: 4rem;
+    width: 12rem;
+    text-align: center;
+    font-size: 0.75rem;
   }
 }
 
