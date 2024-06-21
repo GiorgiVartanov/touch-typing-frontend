@@ -59,7 +59,7 @@ const MainPage = () => {
             )}
           >
             <Link
-              to="practice"
+              to="lessons"
               className="main-page-section-link button"
             >
               {t("see lessons")}
