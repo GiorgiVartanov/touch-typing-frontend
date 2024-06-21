@@ -11,6 +11,7 @@ export interface OptimizationState {
   progress: OptimizationProgress
   optimizationStatus: ProcessStatus
   optimizedEditingKeyboard: KeyInterface[] | undefined
+  analysis: number | undefined
 }
 
 export enum ProcessStatus {
@@ -25,12 +26,15 @@ export interface OptimizationActions {
   setOptimizationStatus: (data_optimizationStatus: ProcessStatus) => void
   setOptimizedEditingKeyboard: (data_optimizedEditingKeyboard: KeyInterface[] | undefined) => void
   startOptimization: (optimizationConfig: OptimizationConfig) => void
+  setAnalysis: (analysis: number | undefined) => void
+  startAnalysis: (optimization_config: OptimizationConfig) => void
 }
 
 export interface OptimizationConfig {
   number_of_generations: number
   effort_parameters: EffortParameters
   punctuation_placement: number[]
+  characters_set: Character[]
 }
 
 export interface EffortParameters {

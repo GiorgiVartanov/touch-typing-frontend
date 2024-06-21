@@ -69,9 +69,20 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
       setOptimizationStatus(ProcessStatus.initialization_started)
     })
 
-    socket.on("initialization_finish", () => {
+    socket.on("initialization_finish", (data_progress: OptimizationProgress) => {
       console.log("initialization_finish")
       setOptimizationStatus(ProcessStatus.initialization_finished)
+      setProgress(data_progress)
+    })
+
+    socket.on("analysis_start", () => {
+      console.log("Analysis started")
+      setAnalysis(-1)
+    })
+
+    socket.on("analysis_result", (data: { analysis: number }) => {
+      console.log("analysis finished")
+      setAnalysis(data.analysis)
     })
   }
 
@@ -96,6 +107,13 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     }))
   }
 
+  const setAnalysis = (analysis: number | undefined) => {
+    setOptimizationState((prevOptimization) => ({
+      ...prevOptimization,
+      analysis: analysis,
+    }))
+  }
+
   const setOptimizedEditingKeyboard = (
     data_optimizedEditingKeyboard: KeyInterface[] | undefined
   ) => {
@@ -110,6 +128,10 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     setOptimizationStatus(ProcessStatus.process_idle)
   }
 
+  const startAnalysis = async (optimization_config: OptimizationConfig) => {
+    socket.emit("analyse_keyboard", optimization_config)
+  }
+
   const store = {
     ...optimizationState,
     setProgress,
@@ -117,6 +139,8 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     setOptimizationStatus,
     setOptimizedEditingKeyboard,
     startOptimization,
+    setAnalysis,
+    startAnalysis,
   }
 
   return <OptimizationContext.Provider value={store}>{children}</OptimizationContext.Provider>

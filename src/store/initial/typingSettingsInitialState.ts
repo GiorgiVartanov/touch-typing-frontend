@@ -10,7 +10,7 @@ import {
 import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 
 import qwertyLayout from "../../keyboardLayouts/qwerty.json"
-import qwertyGeorgianLayout from "../../keyboardLayouts/geo.json"
+import qwertyGeorgianLayout from "../../keyboardLayouts/geo2.json"
 
 const KeyboardLanguage: KeyboardLanguageType | null = localStorage.getItem(
   "keyboardLanguage"
