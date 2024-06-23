@@ -45,7 +45,6 @@ const AnalyseLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) =
           <div className="horizontally-placed">
             <p>Your layout: {analysis.total_effort}</p>
             <p>qwerty layout: {analysis.qwerty_effort}</p>
-            <p>dvorjak layout: {analysis.dvorjak_effort}</p>
           </div>
         </div>
         <div className="two columns">

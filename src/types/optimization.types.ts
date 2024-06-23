@@ -94,5 +94,4 @@ export interface Analysis {
   same_hand_finger_steps_effort: number
   hit_direction_effort: number
   qwerty_effort: number
-  dvorjak_effort: number
 }
