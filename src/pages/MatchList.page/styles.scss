@@ -126,7 +126,7 @@
             border-radius: var(--border-radius);
             background-color: var(--tertiary-background-color);
             padding: 0.25rem 0.75rem;
-            transition: 300ms var(--animation-function);
+            // transition: opacity 300ms var(--animation-function);
 
             &:hover {
               opacity: 0.75;

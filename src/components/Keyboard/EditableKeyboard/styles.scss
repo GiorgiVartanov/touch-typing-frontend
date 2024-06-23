@@ -35,7 +35,6 @@
   background-color: var(--secondary-background-color);
   box-shadow: 0 2px 4px -1px var(--shadow-color);
   opacity: 0;
-  height: 0;
 
   // &:hover {
   //   box-shadow: 0 2px 6px 2px var(--shadow-color);
@@ -50,17 +49,15 @@
   }
 
   &.selected-key-open {
-    opacity: 0;
-    height: 0;
+    opacity: 1;
 
-    animation: 200ms var(--animation-function) selectedEditableKeyAppear forwards;
+    // animation: 200ms var(--animation-function) selectedEditableKeyAppear forwards;
   }
 
   &.selected-key-closed {
-    opacity: 1;
-    height: 8rem;
+    opacity: 0;
 
-    animation: 200ms var(--animation-function) selectedEditableKeyDisappear forwards;
+    // animation: 200ms var(--animation-function) selectedEditableKeyDisappear forwards;
   }
 
   .editable-key-value {
@@ -189,27 +186,17 @@
 @keyframes selectedEditableKeyAppear {
   0% {
     opacity: 0;
-    height: 0;
-  }
-  25% {
-    opacity: 0;
   }
   100% {
     opacity: 1;
-    height: 8rem;
   }
 }
 @keyframes selectedEditableKeyDisappear {
   0% {
     opacity: 1;
-    height: 8rem;
-  }
-  25% {
-    opacity: 1;
   }
   100% {
     opacity: 0;
-    height: 0;
   }
 }
 

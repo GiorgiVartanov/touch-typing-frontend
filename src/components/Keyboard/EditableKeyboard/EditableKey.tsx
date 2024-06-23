@@ -33,9 +33,11 @@ const EditableKey = ({
   className = "",
   style = {},
 }: Props) => {
-  const renderKeyValues = useMemo(() => {
-    return () => {
-      if (typeof value === "string") return <div className="key-value">{value}</div>
+  const renderKey = useMemo(() => {
+    const renderKeyValues = () => {
+      if (typeof value === "string") {
+        return <div className="key-value">{value}</div>
+      }
 
       return (
         <>
@@ -54,20 +56,35 @@ const EditableKey = ({
         </>
       )
     }
-  }, [value, inUppercase])
 
-  return (
-    <div
-      onClick={() => {
-        if (!isEditable) return
-        onClick()
-      }}
-      onContextMenu={onContextMenu}
-      className={`key ${isEditable ? "editable" : "uneditable"} ${isEmpty ? "empty-key" : ""} ${isEditing ? "editing" : ""} ${isPressed ? "pressed" : ""} ${inUppercase && typeof value !== "string" && value.length > 1 ? "uppercase" : ""} ${className}`}
-      style={style}
-    >
-      {renderKeyValues()}
-    </div>
-  )
+    return (
+      <div
+        onClick={() => {
+          if (!isEditable) return
+          onClick()
+        }}
+        onContextMenu={onContextMenu}
+        className={`key ${isEditable ? "editable" : "uneditable"} ${isEmpty ? "empty-key" : ""} ${isEditing ? "editing" : ""} ${isPressed ? "pressed" : ""} ${inUppercase && typeof value !== "string" && value.length > 1 ? "uppercase" : ""} ${className}`}
+        style={style}
+      >
+        {renderKeyValues()}
+      </div>
+    )
+  }, [
+    value,
+    inUppercase,
+    isFirstValueDuplicate,
+    isSecondValueDuplicate,
+    isEditable,
+    isEmpty,
+    isEditing,
+    isPressed,
+    className,
+    style,
+    onClick,
+    onContextMenu,
+  ])
+
+  return renderKey
 }
 export default EditableKey

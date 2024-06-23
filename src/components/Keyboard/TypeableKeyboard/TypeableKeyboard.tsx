@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { toast } from "react-toastify"
 
 import "./styles.scss"
 import { KeyInterface } from "../../../types/keyboard.types"
@@ -8,6 +9,7 @@ import { KeyboardLayoutInterface } from "../../../types/keyboard.types"
 import { KeyboardLanguageType } from "../../../types/typer.types/typingSettings.types"
 import { useTypingSettingsStore } from "../../../store/context/typingSettingsContext"
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside"
+import { downloadKLCFile, transformKeyboardLayout } from "../../../util/generateKLCFile"
 
 import WrenchIcon from "../../../assets/icons/wrench.svg?react"
 import ExportIcon from "../../../assets/icons/export.svg?react"
@@ -142,18 +144,6 @@ const TypeableKeyboard = ({
   const renderRightSideKeyboardButtons = () => {
     return (
       <div className="keyboard-right-side-buttons">
-        {/* <Button
-          onClick={handleButtonClick}
-          className={`show-more-keyboard-action-buttons-button ${areRightSideButtonsOpen ? "active" : ""}`}
-        >
-          <Tooltip
-            tooltipContent={t("expand")}
-            tooltipPosition="bottom-left"
-          >
-            <WrenchIcon className="icon" />
-          </Tooltip>
-        </Button> */}
-
         <div className="keyboard-button-list">
           <Tooltip
             tooltipContent={t("how to install")}
@@ -170,13 +160,28 @@ const TypeableKeyboard = ({
             tooltipContent={t("Export")}
             tooltipPosition="bottom-left"
           >
-            <Button onClick={() => {}}>
+            <Button onClick={handleExportLayout}>
               <ExportIcon className="icon" />
             </Button>
           </Tooltip>
         </div>
       </div>
     )
+  }
+
+  // lets user download layout in a .klc format
+  const handleExportLayout = () => {
+    if (!forcedKeyboardLayout) {
+      toast.warning("something went wrong")
+      return
+    }
+
+    downloadKLCFile(
+      transformKeyboardLayout(forcedKeyboardLayout),
+      `${forcedKeyboardLayout.title}.klc`
+    )
+
+    toast.success("Layout exported", { toastId: "layout exported" })
   }
 
   const renderKeyboardButtons = () => {

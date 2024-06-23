@@ -27,7 +27,7 @@
     align-items: center;
     transition:
       box-shadow 300ms var(--animation-function),
-      color 100ms var(--animation-function),
+      // color 100ms var(--animation-function),
       background-color 100ms var(--animation-function);
     backdrop-filter: blur(6px);
     box-shadow: 0 2px 4px -1px var(--shadow-color);
@@ -358,7 +358,7 @@
           background-color: var(--secondary-background-color);
           top: calc($keySize);
           right: 0;
-          transition: 100ms var(--animation-function);
+          transition: background-color 100ms var(--animation-function);
           box-shadow: 0 2px 4px -1px var(--shadow-color);
           border-radius: 0 0 var(--border-radius) var(--border-radius);
         }
