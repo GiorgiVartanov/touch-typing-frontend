@@ -11,7 +11,7 @@ interface Props {
 const TypingSettingsTextExample = ({ language }: Props) => {
   const { t } = useTranslation("translation", {
     keyPrefix: "settings page",
-    // lng: language.toLowerCase(),
+    lng: "geo",
   })
 
   return (

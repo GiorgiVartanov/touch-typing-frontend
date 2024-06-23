@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext, ChangeEvent } from "react"
+import { useEffect, useState, useRef, useCallback, useMemo, useContext, ChangeEvent } from "react"
 import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -156,10 +156,10 @@ const EditableKeyboard = ({
   }
 
   // selects passed keyCode as currently edited
-  const selectAsEditable = (keyCode: string) => {
+  const selectAsEditable = useCallback((keyCode: string) => {
     setWasSelectedAtLeaseOnce(true)
     setCurrentlyEditing(keyCode)
-  }
+  }, [])
 
   // when user clicks outside this component
   const handleOnClickOutside = () => {
@@ -167,9 +167,9 @@ const EditableKeyboard = ({
   }
 
   // resets keyboard to default value (one that user has selected)
-  const resetKeys = () => {
+  const resetKeys = useCallback(() => {
     setEditingKeyboard(startingKeyboard)
-  }
+  }, [startingKeyboard])
 
   const handleNotImplemented = () => {
     toast.warning("This feature is not yet implemented")
@@ -177,16 +177,20 @@ const EditableKeyboard = ({
 
   // lets user download layout in a .klc format
   const handleExportLayout = () => {
+    const currentTitle = editingKeyboard
+      .slice(15, 21)
+      .reduce((accumulator, currentValue) => accumulator + currentValue?.value[0], "")
+
     const currentLayout = {
       _id: "null",
       language: "Geo",
-      title: "test",
+      title: currentTitle,
       public: true,
       official: false,
       keyboard: editingKeyboard,
     }
 
-    downloadKLCFile(transformKeyboardLayout(currentLayout, "Geo", "ka-geo", "test"), `test.klc`)
+    downloadKLCFile(transformKeyboardLayout(currentLayout), `test.klc`)
 
     toast.success("Layout exported", { toastId: "layout exported" })
   }
@@ -280,88 +284,89 @@ const EditableKeyboard = ({
   }
 
   // removes passed key from keyboard
-  const removeKey = (keyCode: string) => {
-    if (
-      uneditableKeys.includes(keyCode) ||
-      uneditableFirstValueKeys.includes(keyCode) ||
-      uneditableSecondValueKeys.includes(keyCode)
-    )
-      return
-
-    setEditingKeyboard((prevState) => {
-      const editedKeyboard = structuredClone(prevState).map((key) => {
-        if (key.code === keyCode) {
-          return {
-            code: key.code,
-            // value: [enteredCharacter?.toLowerCase() || enteredCharacter?.toUpperCase()],
-            value: ["", ""],
-            type: key.type,
-            fixed: [false, false],
+  const removeKey = useCallback(
+    (keyCode: string) => {
+      if (
+        uneditableKeys.includes(keyCode) ||
+        uneditableFirstValueKeys.includes(keyCode) ||
+        uneditableSecondValueKeys.includes(keyCode)
+      )
+        return
+      setEditingKeyboard((prevState) => {
+        const editedKeyboard = structuredClone(prevState).map((key) => {
+          if (key.code === keyCode) {
+            return {
+              code: key.code,
+              value: ["", ""],
+              type: key.type,
+              fixed: [false, false],
+            }
           }
-        } else {
           return key
-        }
+        })
+        return editedKeyboard
       })
-
-      return editedKeyboard
-    })
-  }
+    },
+    [uneditableFirstValueKeys, uneditableKeys, uneditableSecondValueKeys]
+  )
 
   // renders single key
-  const renderKey = (key: KeyInterface) => {
-    // is true if this value has copy somewhere on a keyboard
-    const isFirstValueDuplicate = editingKeyboard.some(
-      (keyboardKey) =>
-        (keyboardKey.type === "Letter" || keyboardKey.type === "Symbol") &&
-        keyboardKey !== key &&
-        (key.value[0]?.toLowerCase() === keyboardKey.value[0]?.toLowerCase() ||
-          key.value[0]?.toLowerCase() === keyboardKey.value[1]?.toLowerCase())
-    )
+  const renderKey = useCallback(
+    (key: KeyInterface) => {
+      // is true if this value has copy somewhere on a keyboard
+      const isFirstValueDuplicate = editingKeyboard.some(
+        (keyboardKey) =>
+          (keyboardKey.type === "Letter" || keyboardKey.type === "Symbol") &&
+          keyboardKey !== key &&
+          (key.value[0]?.toLowerCase() === keyboardKey.value[0]?.toLowerCase() ||
+            key.value[0]?.toLowerCase() === keyboardKey.value[1]?.toLowerCase())
+      )
 
-    // is true if this value has copy somewhere on a keyboard
-    const isSecondValueDuplicate = editingKeyboard.some(
-      (keyboardKey) =>
-        (keyboardKey.type === "Letter" || keyboardKey.type === "Symbol") &&
-        keyboardKey !== key &&
-        (key.value[1]?.toLowerCase() === keyboardKey.value[1]?.toLowerCase() ||
-          key.value[1]?.toLowerCase() === keyboardKey.value[0]?.toLowerCase())
-    )
+      // is true if this value has copy somewhere on a keyboard
+      const isSecondValueDuplicate = editingKeyboard.some(
+        (keyboardKey) =>
+          (keyboardKey.type === "Letter" || keyboardKey.type === "Symbol") &&
+          keyboardKey !== key &&
+          (key.value[1]?.toLowerCase() === keyboardKey.value[1]?.toLowerCase() ||
+            key.value[1]?.toLowerCase() === keyboardKey.value[0]?.toLowerCase())
+      )
 
-    return (
-      <EditableKey
-        value={key.value}
-        code={key.code}
-        isEditing={key.code === currentlyEditing}
-        onClick={() => {
-          selectAsEditable(key.code)
-        }}
-        key={key.code}
-        isPressed={pressedKeys.includes(key.code)}
-        isEditable={!uneditableKeys.includes(key.code)}
-        isEmpty={key.value[0] === ""}
-        isFirstValueDuplicate={isFirstValueDuplicate}
-        isSecondValueDuplicate={isSecondValueDuplicate}
-        onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => {
-          e.preventDefault()
-
-          removeKey(key.code)
-        }}
-        inUppercase={
-          (pressedKeys.includes("ShiftLeft") ||
-            pressedKeys.includes("ShiftRight") ||
-            (pressedKeys.includes("CapsLock") &&
-              key.type === "Letter" &&
-              key.value[0]?.toLocaleLowerCase() === key.value[1]?.toLowerCase())) &&
-          !(
-            (pressedKeys.includes("ShiftLeft") && pressedKeys.includes("CapsLock")) ||
-            (pressedKeys.includes("ShiftRight") && pressedKeys.includes("CapsLock"))
-          )
-        }
-        canBeDuplicate={key.code === "Backslash" || key.code === "Backslash-2"}
-        className={`${key.type}-key ${key.code}-key`}
-      />
-    )
-  }
+      return (
+        <EditableKey
+          value={key.value}
+          code={key.code}
+          isEditing={key.code === currentlyEditing}
+          onClick={() => {
+            selectAsEditable(key.code)
+          }}
+          key={key.code}
+          isPressed={pressedKeys.includes(key.code)}
+          isEditable={!uneditableKeys.includes(key.code)}
+          isEmpty={key.value[0] === ""}
+          isFirstValueDuplicate={isFirstValueDuplicate}
+          isSecondValueDuplicate={isSecondValueDuplicate}
+          onContextMenu={(e: React.MouseEvent<HTMLDivElement>) => {
+            e.preventDefault()
+            removeKey(key.code)
+          }}
+          inUppercase={
+            (pressedKeys.includes("ShiftLeft") ||
+              pressedKeys.includes("ShiftRight") ||
+              (pressedKeys.includes("CapsLock") &&
+                key.type === "Letter" &&
+                key.value[0]?.toLocaleLowerCase() === key.value[1]?.toLowerCase())) &&
+            !(
+              (pressedKeys.includes("ShiftLeft") && pressedKeys.includes("CapsLock")) ||
+              (pressedKeys.includes("ShiftRight") && pressedKeys.includes("CapsLock"))
+            )
+          }
+          canBeDuplicate={key.code === "Backslash" || key.code === "Backslash-2"}
+          className={`${key.type}-key ${key.code}-key`}
+        />
+      )
+    },
+    [editingKeyboard, currentlyEditing, pressedKeys, selectAsEditable, uneditableKeys, removeKey]
+  )
 
   // renders key where user can change first and second value of a key
   const renderSelectedKey = () => {

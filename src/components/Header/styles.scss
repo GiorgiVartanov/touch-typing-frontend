@@ -3,7 +3,7 @@
   background-color: var(--secondary-background-color);
   box-shadow: 0 1px 3px -1px var(--shadow-color);
   z-index: 20;
-  transition: background-color 300ms var(--animation-function);
+  // transition: background-color 300ms var(--animation-function);
 
   &.sticky {
     position: fixed;
@@ -50,7 +50,10 @@
         font-size: 1.5rem;
         text-shadow: 0px 0px 2px var(--shadow-color);
         font-weight: 600;
-        transition: 300ms var(--animation-function);
+        transition:
+          background-color 300ms var(--animation-function),
+          color 300ms var(--animation-function),
+          opacity 300ms var(--animation-function);
 
         &:hover {
           color: var(--primary-color-active);
@@ -89,9 +92,6 @@
 
       .change-theme-button {
         background-color: var(--background-color);
-        transition:
-          background-color 300ms var(--animation-function),
-          color 300ms var(--animation-function);
         height: 1.75rem;
         width: 3.5rem;
         border-radius: 0.5rem;
@@ -101,8 +101,8 @@
         box-shadow: 0 2px 4px -1px var(--shadow-color);
 
         &:hover {
-          background-color: var(--background-color-transparent);
-          color: var(--accent-color-dim);
+          // background-color: var(--background-color-transparent);
+          // color: var(--accent-color-dim);
 
           .theme-icon {
             .moon-icon,
@@ -227,7 +227,7 @@
                 opacity: 1;
                 max-height: 200px;
                 pointer-events: all;
-                // transform: translateY(0) translateX(0) scaleY(1) scaleX(1);
+                transform: translateY(0) translateX(0) scaleY(1) scaleX(1);
               }
             }
 
@@ -237,7 +237,7 @@
                 // opacity: 0;
                 // max-height: 0;
                 pointer-events: none;
-                // transform: translateY(-40%) translateX(25%) scaleY(0.25) scaleX(0.25);
+                transform: translateY(-40%) translateX(25%) scaleY(0.25) scaleX(0.25);
               }
             }
           }
@@ -373,7 +373,7 @@
                 .logout-button {
                   background-color: var(--secondary-background-color);
                   border-radius: 0 0 var(--border-radius) var(--border-radius);
-                  transition: 300ms var(--animation-function);
+                  transition: background-color 300ms var(--animation-function);
 
                   &:hover {
                     background-color: var(--warning-color);
@@ -493,269 +493,9 @@
   }
 }
 
-@media screen and (max-width: 600px) {
-  nav {
-    &.nav-hidden {
-      .nav {
-        display: none !important;
-
-        // visibility: hidden !important;
-      }
-    }
-
-    &.nav-shown {
-      display: flex !important;
-      // visibility: visible !important;
-
-      .nav {
-        flex-direction: column;
-        backdrop-filter: blur(10px);
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 60vw;
-        background-color: var(--secondary-background-color);
-        padding-right: 0.5rem;
-        height: 100vh !important;
-        // padding-top: 10%;
-        padding-top: 1.25rem;
-        box-shadow: 0 2px 60px 6px var(--shadow-color);
-        animation: 300ms var(--animation-function) navbarSlide forwards;
-
-        .change-theme-button {
-          margin-right: 0;
-          margin-bottom: 2.5rem;
-          background-color: var(--background-color);
-
-          &:hover {
-            filter: brightness(0.9);
-            background-color: var(--background-color);
-            color: var(--accent-color-dim);
-          }
-        }
-
-        .nav-item {
-          font-size: 1rem;
-          display: flex;
-
-          &.nav-item-link {
-            padding: 1rem !important;
-
-            align-items: end;
-            transition:
-              background-color 300ms var(--animation-function),
-              padding 300ms var(--animation-function);
-
-            &:hover,
-            &:active {
-              background-color: var(--secondary-background-color-active);
-              padding: 1rem 1.75rem 1rem 1rem !important;
-            }
-          }
-
-          &.active {
-            .nav-item-button {
-              background-color: var(--secondary-background-color-active);
-
-              .nav-item-icon {
-                padding-right: 0.75rem;
-              }
-            }
-          }
-
-          .nav-item-button {
-            padding: 1rem !important;
-          }
-
-          .nav-item-children {
-            width: 100% !important;
-
-            .dropdown-menu {
-              width: 100% !important;
-              position: static !important;
-              box-shadow: none !important;
-              border-radius: 0 !important;
-              // background-color: var(--secondary-background-color);
-              position: absolute;
-              width: 200px;
-              top: 2.5rem;
-              right: 0 !important;
-              box-shadow: 0 2px 4px -1px var(--shadow-color);
-              border-radius: var(--border-radius) 0 var(--border-radius) var(--border-radius);
-              overflow: hidden;
-
-              .dropdown-item {
-                border-radius: 0 !important;
-                display: flex !important;
-                padding-right: 1.75rem;
-                transition: 300ms var(--animation-function);
-                // background-color: var(--secondary-background-color);
-
-                &:hover,
-                &:active {
-                  & > :nth-child(1) {
-                    padding: 0.5rem 1.75rem 0.5rem 2.5rem !important;
-                  }
-                  .icon {
-                    left: auto !important;
-                  }
-                  .notifications-amount {
-                    left: auto !important;
-                  }
-                }
-
-                &.logout-button-item {
-                  border-radius: 0 0 0 0 !important;
-
-                  button {
-                    border-radius: 0 0 0 0 !important;
-                  }
-                }
-
-                & > :nth-child(1) {
-                  display: flex;
-                  justify-content: end;
-                  height: 100%;
-                  padding: 0.5rem 1rem 0.5rem 3.25rem !important;
-                  display: flex;
-                  align-items: center;
-                  // transition: all 300ms var(--animation-function);
-                }
-
-                &.logout-button-item {
-                  border-radius: 0 0 0 0 !important;
-
-                  button {
-                    border-radius: 0 0 0 0 !important;
-                  }
-
-                  &:hover {
-                    background-color: var(--warning-color) !important;
-                  }
-                }
-
-                .icon {
-                  display: flex;
-                  position: static !important;
-                  height: 1.5rem !important;
-                  width: 1.5rem !important;
-                  margin-right: 0.25rem;
-                  left: auto !important;
-                  pointer-events: none;
-                }
-
-                .notifications-link {
-                  flex-direction: row-reverse !important;
-
-                  .notifications-amount {
-                    left: auto !important;
-
-                    right: -2rem !important;
-                  }
-                }
-              }
-            }
-
-            &.nav-item-open {
-              .dropdown-menu {
-                visibility: visible;
-                // opacity: 1;
-                pointer-events: all;
-              }
-            }
-
-            &.nav-item-closed {
-              .dropdown-menu {
-                visibility: hidden;
-                // opacity: 0;
-                pointer-events: none;
-              }
-            }
-          }
-
-          .nav-item-button {
-            width: 100%;
-            padding: 0.5rem 1.5rem 0.5rem 0.5rem;
-            // padding-right: 1.5rem;
-            padding: 1rem;
-            justify-content: end;
-
-            .nav-item-icon {
-              transition: padding 300ms var(--animation-function);
-            }
-
-            &:hover,
-            &:active {
-              background-color: var(--secondary-background-color-active);
-              opacity: 1 !important;
-              color: var(--accent-color) !important;
-
-              .nav-item-icon {
-                padding-right: 0.75rem;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .menu-button {
-    display: flex !important;
-    position: absolute;
-    right: 0.75rem;
-    height: 2.5rem;
-    z-index: 200;
-    display: flex;
-    gap: 0.5rem;
-    flex-direction: column;
-    justify-content: center;
-
-    &:hover {
-      .menu-button-line {
-        opacity: 0.75;
-      }
-    }
-
-    .menu-button-line {
-      height: 0.25rem;
-      width: 2rem;
-      background-color: var(--accent-color);
-      transition:
-        transform 300ms var(--animation-function),
-        background-color 300ms var(--animation-function),
-        opacity 300ms var(--animation-function);
-    }
-
-    &.navigation-open {
-      .menu-button-line:nth-of-type(1) {
-        transform: translateY(300%) rotate(45deg);
-      }
-      .menu-button-line:nth-of-type(2) {
-        opacity: 0;
-      }
-      .menu-button-line:nth-of-type(3) {
-        transform: translateY(-300%) rotate(-45deg);
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 420px) {
-  .nav {
-    width: 80vw !important;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .nav {
-    width: 90vw !important;
-  }
-}
-
 @keyframes dropdownAppear {
   0% {
-    opacity: 0;
+    opacity: 0.75;
     transform: translateY(5%);
   }
   100% {
