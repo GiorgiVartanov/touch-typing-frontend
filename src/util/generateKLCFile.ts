@@ -93,24 +93,90 @@ const keyCodeMap: { [key: string]: string } = {
   OEM_PERIOD: "34",
 }
 
-export const transformKeyboardLayout = (
-  layout: KeyboardLayout,
-  language: Language,
-  localeName: string, // en-GB, en-US, fr-FR, de-DE, ...
-  localeId: string // "00000809"
-): string => {
+const keyMap = {
+  Backquote: "OEM_3",
+  Digit1: "DIGIT ONE",
+  Digit2: "DIGIT TWO",
+  Digit3: "DIGIT THREE",
+  Digit4: "4",
+  Digit5: "5",
+  Digit6: "6",
+  Digit7: "7",
+  Digit8: "8",
+  Digit9: "9",
+  Digit0: "0",
+  Minus: "OEM_MINUS",
+  Equal: "OEM_PLUS",
+  Backspace: "BACKSPACE",
+  Tab: "TAB",
+  ქ: "GEORGIAN LETTER KHAR",
+  წ: "GEORGIAN LETTER CIL",
+  ჭ: "GEORGIAN LETTER CHAR",
+  რ: "GEORGIAN LETTER RAE",
+  ტ: "GEORGIAN LETTER TAR",
+  თ: "GEORGIAN LETTER TAN",
+  ყ: "GEORGIAN LETTER QAR",
+  უ: "GEORGIAN LETTER UN",
+  ი: "GEORGIAN LETTER IN",
+  ო: "GEORGIAN LETTER ON",
+  პ: "GEORGIAN LETTER PAR",
+  BracketLeft: "OEM_4",
+  BracketRight: "OEM_6",
+  Backslash: "OEM_5",
+  CapsLock: "CAPSLOCK",
+  ა: "GEORGIAN LETTER AN",
+  ს: "GEORGIAN LETTER SAN",
+  შ: "GEORGIAN LETTER SHIN",
+  დ: "GEORGIAN LETTER DON",
+  ფ: "GEORGIAN LETTER PHAR",
+  გ: "GEORGIAN LETTER GAN",
+  ჰ: "GEORGIAN LETTER HAE",
+  ჯ: "GEORGIAN LETTER JHAN",
+  ჟ: "GEORGIAN LETTER ZHAR",
+  კ: "GEORGIAN LETTER KAN",
+  ლ: "GEORGIAN LETTER LAS",
+  Semicolon: "OEM_1",
+  Quote: "OEM_7",
+  Enter: "ENTER",
+  ShiftLeft: "LSHIFT",
+  ზ: "GEORGIAN LETTER ZEN",
+  ძ: "GEORGIAN LETTER ZHAR",
+  ხ: "GEORGIAN LETTER KHAR",
+  ც: "GEORGIAN LETTER CAN",
+  ჩ: "GEORGIAN LETTER CHIN",
+  ვ: "GEORGIAN LETTER VIN",
+  ბ: "GEORGIAN LETTER BAN",
+  ნ: "GEORGIAN LETTER NAR",
+  მ: "GEORGIAN LETTER MAN",
+  Comma: "OEM_COMMA",
+  Period: "OEM_PERIOD",
+  Slash: "OEM_2",
+  ShiftRight: "RSHIFT",
+  ControlLeft: "LCTRL",
+  MetaLeft: "LWIN",
+  AltLeft: "LALT",
+  Space: "SPACE",
+  AltRight: "RALT",
+  MetaRight: "RWIN",
+  ContextMenu: "APPS",
+  ControlRight: "RCTRL",
+}
+
+export const transformKeyboardLayout = (layout: KeyboardLayout): string => {
   // builds the .klc file content
+
+  const date = new Date()
 
   let klcContent = `
 KBD\t"${layout.title}"
 
-COPYRIGHT\t"(c) 2024 Company (not really :/)"
+COPYRIGHT\t"(c) ${date.getFullYear()} Company (not really :/)"
 
 COMPANY\t"Company"
 
-LOCALENAME\t"${localeName}"
+LOCALENAME\t"ka-GE"
 
-LOCALEID\t"${localeId}"
+LOCALEID\t""00000437"
 
 VERSION\t1.0
 
@@ -124,11 +190,11 @@ SHIFTSTATE
 
 LAYOUT\t\t;an extra '@' at the end is a dead key
 
-//SC\tVK_\t\tCap\t0\t1\t2\t6\t7
+//SC\tVK_\t\tCap\t0\t1\t2\t6
 //--\t----\t\t----\t----\t----\t----\t----\t----
 `
 
-  // Add keyboard layout details
+  // adds keyboard layout details
   layout.keyboard.forEach((key) => {
     const sc = keyCodeMap[key.code]
     if (sc) {
@@ -145,7 +211,7 @@ LAYOUT\t\t;an extra '@' at the end is a dead key
     }
   })
 
-  // Add fixed content
+  // adds fixed content
   klcContent += `
 KEYNAME
 
@@ -228,10 +294,10 @@ KEYNAME_EXT
 
 DESCRIPTIONS
 
-0409\t${language}
+0409\tGeorgian\t(${layout.title})\t - the-touch-typing.netlify.app
 LANGUAGENAMES
 
-0409\t${layout.title}
+0409\tGeorgian\t(Georgia)
 ENDKBD
 `
 

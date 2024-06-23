@@ -15,11 +15,13 @@ import Modal from "../../../components/Modal/Modal"
 import Form from "../../../components/Form/Form"
 import Input from "../../../components/Form/Input"
 import Button from "../../../components/Form/Button"
-import Select from "../../Form/Select"
+import { KeyInterface } from "../../../types/keyboard.types"
+import { convertFromCurrentLayoutToPythonApi } from "../../../util/keyboardLayoutConverter"
 
 interface Props {
   isVisible: boolean
   closeModal: () => void
+  editingKeyboard: KeyInterface[]
 }
 
 const PunctPlaceModes = [0, 1, 2, 3, 4, 5]
@@ -33,11 +35,13 @@ const PunctPlaceModesText: { [key: number]: string } = {
 }
 
 // modal to add optimize layout
-const OptimizeLayoutModal = ({ isVisible, closeModal }: Props) => {
+const OptimizeLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) => {
   const { progress, startOptimization, optimizationStatus } = useOptimizationStore()
 
-  const [optimizationConfig, setOptimizationConfig] =
-    useState<OptimizationConfig>(initialOptimizationConfig)
+  const [optimizationConfig, setOptimizationConfig] = useState<OptimizationConfig>({
+    ...initialOptimizationConfig,
+    characters_set: convertFromCurrentLayoutToPythonApi(editingKeyboard),
+  })
   const [punctuationPlacementMode, setPunctuationPlacementMode] = useState<PunctuationPlacement>(
     PunctuationPlacement.qwerty
   )

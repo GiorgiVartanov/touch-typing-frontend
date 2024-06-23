@@ -90,7 +90,7 @@
           box-shadow: 0 2px 4px -1px var(--shadow-color);
           border-radius: var(--border-radius);
           font-weight: 500;
-          transition: background-color 300ms var(--animation-function);
+          // transition: background-color 300ms var(--animation-function);
           // min-width: 205px;
           // background-color: var(--green-adjusted);
         }
@@ -125,7 +125,7 @@
             padding: 0.25rem 0.75rem;
             transition:
               padding 300ms var(--animation-function),
-              background-color 300ms var(--animation-function),
+              // background-color 300ms var(--animation-function),
               opacity 300ms var(--animation-function);
             // margin-bottom: 1rem;
 
