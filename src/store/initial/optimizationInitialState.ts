@@ -68,4 +68,5 @@ export const initialAnalysisEffort: Analysis = {
   consecutive_finger_usage_effort: 0,
   same_hand_finger_steps_effort: 0,
   hit_direction_effort: 0,
+  qwerty_effort: 0,
 }
