@@ -77,6 +77,6 @@ export const convertFromCurrentLayoutToPythonApi = (characterPlacement: KeyInter
   })
   pythonApiLayout.push({ character: "dummy_character_20", button_id: 94 })
   pythonApiLayout.push({ character: "~", button_id: 93 })
-  console.log(pythonApiLayout)
+  // console.log(pythonApiLayout)
   return pythonApiLayout
 }

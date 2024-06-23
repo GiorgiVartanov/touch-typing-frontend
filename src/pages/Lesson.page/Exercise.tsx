@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import TyperArea from "../../components/TypingArea/TypingArea"
 import ajax from "../../services/ajax"
 import Loading from "../../components/Loading/Loading"
+import TypingArea from "../../components/TypingArea/TypingArea"
 
 interface props {
   letter: string
@@ -28,10 +29,9 @@ const Exercise = ({ letter }: props) => {
   if (isLoading) return <Loading />
 
   return (
-    <TyperArea
+    <TypingArea
       text={exerciseText}
       textLanguage="Geo"
-      wordSeparator=" "
       handleTextFinish={() => {}}
     />
   )
