@@ -41,6 +41,20 @@
       top: -50%;
     }
   }
+  &.tooltip-left {
+    &::before {
+      top: 50%;
+      right: 102.5%;
+      transform: translateY(-50%);
+    }
+  }
+  &.tooltip-right {
+    &::before {
+      top: 50%;
+      left: 102.5%;
+      transform: translateY(-50%);
+    }
+  }
 }
 
 .tooltip::before {

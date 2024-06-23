@@ -29,7 +29,7 @@ import SelectedEditableKey from "./SelectedEditableKey"
 import Button from "../../Form/Button"
 import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
-import OptimizeLayoutModal from "./OptimizeLayoutModal"
+import OptimizeLayoutPanel from "./OptimizeLayoutPanel"
 import KeyboardOptions from "../KeyboardOptions"
 
 import { useOptimizationStore } from "../../../store/context/optimizationContext"
@@ -107,7 +107,6 @@ const EditableKeyboard = ({
   const [isAnalyseModalOpen, setIsAnalyseModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log(editingKeyboard)
     if (editingKeyboard === optimizedEditingKeyboard) setOptimizedEditingKeyboard(undefined)
   }, [editingKeyboard])
 
@@ -246,16 +245,10 @@ const EditableKeyboard = ({
     setIsAnalyseModalOpen(false)
   }
 
-  const renderOptimizeKeyboardLayoutModal = () => {
-    if (!isOptimizeLayoutModalOpen) return
+  const renderOptimizeKeyboardLayoutPanel = () => {
+    // if (!isOptimizeLayoutModalOpen) return
 
-    return (
-      <OptimizeLayoutModal
-        isVisible={isOptimizeLayoutModalOpen}
-        closeModal={handleCloseOptimizeKeyboardLayoutModal}
-        editingKeyboard={editingKeyboard}
-      />
-    )
+    return <OptimizeLayoutPanel editingKeyboard={editingKeyboard} />
   }
 
   const renderAnalysisModal = () => {
@@ -687,7 +680,6 @@ const EditableKeyboard = ({
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       const pressedKey = event.code
-
       if (pressedKey === "Alt") event.preventDefault()
 
       // if (pressedKey === "Space") event.preventDefault()
@@ -738,8 +730,10 @@ const EditableKeyboard = ({
       ref={ref}
       className="editable-keyboard-holder"
     >
-      {renderAnalysisModal()}
-      {renderSelectedKey()}
+      <div className="keyboard-top-side">
+        {renderOptimizeKeyboardLayoutPanel()}
+        {renderSelectedKey()}
+      </div>
       <div className="editable-keyboard-content">
         <KeyboardOptions
           showSelectButton={false}
@@ -756,9 +750,9 @@ const EditableKeyboard = ({
         >
           {renderKeyboard()}
         </div>
+        {renderAnalysisModal()}
         {renderEditableKeyboardButtons()}
         {renderSaveKeyboardLayoutModal()}
-        {renderOptimizeKeyboardLayoutModal()}
       </div>
     </div>
   )
