@@ -49,9 +49,9 @@
   user-select: none;
   width: 100%;
   transition:
-    font-size 300ms var(--animation-function),
-    color 300ms var(--animation-function),
-    line-height 300ms var(--animation-function);
+    // font-size 300ms var(--animation-function),
+    color 300ms var(--animation-function);
+  // line-height 300ms var(--animation-function);
   backdrop-filter: blur(3px);
 
   // transition: font-size 300ms var(--animation-function);

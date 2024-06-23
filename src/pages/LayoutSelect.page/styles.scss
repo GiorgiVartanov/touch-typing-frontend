@@ -31,7 +31,7 @@
       background-color: var(--secondary-background-color);
       padding: 0.25rem 0.5rem;
       border-radius: var(--border-radius);
-      transition: background-color 300ms var(--animation-function);
+      // transition: background-color 300ms var(--animation-function);
 
       &:hover {
         background-color: var(--red-color);

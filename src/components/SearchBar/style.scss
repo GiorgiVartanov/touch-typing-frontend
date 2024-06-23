@@ -8,9 +8,9 @@
   box-shadow: 0 2px 4px -1px var(--shadow-color);
 
   background-color: var(--secondary-background-color);
-  transition:
-    background-color 300ms var(--animation-function),
-    filter 300ms var(--animation-function);
+  // transition:
+  //   background-color 300ms var(--animation-function),
+  //   filter 300ms var(--animation-function);
   color: var(--accent-color);
 
   &::placeholder {
