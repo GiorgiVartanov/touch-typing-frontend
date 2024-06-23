@@ -5,6 +5,7 @@ import {
   ProcessStatus,
   PunctuationPlacement,
   PunctuationPlacementDictionary,
+  Analysis,
 } from "../../types/optimization.types"
 import config from "../../keyboardLayouts/config.json"
 
@@ -55,4 +56,16 @@ export const initialOptimizationConfig: OptimizationConfig = {
   },
   punctuation_placement: punctuationPlacements[PunctuationPlacement.qwerty],
   characters_set: [],
+}
+
+export const initialAnalysisEffort: Analysis = {
+  total_effort: -1,
+  left_hand_effort: 0,
+  right_hand_effort: 0,
+  finger_distance_effort: 0,
+  modifier_overhead_effort: 0,
+  hand_alternation_effort: 0,
+  consecutive_finger_usage_effort: 0,
+  same_hand_finger_steps_effort: 0,
+  hit_direction_effort: 0,
 }

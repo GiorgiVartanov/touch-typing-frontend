@@ -1,5 +1,4 @@
-import { TextRequestWord } from "../components/Form/Data/CorpusForm"
-import { TextRequestFake } from "../components/Form/Data/FakeWordsForm"
+import { TextRequestFake, TextRequestWord } from "./play.types"
 
 //to be upgraded... has been updated
 export interface MatchState {
