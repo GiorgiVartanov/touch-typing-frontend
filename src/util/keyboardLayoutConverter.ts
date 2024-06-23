@@ -45,4 +45,38 @@ export const convertFromPythonApiLayoutToCurrent = (
   return newPlacement
 }
 
-export const convertFromCurrentLayoutToPythonApi = (characterPlacement: KeyInterface[]) => {}
+export const convertFromCurrentLayoutToPythonApi = (characterPlacement: KeyInterface[]) => {
+  let pythonApiLayout: {
+    character: string
+    button_id: number | null
+  }[] = []
+  let index = 1
+  let dummy_count = 1
+  characterPlacement.slice(1).forEach((value) => {
+    if (value.fixed != undefined) {
+      let cur_val_0 = value.value[0] ? value.value[0] : "dummy_character_" + String(dummy_count++)
+      if (value.fixed[0]) {
+        pythonApiLayout.push({ character: cur_val_0, button_id: index })
+      } else pythonApiLayout.push({ character: cur_val_0, button_id: null })
+
+      ++index
+    }
+  })
+  pythonApiLayout.push({ character: "`", button_id: 46 })
+  pythonApiLayout.push({ character: " ", button_id: 47 })
+  index += 2
+  characterPlacement.slice(1).forEach((value) => {
+    if (value.fixed != undefined) {
+      let cur_val_1 = value.value[1] ? value.value[1] : "dummy_character_" + String(dummy_count++)
+      if (value.fixed[1]) {
+        pythonApiLayout.push({ character: cur_val_1, button_id: index })
+      } else pythonApiLayout.push({ character: cur_val_1, button_id: null })
+
+      ++index
+    }
+  })
+  pythonApiLayout.push({ character: "dummy_character_20", button_id: 94 })
+  pythonApiLayout.push({ character: "~", button_id: 93 })
+  console.log(pythonApiLayout)
+  return pythonApiLayout
+}

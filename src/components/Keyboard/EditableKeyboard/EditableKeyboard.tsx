@@ -37,6 +37,8 @@ import { OptimizationConfig, ProcessStatus } from "../../../types/optimization.t
 import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
 import Form from "../../Form/Form"
 import Input from "../../Form/Input"
+import AnalyseLayoutModal from "./AnalyseLayoutModal"
+import { convertFromCurrentLayoutToPythonApi } from "../../../util/keyboardLayoutConverter"
 
 interface Props {
   startingKeyboard: KeyInterface[]
@@ -102,8 +104,10 @@ const EditableKeyboard = ({
   const [userOS, setUserOS] = useState<string | null>(null)
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
   const [isOptimizeLayoutModalOpen, setIsOptimizeLayoutOpen] = useState<boolean>(false)
+  const [isAnalyseModalOpen, setIsAnalyseModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
+    console.log(editingKeyboard)
     if (editingKeyboard === optimizedEditingKeyboard) setOptimizedEditingKeyboard(undefined)
   }, [editingKeyboard])
 
@@ -118,8 +122,9 @@ const EditableKeyboard = ({
 
     const phantomKey: KeyInterface = {
       code: "Phantom",
-      value: [""],
+      value: ["", ""],
       type: "Letter",
+      fixed: [false, false],
     }
 
     const secondBackslash: KeyInterface = {
@@ -233,6 +238,14 @@ const EditableKeyboard = ({
     setIsOptimizeLayoutOpen(false)
   }
 
+  const handleOpenAnalysisModal = () => {
+    setIsAnalyseModalOpen(true)
+  }
+
+  const handleCloseAnalysisModal = () => {
+    setIsAnalyseModalOpen(false)
+  }
+
   const renderOptimizeKeyboardLayoutModal = () => {
     if (!isOptimizeLayoutModalOpen) return
 
@@ -240,6 +253,19 @@ const EditableKeyboard = ({
       <OptimizeLayoutModal
         isVisible={isOptimizeLayoutModalOpen}
         closeModal={handleCloseOptimizeKeyboardLayoutModal}
+        editingKeyboard={editingKeyboard}
+      />
+    )
+  }
+
+  const renderAnalysisModal = () => {
+    if (!isAnalyseModalOpen) return
+
+    return (
+      <AnalyseLayoutModal
+        isVisible={isAnalyseModalOpen}
+        closeModal={handleCloseAnalysisModal}
+        editingKeyboard={editingKeyboard}
       />
     )
   }
@@ -250,7 +276,7 @@ const EditableKeyboard = ({
       const currentKeyboard = structuredClone(prevState)
       const filteredKeyboard = currentKeyboard.map((key) => {
         if (uneditableKeys.includes(key.code)) return key
-        else return { code: key.code, value: [""], type: key.type }
+        else return { code: key.code, value: ["", ""], type: key.type, fixed: [false, false] }
       })
 
       return filteredKeyboard
@@ -266,21 +292,18 @@ const EditableKeyboard = ({
         uneditableSecondValueKeys.includes(keyCode)
       )
         return
-
       setEditingKeyboard((prevState) => {
         const editedKeyboard = structuredClone(prevState).map((key) => {
           if (key.code === keyCode) {
             return {
               code: key.code,
-              // value: [enteredCharacter?.toLowerCase() || enteredCharacter?.toUpperCase()],
-              value: [""],
+              value: ["", ""],
               type: key.type,
+              fixed: [false, false],
             }
-          } else {
-            return key
           }
+          return key
         })
-
         return editedKeyboard
       })
     },
@@ -424,10 +447,9 @@ const EditableKeyboard = ({
             return {
               code: key.code,
               // value: [enteredCharacter?.toLowerCase() || enteredCharacter?.toUpperCase()],
-              value: key.value[1]
-                ? [enteredCharacter?.toLowerCase() || "", key.value[1] || ""]
-                : [enteredCharacter?.toLowerCase() || ""],
+              value: [enteredCharacter || "", key.value[1] || ""],
               type: enteredCharacterType,
+              fixed: key.fixed,
             }
           } else {
             return key
@@ -494,9 +516,10 @@ const EditableKeyboard = ({
               value: [
                 // key.value[0] || enteredCharacter?.toLowerCase(),
                 key.value[0] || "",
-                enteredCharacter?.toUpperCase() || "",
+                enteredCharacter || "", //We no longer use English keyboard
               ],
               type: enteredCharacterType,
+              fixed: key.fixed,
             }
           } else {
             return key
@@ -553,7 +576,7 @@ const EditableKeyboard = ({
             tooltipContent={t("Analyze")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={handleNotImplemented}>
+            <Button onClick={handleOpenAnalysisModal}>
               <AnalyzeIcon className="icon" />
             </Button>
           </Tooltip>
@@ -610,7 +633,7 @@ const EditableKeyboard = ({
   const renderEditableKeyboardButtons = () => {
     const compareKeyboards = (keyboard1: KeyInterface[], keyboard2: KeyInterface[]) => {
       if (keyboard1.length !== keyboard2.length) {
-        return false
+        return false //აქ ხო უნდა ეწეროს True
       }
 
       for (let i = 0; i < keyboard1.length; i++) {
@@ -715,6 +738,7 @@ const EditableKeyboard = ({
       ref={ref}
       className="editable-keyboard-holder"
     >
+      {renderAnalysisModal()}
       {renderSelectedKey()}
       <div className="editable-keyboard-content">
         <KeyboardOptions
