@@ -1,5 +1,9 @@
-const ExerciseCard = () => {
-  return <p>I am a card</p>
+interface Props {
+  letter: string
+}
+
+const ExerciseCard = ({ letter }: Props) => {
+  return <p>lesson: {letter}</p>
 }
 
 export default ExerciseCard

@@ -127,6 +127,7 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
   }
 
   const startOptimization = async (optimization_config: OptimizationConfig) => {
+    console.log(optimization_config)
     socket.emit("generate_keyboard_layout", optimization_config)
     setOptimizationStatus(ProcessStatus.process_idle)
   }
