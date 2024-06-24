@@ -1,5 +1,9 @@
-const AssessmentCard = () => {
-  return <p>I am an assessment card</p>
+interface Props {
+  level: string
+}
+
+const AssessmentCard = ({ level }: Props) => {
+  return <p>Assessment {level}</p>
 }
 
 export default AssessmentCard

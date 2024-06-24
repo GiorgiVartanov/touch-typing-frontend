@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useOptimizationStore } from "../../../store/context/optimizationContext"
 import {
@@ -20,7 +20,7 @@ import { KeyInterface } from "../../../types/keyboard.types"
 import { convertFromCurrentLayoutToPythonApi } from "../../../util/keyboardLayoutConverter"
 
 interface Props {
-  editingKeyboard: KeyInterface[]
+  optimizationSubmit: (optimizationSubmit: OptimizationConfig) => void
 }
 
 const PunctPlaceModes = [0, 1, 2, 3, 4, 5]
@@ -34,13 +34,16 @@ const PunctPlaceModesText: { [key: number]: string } = {
 }
 
 // modal to add optimize layout
-const OptimizeLayoutPanel = ({ editingKeyboard }: Props) => {
+const OptimizeLayoutPanel = ({ optimizationSubmit }: Props) => {
   const { progress, startOptimization, optimizationStatus } = useOptimizationStore()
 
+  //console.log("right here", editingKeyboard)
   const [optimizationConfig, setOptimizationConfig] = useState<OptimizationConfig>({
     ...initialOptimizationConfig,
-    characters_set: convertFromCurrentLayoutToPythonApi(editingKeyboard),
   })
+
+  //useEffect(() => {}, [optimizationConfig])
+
   const [punctuationPlacementMode, setPunctuationPlacementMode] = useState<PunctuationPlacement>(
     PunctuationPlacement.qwerty
   )
@@ -50,7 +53,8 @@ const OptimizeLayoutPanel = ({ editingKeyboard }: Props) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    startOptimization(optimizationConfig)
+    //startOptimization(optimizationConfig)
+    optimizationSubmit(optimizationConfig)
   }
 
   return (
@@ -292,16 +296,6 @@ const OptimizeLayoutPanel = ({ editingKeyboard }: Props) => {
             }))
           }}
         />
-
-        {/* <Select
-          name={t("punctation placement variants")}
-          value={String(optimizationConfig.punctuation_placement)}
-          options={[]}
-          optionsToShow={[]}
-          onChange={function (value: string): void {
-            throw new Error("Function not implemented.")
-          }}
-        /> */}
         <label>
           {t("punctation placement variants")}
           <select

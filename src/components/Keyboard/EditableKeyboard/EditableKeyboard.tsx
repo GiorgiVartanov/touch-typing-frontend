@@ -86,7 +86,8 @@ const EditableKeyboard = ({
   uneditableSecondValueKeys = [], // keys that have their second (one accessed with shift/caps lock) value uneditable
   keySize = 3.25, // size of one key in rem
 }: Props) => {
-  const { optimizedEditingKeyboard, setOptimizedEditingKeyboard } = useOptimizationStore()
+  const { optimizedEditingKeyboard, setOptimizedEditingKeyboard, startOptimization } =
+    useOptimizationStore()
 
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
@@ -245,10 +246,29 @@ const EditableKeyboard = ({
     setIsAnalyseModalOpen(false)
   }
 
+  const optimizationSubmit = (optimizationConfig: OptimizationConfig) => {
+    console.log(editingKeyboard)
+    console.log("right here omni: ", {
+      ...optimizationConfig,
+      characters_set: convertFromCurrentLayoutToPythonApi(
+        editingKeyboard,
+        optimizationConfig.punctuation_placement
+      ),
+    })
+
+    startOptimization({
+      ...optimizationConfig,
+      characters_set: convertFromCurrentLayoutToPythonApi(
+        editingKeyboard,
+        optimizationConfig.punctuation_placement
+      ),
+    })
+  }
+
   const renderOptimizeKeyboardLayoutPanel = () => {
     // if (!isOptimizeLayoutModalOpen) return
 
-    return <OptimizeLayoutPanel editingKeyboard={editingKeyboard} />
+    return <OptimizeLayoutPanel optimizationSubmit={optimizationSubmit} />
   }
 
   const renderAnalysisModal = () => {
