@@ -61,12 +61,12 @@
       "type": "Digit"
     },
     {
-      "code": "minus",
+      "code": "Minus",
       "value": ["-", "_"],
       "type": "Symbol"
     },
     {
-      "code": "equal",
+      "code": "Equal",
       "value": ["=", "+"],
       "type": "Symbol"
     },

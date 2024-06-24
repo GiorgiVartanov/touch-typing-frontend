@@ -25,6 +25,14 @@
   }
 }
 
+.keyboard-top-side {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: end;
+}
+
 .editing-key {
   position: relative;
 
@@ -34,7 +42,7 @@
   border-radius: calc(var(--border-radius) * 2);
   background-color: var(--secondary-background-color);
   box-shadow: 0 2px 4px -1px var(--shadow-color);
-  opacity: 0;
+  opacity: 1;
 
   // &:hover {
   //   box-shadow: 0 2px 6px 2px var(--shadow-color);
@@ -55,7 +63,7 @@
   }
 
   &.selected-key-closed {
-    opacity: 0;
+    opacity: 1;
 
     // animation: 200ms var(--animation-function) selectedEditableKeyDisappear forwards;
   }
@@ -92,7 +100,8 @@
     right: -10rem;
   }
 
-  &.Letter-key {
+  &.Letter-key,
+  &.Symbol-key {
     position: relative;
 
     .editable-key-value {
@@ -113,7 +122,7 @@
     }
   }
 
-  &.Symbol-key,
+  // &.Symbol-key,
   &.Digit-key {
     position: relative;
 
@@ -168,18 +177,29 @@
   }
 }
 
-.optimize-layout-form {
-  max-width: 960px;
-  flex: 1;
-  width: 100%;
-  margin: 0;
-  height: 100%;
-  display: flex;
-  align-items: center;
+.optimize-layout-panel {
+  .optimize-layout-form {
+    max-width: 960px;
+    flex: 1;
+    width: 100%;
+    margin: 0;
+    height: 100%;
 
-  .submit-button {
-    width: 200px;
-    margin: auto auto 0.25rem;
+    .input-fields {
+      display: grid;
+      grid-template-columns: repeat(3, 225px);
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    input {
+      max-width: 225px;
+    }
+
+    .submit-button {
+      width: 200px;
+      margin-right: auto;
+    }
   }
 }
 

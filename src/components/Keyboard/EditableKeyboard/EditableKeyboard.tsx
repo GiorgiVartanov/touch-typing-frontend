@@ -29,7 +29,7 @@ import SelectedEditableKey from "./SelectedEditableKey"
 import Button from "../../Form/Button"
 import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
-import OptimizeLayoutModal from "./OptimizeLayoutModal"
+import OptimizeLayoutPanel from "./OptimizeLayoutPanel"
 import KeyboardOptions from "../KeyboardOptions"
 
 import { useOptimizationStore } from "../../../store/context/optimizationContext"
@@ -86,7 +86,8 @@ const EditableKeyboard = ({
   uneditableSecondValueKeys = [], // keys that have their second (one accessed with shift/caps lock) value uneditable
   keySize = 3.25, // size of one key in rem
 }: Props) => {
-  const { optimizedEditingKeyboard, setOptimizedEditingKeyboard } = useOptimizationStore()
+  const { optimizedEditingKeyboard, setOptimizedEditingKeyboard, startOptimization } =
+    useOptimizationStore()
 
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
@@ -107,7 +108,6 @@ const EditableKeyboard = ({
   const [isAnalyseModalOpen, setIsAnalyseModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log(editingKeyboard)
     if (editingKeyboard === optimizedEditingKeyboard) setOptimizedEditingKeyboard(undefined)
   }, [editingKeyboard])
 
@@ -246,16 +246,29 @@ const EditableKeyboard = ({
     setIsAnalyseModalOpen(false)
   }
 
-  const renderOptimizeKeyboardLayoutModal = () => {
-    if (!isOptimizeLayoutModalOpen) return
+  const optimizationSubmit = (optimizationConfig: OptimizationConfig) => {
+    console.log(editingKeyboard)
+    console.log("right here omni: ", {
+      ...optimizationConfig,
+      characters_set: convertFromCurrentLayoutToPythonApi(
+        editingKeyboard,
+        optimizationConfig.punctuation_placement
+      ),
+    })
 
-    return (
-      <OptimizeLayoutModal
-        isVisible={isOptimizeLayoutModalOpen}
-        closeModal={handleCloseOptimizeKeyboardLayoutModal}
-        editingKeyboard={editingKeyboard}
-      />
-    )
+    startOptimization({
+      ...optimizationConfig,
+      characters_set: convertFromCurrentLayoutToPythonApi(
+        editingKeyboard,
+        optimizationConfig.punctuation_placement
+      ),
+    })
+  }
+
+  const renderOptimizeKeyboardLayoutPanel = () => {
+    // if (!isOptimizeLayoutModalOpen) return
+
+    return <OptimizeLayoutPanel optimizationSubmit={optimizationSubmit} />
   }
 
   const renderAnalysisModal = () => {
@@ -687,7 +700,6 @@ const EditableKeyboard = ({
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       const pressedKey = event.code
-
       if (pressedKey === "Alt") event.preventDefault()
 
       // if (pressedKey === "Space") event.preventDefault()
@@ -738,8 +750,10 @@ const EditableKeyboard = ({
       ref={ref}
       className="editable-keyboard-holder"
     >
-      {renderAnalysisModal()}
-      {renderSelectedKey()}
+      <div className="keyboard-top-side">
+        {renderOptimizeKeyboardLayoutPanel()}
+        {renderSelectedKey()}
+      </div>
       <div className="editable-keyboard-content">
         <KeyboardOptions
           showSelectButton={false}
@@ -756,9 +770,9 @@ const EditableKeyboard = ({
         >
           {renderKeyboard()}
         </div>
+        {renderAnalysisModal()}
         {renderEditableKeyboardButtons()}
         {renderSaveKeyboardLayoutModal()}
-        {renderOptimizeKeyboardLayoutModal()}
       </div>
     </div>
   )

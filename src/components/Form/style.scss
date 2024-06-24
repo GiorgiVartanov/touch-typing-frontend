@@ -91,6 +91,112 @@ form {
     }
   }
 
+  .slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+
+    .slider {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+
+      .slider-value {
+        input {
+          width: 300px;
+          background-color: var(--secondary-background-color);
+        }
+      }
+
+      .slider-marks {
+        position: absolute;
+        top: 1.5rem;
+        display: flex;
+        width: 225px;
+        margin-left: 2px;
+        justify-content: space-between;
+        font-size: 0.75rem;
+
+        .left-line,
+        .right-line {
+          position: absolute;
+        }
+
+        .left-line {
+          left: 80px;
+        }
+        .right-line {
+          left: 125px;
+        }
+
+        span {
+          padding: 0 0.5rem 0.25rem 0.5rem;
+          user-select: none;
+          cursor: pointer;
+          color: var(--secondary-background-color);
+
+          &:hover {
+            color: var(--secondary-background-color-active);
+          }
+
+          &.nearest {
+            color: var(--secondary-background-color-active);
+          }
+
+          &.exact {
+            color: var(--primary-color);
+          }
+
+          &:first-of-type {
+            padding: 0 0.75rem 0.25rem 0;
+          }
+          &:last-of-type {
+            padding: 0 0 0.25rem 0.75rem;
+          }
+        }
+      }
+    }
+
+    input[type="range"] {
+      width: 100%;
+      appearance: none;
+      height: 8px;
+      background: #ddd;
+      border-radius: 5px;
+      outline: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &::-webkit-slider-thumb {
+        appearance: none;
+        width: 0.5rem;
+        height: 1.25rem;
+        background: var(--primary-color);
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        position: relative;
+      }
+
+      &::-moz-range-thumb {
+        width: 1.25rem;
+        height: 1.25rem;
+        background: var(--primary-color);
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+      }
+    }
+  }
+
   .input-wrapper {
     position: relative;
     width: fit-content;

@@ -36,15 +36,44 @@ const AnalyseLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) =
     startAnalysis(optimizationConfig)
   }
 
+  const renderAnalyisResultTable = () => {
+    if (!analysis) return
+    return (
+      <div>
+        <div className="vertically placed">
+          <h2>effort values</h2>
+          <div className="horizontally-placed">
+            <p>Your layout: {analysis.total_effort}</p>
+            <p>qwerty layout: {analysis.qwerty_effort}</p>
+          </div>
+        </div>
+        <div className="two columns">
+          <p>finger distance effort: {analysis.finger_distance_effort}</p>
+          <p>modifier overhead effort: {analysis.modifier_overhead_effort}</p>
+          <p>hand alternation effort: {analysis.hand_alternation_effort}</p>
+          <p>consecutive finger usage effort: {analysis.consecutive_finger_usage_effort}</p>
+          <p>same hand finger steps effort: {analysis.same_hand_finger_steps_effort}</p>
+          <p>hit direction weight: {analysis.hit_direction_effort}</p>
+          <div className="below all horizontal">
+            <h2>left hand effort: {analysis.left_hand_effort}</h2>
+            <h2>right hand effort: {analysis.right_hand_effort}</h2>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <Modal
       isVisible={isVisible}
       closeModal={handleCloseModal}
     >
-      {analysis == -1 ? (
+      {analysis == undefined ? (
+        <></>
+      ) : analysis.total_effort == -1 ? (
         <p>analysing your keyboard...</p>
       ) : analysis != undefined ? (
-        <p>your layout has got: {analysis}. in reference, QWERTY has: ???, DVORJAK has: ?!?</p>
+        renderAnalyisResultTable()
       ) : (
         <></>
       )}

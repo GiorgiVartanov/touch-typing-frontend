@@ -80,12 +80,12 @@ const App = () => {
           path="/practice/:id"
           element={<PracticePage />}
         />
-        <Route
+        {/* <Route
           path="/lessons"
           element={<LessonList />}
-        />
+        /> */}
         <Route
-          path="/lesson/:id"
+          path="/lessons"
           element={<Lesson />}
         />
         <Route

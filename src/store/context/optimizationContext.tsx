@@ -5,8 +5,10 @@ import {
   OptimizationProgress,
   OptimizationState,
   ProcessStatus,
+  Analysis,
 } from "../../types/optimization.types"
 import {
+  initialAnalysisEffort,
   optimizationInitialState,
   optimizationProgressInitialState,
 } from "../initial/optimizationInitialState"
@@ -77,12 +79,13 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
 
     socket.on("analysis_start", () => {
       console.log("Analysis started")
-      setAnalysis(-1)
+      setAnalysis(initialAnalysisEffort)
     })
 
-    socket.on("analysis_result", (data: { analysis: number }) => {
+    socket.on("analysis_result", (data: Analysis) => {
       console.log("analysis finished")
-      setAnalysis(data.analysis)
+      console.log("here is analysis: ", data)
+      setAnalysis(data)
     })
   }
 
@@ -107,7 +110,7 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     }))
   }
 
-  const setAnalysis = (analysis: number | undefined) => {
+  const setAnalysis = (analysis: Analysis | undefined) => {
     setOptimizationState((prevOptimization) => ({
       ...prevOptimization,
       analysis: analysis,
@@ -124,6 +127,7 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
   }
 
   const startOptimization = async (optimization_config: OptimizationConfig) => {
+    console.log(optimization_config)
     socket.emit("generate_keyboard_layout", optimization_config)
     setOptimizationStatus(ProcessStatus.process_idle)
   }

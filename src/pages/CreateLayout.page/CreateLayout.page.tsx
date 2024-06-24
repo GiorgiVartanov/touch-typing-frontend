@@ -1,18 +1,37 @@
-import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 import "./styles.scss"
+import georgianQwerty from "../../keyboardLayouts/geo.json"
+import { KeyInterface, KeyboardLayoutInterface } from "../../types/keyboard.types"
 
 import PageLayout from "../../layout/Page.layout/Page.layout"
 import Keyboard from "../../components/Keyboard/Keyboard"
+import qwertyGeorgianLayout from "../../keyboardLayouts/geo-opt.json"
 
 const CreateLayoutPage = () => {
-  const { keyboardLayout, keyboardLanguage } = useTypingSettingsStore()
+  const qwertyGeorgianKeyboardLayout: KeyboardLayoutInterface =
+    qwertyGeorgianLayout as KeyboardLayoutInterface
 
-  const currentKeyboard = keyboardLayout[keyboardLanguage].keyboard
+  //console.log("here lad: ", qwertyGeorgianKeyboardLayout)
+
+  const currentKeyboard = qwertyGeorgianKeyboardLayout.keyboard as KeyInterface[]
+
+  const symbolsToHide = ["Minus", "Semicolon", "Period", "Comma", "Quote", "Slash"]
+
+  // const keyboardWithoutLetters = currentKeyboard.map((key) => {
+  //   if (key.type === "Letter" || symbolsToHide.includes(key.code)) {
+  //     return {
+  //       code: key.code,
+  //       value: ["", ""],
+  //       type: key.type,
+  //     }
+  //   } else {
+  //     return key
+  //   }
+  // })
 
   return (
     <PageLayout className="create-layout-page">
       <Keyboard
-        startingKeyboard={currentKeyboard}
+        startingKeyboard={currentKeyboard as KeyInterface[]}
         showSelectButton={false}
         showEditButton={false}
         showLanguageSelector={true}

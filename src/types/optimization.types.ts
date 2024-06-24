@@ -11,7 +11,7 @@ export interface OptimizationState {
   progress: OptimizationProgress
   optimizationStatus: ProcessStatus
   optimizedEditingKeyboard: KeyInterface[] | undefined
-  analysis: number | undefined
+  analysis: Analysis | undefined
 }
 
 export enum ProcessStatus {
@@ -26,7 +26,7 @@ export interface OptimizationActions {
   setOptimizationStatus: (data_optimizationStatus: ProcessStatus) => void
   setOptimizedEditingKeyboard: (data_optimizedEditingKeyboard: KeyInterface[] | undefined) => void
   startOptimization: (optimizationConfig: OptimizationConfig) => void
-  setAnalysis: (analysis: number | undefined) => void
+  setAnalysis: (analysis: Analysis | undefined) => void
   startAnalysis: (optimization_config: OptimizationConfig) => void
 }
 
@@ -81,4 +81,17 @@ export enum PunctuationPlacement {
 
 export interface PunctuationPlacementDictionary {
   [placement: number]: number[]
+}
+
+export interface Analysis {
+  total_effort: number
+  left_hand_effort: number
+  right_hand_effort: number
+  finger_distance_effort: number
+  modifier_overhead_effort: number
+  hand_alternation_effort: number
+  consecutive_finger_usage_effort: number
+  same_hand_finger_steps_effort: number
+  hit_direction_effort: number
+  qwerty_effort: number
 }
