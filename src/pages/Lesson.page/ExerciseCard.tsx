@@ -3,7 +3,7 @@ interface Props {
 }
 
 const ExerciseCard = ({ letter }: Props) => {
-  return <p>lesson: {letter}</p>
+  return <div className="exercise-card">{letter}</div>
 }
 
 export default ExerciseCard

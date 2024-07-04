@@ -24,6 +24,7 @@ export interface User {
   username: string
   rating: number
   friends: string[]
+  completedAssessments: number[]
   accountType: "User" | "Admin"
 }
 

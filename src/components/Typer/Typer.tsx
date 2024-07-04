@@ -39,17 +39,16 @@ const Typer = ({
         className={className}
         keyboard={keyboardLayout[textLanguage].keyboard}
       />
-      {showKeyboard ? (
-        <Keyboard
-          forcedLanguage={textLanguage}
-          showSelectButton={false}
-          showEditButton={false}
-          showLanguageSelector={false}
-          showHideKeyboardButton={true}
-          showKeyboardTypeSelector={true}
-          showUtilityButtons={false}
-        />
-      ) : null}
+      <Keyboard
+        showKeyboard={showKeyboard}
+        forcedLanguage={textLanguage}
+        showSelectButton={false}
+        showEditButton={false}
+        showLanguageSelector={false}
+        showHideKeyboardButton={true}
+        showKeyboardTypeSelector={true}
+        showUtilityButtons={false}
+      />
     </div>
   )
 }

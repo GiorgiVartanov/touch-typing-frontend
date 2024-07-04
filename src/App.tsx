@@ -23,6 +23,8 @@ import CreateLayoutPage from "./pages/CreateLayout.page/CreateLayout.page"
 import LayoutSelectPage from "./pages/LayoutSelect.page/LayoutSelectPage"
 import LayoutPreviewPage from "./pages/LayoutPreview.page/LayoutPreview.page"
 import InstallationGuidePage from "./pages/InstallationGuide.page/InstallationGuide.page"
+import Exercise from "./pages/Lesson.page/Exercise"
+import Assessment from "./pages/Lesson.page/Assessment"
 
 // components
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
@@ -87,6 +89,14 @@ const App = () => {
         <Route
           path="/lessons"
           element={<Lesson />}
+        />
+        <Route
+          path="/lessons/exercise/:letter"
+          element={<Exercise />}
+        />
+        <Route
+          path="/lessons/assessment/:assessmentLevel"
+          element={<Assessment />}
         />
         <Route
           path="/play"

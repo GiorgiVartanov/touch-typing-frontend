@@ -11,6 +11,7 @@ interface Props {
   textLanguage: KeyboardLanguageType
   wordSeparator?: string
   handleTextFinish?: () => void
+  displayResultsAfterFinish?: boolean // will display results after finish even if handleTextFinish function was provided
   showKeyboard?: boolean
   className?: string
 }
@@ -20,13 +21,17 @@ const TypingAreaDisplay = ({
   wordSeparator,
   textLanguage,
   handleTextFinish,
+  displayResultsAfterFinish,
   showKeyboard = true,
   className,
 }: Props) => {
   const [displayResults, setDisplayResults] = useState(false)
 
   const handleOnTextFinish = () => {
-    if (handleTextFinish) handleTextFinish()
+    if (displayResultsAfterFinish && handleTextFinish) {
+      handleTextFinish()
+      setDisplayResults(true)
+    } else if (handleTextFinish) handleTextFinish()
     else setDisplayResults(true)
   }
 
@@ -59,6 +64,7 @@ const TypingArea = ({
   wordSeparator,
   textLanguage,
   handleTextFinish,
+  displayResultsAfterFinish,
   showKeyboard = true,
   className,
 }: Props) => {
@@ -68,6 +74,7 @@ const TypingArea = ({
         text={text}
         textLanguage={textLanguage}
         wordSeparator={wordSeparator}
+        displayResultsAfterFinish={displayResultsAfterFinish}
         handleTextFinish={handleTextFinish}
         showKeyboard={showKeyboard}
         className={className}
