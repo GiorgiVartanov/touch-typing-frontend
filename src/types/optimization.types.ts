@@ -12,6 +12,7 @@ export interface OptimizationState {
   optimizationStatus: ProcessStatus
   optimizedEditingKeyboard: KeyInterface[] | undefined
   analysis: Analysis | undefined
+  punctuation_indices: number[]
 }
 
 export enum ProcessStatus {
@@ -71,12 +72,11 @@ export interface Character {
 }
 
 export enum PunctuationPlacement {
-  custom = 0,
-  qwerty = 1,
-  dvorjak = 2,
-  left = 3,
-  middle_free = 4,
-  spread = 5,
+  qwerty = 0,
+  dvorjak = 1,
+  left = 2,
+  middle_free = 3,
+  spread = 4,
 }
 
 export interface PunctuationPlacementDictionary {

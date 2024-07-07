@@ -1,13 +1,8 @@
 {
-    "_id": "661a4f9bba6289bbe8874fc1",
-    "language": "Geo",
-    "title": "QWERTY (georgian)",
-    "public": true,
-    "official": true,
     "keyboard": [
       {
         "code": "Backquote",
-        "value": ["„", "“"],
+        "value": ["`", "~"],
         "type": "Symbol"
       },
       {
@@ -62,7 +57,7 @@
       },
       {
         "code": "minus",
-        "value": ["-", "_"],
+        "value": ["", ""],
         "type": "Symbol",
         "punct": true
       },
@@ -84,53 +79,63 @@
       },
       {
         "code": "KeyQ",
-        "value": ["ქ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "punct": true
       },
       {
         "code": "KeyW",
-        "value": ["წ", "ჭ"],
-        "type": "Letter"
+        "value": ["", "<"],
+        "type": "Letter",
+        "punct": true
       },
       {
         "code": "KeyE",
-        "value": ["ე", ""],
-        "type": "Letter"
+        "value": ["", ">"],
+        "type": "Letter",
+        "punct": true
       },
       {
         "code": "KeyR",
-        "value": ["რ", "ღ"],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyT",
-        "value": ["ტ", "თ"],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyY",
-        "value": ["ყ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyU",
-        "value": ["უ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyI",
-        "value": ["ი", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyO",
-        "value": ["ო", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyP",
-        "value": ["პ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "BracketLeft",
@@ -156,58 +161,66 @@
       },
       {
         "code": "KeyA",
-        "value": ["ა", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyS",
-        "value": ["ს", "შ"],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyD",
-        "value": ["დ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyF",
-        "value": ["ფ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyG",
-        "value": ["გ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyH",
-        "value": ["ჰ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyJ",
-        "value": ["ჯ", "ჟ"],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyK",
-        "value": ["კ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyL",
-        "value": ["ლ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "Semicolon",
-        "value": [";", ":"],
-        "type": "Symbol",
-        "punct": true
+        "value": ["", ""],
+        "type": "Symbol"
       },
       {
         "code": "Quote",
-        "value": ["'", "\""],
+        "value": ["", ""],
         "type": "Symbol",
         "punct": true
       },
@@ -223,56 +236,60 @@
       },
       {
         "code": "KeyZ",
-        "value": ["ზ", "ძ"],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "punct": true
       },
       {
         "code": "KeyX",
-        "value": ["ხ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyC",
-        "value": ["ც", "ჩ"],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyV",
-        "value": ["ვ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyB",
-        "value": ["ბ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyN",
-        "value": ["ნ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "KeyM",
-        "value": ["მ", ""],
-        "type": "Letter"
+        "value": ["", ""],
+        "type": "Letter",
+        "fixed": [false, false]
       },
       {
         "code": "Comma",
-        "value": [",", "<"],
-        "type": "Symbol",
-        "punct": true
+        "value": ["", ""],
+        "type": "Symbol"
       },
       {
         "code": "Period",
-        "value": [".", ">"],
-        "type": "Symbol",
-        "punct": true
+        "value": ["", ""],
+        "type": "Symbol"
       },
       {
         "code": "Slash",
-        "value": ["/", "?"],
-        "type": "Symbol",
-        "punct": true
+        "value": ["", ""],
+        "type": "Symbol"
       },
       {
         "code": "ShiftRight",
@@ -320,5 +337,5 @@
         "type": "Modifier"
       }
     ]
-  }
+}
   
