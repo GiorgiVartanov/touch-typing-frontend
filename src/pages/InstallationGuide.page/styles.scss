@@ -1,0 +1,37 @@
+.installation-guide-page {
+  h2 {
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+  }
+
+  ul {
+    list-style: none;
+    counter-reset: list-counter;
+    padding-left: 2em;
+
+    li {
+      counter-increment: list-counter;
+      position: relative;
+      margin-bottom: 1em;
+
+      a {
+        text-decoration: underline;
+        color: var(--primary-color);
+
+        &:hover {
+          color: var(--primary-color-active);
+        }
+
+        // &:visited {
+        //   color: var(--primary-color-active);
+        // }
+      }
+
+      &::before {
+        content: counter(list-counter) ". ";
+        position: absolute;
+        left: -2em; // Adjust as needed
+      }
+    }
+  }
+}

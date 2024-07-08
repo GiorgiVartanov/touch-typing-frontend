@@ -35,7 +35,7 @@
 
     .go-back-button {
       width: fit-content;
-      padding: 0.25rem 0.75rem;
+      padding: 0.25rem 0;
       // background-color: var(--secondary-background-color);
       position: absolute;
       top: 0.5rem;
@@ -45,6 +45,9 @@
       font-size: 0.75rem;
       align-items: center;
       font-weight: 600;
+      background-color: transparent;
+      box-shadow: none;
+      text-shadow: 0 0 24px rgba(0, 0, 0, 0.75);
 
       .go-back-icon {
         transform: rotate(270deg);

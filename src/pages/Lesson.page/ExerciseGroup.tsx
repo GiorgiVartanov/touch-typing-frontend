@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import ExerciseCard from "./ExerciseCard"
 import AssessmentCard from "./AssessmentCard"
+import Tooltip from "../../components/Tooltip/Tooltip"
+
+import LockIcon from "../../assets/icons/lock.svg?react"
 
 interface Props {
   letters: string[]
@@ -10,10 +14,12 @@ interface Props {
 }
 
 const ExerciseGroup = ({ letters, assessmentLevel, isAvailable = false }: Props) => {
+  const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
+
   return (
     <>
-      <h3 className="lesson-group-header">
-        Lesson texts for the letters
+      <h3 className={`lesson-group-header ${isAvailable ? "" : "lessons-available"}`}>
+        {t("Lesson texts for the letters")}
         <span>
           {letters[0]} - {letters[letters.length - 1]}
         </span>
@@ -22,7 +28,17 @@ const ExerciseGroup = ({ letters, assessmentLevel, isAvailable = false }: Props)
         {isAvailable ? (
           ""
         ) : (
-          <div className="lock">please, complete previous assessment to unlock</div>
+          <div className="lock">
+            <Tooltip
+              className="icon-holder"
+              tooltipContent={t("complete previous assessment to unlock")}
+              tooltipPosition="bottom-center"
+            >
+              <LockIcon className="icon" />
+            </Tooltip>
+
+            <div className="lock-background"></div>
+          </div>
         )}
         {letters.map((lett) =>
           isAvailable ? (
@@ -46,11 +62,11 @@ const ExerciseGroup = ({ letters, assessmentLevel, isAvailable = false }: Props)
             to={`assessment/${assessmentLevel}`}
             className="assessment-link"
           >
-            <AssessmentCard level={assessmentLevel.toString()} />
+            <AssessmentCard level={assessmentLevel} />
           </Link>
         ) : (
           <p className="assessment-unclickable">
-            <AssessmentCard level={assessmentLevel.toString()} />
+            <AssessmentCard level={assessmentLevel} />
           </p>
         )}
       </div>

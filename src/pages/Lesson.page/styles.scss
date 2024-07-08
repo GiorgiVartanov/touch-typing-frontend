@@ -10,6 +10,10 @@
     width: 100%;
     text-align: center;
 
+    &.lessons-available {
+      opacity: 0.75;
+    }
+
     span {
       margin-left: 1rem;
       font-weight: bold;
@@ -28,6 +32,37 @@
   width: 100%;
   gap: 2rem;
   position: relative;
+
+  .lock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .lock-background {
+      position: absolute;
+      background-color: var(--background-color);
+      z-index: 50;
+      width: 100%;
+      height: 100%;
+      opacity: 0.65;
+      top: -0.5rem;
+    }
+
+    .icon-holder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 51;
+      font-size: 1.25rem !important;
+
+      .icon {
+        cursor: default;
+        height: 6rem;
+        width: 6rem;
+      }
+    }
+  }
 
   p {
     &:hover {
