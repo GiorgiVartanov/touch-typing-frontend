@@ -3,38 +3,40 @@ import TyperArea from "../../components/TypingArea/TypingArea"
 import ajax from "../../services/ajax"
 import Loading from "../../components/Loading/Loading"
 import TypingArea from "../../components/TypingArea/TypingArea"
+import { useParams } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
+import PageLayout from "../../layout/Page.layout/Page.layout"
 
-interface props {
-  letter: string
-}
+const Exercise = () => {
+  const { letter } = useParams()
 
-const Exercise = ({ letter }: props) => {
-  const [exerciseText, setExerciseText] = useState<string>("")
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const fetchLesson = async () => {
+    if (!letter) return null
 
-  useEffect(() => {
-    setIsLoading(true)
+    return await ajax.get(`/lesson/exercise?letter=${letter}`)
+  }
 
-    const fetchMatch = async () => {
-      console.log(letter)
-      const response = await ajax.get(`/lesson/exercise?letter=${letter}`)
+  const { data, isLoading, error } = useQuery({
+    queryFn: fetchLesson,
+    queryKey: ["lesson", letter],
+    staleTime: 10000000,
+  })
 
-      setExerciseText(response.data)
-    }
-    fetchMatch()
+  const renderExercise = () => {
+    if (isLoading) return <Loading />
 
-    setIsLoading(false)
-  }, [])
+    if (error || !data?.data) return <div>something went wrong</div>
 
-  if (isLoading) return <Loading />
+    return (
+      <TypingArea
+        text={data.data}
+        textLanguage="Geo"
+        handleTextFinish={() => {}}
+      />
+    )
+  }
 
-  return (
-    <TypingArea
-      text={exerciseText}
-      textLanguage="Geo"
-      handleTextFinish={() => {}}
-    />
-  )
+  return <PageLayout>{renderExercise()}</PageLayout>
 }
 
 export default Exercise

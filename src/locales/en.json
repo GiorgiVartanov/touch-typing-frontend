@@ -6,6 +6,25 @@
     "log out": "log out"
   },
 
+  "guide page": {
+    "how to install keyboard layout on windows": "How to install keyboard layout on your PC",
+    "Install": "Download and install",
+    "Microsoft Keyboard Layout Creator Tool 1.4 (MSKLC)": "Microsoft Keyboard Layout Creator Tool 1.4 (MSKLC)",
+    "Click on File >> Load Source File and select exported layout (it will be a .klc file)": "Click on File >> Load Source File and select exported layout (.klc file)",
+    "Open MSKLC": "Open MSKLC",
+    "Click on Project >> Build DLL and Setup Package and select exported layout (it will be a .klc file)": "Click on Project >> Build DLL and Setup Package and select exported layout (.klc file)",
+    "Open newly created directory and open setup.exe": "Open newly created directory and open setup.exe",
+    "After installing layout, go to Language Preferences >> Preferred languages": "After installing layout, go to Language Preferences >> Preferred languages",
+    "Click on Project >> Test Keyboard Layout and check if it works": "Click on Project >> Test Keyboard Layout and check if it works"
+  },
+
+  "lesson page": {
+    "you need to be logged in to save assessment results": "you need to be logged in to save assessment results",
+    "Assessment": "Assessment",
+    "Lesson texts for the letters": "Lesson texts for the letters",
+    "complete previous assessment to unlock": "complete previous assessment to unlock"
+  },
+
   "header": {
     "website name": "Touch Typing",
     "learn": "learn",

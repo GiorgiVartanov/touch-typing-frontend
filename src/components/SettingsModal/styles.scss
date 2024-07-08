@@ -52,7 +52,9 @@
     width: fit-content;
     background-color: var(--secondary-background-color);
     border-radius: var(--border-radius);
-    transition: opacity 300ms var(--animation-function) !important;
+    transition:
+      opacity 300ms var(--animation-function),
+      background-color 300ms var(--animation-function) !important;
 
     &:hover {
       background-color: var(--secondary-background-color-active);
@@ -121,8 +123,16 @@
               background-color 250ms var(--animation-function),
               opacity 200ms var(--animation-function);
 
+            &:hover {
+              background-color: var(--secondary-background-color-active);
+            }
+
             &.on {
               background-color: var(--primary-color) !important;
+
+              &:hover {
+                background-color: var(--primary-color-active) !important;
+              }
 
               &::before {
                 opacity: 1;
@@ -157,23 +167,23 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          transition: color 300ms var(--animation-function);
+          transition:
+            color 300ms var(--animation-function),
+            background-color 300ms var(--animation-function);
 
           .setting-select {
             padding: 0.25rem 1rem;
             width: 100%;
             max-width: 240px;
             font-family: inherit;
-            // transition:
-            // background-color var(--animation-function) 300ms,
-            // color var(--animation-function) 300ms;
+            transition:
+              background-color var(--animation-function) 300ms,
+              color var(--animation-function) 300ms;
             background-color: var(--secondary-background-color);
             border: none;
             outline: none;
             border-radius: var(--border-radius);
             box-shadow: 0 2px 4px -1px var(--shadow-color);
-            // transition: color 300ms var(--animation-function);
-            // background-color 300ms var(--animation-function);
 
             &:hover,
             &:focus {

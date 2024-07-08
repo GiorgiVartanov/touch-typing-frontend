@@ -6,6 +6,25 @@
     "log out": "გასვლა"
   },
 
+  "guide page": {
+    "how to install keyboard layout on windows": "როგორ უნდა იყოს დაინსტალირებული კლავიატურის განლაგება თქვენს კომპიუტერზე",
+    "Install": "ჩაწერეთ დააინსტალირეთ",
+    "Microsoft Keyboard Layout Creator Tool 1.4 (MSKLC)": "Microsoft Keyboard Layout Creator Tool 1.4 (MSKLC)",
+    "Click on File >> Load Source File and select exported layout (it will be a .klc file)": "დააჭირეთ File >> Load Source File და აირჩიეთ დაექსპორტებული განლაგება (.klc გაფართოების ფაილი)",
+    "Open MSKLC": "გახსენით MSKLC",
+    "Click on Project >> Build DLL and Setup Package and select exported layout (it will be a .klc file)": "დააჭირეთ Project >> Build DLL და Setup Package და აირჩიეთ დაექსპორტებული განლაგება (.klc გაფართოების ფაილი)",
+    "Open newly created directory and open setup.exe": "გახსენით ახალშექმნილი დირექტორია და გახსენით setup.exe ფაილი",
+    "After installing layout, go to Language Preferences >> Preferred languages": "განლაგების დაინსტალირების შემდეგ, გადადით Language Preferences >> Preferred languages",
+    "Click on Project >> Test Keyboard Layout and check if it works": "დააჭირეთ Project >> Test Keyboard Layout და შეამოწმეთ ის"
+  },
+
+  "lesson page": {
+    "you need to be logged in to save assessment results": "თქვენ უნდა იყოთ დარეგისტრირებული გაკვეთულის შეფასების შესანახად",
+    "Assessment": "შეფასება",
+    "Lesson texts for the letters": "გაკვეთულები ასოებისთვის :",
+    "complete previous assessment to unlock": "გასახსნელად დაასრულეთ წინა შემოწმება"
+  },
+
   "header": {
     "website name": "ბრმად ბეჭდვა",
     "learn": "სწავლა",
@@ -125,7 +144,7 @@
     "On our website, you have the freedom to craft a custom keyboard layout tailored precisely to your preferences, or explore layouts meticulously curated by our vibrant community.": "ჩვენს ვებსაიტზე თქვენ გაქვს შესაძლებლობა შექმნა შენზე ორიენტირებული კლავიატურის განლაგება, ან აირჩიო უნვე შექმნილი",
     "compete against other users": "შეეჯიბრე სხვა მომხმარებლებს",
     "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.": "დაუპირისპირდით სხვა მომხმარებლებს რეალურ დროში და შეამოწმეთ თქვენი ბეჭდვის უნარი შეჯიბრებში",
-    "follow carefully crafted lessons": "ისწავლეთ ბეჭდვა ახალ განლაგებაზე",
+    "follow carefully crafted lessons": "ისწავლეთ ბეჭდვა ნებისმიერ განლაგებაზე",
     "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
     "select layout": "არჩევა",
     "create layout": "შექმნა",

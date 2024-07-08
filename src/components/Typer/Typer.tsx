@@ -4,12 +4,13 @@ import { KeyboardLanguageType } from "../../types/typer.types/typingSettings.typ
 
 import Text from "./Text"
 import Keyboard from "../Keyboard/Keyboard"
+import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 
 interface Props {
   text: string
   textLanguage?: KeyboardLanguageType
   wordSeparator?: string
-  handleTextFinish: () => void
+  handleTextFinish: (metrics?: MetricsContextProps) => void
   className?: string
   showKeyboard?: boolean
 }
@@ -39,17 +40,16 @@ const Typer = ({
         className={className}
         keyboard={keyboardLayout[textLanguage].keyboard}
       />
-      {showKeyboard ? (
-        <Keyboard
-          forcedLanguage={textLanguage}
-          showSelectButton={false}
-          showEditButton={false}
-          showLanguageSelector={false}
-          showHideKeyboardButton={true}
-          showKeyboardTypeSelector={true}
-          showUtilityButtons={false}
-        />
-      ) : null}
+      <Keyboard
+        showKeyboard={showKeyboard}
+        forcedLanguage={textLanguage}
+        showSelectButton={false}
+        showEditButton={false}
+        showLanguageSelector={false}
+        showHideKeyboardButton={true}
+        showKeyboardTypeSelector={true}
+        showUtilityButtons={false}
+      />
     </div>
   )
 }
