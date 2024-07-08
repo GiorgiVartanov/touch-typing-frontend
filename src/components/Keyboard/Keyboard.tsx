@@ -9,6 +9,7 @@ import EditableKeyboard from "./EditableKeyboard/EditableKeyboard"
 import TypeableKeyboard from "./TypeableKeyboard/TypeableKeyboard"
 
 interface Props {
+  showKeyboard?: boolean
   forcedKeyboardLayout?: KeyboardLayoutInterface // keyboard layout that will be user even if user has selected a different one
   forcedLanguage?: KeyboardLanguageType // language that user will be forced to use (they won't be able to change it)
   forceVisible?: boolean //
@@ -30,6 +31,7 @@ interface Props {
 }
 
 const Keyboard = ({
+  showKeyboard = true,
   forcedKeyboardLayout,
   forcedLanguage,
   forceVisible = false,
@@ -51,6 +53,8 @@ const Keyboard = ({
 
     setIsEditing((prevState) => !prevState)
   }
+
+  if (!showKeyboard) return
 
   if ((isEditing || mode === "editing") && startingKeyboard) {
     return (

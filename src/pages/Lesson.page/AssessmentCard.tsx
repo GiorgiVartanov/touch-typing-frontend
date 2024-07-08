@@ -3,7 +3,7 @@ interface Props {
 }
 
 const AssessmentCard = ({ level }: Props) => {
-  return <p>Assessment {level}</p>
+  return <div>Assessment {level}</div>
 }
 
 export default AssessmentCard
