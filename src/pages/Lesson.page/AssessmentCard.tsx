@@ -1,9 +1,17 @@
+import { useTranslation } from "react-i18next"
+
 interface Props {
-  level: string
+  level: number
 }
 
 const AssessmentCard = ({ level }: Props) => {
-  return <div>Assessment {level}</div>
+  const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
+
+  return (
+    <div>
+      {t("Assessment")} {level}
+    </div>
+  )
 }
 
 export default AssessmentCard

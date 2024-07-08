@@ -60,10 +60,14 @@ const ProfilePage = () => {
 
     return (
       <div className="profile-user-data">
-        <div className="user-panel">
-          <p className="username">{username}</p>
-          <span className="username-text">{t("'s profile page")}</span>
-        </div>
+        {username !== pageOwnerUsername ? (
+          <div className="user-panel">
+            <p className="username">{username}</p>
+            <span className="username-text">{t("'s profile page")}</span>
+          </div>
+        ) : (
+          ""
+        )}
         <section className="profile-page-keyboard">
           <h2>{t("currently selected layout")}</h2>
           <Keyboard

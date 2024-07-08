@@ -17,7 +17,8 @@ import PracticePage from "./pages/PracticeText.page/PracticeText.page"
 import PlayPage from "./pages/Play.page/Play.page"
 import PageNotFoundPage from "./pages/PageNotFound.page/PageNotFound.page"
 import ProfilePage from "./pages/Profile.page/Profile.page"
-import LessonList from "./pages/LessonList.page/LessonList.page"
+import InstallationGuideLinuxPage from "./pages/InstallationGuide.page/installationGuide-linux.page"
+import InstallationGuideMacPage from "./pages/InstallationGuide.page/installationGuide-mac.page"
 import Lesson from "./pages/Lesson.page/Lesson.page"
 import CreateLayoutPage from "./pages/CreateLayout.page/CreateLayout.page"
 import LayoutSelectPage from "./pages/LayoutSelect.page/LayoutSelectPage"
@@ -129,6 +130,14 @@ const App = () => {
         <Route
           path="/guides/how_to_install_layout_on_windows"
           element={<InstallationGuidePage />}
+        />
+        <Route
+          path="/guides/how_to_install_layout_on_map"
+          element={<InstallationGuideMacPage />}
+        />
+        <Route
+          path="/guides/how_to_install_layout_on_linux"
+          element={<InstallationGuideLinuxPage />}
         />
         <Route
           path="/*"

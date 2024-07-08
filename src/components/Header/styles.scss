@@ -150,7 +150,7 @@
         .header-buttons {
           position: absolute;
           height: 100%;
-          right: 22.5rem;
+          right: 23.5rem;
 
           .header-button-list {
             display: flex;
@@ -373,7 +373,9 @@
                 .logout-button {
                   background-color: var(--secondary-background-color);
                   border-radius: 0 0 var(--border-radius) var(--border-radius);
-                  transition: background-color 300ms var(--animation-function);
+                  transition:
+                    background-color 300ms var(--animation-function),
+                    padding 300ms var(--animation-function);
 
                   &:hover {
                     background-color: var(--warning-color);

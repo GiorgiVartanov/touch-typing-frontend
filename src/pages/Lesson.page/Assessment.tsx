@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import TypingArea from "../../components/TypingArea/TypingArea"
 import ajax from "../../services/ajax"
 import Loading from "../../components/Loading/Loading"
@@ -8,11 +7,14 @@ import PageLayout from "../../layout/Page.layout/Page.layout"
 import { useAuthStore } from "../../store/context/authContext"
 import { saveAssessment } from "../../services/lessonServices"
 import { toast } from "react-toastify"
+import { useTranslation } from "react-i18next"
 
 const Assessment = () => {
   const { assessmentLevel } = useParams()
 
-  const { token } = useAuthStore()
+  const { token, saveAssessmentLocally } = useAuthStore()
+
+  const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
 
   const fetchAssessment = async () => {
     if (!assessmentLevel) return
@@ -22,12 +24,16 @@ const Assessment = () => {
 
   const completeAssessment = () => {
     if (!token) {
-      toast.warning("you need to be logged in to save assessment results")
+      toast.warning(t("you need to be logged in to save assessment results"))
     }
 
     if (!assessmentLevel || !token) return
 
-    return saveAssessment(0, assessmentLevel, token)
+    // check percentage here, return if its less than desired
+
+    saveAssessmentLocally(Number(assessmentLevel))
+
+    return saveAssessment(0, Number(assessmentLevel), token)
   }
 
   const { data, isLoading, error } = useQuery({
