@@ -11,18 +11,19 @@ import {
   wordLetterStatusesType,
 } from "../../types/typer.types/letterStatuses.types"
 import { useMetrics } from "../../store/context/MetricsContext"
+import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 
 interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
-  handleTextFinish: () => void
+  handleTextFinish: (metric?: MetricsContextProps) => void
   keyboard: KeyInterface[]
   className?: string
 }
 
 const Text = ({ text, wordSeparator = "", handleTextFinish, keyboard, className }: Props) => {
   const { font, fontSize } = useTypingSettingsStore()
-  const { handleMetrics } = useMetrics()
+  const { metrics, handleMetrics } = useMetrics()
 
   const textLength = text.length
 
@@ -42,7 +43,9 @@ const Text = ({ text, wordSeparator = "", handleTextFinish, keyboard, className 
 
     if (isLastWord) {
       handleMetrics.handleSetLetterStatuses([...lettersStatuses, wordLetterStatuses])
-      handleTextFinish()
+      console.log(metrics)
+      const copy_metrics = structuredClone(metrics)
+      handleTextFinish(copy_metrics)
     }
   }
 

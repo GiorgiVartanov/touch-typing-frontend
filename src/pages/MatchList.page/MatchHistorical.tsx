@@ -69,7 +69,10 @@ const MatchHistorical = () => {
           })}
         </div>
         <div className="history-text">
-          <TypingArea text={match.text} />
+          <TypingArea
+            text={match.text}
+            textLanguage="Geo"
+          />
         </div>
       </div>
     </PageLayout>
