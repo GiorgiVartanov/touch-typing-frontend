@@ -38,7 +38,7 @@ const Exercise = () => {
   const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
 
   const checkCompletedLetters = () => {
-    if (!letter || !completedLessons) return false
+    if (!letter) return false
 
     if (letter === "ა") return true
 
@@ -49,7 +49,7 @@ const Exercise = () => {
         if (index !== -1) {
           return subArray
             .slice(0, index)
-            .every((completedLetter) => completedLessons.includes(completedLetter))
+            .every((completedLetter) => completedLessons?.includes(completedLetter))
         }
         return true
       })
