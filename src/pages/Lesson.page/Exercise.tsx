@@ -40,6 +40,8 @@ const Exercise = () => {
   const checkCompletedLetters = () => {
     if (!letter || !completedLessons) return false
 
+    if (letter === "ა") return true
+
     return assessmentLessonRequirements
       .map((subArray) => {
         const index = subArray.indexOf(letter)
@@ -54,13 +56,6 @@ const Exercise = () => {
       .every((result) => result)
   }
 
-  if (!checkCompletedLetters()) {
-    navigate("../lessons")
-    toast.warning("you don't have access to this lesson")
-
-    return
-  }
-
   const fetchLesson = async () => {
     if (!letter) return null
 
@@ -72,6 +67,13 @@ const Exercise = () => {
     queryKey: ["lesson", letter],
     staleTime: 10000000,
   })
+
+  if (!checkCompletedLetters()) {
+    navigate("../lessons")
+    toast.warning("you don't have access to this lesson")
+
+    return
+  }
 
   const getNextLevelURL = () => {
     if (!letter) return "../lessons"

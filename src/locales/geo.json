@@ -176,7 +176,9 @@
     "incorrect password": "პაროლი არასწორია",
     "after registration, you will be able to": "რეგისტრაციის შემდეგ თქვენ შეძლებთ",
     "save and share your layouts": "თავისი კლავიატურის განლაგების შენახვა და გაზიარება",
-    "save your preferences": "თავისი პარამეტრების შენახვა"
+    "save your preferences": "თავისი პარამეტრების შენახვა",
+    "save lesson progress": "შეინახოთ სავარჯიშოების პროგრესი",
+    "being able to rank by score": "ქულების მიხედვით დარანჟირდეთ"
   },
 
   "settings page": {
