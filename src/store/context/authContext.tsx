@@ -170,6 +170,16 @@ const AuthProvider = ({ children }: Props) => {
     dispatch(setUser(null))
   }
 
+  const saveAssessmentLocally = (assessmentLevel: number) => {
+    if (!state.user) return
+
+    const updatedUser = structuredClone(state.user)
+
+    updatedUser.completedAssessments.push(assessmentLevel)
+
+    dispatch(setUser(updatedUser))
+  }
+
   // redo
   const addUserToSentFriendRequests = (friendUsername: string) => {
     const currentUser = state.user
@@ -213,6 +223,7 @@ const AuthProvider = ({ children }: Props) => {
     resetLoginUsernameError,
     resetLoginPasswordError,
     logoutUser,
+    saveAssessmentLocally,
     addUserToSentFriendRequests,
   }
 

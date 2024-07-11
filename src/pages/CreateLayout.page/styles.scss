@@ -5,6 +5,11 @@
   flex-direction: column;
   padding-top: 0rem !important;
 
+  .editable-keyboard-holder {
+    position: relative;
+    bottom: 2rem;
+  }
+
   .keyboard-holder {
     width: fit-content;
 

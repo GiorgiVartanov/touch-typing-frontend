@@ -18,6 +18,26 @@ const MainPage = () => {
       <div className="main-content">
         <Carousel>
           <MainPageSection
+            title={t("follow carefully crafted lessons")}
+            id={t("lessons")}
+            description={t(
+              "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency."
+            )}
+          >
+            <Link
+              to="lessons"
+              className="main-page-section-link button"
+            >
+              {t("see lessons")}
+            </Link>
+            <Link
+              to="practice"
+              className="main-page-section-link button"
+            >
+              {t("texts")}
+            </Link>
+          </MainPageSection>
+          <MainPageSection
             title={t("create custom keyboard layout")}
             id={t("keyboard")}
             description={t(
@@ -49,26 +69,6 @@ const MainPage = () => {
               className="main-page-section-link button"
             >
               {t("compete")}
-            </Link>
-          </MainPageSection>
-          <MainPageSection
-            title={t("follow carefully crafted lessons")}
-            id={t("lessons")}
-            description={t(
-              "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency."
-            )}
-          >
-            <Link
-              to="lessons"
-              className="main-page-section-link button"
-            >
-              {t("see lessons")}
-            </Link>
-            <Link
-              to="practice"
-              className="main-page-section-link button"
-            >
-              {t("texts")}
             </Link>
           </MainPageSection>
         </Carousel>

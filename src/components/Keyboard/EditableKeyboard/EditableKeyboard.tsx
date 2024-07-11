@@ -37,9 +37,16 @@ import { OptimizationConfig, ProcessStatus } from "../../../types/optimization.t
 import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
 import Form from "../../Form/Form"
 import Input from "../../Form/Input"
-import AnalyseLayoutModal from "./AnalyseLayoutModal"
-import { convertFromCurrentLayoutToPythonApi } from "../../../util/keyboardLayoutConverter"
-
+import AnalyseLayoutModal, { inBetweenCall } from "./AnalyseLayoutModal"
+import {
+  convertFromCurrentLayoutToPythonApi,
+  fixPunctuationPlacement,
+  getPunctuationPlacementFromKeyboard,
+  spaceProblem,
+  validateKeyboardLayout,
+} from "../../../util/keyboardLayoutConverter"
+import EffortConfigurator from "./EffortConfigurator"
+//import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
 interface Props {
   startingKeyboard: KeyInterface[]
   handleEditing: () => void
@@ -86,8 +93,12 @@ const EditableKeyboard = ({
   uneditableSecondValueKeys = [], // keys that have their second (one accessed with shift/caps lock) value uneditable
   keySize = 3.25, // size of one key in rem
 }: Props) => {
-  const { optimizedEditingKeyboard, setOptimizedEditingKeyboard, startOptimization } =
-    useOptimizationStore()
+  const {
+    optimizedEditingKeyboard,
+    setOptimizedEditingKeyboard,
+    startOptimization,
+    startAnalysis,
+  } = useOptimizationStore()
 
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
@@ -106,13 +117,19 @@ const EditableKeyboard = ({
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
   const [isOptimizeLayoutModalOpen, setIsOptimizeLayoutOpen] = useState<boolean>(false)
   const [isAnalyseModalOpen, setIsAnalyseModalOpen] = useState<boolean>(false)
+  const [punctuationIndices, setPunctuationIndices] = useState<number[]>([])
 
   useEffect(() => {
-    if (editingKeyboard === optimizedEditingKeyboard) setOptimizedEditingKeyboard(undefined)
+    if (editingKeyboard === optimizedEditingKeyboard) {
+      setEditingKeyboard(fixPunctuationPlacement(editingKeyboard, punctuationIndices))
+      setOptimizedEditingKeyboard(undefined)
+    }
   }, [editingKeyboard])
 
   if (optimizedEditingKeyboard) {
-    if (editingKeyboard !== optimizedEditingKeyboard) setEditingKeyboard(optimizedEditingKeyboard)
+    if (editingKeyboard !== optimizedEditingKeyboard) {
+      setEditingKeyboard(optimizedEditingKeyboard)
+    }
   }
 
   const renderKeyboard = () => {
@@ -124,7 +141,7 @@ const EditableKeyboard = ({
       code: "Phantom",
       value: ["", ""],
       type: "Letter",
-      fixed: [false, false],
+      punct: undefined,
     }
 
     const secondBackslash: KeyInterface = {
@@ -239,7 +256,20 @@ const EditableKeyboard = ({
   }
 
   const handleOpenAnalysisModal = () => {
-    setIsAnalyseModalOpen(true)
+    if (validateKeyboardLayout(editingKeyboard)) {
+      setIsAnalyseModalOpen(true)
+      const optimizationConfig: OptimizationConfig = {
+        ...initialOptimizationConfig,
+        characters_set: convertFromCurrentLayoutToPythonApi(
+          editingKeyboard,
+          initialOptimizationConfig.punctuation_placement
+        ),
+      } as OptimizationConfig
+      inBetweenCall(optimizationConfig, startAnalysis)
+    } else {
+      toast.warning("your keyboard layout doesn't contain all the symbols")
+      handleCloseAnalysisModal()
+    }
   }
 
   const handleCloseAnalysisModal = () => {
@@ -247,16 +277,41 @@ const EditableKeyboard = ({
   }
 
   const optimizationSubmit = (optimizationConfig: OptimizationConfig) => {
-    console.log(editingKeyboard)
-    console.log("right here omni: ", {
+    const space_situtaion = spaceProblem(editingKeyboard)
+    if (space_situtaion === 0) {
+      toast.warning(
+        "There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8."
+      )
+      return
+    } else if (space_situtaion === 1) {
+      toast.warning(
+        "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17."
+      )
+      return
+    }
+    const current_punctuation = getPunctuationPlacementFromKeyboard(editingKeyboard)
+    console.log("optimizationSubmit: ", {
       ...optimizationConfig,
-      characters_set: convertFromCurrentLayoutToPythonApi(
-        editingKeyboard,
-        optimizationConfig.punctuation_placement
-      ),
+      characters_set: convertFromCurrentLayoutToPythonApi(editingKeyboard, current_punctuation),
+      punctuation_placement: current_punctuation,
     })
-
+    setPunctuationIndices(
+      editingKeyboard.reduce((accumulator: number[], item, index) => {
+        if (item.punct) {
+          accumulator.push(index)
+        }
+        return accumulator
+      }, [] as number[])
+    )
     startOptimization({
+      ...optimizationConfig,
+      characters_set: convertFromCurrentLayoutToPythonApi(editingKeyboard, current_punctuation),
+      punctuation_placement: current_punctuation,
+    })
+  }
+
+  const analysisSubmit = (optimizationConfig: OptimizationConfig) => {
+    startAnalysis({
       ...optimizationConfig,
       characters_set: convertFromCurrentLayoutToPythonApi(
         editingKeyboard,
@@ -265,10 +320,23 @@ const EditableKeyboard = ({
     })
   }
 
+  const punctuationPlacementChange = (newKeyboard: KeyInterface[]) => {
+    setEditingKeyboard(newKeyboard)
+  }
+
   const renderOptimizeKeyboardLayoutPanel = () => {
     // if (!isOptimizeLayoutModalOpen) return
 
-    return <OptimizeLayoutPanel optimizationSubmit={optimizationSubmit} />
+    return (
+      <EffortConfigurator
+        optimizationSubmit={optimizationSubmit}
+        analysisSubmit={analysisSubmit}
+        validateLayout={() => {
+          return validateKeyboardLayout(editingKeyboard)
+        }}
+        changePunctuation={punctuationPlacementChange}
+      />
+    )
   }
 
   const renderAnalysisModal = () => {
@@ -289,7 +357,7 @@ const EditableKeyboard = ({
       const currentKeyboard = structuredClone(prevState)
       const filteredKeyboard = currentKeyboard.map((key) => {
         if (uneditableKeys.includes(key.code)) return key
-        else return { code: key.code, value: ["", ""], type: key.type, fixed: [false, false] }
+        else return { code: key.code, value: ["", ""], type: key.type, punct: key.punct }
       })
 
       return filteredKeyboard
@@ -312,7 +380,7 @@ const EditableKeyboard = ({
               code: key.code,
               value: ["", ""],
               type: key.type,
-              fixed: [false, false],
+              punct: key.punct,
             }
           }
           return key
@@ -343,6 +411,7 @@ const EditableKeyboard = ({
           (key.value[1]?.toLowerCase() === keyboardKey.value[1]?.toLowerCase() ||
             key.value[1]?.toLowerCase() === keyboardKey.value[0]?.toLowerCase())
       )
+      const className = `${key.type}-key ${key.code}-key${"punct" in key && key.punct ? " punct" : ""}`
 
       return (
         <EditableKey
@@ -374,7 +443,7 @@ const EditableKeyboard = ({
             )
           }
           canBeDuplicate={key.code === "Backslash" || key.code === "Backslash-2"}
-          className={`${key.type}-key ${key.code}-key`}
+          className={className}
         />
       )
     },
@@ -449,10 +518,12 @@ const EditableKeyboard = ({
           (key) => key.value[0] === enteredCharacter || key.value[1] === enteredCharacter
         )?.type || "Letter"
 
+      enteredCharacterType = symbols.find((key) => key === enteredCharacter)
+        ? "Symbol"
+        : enteredCharacterType
+
       if (!["Letter", "Digit", "Symbol"].includes(enteredCharacterType))
         enteredCharacterType = "Letter"
-
-      // if (!enteredCharacter) return
 
       setEditingKeyboard((prevState) => {
         const editedKeyboard = structuredClone(prevState).map((key) => {
@@ -462,7 +533,12 @@ const EditableKeyboard = ({
               // value: [enteredCharacter?.toLowerCase() || enteredCharacter?.toUpperCase()],
               value: [enteredCharacter || "", key.value[1] || ""],
               type: enteredCharacterType,
-              fixed: key.fixed,
+              punct:
+                enteredCharacterType == "Symbol"
+                  ? true
+                  : enteredCharacter === null
+                    ? key.punct
+                    : undefined,
             }
           } else {
             return key
@@ -516,11 +592,15 @@ const EditableKeyboard = ({
           (key) => key.value[0] === enteredCharacter || key.value[1] === enteredCharacter
         )?.type || "Letter"
 
+      enteredCharacterType = symbols.find((key) => key === enteredCharacter)
+        ? "Symbol"
+        : enteredCharacterType
+
       if (!["Letter", "Digit", "Symbol"].includes(enteredCharacterType))
         enteredCharacterType = "Letter"
 
       // if (!enteredCharacter) return
-
+      console.log(enteredCharacterType)
       setEditingKeyboard((prevState) => {
         const editedKeyboard = structuredClone(prevState).map((key) => {
           if (key.code === currentlyEditing) {
@@ -532,7 +612,12 @@ const EditableKeyboard = ({
                 enteredCharacter || "", //We no longer use English keyboard
               ],
               type: enteredCharacterType,
-              fixed: key.fixed,
+              punct:
+                enteredCharacterType == "Symbol"
+                  ? true
+                  : enteredCharacter === null
+                    ? key.punct
+                    : undefined,
             }
           } else {
             return key

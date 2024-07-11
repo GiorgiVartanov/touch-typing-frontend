@@ -1,0 +1,167 @@
+.list {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  gap: 1rem;
+
+  .lesson-group-header {
+    color: var(--accent-color);
+    width: 100%;
+    text-align: center;
+
+    &.lessons-available {
+      opacity: 0.75;
+    }
+
+    span {
+      margin-left: 1rem;
+      font-weight: bold;
+    }
+
+    &:not(:nth-of-type(1)) {
+      padding-top: 3rem !important;
+      border-top: 1px solid var(--primary-color);
+    }
+  }
+}
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2rem;
+  position: relative;
+
+  .lock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .lock-background {
+      position: absolute;
+      background-color: var(--background-color);
+      z-index: 50;
+      width: 100%;
+      height: 100%;
+      opacity: 0.65;
+      top: -0.5rem;
+    }
+
+    .icon-holder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 51;
+      font-size: 1.25rem !important;
+
+      .icon {
+        cursor: default;
+        height: 6rem;
+        width: 6rem;
+      }
+    }
+  }
+
+  p {
+    &:hover {
+      .exercise-card {
+        background-color: var(--secondary-background-color) !important;
+        cursor: default;
+      }
+    }
+  }
+
+  a,
+  p {
+    width: 12rem;
+    height: 4rem;
+    box-shadow: none;
+    margin: auto;
+
+    background-color: transparent;
+    // outline: 1px solid red;
+    padding: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 300ms var(--animation-function);
+
+    &:hover {
+      .exercise-card {
+        background-color: var(--secondary-background-color-active);
+      }
+    }
+
+    .exercise-card {
+      background-color: var(--secondary-background-color);
+      width: 4rem !important;
+      height: 4rem !important;
+      border-radius: 50% !important;
+      transition: 300ms var(--animation-function);
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+
+      font-size: 1.5rem;
+      border-radius: 50%;
+      font-weight: 600;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    &:nth-of-type(1) {
+      .exercise-card {
+        left: 65%;
+      }
+    }
+    &:nth-of-type(2) {
+      .exercise-card {
+        left: 35%;
+      }
+    }
+    &:nth-of-type(3) {
+      .exercise-card {
+        left: 65%;
+      }
+    }
+    &:nth-of-type(4) {
+      .exercise-card {
+        left: 35%;
+      }
+    }
+    &:nth-of-type(5) {
+      .exercise-card {
+        left: 65%;
+      }
+    }
+    &:nth-of-type(6) {
+      .exercise-card {
+        left: 35%;
+      }
+    }
+    &:last-of-type {
+      border-radius: var(--border-radius);
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+
+      width: 12rem;
+      height: 2.75rem;
+
+      background-color: var(--secondary-background-color);
+
+      &:hover {
+        background-color: var(--secondary-background-color-active);
+      }
+
+      .exercise-card {
+      }
+    }
+  }
+}
