@@ -69,16 +69,44 @@ const Assessment = () => {
   const checkCompletedLetters = () => {
     if (!assessmentLevel) return false
 
+    if (![1, 2, 3, 4, 5, 6].includes(Number(assessmentLevel))) return false
+
+    if (Number(assessmentLevel) === 1 && user?.completedLessons.includes("ლ")) return true
+
     if (
-      (Number(assessmentLevel) === 1 || assessmentLevel === "1") &&
-      user?.completedLessons.includes("ლ")
+      Number(assessmentLevel) === 2 &&
+      user?.completedAssessments.includes(1) &&
+      user?.completedLessons.includes("თ")
     )
       return true
 
-    if (!user?.completedAssessments.includes(Number(assessmentLevel) - 1)) return false
+    if (
+      Number(assessmentLevel) === 3 &&
+      user?.completedAssessments.includes(2) &&
+      user?.completedLessons.includes("კ")
+    )
+      return true
 
-    if (!user?.completedLessons.includes(afterAssessmentLetters[Number(assessmentLevel) - 1]))
-      return false
+    if (
+      Number(assessmentLevel) === 4 &&
+      user?.completedAssessments.includes(3) &&
+      user?.completedLessons.includes("წ")
+    )
+      return true
+
+    if (
+      Number(assessmentLevel) === 5 &&
+      user?.completedAssessments.includes(4) &&
+      user?.completedLessons.includes("ძ")
+    )
+      return true
+
+    if (
+      Number(assessmentLevel) === 6 &&
+      user?.completedAssessments.includes(5) &&
+      user?.completedLessons.includes("ჟ")
+    )
+      return true
 
     return true
   }
