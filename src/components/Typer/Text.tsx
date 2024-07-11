@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
-import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 import { KeyInterface } from "../../types/keyboard.types"
 
 import Word from "./Word"
@@ -16,12 +15,20 @@ import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 interface Props {
   text: string[]
   wordSeparator?: string // string that will be printed between every word
-  handleTextFinish: (metric?: MetricsContextProps) => void
+  handleTextFinish?: () => void
+  handleSetMetrics?: (metrics: MetricsContextProps) => void
   keyboard: KeyInterface[]
   className?: string
 }
 
-const Text = ({ text, wordSeparator = "", handleTextFinish, keyboard, className }: Props) => {
+const Text = ({
+  text,
+  wordSeparator = "",
+  handleTextFinish,
+  handleSetMetrics,
+  keyboard,
+  className,
+}: Props) => {
   const { font, fontSize } = useTypingSettingsStore()
   const { metrics, handleMetrics } = useMetrics()
 
@@ -43,9 +50,9 @@ const Text = ({ text, wordSeparator = "", handleTextFinish, keyboard, className 
 
     if (isLastWord) {
       handleMetrics.handleSetLetterStatuses([...lettersStatuses, wordLetterStatuses])
-      console.log(metrics)
-      const copy_metrics = structuredClone(metrics)
-      handleTextFinish(copy_metrics)
+
+      if (handleTextFinish) handleTextFinish()
+      if (handleSetMetrics && metrics) handleSetMetrics(metrics)
     }
   }
 

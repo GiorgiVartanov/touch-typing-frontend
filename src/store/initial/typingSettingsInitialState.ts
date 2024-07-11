@@ -35,16 +35,6 @@ let keyboardLayout: savedKeyboardLayoutInterface | null = null
 
 const storedLayout = localStorage.getItem("keyboardLayout")
 
-console.log({ showKeyboardWhileTyping })
-
-// if (storedLayout) {
-//   try {
-//     keyboardLayout = JSON.parse(storedLayout) as savedKeyboardLayoutInterface
-//   } catch (e: any) {
-//     keyboardLayout = null
-//   }
-// }
-
 const qwertyKeyboardLayout: KeyboardLayoutInterface = qwertyLayout as KeyboardLayoutInterface
 const qwertyGeorgianKeyboardLayout: KeyboardLayoutInterface =
   qwertyGeorgianLayout as KeyboardLayoutInterface

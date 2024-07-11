@@ -10,7 +10,8 @@ interface Props {
   text: string
   textLanguage?: KeyboardLanguageType
   wordSeparator?: string
-  handleTextFinish: (metrics?: MetricsContextProps) => void
+  handleTextFinish?: () => void
+  handleSetMetrics?: (metrics: MetricsContextProps) => void
   className?: string
   showKeyboard?: boolean
 }
@@ -22,6 +23,7 @@ const Typer = ({
   textLanguage = "Eng",
   wordSeparator = "",
   handleTextFinish,
+  handleSetMetrics,
   showKeyboard = true,
   className,
 }: Props) => {
@@ -37,6 +39,7 @@ const Typer = ({
         text={textArray}
         wordSeparator={wordSeparator}
         handleTextFinish={handleTextFinish}
+        handleSetMetrics={handleSetMetrics}
         className={className}
         keyboard={keyboardLayout[textLanguage].keyboard}
       />
