@@ -21,7 +21,17 @@
         outline: 2px solid var(--warning color);
         color: var(--warning-color);
       }
+
+      &:not(.punct) {
+        // Add your special styles here
+        font-size: medium; /* Example */
+        background-color: rgb(112, 113, 182); /* Example */
+      }
     }
+  }
+  .punct {
+    font-size: large;
+    background-color: rgb(62, 158, 113) !important;
   }
 }
 
@@ -177,8 +187,8 @@
   }
 }
 
-.optimize-layout-panel {
-  .optimize-layout-form {
+.configurator-layout-panel {
+  .configurator-layout-form {
     max-width: 960px;
     flex: 1;
     width: 100%;
@@ -199,6 +209,13 @@
     .submit-button {
       width: 200px;
       margin-right: auto;
+    }
+
+    .effort-usages {
+      display: flex;
+      button {
+        margin-right: 10px;
+      }
     }
   }
 }

@@ -80,11 +80,11 @@
     "finger distance weight": "finger distance weight",
     "punctation placement variants": "punctation placement variants",
     "Custom": "Custom",
-    "Qwerty": "Qwerty",
-    "Dvorjak": "Dvorjak",
-    "Left": "Left",
-    "Middle row free": "Middle row free",
-    "Spread": "Spread",
+    "qwerty": "Qwerty",
+    "dvorjak": "Dvorjak",
+    "left": "Left",
+    "middle_free": "Middle row free",
+    "spread": "Spread",
     "Analyse Layout": "Analyse Layout",
     "ANSI-ISO": "ANSI-ISO",
     "ISO": "ISO",
@@ -120,7 +120,13 @@
     "WPM": "WPM",
     "WPM definition": "Words Per Minute",
     "accuracy": "accuracy",
-    "time": "time"
+    "time": "time",
+    "s": "{{number}}s",
+    "m": "{{number}}m",
+    "Certificate of Completion": "Certificate of Completion",
+    "congratulations, you successfully completed touch typing course": "Congratulations, you successfully completed the Touch Typing course",
+    "Touch Typing": "Touch Typing",
+    "Certificate": "Certificate"
   },
 
   "layout page": {

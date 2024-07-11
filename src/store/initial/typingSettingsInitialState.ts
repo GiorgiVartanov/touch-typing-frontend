@@ -7,10 +7,15 @@ import {
   FontSizeType,
   TypingSettingsState,
 } from "../../types/typer.types/typingSettings.types"
-import { KeyboardLayoutInterface } from "../../types/keyboard.types"
+import { KeyInterface, KeyboardLayoutInterface } from "../../types/keyboard.types"
 
 import qwertyLayout from "../../keyboardLayouts/qwerty.json"
 import qwertyGeorgianLayout from "../../keyboardLayouts/geo2.json"
+import qwertyPunctLayout from "../../keyboardLayouts/punctuation_placements/qwerty.json"
+import dvorjakPunctLayout from "../../keyboardLayouts/punctuation_placements/dvorjak.json"
+import leftPunctLayout from "../../keyboardLayouts/punctuation_placements/left.json"
+import middleFreePunctLayout from "../../keyboardLayouts/punctuation_placements/middle_free.json"
+import spreadPunctLayout from "../../keyboardLayouts/punctuation_placements/spread.json"
 
 const KeyboardLanguage: KeyboardLanguageType | null = localStorage.getItem(
   "keyboardLanguage"
@@ -29,16 +34,6 @@ const fontSize: FontSizeType | null = localStorage.getItem("fontSize") as FontSi
 let keyboardLayout: savedKeyboardLayoutInterface | null = null
 
 const storedLayout = localStorage.getItem("keyboardLayout")
-
-console.log({ showKeyboardWhileTyping })
-
-// if (storedLayout) {
-//   try {
-//     keyboardLayout = JSON.parse(storedLayout) as savedKeyboardLayoutInterface
-//   } catch (e: any) {
-//     keyboardLayout = null
-//   }
-// }
 
 const qwertyKeyboardLayout: KeyboardLayoutInterface = qwertyLayout as KeyboardLayoutInterface
 const qwertyGeorgianKeyboardLayout: KeyboardLayoutInterface =
@@ -66,4 +61,12 @@ export const typingSettingsInitialState: TypingSettingsState = {
   showKeyboardWhileTyping: showKeyboardWhileTyping,
   font: font || defaultFont,
   fontSize: fontSize || defaultFontSize,
+}
+
+export const punctuationLayouts = {
+  qwerty: qwertyPunctLayout,
+  dvorjak: dvorjakPunctLayout,
+  left: leftPunctLayout,
+  middle_free: middleFreePunctLayout,
+  spread: spreadPunctLayout,
 }

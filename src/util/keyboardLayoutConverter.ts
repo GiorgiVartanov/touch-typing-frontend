@@ -1,13 +1,14 @@
 import { KeyInterface } from "../types/keyboard.types"
 import { defaultKeyboardLayout } from "../store/initial/typingSettingsInitialState"
 import { Character } from "../types/optimization.types"
+import georgian_letters from "../letters/georgian.json"
 
 export const convertFromPythonApiLayoutToCurrent = (
   characterPlacement: Character[]
 ): KeyInterface[] => {
+  console.log("convertFromPythonApiLayoutToCurrent: ", characterPlacement)
   const choose_type = (str: string) => {
-    const georgianAlphabet = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ"
-    if (georgianAlphabet.includes(str)) return "Letter"
+    if (georgian_letters.includes(str)) return "Letter"
     else return "Symbol"
   }
   let newPlacement = structuredClone(defaultKeyboardLayout.Geo.keyboard)
@@ -55,6 +56,8 @@ export const convertFromCurrentLayoutToPythonApi = (
   }[] = []
   let index = 0
   let dummy_count = 1
+  punctuation_placement = punctuation_placement.sort()
+  console.log(punctuation_placement)
   //წინასწარ შევქმნა 94-ელემენტიანი მასივი, ცარიელი, ან საჭირო ველებით.
   //შევავსო მერე.
   //ბოლოს დავიარო და ვნახო რა ასოებია გამორჩენილი და ჩავსვა ნებისმიერ თავისუფალ ადგილას.
@@ -116,42 +119,6 @@ export const convertFromCurrentLayoutToPythonApi = (
     }
   }
 
-  const georgianLetters = [
-    "ა",
-    "ბ",
-    "გ",
-    "დ",
-    "ე",
-    "ვ",
-    "ზ",
-    "თ",
-    "ი",
-    "კ",
-    "ლ",
-    "მ",
-    "ნ",
-    "ო",
-    "პ",
-    "ჟ",
-    "რ",
-    "ს",
-    "ტ",
-    "უ",
-    "ფ",
-    "ქ",
-    "ღ",
-    "ყ",
-    "შ",
-    "ჩ",
-    "ც",
-    "ძ",
-    "წ",
-    "ჭ",
-    "ხ",
-    "ჯ",
-    "ჰ",
-  ]
-
   const punctuation = [
     ".",
     "'",
@@ -169,9 +136,11 @@ export const convertFromCurrentLayoutToPythonApi = (
     "<",
     ">",
     "_",
+    "+",
+    "=",
   ]
   let index_oh_index = 0
-  georgianLetters.forEach((letter) => {
+  georgian_letters.forEach((letter) => {
     if (checkGeorgianLetter(letter)) {
     } else {
       while (punctuation_placement.includes(unused_indices[index_oh_index])) index_oh_index++
@@ -199,97 +168,95 @@ export const convertFromCurrentLayoutToPythonApi = (
   return array
 }
 
-const convertFromCurrentLayoutToPythonApi3 = (characterPlacement: KeyInterface[]) => {
-  let pythonApiLayout: {
-    character: string
-    button_id: number | null
-  }[] = []
-  let index = 1
-  let dummy_count = 1
-  const fixed_letters: string[] = []
-  const fixed_letters_index = []
-  const fixed_punctuation: string[] = []
-  const fixed_punctuation_index = []
-  const fixed_digits: string[] = []
-  const fixed_digits_index = []
-
-  characterPlacement.slice(1).forEach((value) => {
-    if (value.type == "Letter") {
-      if (value.value[0]) {
-        fixed_letters.push(value.value[0])
-        fixed_letters_index.push([value.value[0], index])
-      }
-      if (value.value[1]) {
-        fixed_letters.push(value.value[1])
-        fixed_letters_index.push([value.value[1], index + 47])
-      }
-      ++index
+export const validateKeyboardLayout = (characterPlacement: KeyInterface[]): boolean => {
+  const punctuation = "-_=+[]{};:'\",.<>/?"
+  const reducedPlacement = characterPlacement.reduce((accumulator: String[], item) => {
+    if (Array.isArray(item.value)) {
+      accumulator.push(item.value[0])
+      accumulator.push(item.value[1])
     }
-    if (value.type == "Symbol" && value.code != "Backslash" && value.code != "Backquote") {
-      if (value.value[0]) {
-        fixed_punctuation.push(value.value[0])
-        fixed_punctuation_index.push([value.value[0], index])
-      }
-      if (value.value[1]) {
-        fixed_punctuation.push(value.value[1])
-        fixed_punctuation_index.push([value.value[1], index + 47])
-      }
-      ++index
-    }
-    if (value.type == "Digit") {
-      if (value.value[0]) {
-        fixed_digits.push(value.value[0])
-        fixed_digits_index.push([value.value[0], index])
-      }
-      if (value.value[1]) {
-        fixed_digits.push(value.value[1])
-        fixed_digits_index.push([value.value[1], index + 47])
-      }
-      ++index
-    }
-  })
-
-  pythonApiLayout.push({ character: "`", button_id: 46 })
-  pythonApiLayout.push({ character: " ", button_id: 47 })
-
-  pythonApiLayout.push({ character: "dummy_character_20", button_id: 94 })
-  pythonApiLayout.push({ character: "~", button_id: 93 })
-  // console.log(pythonApiLayout)
-  return pythonApiLayout
+    return accumulator
+  }, [] as String[])
+  for (const letter of georgian_letters) if (!reducedPlacement.includes(letter)) return false
+  for (const punct of punctuation) if (!reducedPlacement.includes(punct)) return false
+  return true
 }
 
-const convertFromCurrentLayoutToPythonApi2 = (characterPlacement: KeyInterface[]) => {
-  let pythonApiLayout: {
-    character: string
-    button_id: number | null
-  }[] = []
-  let index = 1
-  let dummy_count = 1
-  characterPlacement.slice(1).forEach((value) => {
-    if (value.fixed != undefined) {
-      let cur_val_0 = value.value[0] ? value.value[0] : "dummy_character_" + String(dummy_count++)
-      if (value.fixed[0]) {
-        pythonApiLayout.push({ character: cur_val_0, button_id: index })
-      } else pythonApiLayout.push({ character: cur_val_0, button_id: null })
+export const fixPunctuationPlacement = (
+  characterPlacement: KeyInterface[],
+  punctuation_indices: number[]
+): KeyInterface[] => {
+  const removed_punctuation: KeyInterface[] = characterPlacement.reduce(
+    (accummulator: KeyInterface[], item) => {
+      if (item.punct) {
+        accummulator.push({
+          ...item,
+          punct: undefined,
+        })
+      } else {
+        accummulator.push(item)
+      }
+      return accummulator
+    },
+    [] as KeyInterface[]
+  )
 
-      ++index
-    }
-  })
-  pythonApiLayout.push({ character: "`", button_id: 46 })
-  pythonApiLayout.push({ character: " ", button_id: 47 })
-  index += 2
-  characterPlacement.slice(1).forEach((value) => {
-    if (value.fixed != undefined) {
-      let cur_val_1 = value.value[1] ? value.value[1] : "dummy_character_" + String(dummy_count++)
-      if (value.fixed[1]) {
-        pythonApiLayout.push({ character: cur_val_1, button_id: index })
-      } else pythonApiLayout.push({ character: cur_val_1, button_id: null })
+  const fixed_punctuation: KeyInterface[] = removed_punctuation.reduce(
+    (accumulator: KeyInterface[], item, index) => {
+      if (punctuation_indices.includes(index)) {
+        const tmp = item
+        tmp.punct = true
+        accumulator.push(tmp)
+      } else {
+        accumulator.push(item)
+      }
+      return accumulator
+    },
+    [] as KeyInterface[]
+  )
 
-      ++index
+  return fixed_punctuation
+}
+
+export const getPunctuationPlacementFromKeyboard = (
+  characterPlacement: KeyInterface[]
+): number[] => {
+  const punctuation_placement: number[] = characterPlacement.reduce(
+    (accumulator: number[], item, index) => {
+      if (item.punct) {
+        if (index < 13) {
+          accumulator.push(index)
+          accumulator.push(index + 47)
+        } else if (index < 28) {
+          accumulator.push(index - 2)
+          accumulator.push(index - 2 + 47)
+        } else if (index < 40) {
+          accumulator.push(index - 4)
+          accumulator.push(index - 4 + 47)
+        } else {
+          accumulator.push(index - 6)
+          accumulator.push(index - 6 + 47)
+        }
+      }
+      return accumulator
+    },
+    [] as number[]
+  )
+  return punctuation_placement
+}
+
+export const spaceProblem = (characterPlacement: KeyInterface[]): 0 | 1 | 2 => {
+  const number_of_punctuation_keys = characterPlacement.reduce((accumulator: number, item) => {
+    if (item.punct) {
+      accumulator += 1
     }
-  })
-  pythonApiLayout.push({ character: "dummy_character_20", button_id: 94 })
-  pythonApiLayout.push({ character: "~", button_id: 93 })
-  // console.log(pythonApiLayout)
-  return pythonApiLayout
+    return accumulator
+  }, 0)
+  if (number_of_punctuation_keys < 9) {
+    return 0
+  }
+  if (number_of_punctuation_keys > 18) {
+    return 1
+  }
+  return 2
 }

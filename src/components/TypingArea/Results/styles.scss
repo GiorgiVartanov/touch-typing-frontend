@@ -7,7 +7,56 @@
   width: fit-content;
   margin: auto;
   margin-bottom: 15%;
+  position: relative;
   // gap: 2rem;
+
+  .print-certificate-button {
+    position: absolute;
+    bottom: -4.5rem;
+    opacity: 0;
+    transform: translateY(-25%);
+    animation: goToNextLevelButtonAppear 300ms var(--animation-function) forwards;
+    font-weight: 500;
+  }
+
+  .go-to-next-lesson-button {
+    position: absolute;
+    bottom: -4.5rem;
+    background-color: var(--primary-color);
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    transition: background-color 300ms var(--animation-function);
+    opacity: 0;
+    transform: translateY(-25%);
+    animation: goToNextLevelButtonAppear 300ms var(--animation-function) forwards;
+    animation-delay: 100ms;
+    font-weight: 500;
+
+    p {
+      padding-right: 2rem;
+      transition: padding 300ms var(--animation-function);
+    }
+
+    &:hover {
+      background-color: var(--primary-color-active);
+
+      p {
+        padding-right: 2.5rem;
+      }
+
+      .icon {
+        right: 0.5rem;
+      }
+    }
+
+    .icon {
+      position: absolute;
+      right: 0.5rem;
+      rotate: 90deg;
+      transform: translateX(-50%);
+      top: 50%;
+    }
+  }
 
   .metric {
     opacity: 0;
@@ -70,6 +119,16 @@
   0% {
     opacity: 0;
     transform: translateY(25%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes goToNextLevelButtonAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(-25%);
   }
   100% {
     opacity: 1;

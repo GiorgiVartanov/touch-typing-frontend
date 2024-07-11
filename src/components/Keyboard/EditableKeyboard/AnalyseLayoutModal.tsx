@@ -4,16 +4,27 @@ import Button from "../../Form/Button"
 
 import { useTranslation } from "react-i18next"
 import Form from "../../Form/Form"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { OptimizationConfig } from "../../../types/optimization.types"
 import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
 import { KeyInterface } from "../../../types/keyboard.types"
-import { convertFromCurrentLayoutToPythonApi } from "../../../util/keyboardLayoutConverter"
+import {
+  convertFromCurrentLayoutToPythonApi,
+  validateKeyboardLayout,
+} from "../../../util/keyboardLayoutConverter"
+import { toast } from "react-toastify"
 
 interface Props {
   isVisible: boolean
   closeModal: () => void
   editingKeyboard: KeyInterface[]
+}
+
+export const inBetweenCall = (
+  optimizationConfig: OptimizationConfig,
+  startAnalysis: (optimizationConfig: OptimizationConfig) => void
+) => {
+  startAnalysis(optimizationConfig)
 }
 
 const AnalyseLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) => {
@@ -23,8 +34,14 @@ const AnalyseLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) =
 
   const [optimizationConfig, setOptimizationConfig] = useState<OptimizationConfig>({
     ...initialOptimizationConfig,
-    characters_set: convertFromCurrentLayoutToPythonApi(editingKeyboard),
+    characters_set: convertFromCurrentLayoutToPythonApi(
+      editingKeyboard,
+      initialOptimizationConfig.punctuation_placement
+    ),
   })
+
+  //useEffect(() => {}, [])
+  //startAnalysis(optimizationConfig)
 
   const handleCloseModal = () => {
     if (analysis) setAnalysis(undefined)
@@ -63,6 +80,7 @@ const AnalyseLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) =
     )
   }
 
+  //startAnalysis(optimizationConfig)
   return (
     <Modal
       isVisible={isVisible}
@@ -77,11 +95,11 @@ const AnalyseLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) =
       ) : (
         <></>
       )}
-      <Form onSubmit={handleSubmit}>
-        <Button className="submit-button cta-button optimize-layout-button">
-          {t("Analyse Layout")}
-        </Button>
-      </Form>
+      {/* <Form onSubmit={handleSubmit}>
+          <Button className="submit-button cta-button optimize-layout-button">
+            {t("Analyse Layout")}
+          </Button>
+        </Form> */}
     </Modal>
   )
 }

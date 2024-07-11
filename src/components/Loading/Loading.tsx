@@ -15,8 +15,6 @@ const Loading = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  console.log(isMessageShown)
-
   return (
     <div className="loading">
       <div className="spinner"></div>
