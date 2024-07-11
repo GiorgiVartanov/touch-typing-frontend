@@ -11,9 +11,17 @@ interface Props {
   letters: string[]
   assessmentLevel: number
   isAvailable?: boolean
+  completedLessons?: string[]
+  completedAssessments?: number[]
 }
 
-const ExerciseGroup = ({ letters, assessmentLevel, isAvailable = false }: Props) => {
+const ExerciseGroup = ({
+  letters,
+  assessmentLevel,
+  isAvailable = false,
+  completedLessons = [],
+  completedAssessments = [],
+}: Props) => {
   const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
 
   return (
@@ -40,35 +48,23 @@ const ExerciseGroup = ({ letters, assessmentLevel, isAvailable = false }: Props)
             <div className="lock-background"></div>
           </div>
         )}
-        {letters.map((lett) =>
-          isAvailable ? (
-            <Link
-              key={lett}
-              to={`exercise/${lett}`}
-            >
-              <ExerciseCard letter={lett} />
-            </Link>
-          ) : (
-            <p className="lesson-unclickable">
-              <ExerciseCard
-                key={lett}
-                letter={lett}
-              />
-            </p>
-          )
-        )}
-        {isAvailable ? (
-          <Link
-            to={`assessment/${assessmentLevel}`}
-            className="assessment-link"
-          >
-            <AssessmentCard level={assessmentLevel} />
-          </Link>
-        ) : (
-          <p className="assessment-unclickable">
-            <AssessmentCard level={assessmentLevel} />
-          </p>
-        )}
+        {letters.map((letter, index) => (
+          <ExerciseCard
+            key={letter}
+            letter={letter}
+            isAvailable={
+              isAvailable &&
+              (completedLessons.includes(letters[index - 1]) ||
+                [0, 6, 12, 18, 23, 28, 33].includes(index))
+            }
+            isCompleted={completedLessons.includes(letter)}
+          />
+        ))}
+        <AssessmentCard
+          level={assessmentLevel}
+          isAvailable={isAvailable && letters.every((letter) => completedLessons.includes(letter))}
+          isCompleted={completedAssessments.includes(assessmentLevel)}
+        />
       </div>
     </>
   )

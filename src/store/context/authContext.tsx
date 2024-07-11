@@ -180,6 +180,16 @@ const AuthProvider = ({ children }: Props) => {
     dispatch(setUser(updatedUser))
   }
 
+  const saveLessonLocally = (lessonLetter: string) => {
+    if (!state.user) return
+
+    const updatedUser = structuredClone(state.user)
+
+    updatedUser.completedLessons.push(lessonLetter)
+
+    dispatch(setUser(updatedUser))
+  }
+
   // redo
   const addUserToSentFriendRequests = (friendUsername: string) => {
     const currentUser = state.user
@@ -224,6 +234,7 @@ const AuthProvider = ({ children }: Props) => {
     resetLoginPasswordError,
     logoutUser,
     saveAssessmentLocally,
+    saveLessonLocally,
     addUserToSentFriendRequests,
   }
 

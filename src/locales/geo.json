@@ -120,7 +120,13 @@
     "WPM": "WPM",
     "WPM definition": "სიტყვა წუთში",
     "accuracy": "სიზუსტე",
-    "time": "დრო"
+    "time": "დრო",
+    "s": "{{number}}წმ",
+    "m": "{{number}}წთ",
+    "Certificate of Completion": "წარმატებით დასრულების სერტიფიკატი",
+    "congratulations, you successfully completed touch typing course": "გილოცავთ, თქვნ წარმატებით დაასრულეთ ბრმად ბეჭდვის კურსი",
+    "Touch Typing": "ბრმად ბეჭდვა",
+    "Certificate": "სერტიფიკატი"
   },
 
   "layout page": {

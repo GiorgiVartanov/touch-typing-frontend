@@ -120,7 +120,13 @@
     "WPM": "WPM",
     "WPM definition": "Words Per Minute",
     "accuracy": "accuracy",
-    "time": "time"
+    "time": "time",
+    "s": "{{number}}s",
+    "m": "{{number}}m",
+    "Certificate of Completion": "Certificate of Completion",
+    "congratulations, you successfully completed touch typing course": "Congratulations, you successfully completed the Touch Typing course",
+    "Touch Typing": "Touch Typing",
+    "Certificate": "Certificate"
   },
 
   "layout page": {
