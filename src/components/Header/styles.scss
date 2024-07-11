@@ -201,6 +201,8 @@
             transition:
               color 300ms var(--animation-function),
               opacity 300ms var(--animation-function);
+            display: flex;
+            justify-content: start;
 
             &:hover {
               opacity: 0.75;

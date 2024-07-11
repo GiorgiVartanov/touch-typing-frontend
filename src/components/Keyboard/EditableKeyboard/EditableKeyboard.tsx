@@ -670,22 +670,22 @@ const EditableKeyboard = ({
               <ExportIcon className="icon" />
             </Button>
           </Tooltip>
-          <Tooltip
+          {/* <Tooltip
             tooltipContent={t("Analyze")}
             tooltipPosition="bottom-center"
           >
             <Button onClick={handleOpenAnalysisModal}>
               <AnalyzeIcon className="icon" />
             </Button>
-          </Tooltip>
-          <Tooltip
+          </Tooltip> */}
+          {/* <Tooltip
             tooltipContent={t("Optimize")}
             tooltipPosition="bottom-center"
           >
             <Button onClick={handleOpenOptimizeKeyboardLayoutModal}>
               <RobotIcon className="icon" />
             </Button>
-          </Tooltip>
+          </Tooltip> */}
         </div>
       </div>
     )
