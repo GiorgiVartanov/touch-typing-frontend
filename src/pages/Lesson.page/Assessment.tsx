@@ -108,7 +108,7 @@ const Assessment = () => {
     )
       return true
 
-    return true
+    return false
   }
 
   const { data, isLoading, error } = useQuery({
