@@ -5,6 +5,7 @@ import { useState } from "react"
 import AnalyseLayoutModal from "./AnalyseLayoutModal"
 import { OptimizationConfig } from "../../../types/optimization.types"
 import { toast } from "react-toastify"
+import AnalyzeIcon from "../../../assets/icons/analyze.svg?react"
 
 interface Props {
   optimizationConfig: OptimizationConfig
@@ -36,13 +37,13 @@ const AnalysePanel = ({ optimizationConfig, analysisSubmit, validateLayout }: Pr
         className="cta-button optimize-layout-button"
         onClick={handleClick}
       >
-        {t("Analyse Layout")}
+        <p>{t("Analyse Layout")}</p>
+        <AnalyzeIcon className="icon" />
       </Button>
       {isAnalyseModalOpen ? (
         <AnalyseLayoutModal
           isVisible={isAnalyseModalOpen}
           closeModal={handleCloseAnalysisModal}
-          editingKeyboard={[]}
         />
       ) : (
         <></>

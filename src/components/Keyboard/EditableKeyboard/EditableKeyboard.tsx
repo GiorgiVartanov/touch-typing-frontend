@@ -29,7 +29,7 @@ import SelectedEditableKey from "./SelectedEditableKey"
 import Button from "../../Form/Button"
 import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
-import OptimizeLayoutPanel from "./OptimizeLayoutPanel"
+// import OptimizeLayoutPanel from "./OptimizeLayoutPanel"
 import KeyboardOptions from "../KeyboardOptions"
 
 import { useOptimizationStore } from "../../../store/context/optimizationContext"
@@ -115,8 +115,8 @@ const EditableKeyboard = ({
   ) // startingKeyboard prop is used as a default value here
   const [userOS, setUserOS] = useState<string | null>(null)
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
-  const [isOptimizeLayoutModalOpen, setIsOptimizeLayoutOpen] = useState<boolean>(false)
-  const [isAnalyseModalOpen, setIsAnalyseModalOpen] = useState<boolean>(false)
+  // const [isOptimizeLayoutModalOpen, setIsOptimizeLayoutOpen] = useState<boolean>(false)
+  // const [isAnalyseModalOpen, setIsAnalyseModalOpen] = useState<boolean>(false)
   const [punctuationIndices, setPunctuationIndices] = useState<number[]>([])
 
   useEffect(() => {
@@ -247,34 +247,34 @@ const EditableKeyboard = ({
     )
   }
 
-  const handleOpenOptimizeKeyboardLayoutModal = () => {
-    setIsOptimizeLayoutOpen(true)
-  }
+  // const handleOpenOptimizeKeyboardLayoutModal = () => {
+  //   setIsOptimizeLayoutOpen(true)
+  // }
 
-  const handleCloseOptimizeKeyboardLayoutModal = () => {
-    setIsOptimizeLayoutOpen(false)
-  }
+  // const handleCloseOptimizeKeyboardLayoutModal = () => {
+  //   setIsOptimizeLayoutOpen(false)
+  // }
 
-  const handleOpenAnalysisModal = () => {
-    if (validateKeyboardLayout(editingKeyboard)) {
-      setIsAnalyseModalOpen(true)
-      const optimizationConfig: OptimizationConfig = {
-        ...initialOptimizationConfig,
-        characters_set: convertFromCurrentLayoutToPythonApi(
-          editingKeyboard,
-          initialOptimizationConfig.punctuation_placement
-        ),
-      } as OptimizationConfig
-      inBetweenCall(optimizationConfig, startAnalysis)
-    } else {
-      toast.warning("your keyboard layout doesn't contain all the symbols")
-      handleCloseAnalysisModal()
-    }
-  }
+  // const handleOpenAnalysisModal = () => {
+  //   if (validateKeyboardLayout(editingKeyboard)) {
+  //     setIsAnalyseModalOpen(true)
+  //     const optimizationConfig: OptimizationConfig = {
+  //       ...initialOptimizationConfig,
+  //       characters_set: convertFromCurrentLayoutToPythonApi(
+  //         editingKeyboard,
+  //         initialOptimizationConfig.punctuation_placement
+  //       ),
+  //     } as OptimizationConfig
+  //     inBetweenCall(optimizationConfig, startAnalysis)
+  //   } else {
+  //     toast.warning("your keyboard layout doesn't contain all the symbols")
+  //     handleCloseAnalysisModal()
+  //   }
+  // }
 
-  const handleCloseAnalysisModal = () => {
-    setIsAnalyseModalOpen(false)
-  }
+  // const handleCloseAnalysisModal = () => {
+  //   setIsAnalyseModalOpen(false)
+  // }
 
   const optimizationSubmit = (optimizationConfig: OptimizationConfig) => {
     const space_situtaion = spaceProblem(editingKeyboard)
@@ -311,6 +311,7 @@ const EditableKeyboard = ({
   }
 
   const analysisSubmit = (optimizationConfig: OptimizationConfig) => {
+    console.log("Analysis submit")
     startAnalysis({
       ...optimizationConfig,
       characters_set: convertFromCurrentLayoutToPythonApi(
@@ -339,17 +340,17 @@ const EditableKeyboard = ({
     )
   }
 
-  const renderAnalysisModal = () => {
-    if (!isAnalyseModalOpen) return
+  // const renderAnalysisModal = () => {
+  //   if (!isAnalyseModalOpen) return
 
-    return (
-      <AnalyseLayoutModal
-        isVisible={isAnalyseModalOpen}
-        closeModal={handleCloseAnalysisModal}
-        editingKeyboard={editingKeyboard}
-      />
-    )
-  }
+  //   return (
+  //     <AnalyseLayoutModal
+  //       isVisible={isAnalyseModalOpen}
+  //       closeModal={handleCloseAnalysisModal}
+  //       editingKeyboard={editingKeyboard}
+  //     />
+  //   )
+  // }
 
   // erases all editable keys (passed as a prop) from keyboard
   const emptyEditableKeys = () => {
@@ -472,9 +473,36 @@ const EditableKeyboard = ({
       "Backquote",
     ]
 
+    const checkAlphabet = (letter: string) => {
+      let returner = false
+      georgianLetters.forEach((lett) => {
+        if (lett == letter) returner = true
+      })
+      return returner
+    }
+
+    const checkPunctuation = (letter: string) => {
+      let returner = false
+      symbols.forEach((lett) => {
+        if (lett == letter) returner = true
+      })
+      return returner
+    }
+
+    const checkDifferenceBetweenTypes = (letter1: string, letter2: string) => {
+      let first_char = 0
+      let second_char = 0
+      if (checkAlphabet(letter1)) first_char = 1
+      if (checkPunctuation(letter1)) first_char = 2
+      if (checkAlphabet(letter2)) second_char = 1
+      if (checkPunctuation(letter2)) second_char = 2
+      console.log(first_char, second_char)
+      return first_char != second_char
+    }
+
     const handleOnFirstValueChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
       const enteredCharacter = event.nativeEvent?.data // it works, but typescript shows error.
-
+      console.log("Here: ", enteredCharacter)
       if (
         keyboardLanguage === "Geo" &&
         ![...georgianLetters, ...symbols].includes(enteredCharacter) &&
@@ -513,6 +541,17 @@ const EditableKeyboard = ({
         return
       }
 
+      let enteredCharacterKey = editingKeyboard.find((key) => key.code === currentlyEditing)
+
+      let newValue = [enteredCharacter || "", enteredCharacterKey.value[1] || ""]
+
+      if (
+        enteredCharacter &&
+        checkDifferenceBetweenTypes(enteredCharacterKey.value[1], enteredCharacter)
+      ) {
+        newValue[1] = ""
+      }
+
       let enteredCharacterType =
         editingKeyboard.find(
           (key) => key.value[0] === enteredCharacter || key.value[1] === enteredCharacter
@@ -531,7 +570,7 @@ const EditableKeyboard = ({
             return {
               code: key.code,
               // value: [enteredCharacter?.toLowerCase() || enteredCharacter?.toUpperCase()],
-              value: [enteredCharacter || "", key.value[1] || ""],
+              value: newValue,
               type: enteredCharacterType,
               punct:
                 enteredCharacterType == "Symbol"
@@ -587,6 +626,17 @@ const EditableKeyboard = ({
         return
       }
 
+      let enteredCharacterKey = editingKeyboard.find((key) => key.code === currentlyEditing)
+
+      let newValue = [enteredCharacterKey.value[0] || "", enteredCharacter || ""]
+
+      if (
+        enteredCharacter &&
+        checkDifferenceBetweenTypes(enteredCharacterKey.value[0], enteredCharacter)
+      ) {
+        newValue[0] = ""
+      }
+
       let enteredCharacterType =
         editingKeyboard.find(
           (key) => key.value[0] === enteredCharacter || key.value[1] === enteredCharacter
@@ -606,11 +656,7 @@ const EditableKeyboard = ({
           if (key.code === currentlyEditing) {
             return {
               code: key.code,
-              value: [
-                // key.value[0] || enteredCharacter?.toLowerCase(),
-                key.value[0] || "",
-                enteredCharacter || "", //We no longer use English keyboard
-              ],
+              value: newValue,
               type: enteredCharacterType,
               punct:
                 enteredCharacterType == "Symbol"
@@ -670,22 +716,22 @@ const EditableKeyboard = ({
               <ExportIcon className="icon" />
             </Button>
           </Tooltip>
-          <Tooltip
+          {/* <Tooltip
             tooltipContent={t("Analyze")}
             tooltipPosition="bottom-center"
           >
-            <Button onClick={handleOpenAnalysisModal}>
+            <Button onClick={handleNotImplemented}>
               <AnalyzeIcon className="icon" />
             </Button>
-          </Tooltip>
-          <Tooltip
+          </Tooltip> */}
+          {/* <Tooltip
             tooltipContent={t("Optimize")}
             tooltipPosition="bottom-center"
           >
             <Button onClick={handleOpenOptimizeKeyboardLayoutModal}>
               <RobotIcon className="icon" />
             </Button>
-          </Tooltip>
+          </Tooltip> */}
         </div>
       </div>
     )
@@ -855,7 +901,7 @@ const EditableKeyboard = ({
         >
           {renderKeyboard()}
         </div>
-        {renderAnalysisModal()}
+        {/* {renderAnalysisModal()} */}
         {renderEditableKeyboardButtons()}
         {renderSaveKeyboardLayoutModal()}
       </div>

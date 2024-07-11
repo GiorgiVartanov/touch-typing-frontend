@@ -17,7 +17,6 @@ import { toast } from "react-toastify"
 interface Props {
   isVisible: boolean
   closeModal: () => void
-  editingKeyboard: KeyInterface[]
 }
 
 export const inBetweenCall = (
@@ -27,18 +26,18 @@ export const inBetweenCall = (
   startAnalysis(optimizationConfig)
 }
 
-const AnalyseLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) => {
+const AnalyseLayoutModal = ({ isVisible, closeModal }: Props) => {
   const { analysis, setAnalysis, startAnalysis } = useOptimizationStore()
 
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
-  const [optimizationConfig, setOptimizationConfig] = useState<OptimizationConfig>({
-    ...initialOptimizationConfig,
-    characters_set: convertFromCurrentLayoutToPythonApi(
-      editingKeyboard,
-      initialOptimizationConfig.punctuation_placement
-    ),
-  })
+  // const [optimizationConfig, setOptimizationConfig] = useState<OptimizationConfig>({
+  //   ...initialOptimizationConfig,
+  //   characters_set: convertFromCurrentLayoutToPythonApi(
+  //     editingKeyboard,
+  //     initialOptimizationConfig.punctuation_placement
+  //   ),
+  // })
 
   //useEffect(() => {}, [])
   //startAnalysis(optimizationConfig)
@@ -48,10 +47,10 @@ const AnalyseLayoutModal = ({ isVisible, closeModal, editingKeyboard }: Props) =
     closeModal()
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    startAnalysis(optimizationConfig)
-  }
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   startAnalysis(optimizationConfig)
+  // }
 
   const renderAnalyisResultTable = () => {
     if (!analysis) return
