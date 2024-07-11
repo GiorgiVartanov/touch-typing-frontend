@@ -123,7 +123,7 @@ const Exercise = () => {
       return
     }
 
-    if (time > metrics.keyPressTimestamps.length) {
+    if (time / 1000 > metrics.keyPressTimestamps.length) {
       toast.warning(
         `You have to use 1 second per character on average to unlock the next level\nYou have to fit in ${metrics.keyPressTimestamps.length} seconds`
       )

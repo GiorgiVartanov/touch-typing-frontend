@@ -31,5 +31,7 @@ export interface User {
 
 export interface UserData extends User {
   _id: string
+  completedAssessments: number[]
+  completedLessons: string[]
   sentFriendRequests: string[]
 }
