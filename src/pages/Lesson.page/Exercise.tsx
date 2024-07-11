@@ -34,6 +34,7 @@ const Exercise = () => {
   const { token, saveLessonLocally, user } = useAuthStore()
 
   const completedLessons = user?.completedLessons
+  const completedAssessments = user?.completedAssessments
 
   const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
 
@@ -41,6 +42,12 @@ const Exercise = () => {
     if (!letter) return false
 
     if (letter === "ა") return true
+
+    if (letter === "ე" && !completedAssessments?.includes(1)) return false
+    if (letter === "ო" && !completedAssessments?.includes(2)) return false
+    if (letter === "უ" && !completedAssessments?.includes(3)) return false
+    if (letter === "ფ" && !completedAssessments?.includes(4)) return false
+    if (letter === "ჩ" && !completedAssessments?.includes(5)) return false
 
     return assessmentLessonRequirements
       .map((subArray) => {
@@ -115,8 +122,6 @@ const Exercise = () => {
     const accuracy = calculateAccuracy(metrics.correctPressCount, metrics.incorrectPressCount)
     const time =
       metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
-
-    console.log({ accuracy, time })
 
     if (accuracy < 80) {
       toast.warning("You have to get more than 80% accuracy to unlock the next level.")

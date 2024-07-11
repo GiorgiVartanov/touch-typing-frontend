@@ -13,10 +13,13 @@ import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 import calculateAccuracy from "../../util/TypingStats/calculateAccuracy"
 import calculateTime from "../../util/TypingStats/calculateTime"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const afterAssessmentLetters = ["ე", "ო", "უ", "ფ", "ჩ"]
 
 const Assessment = () => {
+  const navigate = useNavigate()
+
   const { assessmentLevel } = useParams()
 
   const { token, saveAssessmentLocally, user } = useAuthStore()
@@ -51,7 +54,7 @@ const Assessment = () => {
       return
     }
 
-    if (time > metrics.keyPressTimestamps.length) {
+    if (time / 1000 > metrics.keyPressTimestamps.length) {
       toast.warning(
         `You have to use 1 second per character on average to unlock the next level\nYou have to fit in ${metrics.keyPressTimestamps.length} seconds`
       )
@@ -63,11 +66,31 @@ const Assessment = () => {
     return saveAssessment(0, Number(assessmentLevel), token)
   }
 
+  const checkCompletedLetters = () => {
+    if (!assessmentLevel) return false
+
+    // if (Number(assessmentLevel) === 1 || assessmentLevel === "1") return true
+
+    if (!user?.completedAssessments.includes(Number(assessmentLevel) - 1)) return false
+
+    if (!user.completedLessons.includes(afterAssessmentLetters[Number(assessmentLevel) - 1]))
+      return false
+
+    return true
+  }
+
   const { data, isLoading, error } = useQuery({
     queryFn: fetchAssessment,
     queryKey: ["assessment", assessmentLevel],
     staleTime: 10000000,
   })
+
+  if (!checkCompletedLetters()) {
+    navigate("../lessons")
+    toast.warning("you don't have access to this lesson")
+
+    return
+  }
 
   const getNextLevelURL = () => {
     if (!assessmentLevel) return "../lessons"
