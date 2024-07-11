@@ -69,11 +69,15 @@ const Assessment = () => {
   const checkCompletedLetters = () => {
     if (!assessmentLevel) return false
 
-    // if (Number(assessmentLevel) === 1 || assessmentLevel === "1") return true
+    if (
+      (Number(assessmentLevel) === 1 || assessmentLevel === "1") &&
+      user?.completedLessons.includes("ლ")
+    )
+      return true
 
     if (!user?.completedAssessments.includes(Number(assessmentLevel) - 1)) return false
 
-    if (!user.completedLessons.includes(afterAssessmentLetters[Number(assessmentLevel) - 1]))
+    if (!user?.completedLessons.includes(afterAssessmentLetters[Number(assessmentLevel) - 1]))
       return false
 
     return true
