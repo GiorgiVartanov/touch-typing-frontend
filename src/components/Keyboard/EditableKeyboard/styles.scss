@@ -220,6 +220,28 @@
   }
 }
 
+.warning-list {
+  //
+
+  p {
+    color: var(--warning-color);
+  }
+
+  ul {
+    list-style: circle;
+    margin-left: 1.5rem;
+
+    color: var(--warning-color);
+  }
+}
+
+.show-more-details-button {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  width: fit-content;
+  padding-left: 0 !important;
+}
+
 @keyframes selectedEditableKeyAppear {
   0% {
     opacity: 0;

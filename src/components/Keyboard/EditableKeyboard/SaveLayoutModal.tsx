@@ -97,11 +97,9 @@ const SaveLayoutModal = ({
           onChange={handleTitleChange}
         />
         {hasEmptyKeys ? (
-          <div className="ul">
+          <div className="warning-list">
             <p>warnings:</p>
-            <ul>
-              <li></li>
-            </ul>
+            <ul>{hasEmptyKeys ? <li>this keyboard has empty keys</li> : ""}</ul>
           </div>
         ) : null}
         <Button

@@ -10,6 +10,10 @@
     ul {
       margin-left: 1.5rem;
       list-style: circle;
+
+      li {
+        max-width: 268px;
+      }
     }
   }
 

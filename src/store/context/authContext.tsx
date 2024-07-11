@@ -177,6 +177,18 @@ const AuthProvider = ({ children }: Props) => {
 
     updatedUser.completedAssessments.push(assessmentLevel)
 
+    localStorage.setItem("user", JSON.stringify(updatedUser))
+    dispatch(setUser(updatedUser))
+  }
+
+  const saveLessonLocally = (lessonLetter: string) => {
+    if (!state.user) return
+
+    const updatedUser = structuredClone(state.user)
+
+    updatedUser.completedLessons.push(lessonLetter)
+
+    localStorage.setItem("user", JSON.stringify(updatedUser))
     dispatch(setUser(updatedUser))
   }
 
@@ -224,6 +236,7 @@ const AuthProvider = ({ children }: Props) => {
     resetLoginPasswordError,
     logoutUser,
     saveAssessmentLocally,
+    saveLessonLocally,
     addUserToSentFriendRequests,
   }
 
