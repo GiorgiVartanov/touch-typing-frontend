@@ -2,6 +2,7 @@ import { useOptimizationStore } from "../../../store/context/optimizationContext
 import { OptimizationConfig, ProcessStatus } from "../../../types/optimization.types"
 import Button from "../../Form/Button"
 import { useTranslation } from "react-i18next"
+import RobotIcon from "../../../assets/icons/robot.svg?react"
 
 interface Props {
   optimizationConfig: OptimizationConfig
@@ -22,7 +23,8 @@ const OptimizePanel = ({ optimizationConfig, optimizationSubmit }: Props) => {
         className="cta-button optimize-layout-button"
         onClick={handleClick}
       >
-        {t("Optimize Layout")}
+        <p>{t("Optimize Layout")}</p>
+        <RobotIcon className="icon" />
       </Button>
       {optimizationStatus == ProcessStatus.initialization_started ? (
         <p>Optimization process is being initialized</p>
