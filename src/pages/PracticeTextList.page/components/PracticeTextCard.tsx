@@ -7,6 +7,7 @@ interface Props {
   description: string
   author: string
   level: string
+  text: string
   _id: string
   className?: string
   style?: React.CSSProperties
@@ -19,6 +20,7 @@ const PracticeTextCard = ({
   description,
   author,
   level,
+  text,
   _id,
   className = "",
   style,
@@ -26,9 +28,9 @@ const PracticeTextCard = ({
   const { t } = useTranslation("translation", { keyPrefix: "practice" })
 
   const renderDescription = () => {
-    if (description.length > 100) return description.slice(0, 100) + "..."
+    if (text.length > 100) return text.slice(0, 100) + "..."
 
-    return description
+    return text
   }
   return (
     <Card
@@ -40,7 +42,7 @@ const PracticeTextCard = ({
       <p className="description">{renderDescription()}</p>
       <div className="card-bottom">
         <div className="bottom-left">{author === "Unknown" ? "" : author}</div>
-        <div className="bottom-right">{t(level)}</div>
+        {/* <div className="bottom-right">{t(level)}</div> */}
       </div>
     </Card>
   )

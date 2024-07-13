@@ -2,6 +2,7 @@ const calculateTime = (milliseconds: number) => {
   if (isNaN(milliseconds)) {
     return "Invalid input. Please provide a valid number of milliseconds."
   }
+
   const totalSeconds = Math.floor(milliseconds / 1000)
   const hours = Math.floor(totalSeconds / 3600)
   const remainingSeconds = totalSeconds % 3600
@@ -16,7 +17,7 @@ const calculateTime = (milliseconds: number) => {
   } else if (minutes > 0) {
     return `${minutes}:${paddedSeconds}`
   } else {
-    return `${seconds}s`
+    return `00:${seconds}`
   }
 }
 

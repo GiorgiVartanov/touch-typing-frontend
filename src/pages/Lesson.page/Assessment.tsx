@@ -12,11 +12,19 @@ import { MetricsProvider } from "../../store/context/MetricsContext"
 import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 import calculateAccuracy from "../../util/TypingStats/calculateAccuracy"
 import calculateTime from "../../util/TypingStats/calculateTime"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+
+const afterAssessmentLetters = ["ე", "ო", "უ", "ფ", "ჩ"]
 
 const Assessment = () => {
+  const navigate = useNavigate()
+
   const { assessmentLevel } = useParams()
 
-  const { token, saveAssessmentLocally } = useAuthStore()
+  const { token, saveAssessmentLocally, user } = useAuthStore()
+
+  const completedLessons = user?.completedLessons
 
   const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
 
@@ -29,32 +37,78 @@ const Assessment = () => {
   const completeAssessment = (metrics: MetricsContextProps) => {
     if (!token) {
       toast.warning(t("you need to be logged in to save assessment results"))
+
+      return
     }
 
-    console.log(metrics)
+    if (!assessmentLevel) return
 
-    if (!assessmentLevel || !token) return
+    const accuracy = calculateAccuracy(metrics.correctPressCount, metrics.incorrectPressCount)
+    const time =
+      metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
 
-    // check percentage here, return if its less than desired
-    // const accuracy = calculateAccuracy(metrics.correctPressCount, metrics.incorrectPressCount)
-    // const time =
-    //   metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
+    console.log({ accuracy, time })
 
-    // if (accuracy < 80) {
-    //   toast.warning("You have to get more than 80% accuracy to unlock the next level.")
-    //   return
-    // }
+    if (accuracy < 80) {
+      toast.warning("You have to get more than 80% accuracy to unlock the next level.")
+      return
+    }
 
-    // if (time > metrics.keyPressTimestamps.length) {
-    //   toast.warning(
-    //     `You have to use 1 second per character on average to unlock the next level\nYou have to fit in ${metrics.keyPressTimestamps.length} seconds`
-    //   )
-    //   return
-    // }
+    if (time / 1000 > metrics.keyPressTimestamps.length) {
+      toast.warning(
+        `You have to use 1 second per character on average to unlock the next level\nYou have to fit in ${metrics.keyPressTimestamps.length} seconds`
+      )
+      return
+    }
 
     saveAssessmentLocally(Number(assessmentLevel))
 
     return saveAssessment(0, Number(assessmentLevel), token)
+  }
+
+  const checkCompletedLetters = () => {
+    if (!assessmentLevel) return false
+
+    if (![1, 2, 3, 4, 5, 6].includes(Number(assessmentLevel))) return false
+
+    if (Number(assessmentLevel) === 1 && user?.completedLessons.includes("ლ")) return true
+
+    if (
+      Number(assessmentLevel) === 2 &&
+      user?.completedAssessments.includes(1) &&
+      user?.completedLessons.includes("თ")
+    )
+      return true
+
+    if (
+      Number(assessmentLevel) === 3 &&
+      user?.completedAssessments.includes(2) &&
+      user?.completedLessons.includes("კ")
+    )
+      return true
+
+    if (
+      Number(assessmentLevel) === 4 &&
+      user?.completedAssessments.includes(3) &&
+      user?.completedLessons.includes("წ")
+    )
+      return true
+
+    if (
+      Number(assessmentLevel) === 5 &&
+      user?.completedAssessments.includes(4) &&
+      user?.completedLessons.includes("ძ")
+    )
+      return true
+
+    if (
+      Number(assessmentLevel) === 6 &&
+      user?.completedAssessments.includes(5) &&
+      user?.completedLessons.includes("ჟ")
+    )
+      return true
+
+    return false
   }
 
   const { data, isLoading, error } = useQuery({
@@ -62,6 +116,25 @@ const Assessment = () => {
     queryKey: ["assessment", assessmentLevel],
     staleTime: 10000000,
   })
+
+  if (!checkCompletedLetters()) {
+    navigate("../lessons")
+    toast.warning("you don't have access to this lesson")
+
+    return
+  }
+
+  const getNextLevelURL = () => {
+    if (!assessmentLevel) return "../lessons"
+
+    const levelIndex = Number(assessmentLevel) - 1
+
+    if (levelIndex < afterAssessmentLetters.length) {
+      return `../lessons/exercise/${afterAssessmentLetters[levelIndex]}`
+    } else {
+      return "../lessons"
+    }
+  }
 
   const renderAssessment = () => {
     if (isLoading) return <Loading />
@@ -73,8 +146,13 @@ const Assessment = () => {
         <TypingArea
           text={data.data}
           textLanguage="Geo"
-          handleTextFinish={completeAssessment}
+          // handleTextFinish={completeAssessment}
+          handleSetMetrics={completeAssessment}
           displayResultsAfterFinish={true}
+          showGoToNextLevel={true}
+          nextLevelURL={getNextLevelURL()}
+          isLastAssessment={typeof assessmentLevel === "number" && assessmentLevel === 6}
+          accuracyToComplete={80}
         />
       </MetricsProvider>
     )

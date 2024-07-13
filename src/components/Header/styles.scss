@@ -189,6 +189,25 @@
             display: flex;
           }
 
+          &.has-active-child {
+            // border-bottom: 1px solid var(--primary-color);
+            // border-top: 1px solid transparent;
+            position: relative;
+
+            &::after {
+              content: "";
+              position: absolute;
+              height: 1px;
+              background-color: var(--primary-color);
+              width: 80%;
+              bottom: 0;
+              left: 5%;
+
+              opacity: 0;
+              animation: active-child-line-appear 300ms var(--animation-function) forwards;
+            }
+          }
+
           &.header-buttons {
             position: absolute;
             right: 24rem;
@@ -201,6 +220,8 @@
             transition:
               color 300ms var(--animation-function),
               opacity 300ms var(--animation-function);
+            display: flex;
+            justify-content: start;
 
             &:hover {
               opacity: 0.75;
@@ -503,5 +524,14 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes active-child-line-appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

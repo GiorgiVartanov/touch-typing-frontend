@@ -21,17 +21,22 @@
         &:hover {
           color: var(--primary-color-active);
         }
-
-        // &:visited {
-        //   color: var(--primary-color-active);
-        // }
       }
 
       &::before {
         content: counter(list-counter) ". ";
         position: absolute;
-        left: -2em; // Adjust as needed
+        left: -2em;
       }
     }
+  }
+}
+
+.guide-page-link {
+  text-decoration: underline;
+  color: var(--primary-color);
+
+  &:hover {
+    color: var(--primary-color-active);
   }
 }

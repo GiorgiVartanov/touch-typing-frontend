@@ -2,6 +2,7 @@ import { useOptimizationStore } from "../../../store/context/optimizationContext
 import { OptimizationConfig, ProcessStatus } from "../../../types/optimization.types"
 import Button from "../../Form/Button"
 import { useTranslation } from "react-i18next"
+import RobotIcon from "../../../assets/icons/robot.svg?react"
 
 interface Props {
   optimizationConfig: OptimizationConfig
@@ -17,22 +18,27 @@ const OptimizePanel = ({ optimizationConfig, optimizationSubmit }: Props) => {
   }
 
   return (
-    <div>
+    <div className="optimize-panel">
       <Button
         className="cta-button optimize-layout-button"
         onClick={handleClick}
       >
-        {t("Optimize Layout")}
+        <p>{t("Optimize Layout")}</p>
+        <RobotIcon className="icon" />
       </Button>
-      {optimizationStatus == ProcessStatus.initialization_started ? (
-        <p>Optimization process is being initialized</p>
-      ) : optimizationStatus == ProcessStatus.initialization_finished ? (
-        <p>
-          Generations Complete: {progress.current_generation} / {progress.total_generations}
-        </p>
-      ) : (
-        <></>
-      )}
+      <div className="optimization-status">
+        {optimizationStatus == ProcessStatus.initialization_started ? (
+          <p>Optimization process is being initialized . . .</p>
+        ) : optimizationStatus == ProcessStatus.initialization_finished ? (
+          <p>
+            Generations Complete:
+            <span className="complete-generations">{progress.current_generation}</span> /{" "}
+            <span className="total-generations">{progress.total_generations}</span>
+          </p>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   )
 }

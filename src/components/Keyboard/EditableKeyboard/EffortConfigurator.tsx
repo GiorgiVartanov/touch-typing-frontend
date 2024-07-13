@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {
   initialOptimizationConfig,
   punctuationPlacements,
@@ -40,21 +40,9 @@ const EffortConfigurator = ({
 }: Props) => {
   const [moreDetails, setMoreDetails] = useState<boolean>(false)
 
-  //console.log("right here", editingKeyboard)
   const [optimizationConfig, setOptimizationConfig] = useState<OptimizationConfig>({
     ...initialOptimizationConfig,
   })
-
-  //   useEffect(() => {
-  //     setOptimizationConfig({
-  //       ...optimizationConfig,
-  //       characters_set: convertFromCurrentLayoutToPythonApi(
-  //         editingKeyboard,
-  //         optimizationConfig.punctuation_placement
-  //       ),
-  //     })
-  //     console.log(optimizationConfig)
-  //   }, [editingKeyboard])
 
   const [punctuationPlacementMode, setPunctuationPlacementMode] = useState<PunctuationPlacement>(
     PunctuationPlacement.qwerty
@@ -75,7 +63,7 @@ const EffortConfigurator = ({
         <div className="input-fields">
           <Tooltip
             tooltipContent="number of generations"
-            tooltipPosition="left"
+            tooltipPosition="top-right"
           >
             <Input
               name={t("number of generations")}
@@ -102,7 +90,7 @@ const EffortConfigurator = ({
           </Tooltip>
           <Tooltip
             tooltipContent="finger distance weight"
-            tooltipPosition="right"
+            tooltipPosition="top-right"
           >
             <Input
               name={t("finger distance weight")}
@@ -135,7 +123,7 @@ const EffortConfigurator = ({
           </Tooltip>
           <Tooltip
             tooltipContent="modifier overhead weight"
-            tooltipPosition="left"
+            tooltipPosition="top-right"
           >
             <Input
               name={t("modifier overhead weight")}
@@ -167,7 +155,7 @@ const EffortConfigurator = ({
             <>
               <Tooltip
                 tooltipContent="hit direction weight"
-                tooltipPosition="right"
+                tooltipPosition="left"
               >
                 <Input
                   name={t("hit direction weight")}
@@ -197,7 +185,7 @@ const EffortConfigurator = ({
               </Tooltip>
               <Tooltip
                 tooltipContent="hand alternation weight"
-                tooltipPosition="left"
+                tooltipPosition="bottom-right"
               >
                 <Input
                   name={t("hand alternation weight")}
@@ -227,7 +215,7 @@ const EffortConfigurator = ({
               </Tooltip>
               <Tooltip
                 tooltipContent="consecutive finger usage weight"
-                tooltipPosition="right"
+                tooltipPosition="bottom-right"
               >
                 <Input
                   name={t("consecutive finger usage weight")}
@@ -257,7 +245,7 @@ const EffortConfigurator = ({
               </Tooltip>
               <Tooltip
                 tooltipContent="finger distance weight"
-                tooltipPosition="left"
+                tooltipPosition="bottom-right"
               >
                 <Input
                   name={t("finger distance weight")}
@@ -333,10 +321,20 @@ const EffortConfigurator = ({
             </label>
           </>
         ) : (
-          <Button onClick={() => setMoreDetails(true)}>more details...</Button>
+          <Button
+            className="show-more-details-button"
+            onClick={() => setMoreDetails(true)}
+          >
+            show more...
+          </Button>
         )}
         {moreDetails ? (
-          <Button onClick={() => setMoreDetails(false)}>less details...</Button>
+          <Button
+            className="show-more-details-button"
+            onClick={() => setMoreDetails(false)}
+          >
+            show less...
+          </Button>
         ) : (
           <></>
         )}

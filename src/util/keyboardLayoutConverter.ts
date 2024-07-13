@@ -58,6 +58,7 @@ export const convertFromCurrentLayoutToPythonApi = (
   let dummy_count = 1
   punctuation_placement = punctuation_placement.sort()
   console.log(punctuation_placement)
+  console.log(characterPlacement)
   //წინასწარ შევქმნა 94-ელემენტიანი მასივი, ცარიელი, ან საჭირო ველებით.
   //შევავსო მერე.
   //ბოლოს დავიარო და ვნახო რა ასოებია გამორჩენილი და ჩავსვა ნებისმიერ თავისუფალ ადგილას.
@@ -67,6 +68,8 @@ export const convertFromCurrentLayoutToPythonApi = (
     character: "",
     button_id: null,
   }))
+
+  console.log(array)
 
   characterPlacement.slice(1).forEach((value) => {
     if (["Letter", "Digit", "Symbol"].includes(value.type)) {
@@ -84,6 +87,8 @@ export const convertFromCurrentLayoutToPythonApi = (
     }
   })
 
+  console.log(array)
+
   array[45].button_id = 46
   array[45].character = "`"
   array[92].character = "~"
@@ -92,6 +97,8 @@ export const convertFromCurrentLayoutToPythonApi = (
   array[93].character = "dummy_character_20"
   array[46].button_id = 47
   array[46].character = " "
+
+  console.log(array)
 
   function checkGeorgianLetter(letter: string): boolean {
     for (let i = 0; i < array.length; i++) {
@@ -143,15 +150,19 @@ export const convertFromCurrentLayoutToPythonApi = (
   georgian_letters.forEach((letter) => {
     if (checkGeorgianLetter(letter)) {
     } else {
+      console.log("alphabet: ", letter)
       while (punctuation_placement.includes(unused_indices[index_oh_index])) index_oh_index++
       array[unused_indices[index_oh_index]].character = letter
       ++index_oh_index
     }
   })
   index_oh_index = 0
+  console.log(array)
   punctuation.forEach((punct) => {
     if (checkPunctuation(punct)) {
     } else {
+      console.log("punct: ", punct)
+      console.log(index_oh_index)
       while (array[punctuation_placement[index_oh_index]].character) index_oh_index++
       array[punctuation_placement[index_oh_index]].character = punct
       ++index_oh_index

@@ -149,6 +149,7 @@ const RegisterPage = () => {
           <li>{t("save and share your layouts")}</li>
           <li>{t("save your preferences")}</li>
           <li>{t("save lesson progress")}</li>
+          <li>{t("being able to rank by score")}</li>
         </ul>
       </div>
       <Form onSubmit={handleSubmit}>

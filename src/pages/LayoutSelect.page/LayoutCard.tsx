@@ -37,7 +37,7 @@ const LayoutCard = ({ _id, title, language, keys }: Props) => {
       </div>
       <div className="layout-card-text">
         <h3>{title}</h3>
-        <p>{language}</p>
+        {/* <p>{language}</p> */}
       </div>
     </Link>
   )
