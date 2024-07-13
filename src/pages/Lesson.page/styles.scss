@@ -72,6 +72,15 @@
   a {
     &.assessment-link {
       background-color: var(--primary-color) !important;
+
+      &:hover {
+        background-color: var(--cta-color-active);
+        box-shadow:
+          0 0 6px 0 var(--primary-shadow),
+          0 0 10px 0 var(--primary-shadow),
+          0 0 14px 0 var(--primary-shadow),
+          0 0 20px 0 var(--primary-shadow);
+      }
     }
 
     &.assessment-unavailable {
@@ -120,6 +129,13 @@
 
       &:hover {
         opacity: 1;
+
+        // background-color: var(--cta-color-active);
+        // box-shadow:
+        //   0 0 6px 0 var(--success-color),
+        //   0 0 10px 0 var(--success-color),
+        //   0 0 14px 0 var(--success-color),
+        //   0 0 20px 0 var(--success-color);
       }
     }
 

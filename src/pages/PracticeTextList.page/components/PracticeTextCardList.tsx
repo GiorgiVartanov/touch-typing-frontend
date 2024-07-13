@@ -37,6 +37,7 @@ const PracticeTextCardList = ({
         <PracticeTextCard
           title={text.title}
           description={text.description}
+          text={text.text}
           author={text.author}
           level={text.level}
           _id={text._id}

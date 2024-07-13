@@ -40,21 +40,9 @@ const EffortConfigurator = ({
 }: Props) => {
   const [moreDetails, setMoreDetails] = useState<boolean>(false)
 
-  //console.log("right here", editingKeyboard)
   const [optimizationConfig, setOptimizationConfig] = useState<OptimizationConfig>({
     ...initialOptimizationConfig,
   })
-
-  //   useEffect(() => {
-  //     setOptimizationConfig({
-  //       ...optimizationConfig,
-  //       characters_set: convertFromCurrentLayoutToPythonApi(
-  //         editingKeyboard,
-  //         optimizationConfig.punctuation_placement
-  //       ),
-  //     })
-  //     console.log(optimizationConfig)
-  //   }, [editingKeyboard])
 
   const [punctuationPlacementMode, setPunctuationPlacementMode] = useState<PunctuationPlacement>(
     PunctuationPlacement.qwerty
