@@ -47,7 +47,7 @@ const LayoutSelectPage = () => {
         return lastPage?.pagination?.nextPage
       },
       initialPageParam: 0,
-      staleTime: 1000000,
+      staleTime: 0,
     })
 
   const renderLayouts = () => {

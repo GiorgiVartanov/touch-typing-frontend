@@ -19,7 +19,8 @@
     "how to install keyboard layout on linux": "როგორ უნდა დაინსტალირდეს განლაგება ლინუქსზე",
     "how to install keyboard layout on mac": "როგორ უნდა დაინსტალირდეს განლაგება მაკზე",
     "follow guide at": "გაყევით ინსტრუქციას",
-    "this site": "ამ საიტზე"
+    "this site": "ამ საიტზე",
+    "Export the keyboard layout by pressing on export button on the keyboard page": "დააექსპორტეტ კლავიატურის განლაგება ექსპორტის ღილაკის გამოყენებით კლავიატურის გვერდზე"
   },
 
   "lesson page": {
@@ -89,10 +90,11 @@
     "left": "Left",
     "middle_free": "Middle row free",
     "spread": "Spread",
-    "Analyse Layout": "Analyse Layout",
+    "Analyse Layout": "განლაგების გაანალიზირება",
     "ANSI-ISO": "ANSI-ISO",
     "ISO": "ISO",
-    "ANSI": "ANSI"
+    "ANSI": "ANSI",
+    "layout exported": "განლაგება იყო წარმატებით დაექსპორტებული"
   },
 
   "profile page": {
@@ -101,6 +103,10 @@
     "your": "თქვენი",
     "layouts": "განლაგებები",
     "'s": " ის"
+  },
+
+  "search": {
+    "search": "ძებნა"
   },
 
   "practice": {
@@ -155,7 +161,7 @@
     "compete against other users": "შეეჯიბრე სხვა მომხმარებლებს",
     "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.": "დაუპირისპირდით სხვა მომხმარებლებს რეალურ დროში და შეამოწმეთ თქვენი ბეჭდვის უნარი შეჯიბრებში",
     "follow carefully crafted lessons": "ისწავლეთ ბეჭდვა ნებისმიერ განლაგებაზე",
-    "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
+    "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "დაიწყეთ ბრმად ბეჭდვის სწავლის თავგადასავალი ჩვენი ზედმიწევნით შემუშავებული გაკვეთილებით, ყურადღებით სტრუქტურირებული თქვენი ბეჭდვის მაქსიმალურად გაუმჯობესებისათვის.",
     "select layout": "არჩევა",
     "create layout": "შექმნა",
     "compete": "შეჯიბრი",
