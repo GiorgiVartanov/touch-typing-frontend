@@ -187,6 +187,19 @@
   }
 }
 
+.optimize-panel {
+  position: relative;
+
+  .optimization-status {
+    position: absolute;
+    white-space: nowrap;
+
+    .complete-generations {
+      opacity: 0.75;
+    }
+  }
+}
+
 .configurator-layout-panel {
   .configurator-layout-form {
     max-width: 960px;
@@ -199,7 +212,7 @@
       display: grid;
       grid-template-columns: repeat(3, 225px);
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.25rem;
     }
 
     input {
@@ -213,8 +226,12 @@
 
     .effort-usages {
       display: flex;
+      height: fit-content;
+      gap: 0.5rem;
+
       button {
-        margin-right: 10px;
+        margin-top: 0;
+        // margin-right: 10px;
       }
     }
   }
@@ -233,6 +250,9 @@
 
     color: var(--warning-color);
   }
+}
+
+.analyze-modal {
 }
 
 .show-more-details-button {

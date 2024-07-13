@@ -55,7 +55,7 @@ const AnalyseLayoutModal = ({ isVisible, closeModal }: Props) => {
   const renderAnalyisResultTable = () => {
     if (!analysis) return
     return (
-      <div>
+      <div className="analyze-modal">
         <div className="vertically placed">
           <h2>effort values</h2>
           <div className="horizontally-placed">
