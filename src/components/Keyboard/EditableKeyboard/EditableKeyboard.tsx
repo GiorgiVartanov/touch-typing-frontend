@@ -46,6 +46,8 @@ import {
   validateKeyboardLayout,
 } from "../../../util/keyboardLayoutConverter"
 import EffortConfigurator from "./EffortConfigurator"
+import ajax from "../../../services/ajax"
+
 //import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
 interface Props {
   startingKeyboard: KeyInterface[]
@@ -101,6 +103,7 @@ const EditableKeyboard = ({
   } = useOptimizationStore()
 
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
+  const { user, token } = useAuthStore()
 
   const ref = useRef<HTMLInputElement>(null)
 
@@ -193,7 +196,7 @@ const EditableKeyboard = ({
   }
 
   // lets user download layout in a .klc format
-  const handleExportLayout = () => {
+  const handleExportLayout = async () => {
     const currentTitle = editingKeyboard
       .slice(15, 21)
       .reduce((accumulator, currentValue) => accumulator + currentValue?.value[0], "")
@@ -205,9 +208,32 @@ const EditableKeyboard = ({
       public: true,
       official: false,
       keyboard: editingKeyboard,
+      number:
+        user && Object.keys(user).length > 0
+          ? user.createdLayoutCounter
+          : Math.floor(Math.random() * 10000),
     }
 
-    downloadKLCFile(transformKeyboardLayout(currentLayout), `test.klc`)
+    downloadKLCFile(transformKeyboardLayout(currentLayout), `layout.klc`)
+
+    if (user && Object.keys(user).length > 0) {
+      console.log("USER: ", user)
+      try {
+        const response = await ajax.post(
+          "/user/incrementLayoutCounter",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+
+        console.log(response.data) // Handle the response data
+      } catch (error) {
+        console.error("Error:", error) // Handle any errors
+      }
+    }
 
     toast.success("Layout exported", { toastId: t("layout exported") })
   }

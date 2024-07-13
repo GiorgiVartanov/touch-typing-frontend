@@ -34,4 +34,5 @@ export interface UserData extends User {
   completedAssessments: number[]
   completedLessons: string[]
   sentFriendRequests: string[]
+  createdLayoutCounter: number
 }
