@@ -235,7 +235,7 @@ const EditableKeyboard = ({
       }
     }
 
-    toast.success("Layout exported", { toastId: "layout exported" })
+    toast.success("Layout exported", { toastId: t("layout exported") })
   }
 
   // opens save layout modal

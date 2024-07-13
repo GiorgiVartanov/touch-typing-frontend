@@ -32,7 +32,7 @@ const Results: React.FC<{
   const { t } = useTranslation("translation", { keyPrefix: "typer" })
 
   const { metrics } = useMetrics()
-  const { user } = useAuthStore()
+  const { user, isLoggedIn } = useAuthStore()
 
   const time = metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
 
@@ -76,6 +76,8 @@ const Results: React.FC<{
 
   const currentAccuracy = calculateAccuracy(metrics.correctPressCount, metrics.incorrectPressCount)
 
+  console.log(isLoggedIn)
+
   return (
     <div className="results">
       <div className="wpm metric">
@@ -103,13 +105,16 @@ const Results: React.FC<{
       >
         <RestartIcon />
       </button>
-      {showGoToNextLevel && !isLastAssessment && currentAccuracy >= accuracyToComplete ? (
+      {showGoToNextLevel &&
+      !isLastAssessment &&
+      isLoggedIn &&
+      currentAccuracy >= accuracyToComplete ? (
         <Link
           to={nextLevelURL}
           className="go-to-next-lesson-button"
           replace
         >
-          <p>Go to Next Level</p>
+          <p>{t("Go to Next Level")}</p>
           <ArrowUp className="icon" />
         </Link>
       ) : (
@@ -121,7 +126,7 @@ const Results: React.FC<{
           className="print-certificate-button"
           onClick={printCertificate}
         >
-          Print Certificate
+          {t("Print Certificate")}
         </Button>
       ) : (
         ""

@@ -15,7 +15,12 @@
     "Click on Project >> Build DLL and Setup Package and select exported layout (it will be a .klc file)": "Click on Project >> Build DLL and Setup Package and select exported layout (.klc file)",
     "Open newly created directory and open setup.exe": "Open newly created directory and open setup.exe",
     "After installing layout, go to Language Preferences >> Preferred languages": "After installing layout, go to Language Preferences >> Preferred languages",
-    "Click on Project >> Test Keyboard Layout and check if it works": "Click on Project >> Test Keyboard Layout and check if it works"
+    "Click on Project >> Test Keyboard Layout and check if it works": "Click on Project >> Test Keyboard Layout and check if it works",
+    "how to install keyboard layout on linux": "how to install keyboard layout on Linux",
+    "how to install keyboard layout on mac": "how to install keyboard layout on MAC",
+    "follow guide at": "follow guide at",
+    "this site": "this site",
+    "Export the keyboard layout by pressing on export button on the keyboard page": "Export the keyboard layout by pressing on export button on the keyboard page"
   },
 
   "lesson page": {
@@ -88,7 +93,8 @@
     "Analyse Layout": "Analyse Layout",
     "ANSI-ISO": "ANSI-ISO",
     "ISO": "ISO",
-    "ANSI": "ANSI"
+    "ANSI": "ANSI",
+    "layout exported": "layout was successfully exported"
   },
 
   "profile page": {
@@ -97,6 +103,10 @@
     "your": "your",
     "layouts": "layouts",
     "'s": "'s"
+  },
+
+  "search": {
+    "search": "search"
   },
 
   "practice": {
@@ -177,7 +187,7 @@
     "save and share your layouts": "save and share your layouts",
     "save your preferences": "save your preferences",
     "save lesson progress": "save lesson progress",
-    "being able to rank by score": "being able to rank by score"
+    "being able to rank by score": "to rank by score"
   },
 
   "settings page": {
