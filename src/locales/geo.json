@@ -15,7 +15,11 @@
     "Click on Project >> Build DLL and Setup Package and select exported layout (it will be a .klc file)": "დააჭირეთ Project >> Build DLL და Setup Package და აირჩიეთ დაექსპორტებული განლაგება (.klc გაფართოების ფაილი)",
     "Open newly created directory and open setup.exe": "გახსენით ახალშექმნილი დირექტორია და გახსენით setup.exe ფაილი",
     "After installing layout, go to Language Preferences >> Preferred languages": "განლაგების დაინსტალირების შემდეგ, გადადით Language Preferences >> Preferred languages",
-    "Click on Project >> Test Keyboard Layout and check if it works": "დააჭირეთ Project >> Test Keyboard Layout და შეამოწმეთ ის"
+    "Click on Project >> Test Keyboard Layout and check if it works": "დააჭირეთ Project >> Test Keyboard Layout და შეამოწმეთ ის",
+    "how to install keyboard layout on linux": "როგორ უნდა დაინსტალირდეს განლაგება ლინუქსზე",
+    "how to install keyboard layout on mac": "როგორ უნდა დაინსტალირდეს განლაგება მაკზე",
+    "follow guide at": "გაყევით ინსტრუქციას",
+    "this site": "ამ საიტზე"
   },
 
   "lesson page": {

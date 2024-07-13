@@ -15,7 +15,11 @@
     "Click on Project >> Build DLL and Setup Package and select exported layout (it will be a .klc file)": "Click on Project >> Build DLL and Setup Package and select exported layout (.klc file)",
     "Open newly created directory and open setup.exe": "Open newly created directory and open setup.exe",
     "After installing layout, go to Language Preferences >> Preferred languages": "After installing layout, go to Language Preferences >> Preferred languages",
-    "Click on Project >> Test Keyboard Layout and check if it works": "Click on Project >> Test Keyboard Layout and check if it works"
+    "Click on Project >> Test Keyboard Layout and check if it works": "Click on Project >> Test Keyboard Layout and check if it works",
+    "how to install keyboard layout on linux": "how to install keyboard layout on Linux",
+    "how to install keyboard layout on mac": "how to install keyboard layout on MAC",
+    "follow guide at": "follow guide at",
+    "this site": "this site"
   },
 
   "lesson page": {

@@ -22,7 +22,7 @@ const Tooltip = ({
   tooltipPosition = "bottom-right",
   tooltipContent,
   showAsterisk = false,
-  maxWidth = "100%",
+  maxWidth = "auto",
   className = "",
 }: Props) => {
   return (

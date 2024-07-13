@@ -51,10 +51,6 @@ const SaveLayoutModal = ({
     setTitle(e.target.value)
   }
 
-  const handleSelectLanguage = (value: string) => {
-    setSelectedLanguage(value as KeyboardLanguageType)
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -96,16 +92,16 @@ const SaveLayoutModal = ({
           value={title}
           onChange={handleTitleChange}
         />
-        {hasEmptyKeys ? (
+        {/* {hasEmptyKeys ? (
           <div className="warning-list">
             <p>warnings:</p>
             <ul>{hasEmptyKeys ? <li>this keyboard has empty keys</li> : ""}</ul>
           </div>
-        ) : null}
+        ) : null} */}
         <Button
           className="save-keyboard-submit-button"
           type="submit"
-          disabled={hasEmptyKeys}
+          // disabled={hasEmptyKeys}
         >
           Save
         </Button>

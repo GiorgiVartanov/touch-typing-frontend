@@ -12,8 +12,11 @@ const InstallationGuideMacPage = () => {
       <h2>{t("how to install keyboard layout on mac")}</h2>
       <p>
         {t("follow guide at")}{" "}
-        <a href="https://beebom.com/how-modify-or-create-custom-keyboard-layouts-mac/#:~:text=You%20can%20do%20this%20by%20following%20the%20steps,mapped%20to%20it%2C%20instead%20of%20the%20default%20functions.">
-          this site
+        <a
+          className="guide-page-link"
+          href="https://beebom.com/how-modify-or-create-custom-keyboard-layouts-mac/#:~:text=You%20can%20do%20this%20by%20following%20the%20steps,mapped%20to%20it%2C%20instead%20of%20the%20default%20functions."
+        >
+          {t("this site")}
         </a>
       </p>
     </PageLayout>

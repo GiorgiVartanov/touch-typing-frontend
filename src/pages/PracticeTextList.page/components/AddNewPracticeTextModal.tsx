@@ -65,13 +65,7 @@ const AddNewPracticeTextModal = ({ isVisible, closeModal }: Props) => {
     }) => {
       if (!token) throw new Error("no token")
 
-      return postPracticeText(
-        textData.title,
-        textData.description,
-        textData.level,
-        textData.text,
-        token
-      )
+      return postPracticeText(textData.title, textData.description, "Easy", textData.text, token)
     },
     mutationKey: ["post new text", newTextData],
     onMutate: () => {},
@@ -112,13 +106,13 @@ const AddNewPracticeTextModal = ({ isVisible, closeModal }: Props) => {
           onChange={(e) => handleChange("description", e.target.value)}
           className="textarea-description"
         />
-        <Select
+        {/* <Select
           name={t("level")}
           value={newTextData.level}
           options={["Easy", "Medium", "Hard"]}
           optionsToShow={[t("Easy"), t("Medium"), t("Hard")]}
           onChange={(selectedLevel) => handleLevelChange(selectedLevel as DifficultyLevel)}
-        />
+        /> */}
         <Button className="submit-button cta-button add-new-text-button">{t("Add Text")}</Button>
       </Form>
     </Modal>

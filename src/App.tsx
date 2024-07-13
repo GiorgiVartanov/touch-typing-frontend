@@ -132,7 +132,7 @@ const App = () => {
           element={<InstallationGuidePage />}
         />
         <Route
-          path="/guides/how_to_install_layout_on_map"
+          path="/guides/how_to_install_layout_on_mac"
           element={<InstallationGuideMacPage />}
         />
         <Route
