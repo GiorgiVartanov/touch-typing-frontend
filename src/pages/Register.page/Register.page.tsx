@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
@@ -16,10 +16,171 @@ const maxPasswordLength = 24
 const minUsernameLength = 3
 const maxUsernameLength = 20
 
+const allowedUsernameChars = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "_",
+]
+
+const allowedPasswordChars = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "!",
+  "@",
+  "#",
+  "$",
+  "%",
+  "^",
+  "&",
+  "*",
+  "(",
+  ")",
+  "_",
+  "+",
+  "[",
+  "]",
+  "{",
+  "}",
+  "|",
+  ";",
+  ":",
+  ",",
+  ".",
+  "<",
+  ">",
+  "?",
+  "/",
+]
+
 const RegisterPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "auth page" })
 
-  const { registerUser, registerErrorMessage } = useAuthStore()
+  const {
+    registerUser,
+    registerErrorMessage,
+    resetRegisterPasswordError,
+    resetRegisterUsernameError,
+  } = useAuthStore()
 
   const [credentials, setCredentials] = useState<RegisterCredentials>({
     username: "",
@@ -33,8 +194,23 @@ const RegisterPage = () => {
     confirmPasswordError: [],
   })
 
+  useEffect(() => {
+    resetRegisterUsernameError()
+    resetRegisterPasswordError()
+    setCredentialsError({
+      usernameError: [],
+      passwordError: [],
+      confirmPasswordError: [],
+    })
+  }, [])
+
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > maxUsernameLength) {
+    const value = e.target.value
+
+    if (
+      value.length > maxUsernameLength ||
+      !value.split("").every((char) => allowedUsernameChars.includes(char))
+    ) {
       return
     }
 
@@ -52,7 +228,12 @@ const RegisterPage = () => {
   }
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > maxPasswordLength) {
+    const value = e.target.value
+
+    if (
+      value.length > maxPasswordLength ||
+      !value.split("").every((char) => allowedPasswordChars.includes(char))
+    ) {
       return
     }
 
@@ -70,6 +251,12 @@ const RegisterPage = () => {
   }
 
   const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+
+    if (!value.split("").every((char) => allowedPasswordChars.includes(char))) {
+      return
+    }
+
     setCredentialsError((prevState) => ({
       usernameError: prevState.usernameError,
       passwordError: prevState.passwordError,
@@ -157,7 +344,10 @@ const RegisterPage = () => {
           name={t("username")}
           value={credentials.username}
           onChange={handleUsernameChange}
-          errors={[...registerErrorMessage.usernameError, ...credentialsError.usernameError]}
+          errors={[
+            ...registerErrorMessage.usernameError.map((error) => t(error)),
+            ...credentialsError.usernameError,
+          ]}
         />
         <Input
           name={t("password")}

@@ -159,7 +159,7 @@ const Exercise = () => {
     )
   }
 
-  return <PageLayout>{renderExercise()}</PageLayout>
+  return <PageLayout className="exercise-page">{renderExercise()}</PageLayout>
 }
 
 export default Exercise

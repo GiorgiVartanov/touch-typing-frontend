@@ -7,6 +7,8 @@ import "./styles.scss"
 const Loading = () => {
   const [isMessageShown, setIsMessageShown] = useState<boolean>(false)
 
+  const { t } = useTranslation("translation", { keyPrefix: "loading" })
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsMessageShown(true)
@@ -19,7 +21,9 @@ const Loading = () => {
     <div className="loading">
       <div className="spinner"></div>
       {isMessageShown ? (
-        <div className="loading-message">please wait, initial request may take up to 1 minute</div>
+        <div className="loading-message">
+          {t("please wait, initial request may take up to 1 minute")}
+        </div>
       ) : null}
     </div>
   )

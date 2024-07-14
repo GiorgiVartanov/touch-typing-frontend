@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
@@ -26,6 +26,15 @@ const LoginPage = () => {
     usernameError: [],
     passwordError: [],
   })
+
+  useEffect(() => {
+    resetLoginUsernameError()
+    resetLoginPasswordError()
+    setCredentialsError({
+      usernameError: [],
+      passwordError: [],
+    })
+  }, [])
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentialsError((prevState) => ({
@@ -59,6 +68,8 @@ const LoginPage = () => {
     // FIX HERE !!!!!!!
 
     // I don't remember what I want to fix here
+
+    // probably nothing important
 
     await loginUser(credentials)
   }

@@ -76,8 +76,6 @@ const Results: React.FC<{
 
   const currentAccuracy = calculateAccuracy(metrics.correctPressCount, metrics.incorrectPressCount)
 
-  console.log(isLoggedIn)
-
   return (
     <div className="results">
       <div className="wpm metric">

@@ -94,7 +94,13 @@
     "ANSI-ISO": "ANSI-ISO",
     "ISO": "ISO",
     "ANSI": "ANSI",
-    "layout exported": "layout was successfully exported"
+    "layout exported": "layout was successfully exported",
+    "title": "title",
+    "save layout": "save layout",
+    "by": "by",
+    "show more": "show more ...",
+    "show less": "show less ...",
+    "Layout successfully saved": "Layout successfully saved"
   },
 
   "profile page": {
@@ -136,7 +142,8 @@
     "Certificate of Completion": "Certificate of Completion",
     "congratulations, you successfully completed touch typing course": "Congratulations, you successfully completed the Touch Typing course",
     "Touch Typing": "Touch Typing",
-    "Certificate": "Certificate"
+    "Certificate": "Certificate",
+    "Go to Next Level": "Go to the Next level"
   },
 
   "layout page": {
@@ -182,12 +189,18 @@
     "user with this username does not exist": "user with this username does not exist",
     "username too short": "username should be longer than {{minUsernameLength}} characters",
     "username too long": "username should be shorter than {{maxUsernameLength}} characters",
-    "passwords do not match": "passwords do not match",
+    "passwords do not match": "Passwords do not match",
+    "incorrect password": "incorrect password",
     "after registration, you will be able to": "after registration, you will be able to",
     "save and share your layouts": "save and share your layouts",
     "save your preferences": "save your preferences",
     "save lesson progress": "save lesson progress",
-    "being able to rank by score": "to rank by score"
+    "being able to rank by score": "to rank by score",
+    "user with this username already exists": "user with this username already exists",
+    "Password too short": "password is too short",
+    "Password too long": "password is too long",
+    "password too short": "password should be at least {{minPasswordLength}} characters long",
+    "password too long": "password should not be longer than {{maxPasswordLength}}"
   },
 
   "settings page": {
@@ -274,5 +287,9 @@
     "Sentences": "Sentences",
     "seconds": "seconds",
     "View": "View"
+  },
+
+  "loading": {
+    "please wait, initial request may take up to 1 minute": "please wait, initial request may take up to 1 minute"
   }
 }

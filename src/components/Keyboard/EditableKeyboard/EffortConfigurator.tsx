@@ -325,7 +325,7 @@ const EffortConfigurator = ({
             className="show-more-details-button"
             onClick={() => setMoreDetails(true)}
           >
-            show more...
+            {t("show more")}
           </Button>
         )}
         {moreDetails ? (
@@ -333,7 +333,7 @@ const EffortConfigurator = ({
             className="show-more-details-button"
             onClick={() => setMoreDetails(false)}
           >
-            show less...
+            {t("show less")}
           </Button>
         ) : (
           <></>
