@@ -158,7 +158,7 @@ const Assessment = () => {
     )
   }
 
-  return <PageLayout>{renderAssessment()}</PageLayout>
+  return <PageLayout className="exercise-page">{renderAssessment()}</PageLayout>
 }
 
 export default Assessment

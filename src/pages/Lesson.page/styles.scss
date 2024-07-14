@@ -257,3 +257,17 @@
     }
   }
 }
+
+.exercise-page {
+  width: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: fit-content;
+  justify-content: center;
+
+  .typer {
+    margin-top: 0;
+  }
+}

@@ -187,6 +187,11 @@
   }
 }
 
+.optimize-layout-button {
+  display: flex;
+  gap: 1rem;
+}
+
 .optimize-panel {
   position: relative;
 
@@ -260,6 +265,7 @@
   box-shadow: none !important;
   width: fit-content;
   padding-left: 0 !important;
+  margin-top: 0 !important;
 }
 
 @keyframes selectedEditableKeyAppear {

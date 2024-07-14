@@ -17,7 +17,11 @@ const calculateTime = (milliseconds: number) => {
   } else if (minutes > 0) {
     return `${minutes}:${paddedSeconds}`
   } else {
-    return `00:${seconds}`
+    if (seconds < 10) {
+      return `00:0${seconds}`
+    } else {
+      return `00:${seconds}`
+    }
   }
 }
 

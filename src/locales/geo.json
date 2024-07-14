@@ -8,7 +8,7 @@
 
   "guide page": {
     "how to install keyboard layout on windows": "როგორ უნდა იყოს დაინსტალირებული კლავიატურის განლაგება თქვენს კომპიუტერზე",
-    "Install": "ჩაწერეთ დააინსტალირეთ",
+    "Install": "ჩაწერეთ და დააინსტალირეთ",
     "Microsoft Keyboard Layout Creator Tool 1.4 (MSKLC)": "Microsoft Keyboard Layout Creator Tool 1.4 (MSKLC)",
     "Click on File >> Load Source File and select exported layout (it will be a .klc file)": "დააჭირეთ File >> Load Source File და აირჩიეთ დაექსპორტებული განლაგება (.klc გაფართოების ფაილი)",
     "Open MSKLC": "გახსენით MSKLC",
@@ -94,7 +94,13 @@
     "ANSI-ISO": "ANSI-ISO",
     "ISO": "ISO",
     "ANSI": "ANSI",
-    "layout exported": "განლაგება იყო წარმატებით დაექსპორტებული"
+    "layout exported": "განლაგება იყო წარმატებით დაექსპორტებული",
+    "title": "სათაური",
+    "save layout": "განლაგების შენახვა",
+    "by": "შემქმნელი",
+    "show more": "მეტის ნახვა ...",
+    "show less": "ნაკლების ნახვა ...",
+    "Layout successfully saved": "განლაგება წარმატებით შეინახა"
   },
 
   "profile page": {
@@ -136,7 +142,8 @@
     "Certificate of Completion": "წარმატებით დასრულების სერტიფიკატი",
     "congratulations, you successfully completed touch typing course": "გილოცავთ, თქვნ წარმატებით დაასრულეთ ბრმად ბეჭდვის კურსი",
     "Touch Typing": "ბრმად ბეჭდვა",
-    "Certificate": "სერტიფიკატი"
+    "Certificate": "სერტიფიკატი",
+    "Go to Next Level": "შემდეგ გაკვეთილზე გადასვლა"
   },
 
   "layout page": {
@@ -173,22 +180,27 @@
   "auth page": {
     "username": "მომხმარებლის სახელი",
     "password": "პაროლი",
-    "confirm password": "გაიმეორე პაროლი",
+    "confirm password": "პაროლის გამეორება",
     "log in": "შესვლა",
     "register": "რეგისტრაცია",
     "don't have account yet? register": "არ გაქვს ანგარიში? დარეგისტრირდი",
     "already have account? log in": "უკვე გაქვს ანგარიში? გაიარე ავტორიზაცია",
     "this field should not be empty": "ეს ველი არ უნდა იყოს ცარიელი",
     "user with this username does not exist": "მომხმარებელი ამ სახელით არ არსებობს",
-    "username too short": "მომხმარებლის სახელი უნდა იყოს {{minUsernameLength}} სიმბოლოზე უფრო გრძელი",
-    "username too long": "მომხმარებლის სახელი უნდა იყოს {{maxUsernameLength}} სიმბოლოზე უფრო გრძელი",
+    "username too short": "მომხმარებლის სახელი უნდა შეიცავდეს მინიმუმ {{minUsernameLength}} სიმბოლოს",
+    "username too long": "მომხმარებლის სახელი უნდა შეიცავდეს მაქსიმუმ {{maxUsernameLength}} სიმბოლოს",
     "passwords do not match": "პაროლები ერთმანეთს არ ემთხვევა",
     "incorrect password": "პაროლი არასწორია",
     "after registration, you will be able to": "რეგისტრაციის შემდეგ თქვენ შეძლებთ",
     "save and share your layouts": "თავისი კლავიატურის განლაგების შენახვა და გაზიარება",
     "save your preferences": "თავისი პარამეტრების შენახვა",
     "save lesson progress": "შეინახოთ სავარჯიშოების პროგრესი",
-    "being able to rank by score": "ქულების მიხედვით დარანჟირდეთ"
+    "being able to rank by score": "ქულების მიხედვით დარანჟირდეთ",
+    "user with this username already exists": "მომხმარებელი ამ მომხმარებლის სახელით უკვე არსებობს",
+    "Password too short": "პაროლი არის მოკლე",
+    "Password too long": "პაროლი არის გრძელი",
+    "password too short": "პაროლი უნდა შეიცავდეს მინიმუმ {{minPasswordLength}} სიმბოლოს",
+    "password too long": "პაროლი უნდა შეიცავდეს მაქსიმუმ {{maxPasswordLength}} სიმბოლოს"
   },
 
   "settings page": {
@@ -255,8 +267,8 @@
     "Results": "შედეგები",
     "Search by username": "მოძებნეთ მომხმარებლის სახელით",
     "Active users": "აქტიური მომხმარებლები",
-    "no rooms": "there are not active rooms right now",
-    "no matches": "there are not active matches right now"
+    "no rooms": "ამ მომენტში აქტიური ოთახები არაა",
+    "no matches": "ამ მომენტში აქტიური მატჩები არაა"
   },
 
   "forms": {
@@ -275,5 +287,9 @@
     "Sentences": "წინადადებები",
     "seconds": "წამი",
     "View": "ნახვა"
+  },
+
+  "loading": {
+    "please wait, initial request may take up to 1 minute": "გთხოვთ დაელოდეთ, საწყისი მოთხოვნის შესრულება შეიძლება 1 წუთამდე გაგრძელდეს"
   }
 }

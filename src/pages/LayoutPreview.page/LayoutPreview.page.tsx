@@ -5,6 +5,7 @@ import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 import { getLayout } from "../../services/keyboardServices"
 import "./styles.scss"
 import { useAuthStore } from "../../store/context/authContext"
+import { useTranslation } from "react-i18next"
 
 import Loading from "../../components/Loading/Loading"
 import Keyboard from "../../components/Keyboard/Keyboard"
@@ -12,6 +13,8 @@ import PageLayout from "../../layout/Page.layout/Page.layout"
 import Button from "../../components/Form/Button"
 
 const LayoutPreviewPage = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
+
   const { id } = useParams()
 
   const { user } = useAuthStore()
@@ -41,7 +44,7 @@ const LayoutPreviewPage = () => {
           <span className="layout-title-name"> {keyboardLayout?.title}</span>
           {keyboardLayout?.creator ? (
             <>
-              <span className="creation-message">by</span>
+              <span className="creation-message">{t("by")}</span>
               <span className="layout-creator">{keyboardLayout?.creator as string}</span>
             </>
           ) : null}

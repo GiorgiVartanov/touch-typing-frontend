@@ -13,7 +13,6 @@ import TextCardList from "./components/PracticeTextCardList"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import Loading from "../../components/Loading/Loading"
 import AddNewLessonModal from "./components/AddNewPracticeTextModal"
-import Button from "../../components/Form/Button"
 import PageLayout from "../../layout/Page.layout/Page.layout"
 
 // page
