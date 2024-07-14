@@ -61,7 +61,7 @@ const MatchHistorical = () => {
                 <h1>
                   {match.players[key]
                     ? match.players[key].rating
-                      ? match.players[key].rating
+                      ? match.players[key].rating.toFixed(0)
                       : "Unrated"
                     : "Unrated"}
                 </h1>

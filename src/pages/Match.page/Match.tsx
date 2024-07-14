@@ -59,6 +59,11 @@ const Match = () => {
     (matches[match_id].players[uid] === undefined &&
       matches[match_id].spectators[uid] === undefined)
   ) {
+    if (match_finished === true) {
+      navigate("../../")
+      return
+    }
+
     toast.warning("unauthorized", { toastId: "unauthorized" })
     navigate("../../")
 
@@ -119,7 +124,7 @@ const Match = () => {
                 <div>
                   {match.players[uid]
                     ? match.players[uid].rating
-                      ? match.players[uid].rating
+                      ? match.players[uid].rating.toFixed(0)
                       : "Unrated"
                     : "Unrated"}
                 </div>

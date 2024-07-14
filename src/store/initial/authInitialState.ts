@@ -20,6 +20,7 @@ export interface AuthState {
   isError: boolean
   registerErrorMessage: RegisterCredentialsError
   loginErrorMessage: LoginCredentialsError
+  rating: number
 }
 
 export interface AuthFunctions {
@@ -37,6 +38,8 @@ export interface AuthFunctions {
   logoutUser: () => void
 
   addUserToSentFriendRequests: (friendUsername: string) => void
+
+  resetUser: (user: UserData) => void
 }
 
 export const initialState: AuthState = {
@@ -48,4 +51,5 @@ export const initialState: AuthState = {
   isError: false,
   registerErrorMessage: { usernameError: [], passwordError: [], confirmPasswordError: [] },
   loginErrorMessage: { usernameError: [], passwordError: [] },
+  rating: 0,
 }

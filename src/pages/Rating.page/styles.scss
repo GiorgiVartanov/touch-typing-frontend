@@ -5,8 +5,11 @@
   flex-direction: row;
   width: 50%;
   justify-content: space-between;
-  margin: 5px;
+  margin-bottom: 5px;
   border: 2px solid var(--primary-color);
   padding: 6px;
   border-radius: 5px;
+}
+.highlight {
+  background-color: var(--primary-color);
 }

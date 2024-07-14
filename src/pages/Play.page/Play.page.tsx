@@ -17,7 +17,7 @@ const PlayPage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation("translation", { keyPrefix: "play page" })
   const { user, token } = useAuthStore()
-
+  console.log("here: ", user)
   useEffect(() => {
     if (username === "-1") {
       alert("already connected from another tab...")
@@ -67,7 +67,7 @@ const PlayPage = () => {
           {t("Active users")}: {users.length}
         </div>
         <div className="user-rating">
-          Rating: {user ? (user.rating ? user.rating : "Unrated") : "Unrated"}
+          Rating: {user ? (user.rating ? user.rating.toFixed(0) : "Unrated") : "Unrated"}
         </div>
         <div className="play-body">
           <div className="play-create">
@@ -78,12 +78,21 @@ const PlayPage = () => {
             >
               {t("Create a match")}
             </Button>
-            <Link
-              className="play-page-link"
-              to="../matches"
-            >
-              {t("Match history")}
-            </Link>
+            <div className="link-buttons">
+              <Link
+                className="play-page-link"
+                to="../rating"
+              >
+                {/* {t("Match history")} */}
+                user rating
+              </Link>
+              <Link
+                className="play-page-link"
+                to="../matches"
+              >
+                {t("Match history")}
+              </Link>
+            </div>
           </div>
           <PlayMatchesList
             matches={matches}

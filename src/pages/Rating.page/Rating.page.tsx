@@ -3,6 +3,7 @@ import PageLayout from "../../layout/Page.layout/Page.layout"
 import Loading from "../../components/Loading/Loading"
 import ajax from "../../services/ajax"
 import "./styles.scss"
+import { useAuthStore } from "../../store/context/authContext"
 
 interface UserRating {
   username: string
@@ -12,6 +13,8 @@ interface UserRating {
 const RatingPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [userRating, setUserRating] = useState<UserRating[]>([] as UserRating[])
+
+  const { user, token } = useAuthStore()
 
   useEffect(() => {
     setIsLoading(true)
@@ -33,14 +36,18 @@ const RatingPage = () => {
   return (
     <PageLayout>
       <div className="list">
-        {userRating.map((user) => {
+        {userRating.map((ratedUser, index) => {
           return (
             <div
-              key={user.username}
-              className="card"
+              key={ratedUser.username}
+              className={
+                "card " + (user && user.username === ratedUser.username ? "highlight" : "")
+              }
             >
-              <div>{user.username}</div>
-              <div> {!user.rating ? "Unrated" : user.rating}</div>
+              <div>
+                {index + 1}. {ratedUser.username}
+              </div>
+              <div>{!ratedUser.rating ? "Unrated" : ratedUser.rating}</div>
             </div>
           )
         })}
