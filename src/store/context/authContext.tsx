@@ -7,6 +7,7 @@ import {
   RegisterCredentials,
   LoginCredentialsError,
   RegisterCredentialsError,
+  UserData,
 } from "../../types/auth.types"
 import {
   setUser,
@@ -221,6 +222,10 @@ const AuthProvider = ({ children }: Props) => {
     }
   }
 
+  const resetUser = (user: UserData) => {
+    dispatch(setUser(user))
+  }
+
   useEffect(() => {
     checkTokenExpiration()
   }, [])
@@ -238,6 +243,7 @@ const AuthProvider = ({ children }: Props) => {
     saveAssessmentLocally,
     saveLessonLocally,
     addUserToSentFriendRequests,
+    resetUser,
   }
 
   return <AuthContext.Provider value={store}>{children}</AuthContext.Provider>

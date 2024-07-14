@@ -69,18 +69,20 @@
         flex-direction: row;
         width: 100%;
         margin-top: 1.5rem;
+        .link-buttons {
+          .play-page-link {
+            font-size: 1rem;
+            padding: 0.5rem 0.75rem;
+            box-shadow: 0 2px 4px -1px var(--shadow-color);
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-background-color);
+            font-weight: 500;
+            transition: 300ms var(--animation-function);
+            margin-left: 1rem;
 
-        .play-page-link {
-          font-size: 1rem;
-          padding: 0.5rem 0.75rem;
-          box-shadow: 0 2px 4px -1px var(--shadow-color);
-          border-radius: var(--border-radius);
-          background-color: var(--secondary-background-color);
-          font-weight: 500;
-          transition: 300ms var(--animation-function);
-
-          &:hover {
-            opacity: 0.85;
+            &:hover {
+              opacity: 0.85;
+            }
           }
         }
 

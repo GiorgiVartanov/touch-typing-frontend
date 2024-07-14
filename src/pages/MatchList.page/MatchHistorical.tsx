@@ -58,6 +58,13 @@ const MatchHistorical = () => {
                 key={ind}
                 className="card"
               >
+                <h1>
+                  {match.players[key]
+                    ? match.players[key].rating
+                      ? match.players[key].rating.toFixed(0)
+                      : "Unrated"
+                    : "Unrated"}
+                </h1>
                 <h1>{key}</h1>
                 {match.players[key].WPM != -1 ? (
                   <h1>WPM: {match.players[key].WPM.toFixed(2)}</h1>

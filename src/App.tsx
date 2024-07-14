@@ -32,6 +32,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
 import Match from "./pages/Match.page/Match"
 import MatchHistorical from "./pages/MatchList.page/MatchHistorical"
 import MatchHistoricalList from "./pages/MatchList.page/MatchHistoricalList"
+import RatingPage from "./pages/Rating.page/Rating.page"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -102,6 +103,10 @@ const App = () => {
         <Route
           path="/play"
           element={<PlayPage />}
+        />
+        <Route
+          path="/rating"
+          element={<RatingPage />}
         />
         <Route
           path="/match/:id"

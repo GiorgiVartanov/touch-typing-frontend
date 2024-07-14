@@ -59,6 +59,11 @@ const Match = () => {
     (matches[match_id].players[uid] === undefined &&
       matches[match_id].spectators[uid] === undefined)
   ) {
+    if (match_finished === true) {
+      navigate("../../")
+      return
+    }
+
     toast.warning("unauthorized", { toastId: "unauthorized" })
     navigate("../../")
 
@@ -116,7 +121,15 @@ const Match = () => {
                   className={`progress-bar ${Number(match.players[uid].WPM.toFixed(2)) > 98 || match.players[uid].has_finished ? "finished" : ""}`}
                   style={{ width: `${match.players[uid].WPM.toFixed(2)}%` }}
                 />
+                <div>
+                  {match.players[uid]
+                    ? match.players[uid].rating
+                      ? match.players[uid].rating.toFixed(0)
+                      : "Unrated"
+                    : "Unrated"}
+                </div>
                 <div className="list-element-user">{match.players[uid].username}</div>
+
                 <div className="list-element-percent">
                   {match.players[uid].WPM !== -1
                     ? match.players[uid].has_finished
