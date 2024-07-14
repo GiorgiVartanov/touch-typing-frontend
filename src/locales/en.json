@@ -100,7 +100,8 @@
     "by": "by",
     "show more": "show more ...",
     "show less": "show less ...",
-    "Layout successfully saved": "Layout successfully saved"
+    "Layout successfully saved": "Layout successfully saved",
+    "sorry, this character can't be used":"sorry, this character can't be used"
   },
 
   "profile page": {
