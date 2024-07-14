@@ -535,7 +535,7 @@ const EditableKeyboard = ({
         enteredCharacter !== null
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
