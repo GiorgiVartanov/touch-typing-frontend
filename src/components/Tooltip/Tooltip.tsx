@@ -29,7 +29,7 @@ const Tooltip = ({
     <div
       data-tooltip={tooltipContent}
       style={{ "--max-width": maxWidth }}
-      className={`tooltip tooltip-${tooltipPosition} ${className}`}
+      className={`tooltip ${maxWidth ? "tooltip-fixed-width" : ""} tooltip-${tooltipPosition} ${className}`}
     >
       {children}
       {showAsterisk ? "*" : ""}

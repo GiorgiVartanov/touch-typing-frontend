@@ -43,20 +43,53 @@ const Assessment = () => {
 
     if (!assessmentLevel) return
 
-    const accuracy = calculateAccuracy(metrics.correctPressCount, metrics.incorrectPressCount)
+    const accuracy = calculateAccuracy(
+      metrics.letterStatuses.reduce((accumulator: number, item) => {
+        accumulator += item.reduce((acc, item2) => {
+          if (item2 === 2) return acc + 1
+          else return acc
+        }, 0)
+        return accumulator
+      }, metrics.letterStatuses.length as number),
+      metrics.letterStatuses.reduce((accumulator: number, item) => {
+        accumulator += item.reduce((acc, item2) => {
+          if (item2 === 1) return acc + 1
+          else return acc
+        }, 0)
+        return accumulator
+      }, metrics.letterStatuses.length as number)
+    )
+
     const time =
       metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
 
     console.log({ accuracy, time })
 
     if (accuracy < 80) {
-      toast.warning("You have to get more than 80% accuracy to unlock the next level.")
+      toast.warning(t("You have to get more than 80% accuracy to unlock the next level."))
       return
     }
 
-    if (time / 1000 > metrics.keyPressTimestamps.length) {
+    if (
+      time / 1000 >
+      metrics.letterStatuses.reduce((accumulator, item) => {
+        accumulator += item.length
+        return accumulator
+      }, metrics.letterStatuses.length - 1)
+    ) {
       toast.warning(
-        `You have to use 1 second per character on average to unlock the next level\nYou have to fit in ${metrics.keyPressTimestamps.length} seconds`
+        t(
+          "You have to use 1 second per character on average to unlock the next level\nYou have to fit in"
+        ) +
+          " " +
+          String(
+            metrics.letterStatuses.reduce((accumulator, item) => {
+              accumulator += item.length
+              return accumulator
+            }, metrics.letterStatuses.length - 1)
+          ) +
+          " " +
+          t("seconds")
       )
       return
     }
@@ -119,7 +152,7 @@ const Assessment = () => {
 
   if (!checkCompletedLetters()) {
     navigate("../lessons")
-    toast.warning("you don't have access to this lesson")
+    toast.warning(t("you don't have access to this lesson"))
 
     return
   }
@@ -139,22 +172,22 @@ const Assessment = () => {
   const renderAssessment = () => {
     if (isLoading) return <Loading />
 
-    if (error || !data?.data) return <div>something went wrong</div>
+    if (error || !data?.data) return <div>{t("something went wrong")}</div>
 
     return (
-      <MetricsProvider>
-        <TypingArea
-          text={data.data}
-          textLanguage="Geo"
-          // handleTextFinish={completeAssessment}
-          handleSetMetrics={completeAssessment}
-          displayResultsAfterFinish={true}
-          showGoToNextLevel={true}
-          nextLevelURL={getNextLevelURL()}
-          isLastAssessment={typeof assessmentLevel === "number" && assessmentLevel === 6}
-          accuracyToComplete={80}
-        />
-      </MetricsProvider>
+      // <MetricsProvider>
+      <TypingArea
+        text={data.data}
+        textLanguage="Geo"
+        // handleTextFinish={completeAssessment}
+        handleSetMetrics={completeAssessment}
+        displayResultsAfterFinish={true}
+        showGoToNextLevel={true}
+        nextLevelURL={getNextLevelURL()}
+        isLastAssessment={typeof assessmentLevel === "number" && assessmentLevel === 6}
+        accuracyToComplete={80}
+      />
+      //{/* </MetricsProvider> */}
     )
   }
 

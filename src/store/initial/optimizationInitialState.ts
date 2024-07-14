@@ -6,6 +6,7 @@ import {
   PunctuationPlacement,
   PunctuationPlacementDictionary,
   Analysis,
+  AnalysisSpecific,
 } from "../../types/optimization.types"
 import config from "../../keyboardLayouts/config.json"
 
@@ -57,7 +58,7 @@ export const initialOptimizationConfig: OptimizationConfig = {
   characters_set: [],
 }
 
-export const initialAnalysisEffort: Analysis = {
+export const initialAnalysisSpecificEffort: AnalysisSpecific = {
   total_effort: -1,
   left_hand_effort: 0,
   right_hand_effort: 0,
@@ -67,5 +68,9 @@ export const initialAnalysisEffort: Analysis = {
   consecutive_finger_usage_effort: 0,
   same_hand_finger_steps_effort: 0,
   hit_direction_effort: 0,
-  qwerty_effort: 0,
+}
+
+export const initialAnalysisEffort: Analysis = {
+  your_layout: initialAnalysisSpecificEffort,
+  qwerty: initialAnalysisSpecificEffort,
 }

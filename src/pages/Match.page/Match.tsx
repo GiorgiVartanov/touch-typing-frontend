@@ -64,7 +64,7 @@ const Match = () => {
       return
     }
 
-    toast.warning("unauthorized", { toastId: "unauthorized" })
+    toast.warning(t("Unauthorized"), { toastId: "unauthorized" })
     navigate("../../")
 
     return
@@ -118,15 +118,15 @@ const Match = () => {
                 }
               >
                 <div
-                  className={`progress-bar ${Number(match.players[uid].WPM.toFixed(2)) > 98 || match.players[uid].has_finished ? "finished" : ""}`}
+                  className={`progress-bar ${Number(match.players[uid].WPM.toFixed(2)) > 98 || match.players[uid].has_finished ? t("finished") : ""}`}
                   style={{ width: `${match.players[uid].WPM.toFixed(2)}%` }}
                 />
-                <div>
+                <div className="match-user-rating">
                   {match.players[uid]
                     ? match.players[uid].rating
                       ? match.players[uid].rating.toFixed(0)
-                      : "Unrated"
-                    : "Unrated"}
+                      : t("Unrated")
+                    : t("Unrated")}
                 </div>
                 <div className="list-element-user">{match.players[uid].username}</div>
 

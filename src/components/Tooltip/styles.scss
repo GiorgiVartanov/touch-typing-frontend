@@ -92,3 +92,9 @@
   opacity: 1;
   visibility: visible;
 }
+.tooltip-fixed-width {
+  &:before {
+    white-space: normal !important;
+    text-align: left !important;
+  }
+}

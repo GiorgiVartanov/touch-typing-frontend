@@ -56,13 +56,15 @@ const EffortConfigurator = ({
 
   return (
     <div className="configurator-layout-panel">
+      <h3 className="effort-function">Effort function parameters</h3>
       <Form
         onSubmit={handleSubmit}
         className="configurator-layout-form"
       >
         <div className="input-fields">
           <Tooltip
-            tooltipContent="number of generations"
+            tooltipContent="number of generations number of generations number of generations number of generations"
+            maxWidth="12rem"
             tooltipPosition="top-right"
           >
             <Input

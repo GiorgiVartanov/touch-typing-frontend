@@ -35,7 +35,13 @@ const Results: React.FC<{
   const { user, isLoggedIn } = useAuthStore()
 
   const time = metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
-
+  // console.log(
+  //   metrics,
+  //   metrics.letterStatuses.reduce((accumulator, item) => {
+  //     accumulator += item.length
+  //     return accumulator
+  //   }, metrics.letterStatuses.length - 1)
+  // )
   const printCertificate = () => {
     if (!user) return
 
@@ -74,7 +80,22 @@ const Results: React.FC<{
     printWindow.close()
   }
 
-  const currentAccuracy = calculateAccuracy(metrics.correctPressCount, metrics.incorrectPressCount)
+  const currentAccuracy = calculateAccuracy(
+    metrics.letterStatuses.reduce((accumulator: number, item) => {
+      accumulator += item.reduce((acc, item2) => {
+        if (item2 === 2) return acc + 1
+        else return acc
+      }, 0)
+      return accumulator
+    }, metrics.letterStatuses.length as number),
+    metrics.letterStatuses.reduce((accumulator: number, item) => {
+      accumulator += item.reduce((acc, item2) => {
+        if (item2 === 1) return acc + 1
+        else return acc
+      }, 0)
+      return accumulator
+    }, metrics.letterStatuses.length as number)
+  )
 
   return (
     <div className="results">
@@ -106,7 +127,12 @@ const Results: React.FC<{
       {showGoToNextLevel &&
       !isLastAssessment &&
       isLoggedIn &&
-      currentAccuracy >= accuracyToComplete ? (
+      currentAccuracy >= accuracyToComplete &&
+      time / 1000 <
+        metrics.letterStatuses.reduce((accumulator, item) => {
+          accumulator += item.length
+          return accumulator
+        }, metrics.letterStatuses.length - 1) ? (
         <Link
           to={nextLevelURL}
           className="go-to-next-lesson-button"

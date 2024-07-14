@@ -28,7 +28,7 @@ export const inBetweenCall = (
 
 const AnalyseLayoutModal = ({ isVisible, closeModal }: Props) => {
   const { analysis, setAnalysis, startAnalysis } = useOptimizationStore()
-
+  console.log(analysis)
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
   // const [optimizationConfig, setOptimizationConfig] = useState<OptimizationConfig>({
@@ -56,23 +56,79 @@ const AnalyseLayoutModal = ({ isVisible, closeModal }: Props) => {
     if (!analysis) return
     return (
       <div className="analyze-modal">
-        <div className="vertically placed">
-          <h2>effort values</h2>
-          <div className="horizontally-placed">
-            <p>Your layout: {analysis.total_effort}</p>
-            <p>qwerty layout: {analysis.qwerty_effort}</p>
-          </div>
+        <div className="vertically-placed">
+          <h2>effort function values</h2>
         </div>
-        <div className="two columns">
-          <p>finger distance effort: {analysis.finger_distance_effort}</p>
-          <p>modifier overhead effort: {analysis.modifier_overhead_effort}</p>
-          <p>hand alternation effort: {analysis.hand_alternation_effort}</p>
-          <p>consecutive finger usage effort: {analysis.consecutive_finger_usage_effort}</p>
-          <p>same hand finger steps effort: {analysis.same_hand_finger_steps_effort}</p>
-          <p>hit direction weight: {analysis.hit_direction_effort}</p>
-          <div className="below all horizontal">
-            <h2>left hand effort: {analysis.left_hand_effort}</h2>
-            <h2>right hand effort: {analysis.right_hand_effort}</h2>
+        <div className="two-columns">
+          <div className="effort-info">
+            <div></div>
+            <div className="effort-values">
+              <div>Your</div>
+              <div>Qwerty</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            <div>Total effort: </div>
+            <div className="effort-values">
+              <div>{analysis.your_layout.total_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.total_effort.toFixed(3)}</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            <div>finger distance effort: </div>
+            <div className="effort-values">
+              <div>{analysis.your_layout.finger_distance_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.finger_distance_effort.toFixed(3)}</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            <div>modifier overhead effort: </div>
+            <div className="effort-values">
+              <div>{analysis.your_layout.modifier_overhead_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.modifier_overhead_effort.toFixed(3)}</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            <div>hand alternation effort: </div>
+            <div className="effort-values">
+              <div>{analysis.your_layout.hand_alternation_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.hand_alternation_effort.toFixed(3)}</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            <div> consecutive finger usage effort: </div>
+            <div className="effort-values">
+              <div>{analysis.your_layout.consecutive_finger_usage_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.consecutive_finger_usage_effort.toFixed(3)}</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            <div> same hand finger stedivs effort: </div>
+            <div className="effort-values">
+              <div>{analysis.your_layout.same_hand_finger_steps_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.same_hand_finger_steps_effort.toFixed(3)}</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            <div> hit direction weight: </div>
+            <div className="effort-values">
+              <div>{analysis.your_layout.hit_direction_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.hit_direction_effort.toFixed(3)}</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            left hand effort:{" "}
+            <div className="effort-values">
+              <div>{analysis.your_layout.left_hand_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.left_hand_effort.toFixed(3)}</div>
+            </div>
+          </div>
+          <div className="effort-info">
+            right hand effort:{" "}
+            <div className="effort-values">
+              <div>{analysis.your_layout.right_hand_effort.toFixed(3)}</div>
+              <div>{analysis.qwerty.right_hand_effort.toFixed(3)}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,7 +143,7 @@ const AnalyseLayoutModal = ({ isVisible, closeModal }: Props) => {
     >
       {analysis == undefined ? (
         <></>
-      ) : analysis.total_effort == -1 ? (
+      ) : analysis.your_layout.total_effort == -1 ? (
         <p>analysing your keyboard...</p>
       ) : analysis != undefined ? (
         renderAnalyisResultTable()

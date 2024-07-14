@@ -67,7 +67,8 @@ const PlayPage = () => {
           {t("Active users")}: {users.length}
         </div>
         <div className="user-rating">
-          Rating: {user ? (user.rating ? user.rating.toFixed(0) : "Unrated") : "Unrated"}
+          {t("Rating")}:{" "}
+          {user ? (user.rating ? user.rating.toFixed(0) : t("Unrated")) : t("Unrated")}
         </div>
         <div className="play-body">
           <div className="play-create">
@@ -84,7 +85,7 @@ const PlayPage = () => {
                 to="../rating"
               >
                 {/* {t("Match history")} */}
-                user rating
+                {t("Users rating")}
               </Link>
               <Link
                 className="play-page-link"

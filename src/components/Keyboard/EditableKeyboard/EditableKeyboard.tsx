@@ -726,14 +726,14 @@ const EditableKeyboard = ({
               <QuestionIcon className="icon" />
             </Link>
           </Tooltip>
-          <Tooltip
+          {/* <Tooltip
             tooltipContent={t("Import")}
             tooltipPosition="bottom-center"
           >
             <Button onClick={handleNotImplemented}>
               <ImportIcon className="icon" />
             </Button>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip
             tooltipContent={t("Export")}
             tooltipPosition="bottom-center"

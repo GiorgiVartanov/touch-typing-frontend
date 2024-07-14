@@ -19,6 +19,7 @@ const ProfilePage = () => {
   const { user } = useAuthStore()
 
   const { t } = useTranslation("translation", { keyPrefix: "profile page" })
+  const { t: t_play } = useTranslation("translation", { keyPrefix: "play page" })
 
   const currentUserUsername = user?.username
 
@@ -37,7 +38,7 @@ const ProfilePage = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["profile", pageOwnerUsername],
     queryFn: fetchUser,
-    staleTime: 1000000,
+    staleTime: 500,
   })
 
   // if user does not exist
@@ -60,11 +61,17 @@ const ProfilePage = () => {
 
     return (
       <div className="profile-user-data">
-        {username !== pageOwnerUsername ? (
-          <div className="user-panel">
-            <p className="username">{username}</p>
-            <span className="username-text">{t("'s profile page")}</span>
-          </div>
+        {currentUserUsername !== pageOwnerUsername ? (
+          <>
+            <div className="user-panel">
+              <p className="username">{username}</p>
+              <span className="username-text">{t("'s profile page")}</span>
+            </div>
+            <span className="user-rating">
+              {t_play("Rating")}:{" "}
+              {data.data.rating ? data.data.rating.toFixed(0) : t_play("Unrated")}
+            </span>
+          </>
         ) : (
           ""
         )}

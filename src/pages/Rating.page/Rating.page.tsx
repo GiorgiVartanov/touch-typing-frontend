@@ -4,6 +4,8 @@ import Loading from "../../components/Loading/Loading"
 import ajax from "../../services/ajax"
 import "./styles.scss"
 import { useAuthStore } from "../../store/context/authContext"
+import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 interface UserRating {
   username: string
@@ -13,6 +15,8 @@ interface UserRating {
 const RatingPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [userRating, setUserRating] = useState<UserRating[]>([] as UserRating[])
+
+  const { t } = useTranslation("translation", { keyPrefix: "play page" })
 
   const { user, token } = useAuthStore()
 
@@ -31,24 +35,25 @@ const RatingPage = () => {
 
   if (isLoading) return <Loading />
 
-  console.log("here: ", userRating)
-
   return (
     <PageLayout>
       <div className="list">
         {userRating.map((ratedUser, index) => {
           return (
-            <div
+            <Link
               key={ratedUser.username}
               className={
-                "card " + (user && user.username === ratedUser.username ? "highlight" : "")
+                "card " +
+                (user && user.username === ratedUser.username ? "highlight" : "") +
+                (!ratedUser.rating ? " unranked" : "")
               }
+              to={`../profile/${ratedUser.username}`}
             >
               <div>
                 {index + 1}. {ratedUser.username}
               </div>
-              <div>{!ratedUser.rating ? "Unrated" : ratedUser.rating}</div>
-            </div>
+              <div>{!ratedUser.rating ? t("Unrated") : ratedUser.rating.toFixed(0)}</div>
+            </Link>
           )
         })}
       </div>

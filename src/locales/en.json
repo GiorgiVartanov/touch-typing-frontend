@@ -24,10 +24,15 @@
   },
 
   "lesson page": {
+    "You have to get more than 80% accuracy to unlock the next level.": "You have to get more than 80% accuracy to unlock the next level.",
     "you need to be logged in to save assessment results": "you need to be logged in to save assessment results",
     "Assessment": "Assessment",
     "Lesson texts for the letters": "Lesson texts for the letters",
-    "complete previous assessment to unlock": "complete previous assessment to unlock"
+    "complete previous assessment to unlock": "complete previous assessment to unlock",
+    "you don't have access to this lesson":"you don't have access to this lesson",
+    "something went wrong": "something went wrong",
+    "You have to use 1 second per character on average to unlock the next level\nYou have to fit in": "You have to use 1 second per character on average to unlock the next level\nYou have to fit in",
+    "seconds": "seconds"
   },
 
   "header": {
@@ -269,7 +274,11 @@
     "Search by username": "Search by username",
     "Active users": "Active users",
     "no rooms": "there are not active rooms right now",
-    "no matches": "there are not active matches right now"
+    "no matches": "there are not active matches right now",
+    "Rating": "Rating",
+    "Unrated": "Unrated",
+    "Users rating": "Users rating",
+    "Finished": "Finished"
   },
 
   "forms": {

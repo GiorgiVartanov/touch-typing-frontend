@@ -83,7 +83,7 @@ export interface PunctuationPlacementDictionary {
   [placement: number]: number[]
 }
 
-export interface Analysis {
+export interface AnalysisSpecific {
   total_effort: number
   left_hand_effort: number
   right_hand_effort: number
@@ -93,5 +93,9 @@ export interface Analysis {
   consecutive_finger_usage_effort: number
   same_hand_finger_steps_effort: number
   hit_direction_effort: number
-  qwerty_effort: number
+}
+
+export interface Analysis {
+  your_layout: AnalysisSpecific
+  qwerty: AnalysisSpecific
 }

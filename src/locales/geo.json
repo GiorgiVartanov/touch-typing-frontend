@@ -1,6 +1,6 @@
 {
   "modal": {
-    "click anywhere to close": "გასათიშებლად დააწკაპეთ",
+    "click anywhere to close": "გასათიშად დააწკაპეთ",
     "are you sure you want to log out?": "გასვლა ნამდვილად გსურთ?",
     "stay": "დარჩენა",
     "log out": "გასვლა"
@@ -24,10 +24,15 @@
   },
 
   "lesson page": {
+    "You have to get more than 80% accuracy to unlock the next level.": "თქვენ უნდა გქონდეთ მინიმუმ 80% სიზუსტე შემდეგ ეტაპზე გადასასვლელად.",
     "you need to be logged in to save assessment results": "თქვენ უნდა იყოთ დარეგისტრირებული გაკვეთულის შეფასების შესანახად",
     "Assessment": "შეფასება",
     "Lesson texts for the letters": "გაკვეთულები ასოებისთვის :",
-    "complete previous assessment to unlock": "გასახსნელად დაასრულეთ წინა შემოწმება"
+    "complete previous assessment to unlock": "გასახსნელად დაასრულეთ წინა შემოწმება",
+    "you don't have access to this lesson": "თქვენ არ გაქვთ წვდომა ამ გაკვეთილზე",
+    "something went wrong": "რაღაც ხარვეზია",
+    "You have to use 1 second per character on average to unlock the next level\nYou have to fit in": "თქვენ უნდა გამოიყენოთ მაქსიმუმ 1 წამი ერთ ასოზე საშუალოდ, რათა გადახვიდეთ შემდეგ ეტაპზე\nთქვენ უნდა ჩაეტიოთ",
+    "seconds":"წამში"
   },
 
   "header": {
@@ -106,7 +111,7 @@
 
   "profile page": {
     "currently selected layout": "არჩეული განლაგება",
-    "'s profile page": "ის პროფილი",
+    "'s profile page": "-ის პროფილი",
     "your": "თქვენი",
     "layouts": "განლაგებები",
     "'s": " ის"
@@ -269,7 +274,11 @@
     "Search by username": "მოძებნეთ მომხმარებლის სახელით",
     "Active users": "აქტიური მომხმარებლები",
     "no rooms": "ამ მომენტში აქტიური ოთახები არაა",
-    "no matches": "ამ მომენტში აქტიური მატჩები არაა"
+    "no matches": "ამ მომენტში აქტიური მატჩები არაა",
+    "Rating": "რეიტინგი",
+    "Unrated": "ურეიტინგო",
+    "Users rating": "მომხმარებელთა რეიტინგი",
+    "Finished": "დაასრულა"
   },
 
   "forms": {

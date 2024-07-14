@@ -52,7 +52,8 @@ const Text = ({
       handleMetrics.handleSetLetterStatuses([...lettersStatuses, wordLetterStatuses])
 
       if (handleTextFinish) handleTextFinish()
-      if (handleSetMetrics && metrics) handleSetMetrics(metrics)
+      if (handleSetMetrics && metrics)
+        handleSetMetrics({ ...metrics, letterStatuses: [...lettersStatuses, wordLetterStatuses] })
     }
   }
 
