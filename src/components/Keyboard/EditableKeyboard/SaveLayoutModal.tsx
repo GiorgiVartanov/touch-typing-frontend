@@ -74,10 +74,10 @@ const SaveLayoutModal = ({
       // there will be optimistic update
     },
     onSuccess: () => {
-      toast.success(t("Layout successfully saved "))
+      toast.success(t("Layout successfully saved"))
     },
     onError: () => {
-      toast.error("Something went wrong while saving layout")
+      toast.error(t("Something went wrong while saving layout"))
     },
   })
 

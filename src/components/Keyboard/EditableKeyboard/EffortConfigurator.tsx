@@ -56,14 +56,14 @@ const EffortConfigurator = ({
 
   return (
     <div className="configurator-layout-panel">
-      <h3 className="effort-function">Effort function parameters</h3>
+      <h3 className="effort-function">{t("Effort function parameters")}</h3>
       <Form
         onSubmit={handleSubmit}
         className="configurator-layout-form"
       >
         <div className="input-fields">
           <Tooltip
-            tooltipContent="number of generations number of generations number of generations number of generations"
+            tooltipContent={t("number of generations tooltip")}
             maxWidth="12rem"
             tooltipPosition="top-right"
           >
@@ -91,8 +91,8 @@ const EffortConfigurator = ({
             />
           </Tooltip>
           <Tooltip
-            tooltipContent="finger distance weight"
-            tooltipPosition="top-right"
+            tooltipContent={t("finger distance weight tooltip")}
+            tooltipPosition="bottom-right"
           >
             <Input
               name={t("finger distance weight")}
@@ -124,8 +124,8 @@ const EffortConfigurator = ({
             />
           </Tooltip>
           <Tooltip
-            tooltipContent="modifier overhead weight"
-            tooltipPosition="top-right"
+            tooltipContent={t("modifier overhead weight panel")}
+            tooltipPosition="bottom-right"
           >
             <Input
               name={t("modifier overhead weight")}
@@ -156,8 +156,9 @@ const EffortConfigurator = ({
           {moreDetails ? (
             <>
               <Tooltip
-                tooltipContent="hit direction weight"
-                tooltipPosition="left"
+                tooltipContent={t("hit direction weight tooltip")}
+                maxWidth="12rem"
+                tooltipPosition="bottom-right"
               >
                 <Input
                   name={t("hit direction weight")}
@@ -186,7 +187,7 @@ const EffortConfigurator = ({
                 />
               </Tooltip>
               <Tooltip
-                tooltipContent="hand alternation weight"
+                tooltipContent={t("hand alternation weight tooltip")}
                 tooltipPosition="bottom-right"
               >
                 <Input
@@ -216,7 +217,7 @@ const EffortConfigurator = ({
                 />
               </Tooltip>
               <Tooltip
-                tooltipContent="consecutive finger usage weight"
+                tooltipContent={t("consecutive finger usage weight tooltip")}
                 tooltipPosition="bottom-right"
               >
                 <Input
@@ -246,11 +247,11 @@ const EffortConfigurator = ({
                 />
               </Tooltip>
               <Tooltip
-                tooltipContent="finger distance weight"
+                tooltipContent={t("same hand finger steps weight tooltip")}
                 tooltipPosition="bottom-right"
               >
                 <Input
-                  name={t("finger distance weight")}
+                  name={t("same hand finger steps weight")}
                   type="number"
                   value={optimizationConfig.effort_parameters.same_hand_finger_steps_weight}
                   onChange={(e) => {
@@ -276,7 +277,7 @@ const EffortConfigurator = ({
         {moreDetails ? (
           <>
             <Slider
-              name={"left to right ratio"}
+              name={t("left to right ratio")}
               minimalValue={0}
               maximumValue={2.0}
               step={0.01}

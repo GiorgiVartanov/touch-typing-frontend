@@ -80,21 +80,21 @@
     "show": "კლავიატურის ჩვენება",
     "Erase": "წაშლა",
     "Optimize Layout": "განლაგების ოპტიმიზაცია",
-    "number of generations": "number of generations",
-    "modifier overhead weight": "modifier overhead weight",
-    "hit direction weight": "hit direction weight",
-    "hand alternation weight": "hand alternation weight",
-    "consecutive finger usage weight": "consecutive finger usage weight",
-    "same hand finger steps weight": "same hand finger steps weight",
-    "left to right ratio": "left to right ratio",
-    "finger distance weight": "finger distance weight",
-    "punctation placement variants": "punctation placement variants",
+    "number of generations": "გენერაციათა ოდენობა",
+    "modifier overhead weight": "შიფტიანი ღილაკების წონა",
+    "hit direction weight": "ხელის თითების მიმართულება",
+    "hand alternation weight": "ხელების ალტერნაციის წონა",
+    "consecutive finger usage weight": "მიმდევრობით თითის გამოყენება",
+    "same hand finger steps weight": "სხვადასხვა თითის ნაბიჯები",
+    "left to right ratio": "მარცხენისა და მარჯვენა ხელის ძალისხმევების თანაფარდობა",
+    "finger distance weight": "თითებიდან დაშორების წონა",
+    "punctation placement variants": "სასვენ ნიშანთა განლაგების ვარიანტები",
     "Custom": "Custom",
     "qwerty": "Qwerty",
     "dvorjak": "Dvorjak",
-    "left": "Left",
-    "middle_free": "Middle row free",
-    "spread": "Spread",
+    "Left": "მარცხენა",
+    "middle_free": "შუა მწკრივი თავისუფალი",
+    "spread": "გაფანტული",
     "Analyse Layout": "განლაგების გაანალიზირება",
     "ANSI-ISO": "ANSI-ISO",
     "ISO": "ISO",
@@ -106,7 +106,39 @@
     "show more": "მეტის ნახვა ...",
     "show less": "ნაკლების ნახვა ...",
     "Layout successfully saved": "განლაგება წარმატებით შეინახა",
-    "sorry, this character can't be used": "უკაცრავად, ამ სიმბოლოს გამოყენება შეუძლებელია"
+    "sorry, this character can't be used": "უკაცრავად, ამ სიმბოლოს გამოყენება შეუძლებელია",
+    "Layout exported": "განლაგება ექსპორტირებულია",
+    "log in to save your layout": "გაიარეთ ავტორიზაცია განლაგების შესანახად",
+    "Something went wrong while saving layout": "გვაქვს ხარვეზი განლაგების შენახვისას",
+    "There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8.":"არ არის ადგილი ყველა სასვენი ნიშნისთვის. ღილაკთა ოდენობა სასვენი ნიშნებისთვის უნდა იყოს მინიმუმ 8",
+    "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17.":"არ არის ადგილი ყველა ქართული ასოსთვის. ღილაკთა ოდენობა ასოებისთვის უნდა იყოს მინიმუმ 17",
+    "this key can't be used": "ამ ღილაკის გამოყენება არ შეიძლება",
+    "effort function values": "ხარჯის ფუნქციის მნიშვნელობები",
+    "Your": "თქვენი",
+    "Total effort": "სრული ხარჯი",
+    "finger distance effort": "თითებიდან დაშორების ხარჯი",
+    "modifier overhead effort": "შიფტიანი ღილაკების ხარჯი",
+    "hand alternation effort": "ხელების ალტერნაციის ხარჯი",
+    "consecutive finger usage effort": "მიმდევრობით თითის გამოყენების ხარჯი",
+    "same hand finger steps effort": "ხელის სხვადასხვა თითის ნაბიჯების ხარჯი",
+    "hit direction effort": "ხელის თითების მიმართულების ხარჯი",
+    "left hand effort": "მარცხენა ხელის ხარჯი",
+    "right hand effort": "მარჯვენა ხელის ხარჯი",
+    "analysing your keyboard": "მიმდინარეობს თქვენი კლავიატურის ანალიზი",
+    "Right": "მარჯვენა",
+    "Effort function parameters": "ხარჯის ფუნქციის პარამეტრები",
+    "your keyboard layout doesn't contain all the symbols": "თქვენი ასოების განლაგება კლავიატურაზე არ შეიცავს ყველა სიმბოლოს",
+    "shift": "შიფტი",
+    "Optimization process is being initialized": "ოპტიმიზაციის პროცესი ინიციალიზდება",
+    "Generations Complete": "შესრულებული გენერაციები",
+    "number of generations tooltip": "ეს განსაზღვრავს, რამდენი გენერაციის განმავლობაში იმუშავებს ოპტიმიზაციის ალგორითმი",
+    "finger distance weight tooltip": "ეს არის პარამეტრი კლავიშიდან უახლოეს თითამდე მანძილისთვის. კლავიშების სიმბოლოები ხარჯის ფუნქციაში შედიან მათი სიხშირეების გამრავლებით მანძილზე.",
+    "modifier overhead weight panel": "ეს არის პარამეტრი სიმბოლოების აკრეფისას shift კლავიშების გამოყენების ძალისხმევისთვის. Shift-ით დაწერილი სიმბოლოების სიხშირეები ემატება ძალისხმევის ფუნქციას.",
+    "hit direction weight tooltip": "ეს არის პარამეტრი დიგრაფებისთვის, რომლებიც უნდა აკრიფოთ ერთი და იმავე ხელით, მაგრამ კრეფის მიმართულება არის ცერა თითიდან ნეკა თითისკენ. შემდგომ ასეთი დიგრაფების სიხშირეები ემატება ძალისხმევის ფუნქციას.",
+    "hand alternation weight tooltip": "ეს არის პარამეტრი დიგრაფებისთვის, რომლებიც უნდა აკრიფოთ ერთი და იმავე ხელით. ასეთი დიგრაფების სიხშირეები ემატება ძალისხმევის ფუნქციას.",
+    "consecutive finger usage weight tooltip": "ეს არის პარამეტრი დიგრაფებისთვის, რომლებიც უნდა აკრიფოთ ერთი და იმავე თითით, ხოლო ასაკრეფი სიმბოლოები განლაგებულია კლავიატურის სხვადასხვა მწკრივში. ასოების ვერტიკალური დაშორებებს ვამრავლებთ სიხშირეებზე და ვუმატებთ ძალისხმევის ფუნქციას.",
+    "same hand finger steps weight tooltip": "ეს არის პარამეტრი დიგრაფებისთვის, რომლებიც უნდა აკრიფოთ ერთი და იმავე ხელით, თუმცა სხვადასხვა თითით, და სიმბოლოების ვერტიკალური დაშორება კლავიატურაზე მეტია ნულზე. მათი სიხშირეები, მრავლდება კონკრეტულ პარამეტრებზე სიმბოლოთა განლაგების მიხედვით და ემატება ძალისხმევის ფუნქციას."  ,
+    "successfully selected new layout": "წარმატებით აირჩიეთ ახალი განლაგება"
   },
 
   "profile page": {
@@ -157,7 +189,8 @@
     "search": "ძებნა",
     "standard layouts": "სტანდარტული განლაგებები",
     "layouts created by our users": "ჩვენი მომხმარებლების განალგებები",
-    "more options": "მეტი პარამეტრი"
+    "more options": "მეტი პარამეტრი",
+    "something went wrong": "რაღაც ხარვეზია"
   },
 
   "main page": {
@@ -180,7 +213,8 @@
     "compete": "შეჯიბრი",
     "see lessons": "გაკვეთილები",
     "texts": "ტექსტები",
-    "keyboard": "კლავიატურა"
+    "keyboard": "კლავიატურა",
+    "page not found": "გვერდი ვერ მოიძებნა"
   },
 
   "auth page": {
@@ -251,7 +285,10 @@
     "text example": "ტექსტის მაგალითი",
     "text example text": "თქვენი ტექსტი ასე იქნება გამოსახული. შემდეგი სიტყვები მხოლოდ სიგრძისთვისაა, რომ თქვენ ნახოთ თუ როგორ გამოიყურება ტექსტი ერთზე მეტ სტრიქონზე",
     "reset settings": "თავდაპირველ პარამეტრებზე დაბრუნება",
-    "Eng": "ინგლისური"
+    "Eng": "ინგლისური",
+    "reset": "გადატვირთვა",
+    "dismiss": "უგულებელყოფა",
+    "are you sure you want to reset all settings?": "დარწმუნებული ხართ, რომ გსურთ თქვენი პარამეტრების გადატვირთვა?"
   },
 
   "play page": {
@@ -296,7 +333,8 @@
     "Corpus words": "სიტყვები",
     "Sentences": "წინადადებები",
     "seconds": "წამი",
-    "View": "ნახვა"
+    "View": "ნახვა",
+    "Something went wrong, check browser console for more detailed information": "რაღაც ხარვეზია, შეამოწმეთ ბრაუზერის კონსოლი დეტალური ინფორმაციისთვის"
   },
 
   "loading": {

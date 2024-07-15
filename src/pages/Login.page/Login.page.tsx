@@ -121,7 +121,7 @@ const LoginPage = () => {
             ...credentialsError.passwordError,
           ]}
         />
-        <Button className="cta-button">log in</Button>
+        <Button className="cta-button">{t("log in")}</Button>
       </Form>
       <Link
         to="../register"

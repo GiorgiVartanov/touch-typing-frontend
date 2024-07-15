@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react"
 
 import { KeyInterface } from "../../../types/keyboard.types"
 import "./styles.scss"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   editingKey: KeyInterface | null
@@ -19,6 +20,7 @@ const SelectedEditableKey = ({
 }: Props) => {
   const firstValueRef = useRef<HTMLInputElement>(null)
   const secondValueRef = useRef<HTMLInputElement>(null)
+  const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
   const [currentlyEditing, setCurrentlyEditing] = useState<0 | 1 | 2>(1)
 
@@ -54,7 +56,7 @@ const SelectedEditableKey = ({
           onClick={startEditingFirstValue}
         />
         <label htmlFor="key-shift-value">
-          <p className="shift-value-text">shift</p>
+          <p className="shift-value-text">{t("shift")}</p>
           <input
             name="key-shift-value"
             ref={secondValueRef}

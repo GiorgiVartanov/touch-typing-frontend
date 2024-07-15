@@ -136,14 +136,14 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
       <ConfirmModal
         closeModal={handleCloseConfirmResetModal}
         isVisible={isConfirmResetModalOpen}
-        text="are you sure you want to reset all settings?"
+        text={t("are you sure you want to reset all settings?")}
         buttons={
           <>
             <Button
               className="positive"
               onClick={handleCloseConfirmResetModal}
             >
-              dismiss
+              {t("dismiss")}
             </Button>
             <Button
               onClick={() => {
@@ -153,7 +153,7 @@ const SettingsModal = ({ isVisible, closeModal }: Props) => {
               }}
               className="negative"
             >
-              reset
+              {t("reset")}
             </Button>
           </>
         }

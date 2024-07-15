@@ -22,7 +22,7 @@ const AnalysePanel = ({ optimizationConfig, analysisSubmit, validateLayout }: Pr
       setIsAnalyseModalOpen(true)
       analysisSubmit(optimizationConfig)
     } else {
-      toast.warning("your keyboard layout doesn't contain all the symbols")
+      toast.warning(t("your keyboard layout doesn't contain all the symbols"))
       handleCloseAnalysisModal()
     }
   }

@@ -191,10 +191,6 @@ const EditableKeyboard = ({
     setEditingKeyboard(startingKeyboard)
   }, [startingKeyboard])
 
-  const handleNotImplemented = () => {
-    toast.warning("This feature is not yet implemented")
-  }
-
   // lets user download layout in a .klc format
   const handleExportLayout = async () => {
     const currentTitle = editingKeyboard
@@ -235,7 +231,7 @@ const EditableKeyboard = ({
       }
     }
 
-    toast.success("Layout exported", { toastId: t("layout exported") })
+    toast.success(t("Layout exported"), { toastId: t("layout exported") })
   }
 
   // opens save layout modal
@@ -243,7 +239,7 @@ const EditableKeyboard = ({
     if (isLoggedIn) {
       setIsSaveModalOpen(true)
     } else {
-      toast.warning("log in to save your layout", { toastId: "log in to save your layout" })
+      toast.warning(t("log in to save your layout"), { toastId: t("log in to save your layout") })
     }
   }
 
@@ -306,12 +302,16 @@ const EditableKeyboard = ({
     const space_situtaion = spaceProblem(editingKeyboard)
     if (space_situtaion === 0) {
       toast.warning(
-        "There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8."
+        t(
+          "There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8."
+        )
       )
       return
     } else if (space_situtaion === 1) {
       toast.warning(
-        "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17."
+        t(
+          "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17."
+        )
       )
       return
     }
@@ -548,7 +548,7 @@ const EditableKeyboard = ({
         enteredCharacter !== null
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
@@ -560,7 +560,7 @@ const EditableKeyboard = ({
         !keysThatWontShowWarning.includes(enteredCharacter)
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
@@ -623,7 +623,7 @@ const EditableKeyboard = ({
         enteredCharacter !== null
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
@@ -636,7 +636,7 @@ const EditableKeyboard = ({
         enteredCharacter !== null
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
@@ -647,7 +647,7 @@ const EditableKeyboard = ({
         uneditableKeys.includes(enteredCharacter) &&
         !keysThatWontShowWarning.includes(enteredCharacter)
       ) {
-        toast.warning("this key can't be used")
+        toast.warning(t("this key can't be used"))
 
         return
       }

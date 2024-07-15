@@ -195,7 +195,7 @@ const TypeableKeyboard = ({
 
       downloadKLCFile(transformKeyboardLayout(currentLayout), `layout.klc`)
 
-      toast.success("Layout exported", { toastId: t("layout exported") })
+      toast.success(t("Layout exported"), { toastId: t("layout exported") })
     }
 
     if (currentKeyboardLayout) {
@@ -216,7 +216,7 @@ const TypeableKeyboard = ({
 
       downloadKLCFile(transformKeyboardLayout(currentLayout), `layout.klc`)
 
-      toast.success("Layout exported", { toastId: t("layout exported") })
+      toast.success(t("Layout exported"), { toastId: t("layout exported") })
     }
   }
 

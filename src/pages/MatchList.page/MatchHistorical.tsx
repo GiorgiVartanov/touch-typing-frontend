@@ -62,8 +62,8 @@ const MatchHistorical = () => {
                   {match.players[key]
                     ? match.players[key].rating
                       ? match.players[key].rating.toFixed(0)
-                      : "Unrated"
-                    : "Unrated"}
+                      : t_play("Unrated")
+                    : t_play("Unrated")}
                 </h1>
                 <h1>{key}</h1>
                 {match.players[key].WPM != -1 ? (

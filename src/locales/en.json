@@ -86,13 +86,13 @@
     "hand alternation weight": "hand alternation weight",
     "consecutive finger usage weight": "consecutive finger usage weight",
     "same hand finger steps weight": "same hand finger steps weight",
-    "left to right ratio": "left to right ratio",
+    "left to right ratio": "left to right hand effort ratio",
     "finger distance weight": "finger distance weight",
     "punctation placement variants": "punctation placement variants",
     "Custom": "Custom",
     "qwerty": "Qwerty",
     "dvorjak": "Dvorjak",
-    "left": "Left",
+    "Left": "Left",
     "middle_free": "Middle row free",
     "spread": "Spread",
     "Analyse Layout": "Analyse Layout",
@@ -106,7 +106,39 @@
     "show more": "show more ...",
     "show less": "show less ...",
     "Layout successfully saved": "Layout successfully saved",
-    "sorry, this character can't be used":"sorry, this character can't be used"
+    "sorry, this character can't be used":"sorry, this character can't be used",
+    "Layout exported": "Layout exported",
+    "log in to save your layout": "log in to save your layout",
+    "Something went wrong while saving layout": "Something went wrong while saving layout",
+    "There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8.":"There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8.",
+    "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17.": "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17.",
+    "this key can't be used": "this key can't be used",
+    "effort function values": "effort function values",
+    "Your": "Your",
+    "Total effort":"Total effort",
+    "finger distance effort": "finger distance effort",
+    "modifier overhead effort": "modifier overhead effort",
+    "hand alternation effort": "hand alternation effort",
+    "consecutive finger usage effort": "consecutive finger usage effort",
+    "same hand finger steps effort": "same hand finger steps effort",
+    "hit direction effort": "hit direction weight",
+    "left hand effort": "left hand effort",
+    "right hand effort": "right hand effort",
+    "analysing your keyboard": "analysing your keyboard",
+    "Right": "Right",
+    "Effort function parameters": "Effort function parameters",
+    "your keyboard layout doesn't contain all the symbols": "your keyboard layout doesn't contain all the symbols",
+    "shift": "Shift",
+    "Optimization process is being initialized":"Optimization process is being initialized",
+    "Generations Complete": "Generations Complete",
+    "number of generations tooltip": "This specifies for how many generations the optimization algorithm will run",
+     "finger distance weight tooltip": "This is a parameter for the distance from a key to the closest finger. Symbols on the keys contribute to the effort function with their frequencies multiplied by distance.",
+    "modifier overhead weight panel": "This is a parameter for the effort of using shift keys for typing symbols. A frequency of the symbols, which are typed using shifts, are added to the effort function.",
+    "hit direction weight tooltip": "This is a parameter for the digraphs which have to be typed with the same hand but the hit direction is from the thumb towards the little finger. afterwards their frequencies are added to the effort function.",
+    "hand alternation weight tooltip": "This is a paramter for the digraphs which have to be typed with the same hand. afterwards their frequencies are added to the effort function.",
+    "consecutive finger usage weight tooltip": "This is a parameter for the digraphs which have to be typed with the same finger and it's keys are on different rows. The vertical differences between the letters, then multiplied by frequencies are summed and added to the effort function.",
+    "same hand finger steps weight tooltip": "This is a parameter for the digraphs which have to be typed with the same hand, different fingers, and the vertical difference between the keys is more than zero. later their frequencies, multiplied by the vertical differences and additional parameters, are added to the effort function.",
+    "successfully selected new layout": "successfully selected new layout"
   },
 
   "profile page": {
@@ -157,7 +189,8 @@
     "search": "search",
     "standard layouts": "standard layouts",
     "layouts created by our users": "layouts created by our users",
-    "more options": "more options"
+    "more options": "more options",
+    "something went wrong": "something went wrong"
   },
 
   "main page": {
@@ -180,7 +213,8 @@
     "compete": "Compete",
     "see lessons": "lessons",
     "texts": "texts",
-    "keyboard": "Keyboard"
+    "keyboard": "Keyboard",
+    "page not found": "page not found"
   },
 
   "auth page": {
@@ -251,7 +285,10 @@
     "text example": "text example",
     "text example text": "your text will look like this. words after that are only for length, so you will see how text looks on more than one line",
     "reset settings": "reset settings",
-    "Eng": "English"
+    "Eng": "English",
+    "reset": "Reset",
+    "dismiss": "dismiss",
+    "are you sure you want to reset all settings?":"are you sure you want to reset all settings?"
   },
 
   "play page": {
@@ -296,7 +333,8 @@
     "Corpus words": "Corpus words",
     "Sentences": "Sentences",
     "seconds": "seconds",
-    "View": "View"
+    "View": "View",
+    "Something went wrong, check browser console for more detailed information": "Something went wrong, check browser console for more detailed information"
   },
 
   "loading": {

@@ -28,10 +28,10 @@ const OptimizePanel = ({ optimizationConfig, optimizationSubmit }: Props) => {
       </Button>
       <div className="optimization-status">
         {optimizationStatus == ProcessStatus.initialization_started ? (
-          <p>Optimization process is being initialized . . .</p>
+          <p>{t("Optimization process is being initialized")} . . .</p>
         ) : optimizationStatus == ProcessStatus.initialization_finished ? (
           <p>
-            Generations Complete:
+            {t("Generations Complete")}:
             <span className="complete-generations">{progress.current_generation}</span> /{" "}
             <span className="total-generations">{progress.total_generations}</span>
           </p>

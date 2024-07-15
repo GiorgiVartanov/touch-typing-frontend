@@ -9,9 +9,11 @@ import { getPracticeText } from "../../services/practiceText"
 import TypingArea from "../../components/TypingArea/TypingArea"
 import Loading from "../../components/Loading/Loading"
 import PageLayout from "../../layout/Page.layout/Page.layout"
+import { useTranslation } from "react-i18next"
 
 const PracticeTextPage = () => {
   const { id } = useParams()
+  const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
 
   const fetchText = async (): Promise<{ data: Text } | null> => {
     if (!id) return null
@@ -28,9 +30,9 @@ const PracticeTextPage = () => {
     if (isLoading || !data) return <Loading />
 
     if (error || !data.data) {
-      console.log(error?.message || "something went wrong")
+      console.log(error?.message || t("something went wrong"))
 
-      return <div>{error?.message || "something went wrong"}</div>
+      return <div>{error?.message || t("something went wrong")}</div>
     }
 
     const { text, language, wordSeparator } = data.data
