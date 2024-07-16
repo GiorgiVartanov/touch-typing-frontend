@@ -4,7 +4,7 @@ import { KeyInterface, KeyboardLayoutInterface } from "../../types/keyboard.type
 
 import PageLayout from "../../layout/Page.layout/Page.layout"
 import Keyboard from "../../components/Keyboard/Keyboard"
-import qwertyGeorgianLayout from "../../keyboardLayouts/geo2.json"
+import qwertyGeorgianLayout from "../../keyboardLayouts/geo-opt.json"
 
 const CreateLayoutPage = () => {
   const qwertyGeorgianKeyboardLayout: KeyboardLayoutInterface =
