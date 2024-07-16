@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-import TyperArea from "../../components/TypingArea/TypingArea"
 import ajax from "../../services/ajax"
 import Loading from "../../components/Loading/Loading"
 import TypingArea from "../../components/TypingArea/TypingArea"
@@ -11,7 +9,6 @@ import { toast } from "react-toastify"
 import { saveLesson } from "../../services/lessonServices"
 import { useTranslation } from "react-i18next"
 import calculateAccuracy from "../../util/TypingStats/calculateAccuracy"
-import calculateTime from "../../util/TypingStats/calculateTime"
 import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 import { useNavigate } from "react-router-dom"
 
@@ -116,7 +113,6 @@ const Exercise = () => {
 
       return
     }
-    console.log(metrics)
     if (!letter) return
 
     const accuracy = calculateAccuracy(
@@ -181,7 +177,6 @@ const Exercise = () => {
       <TypingArea
         text={data.data}
         textLanguage="Geo"
-        // handleTextFinish={completeLesson}
         handleSetMetrics={completeLesson}
         displayResultsAfterFinish={true}
         showGoToNextLevel={true}

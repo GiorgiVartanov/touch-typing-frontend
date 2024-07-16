@@ -7,8 +7,6 @@ export const saveKeyboardOnServer = (
   layout: { keyboard: KeyInterface[]; title: string; language: string },
   token: string
 ) => {
-  console.log(layout.keyboard)
-
   return ajax.post(
     "/layout/add",
     { layout: layout },

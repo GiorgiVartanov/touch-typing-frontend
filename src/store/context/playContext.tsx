@@ -74,17 +74,12 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
 
     /** Connection / reconnection listeners */
     socket.io.on("reconnect", (attempt) => {
-      console.info("Reconnected on attempt: " + attempt)
       SendHandshake()
     })
 
-    socket.io.on("reconnect_attempt", (attempt) => {
-      console.info("Reconnection Attempt: " + attempt)
-    })
+    socket.io.on("reconnect_attempt", (attempt) => {})
 
-    socket.io.on("reconnect_error", (error) => {
-      console.info("Reconnection error: " + error)
-    })
+    socket.io.on("reconnect_error", (error) => {})
 
     socket.io.on("reconnect_failed", () => {
       //Reconnection failure.
@@ -121,7 +116,6 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
     })
 
     socket.on("rating_changes", (new_rating) => {
-      console.log("user rating is being changed")
       const userJson = localStorage.getItem("user")
 
       if (userJson) {
@@ -133,7 +127,6 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
         // Save the modified user object back to local storage
         localStorage.setItem("user", JSON.stringify(user))
         resetUser(user)
-        console.log("user rating changed")
       }
     })
   }

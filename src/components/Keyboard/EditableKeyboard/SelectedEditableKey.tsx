@@ -75,7 +75,6 @@ const SelectedEditableKey = ({
       className={`editing-key selected-key-${!wasSelectedAtLeaseOnce ? "neither" : editingKey ? "open" : "closed"} ${editingKey?.type}-key`}
     >
       {renderValues()}
-      {/* {renderOptions()} */}
     </div>
   )
 }

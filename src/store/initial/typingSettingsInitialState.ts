@@ -7,7 +7,7 @@ import {
   FontSizeType,
   TypingSettingsState,
 } from "../../types/typer.types/typingSettings.types"
-import { KeyInterface, KeyboardLayoutInterface } from "../../types/keyboard.types"
+import { KeyboardLayoutInterface } from "../../types/keyboard.types"
 
 import qwertyLayout from "../../keyboardLayouts/qwerty.json"
 import qwertyGeorgianLayout from "../../keyboardLayouts/geo2.json"
@@ -32,8 +32,6 @@ const font: FontType | null = localStorage.getItem("font") as FontType
 const fontSize: FontSizeType | null = localStorage.getItem("fontSize") as FontSizeType
 
 let keyboardLayout: savedKeyboardLayoutInterface | null = null
-
-const storedLayout = localStorage.getItem("keyboardLayout")
 
 const qwertyKeyboardLayout: KeyboardLayoutInterface = qwertyLayout as KeyboardLayoutInterface
 const qwertyGeorgianKeyboardLayout: KeyboardLayoutInterface =

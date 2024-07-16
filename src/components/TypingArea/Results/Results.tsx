@@ -12,8 +12,6 @@ import RestartIcon from "../../../assets/icons/arrow-rotate-right.svg?react"
 
 import Tooltip from "../../Tooltip/Tooltip"
 
-// import RestartIcon from "./assets/arrow-rotate-right.svg?react"
-
 import "./styles.scss"
 
 const Results: React.FC<{
@@ -35,13 +33,7 @@ const Results: React.FC<{
   const { user, isLoggedIn } = useAuthStore()
 
   const time = metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
-  // console.log(
-  //   metrics,
-  //   metrics.letterStatuses.reduce((accumulator, item) => {
-  //     accumulator += item.length
-  //     return accumulator
-  //   }, metrics.letterStatuses.length - 1)
-  // )
+
   const printCertificate = () => {
     if (!user) return
 

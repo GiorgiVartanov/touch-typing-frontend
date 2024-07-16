@@ -27,7 +27,6 @@
     align-items: center;
     transition:
       box-shadow 300ms var(--animation-function),
-      // color 100ms var(--animation-function),
       background-color 100ms var(--animation-function);
     backdrop-filter: blur(6px);
     box-shadow: 0 2px 4px -1px var(--shadow-color);
@@ -472,9 +471,6 @@
 
 .keyboard-options {
   display: flex;
-  // gap: 0.25rem;
-  // margin-bottom: 0.5rem;
-  // opacity: 0.75;
   align-items: end;
 
   .keyboard-language-selector,

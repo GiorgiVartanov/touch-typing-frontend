@@ -1,6 +1,5 @@
 .layout-select-page,
 .profile-page {
-  // $keySize: var(--key-size);
   $keySize: 3.5rem;
 
   .create-layout-link {
@@ -31,11 +30,9 @@
       background-color: var(--secondary-background-color);
       padding: 0.25rem 0.5rem;
       border-radius: var(--border-radius);
-      // transition: background-color 300ms var(--animation-function);
 
       &:hover {
         background-color: var(--red-color);
-        // opacity: 0.5;
       }
     }
 
@@ -45,7 +42,6 @@
 
     .search-options-button {
       width: fit-content;
-      // padding: 0.25rem 0.5rem;
       border-radius: var(--border-radius);
       display: block;
       width: fit-content;
@@ -69,15 +65,12 @@
   }
 
   .layout-card {
-    // outline: 1px solid red;
     padding: 0.5rem;
     transition: 300ms var(--animation-function);
-    // background-color: var(--secondary-background-color);
     border-radius: var(--border-radius);
     border: 2px solid transparent;
 
     &:hover {
-      // border: 2px solid var(--secondary-background-color);
       filter: brightness(1.15);
     }
 
@@ -145,18 +138,12 @@
     .preview-keys-first-row {
       display: flex;
       gap: calc($keySize/8);
-
-      .preview-key {
-      }
     }
 
     .preview-keys-second-row {
       margin-left: calc($keySize/4);
       display: flex;
       gap: calc($keySize/8);
-
-      .preview-key {
-      }
     }
   }
 }

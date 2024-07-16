@@ -1,10 +1,4 @@
 .match {
-  // text-align: center;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // flex-direction: column;
-  // padding: 10px;
   position: relative;
 
   .typer {
@@ -31,14 +25,9 @@
       display: flex;
       width: calc(100% - 5.5rem);
       justify-content: space-between;
-      // margin-left: 20rem;
-      // margin-left: 5.5rem;
       left: 5.5rem;
 
       .timer-wrapper {
-        // position: absolute;
-        // top: 0;
-        // left: 1rem;
         background-color: transparent;
       }
 
@@ -61,7 +50,6 @@
   }
   .timer {
     margin-bottom: 10px;
-    // background-color: var(--secondary-background-color);
     padding: 5px;
     border-radius: var(--border-radius);
 

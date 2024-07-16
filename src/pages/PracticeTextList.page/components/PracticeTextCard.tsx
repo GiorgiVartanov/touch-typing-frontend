@@ -1,5 +1,3 @@
-import { useTranslation } from "react-i18next"
-
 import Card from "../../../components/Card/Card"
 
 interface Props {
@@ -25,8 +23,6 @@ const PracticeTextCard = ({
   className = "",
   style,
 }: Props) => {
-  const { t } = useTranslation("translation", { keyPrefix: "practice" })
-
   const renderDescription = () => {
     if (text.length > 100) return text.slice(0, 100) + "..."
 
@@ -42,7 +38,6 @@ const PracticeTextCard = ({
       <p className="description">{renderDescription()}</p>
       <div className="card-bottom">
         <div className="bottom-left">{author === "Unknown" ? "" : author}</div>
-        {/* <div className="bottom-right">{t(level)}</div> */}
       </div>
     </Card>
   )

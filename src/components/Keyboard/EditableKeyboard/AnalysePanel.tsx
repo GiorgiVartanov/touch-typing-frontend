@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next"
-import { validateKeyboardLayout } from "../../../util/keyboardLayoutConverter"
 import Button from "../../Form/Button"
 import { useState } from "react"
 import AnalyseLayoutModal from "./AnalyseLayoutModal"

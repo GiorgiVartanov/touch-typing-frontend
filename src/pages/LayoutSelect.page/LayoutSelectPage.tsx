@@ -54,8 +54,6 @@ const LayoutSelectPage = () => {
     if (isLoading) return <Loading />
 
     if (error || !data?.pages) {
-      console.log(error?.message)
-
       return <div>{error?.message || t("something went wrong")}</div>
     }
 

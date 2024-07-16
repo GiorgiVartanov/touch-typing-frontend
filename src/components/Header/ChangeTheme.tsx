@@ -1,5 +1,4 @@
 import { useAppSettingsStore } from "../../store/context/appSettingsContext"
-// import { ThemeType } from "../../types/appSettings.types"
 
 import SunIcon from "../../assets/icons/sun.svg?react"
 import MoonIcon from "../../assets/icons/moon.svg?react"

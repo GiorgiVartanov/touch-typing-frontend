@@ -49,7 +49,6 @@ const TypingAreaDisplay = ({
   const handleRestart = () => setDisplayResults(false)
 
   return (
-    // <MetricsProvider>
     <div className="TypingArea">
       {displayResults ? (
         <div className="typer">
@@ -73,7 +72,6 @@ const TypingAreaDisplay = ({
         />
       )}
     </div>
-    //</MetricsProvider>
   )
 }
 

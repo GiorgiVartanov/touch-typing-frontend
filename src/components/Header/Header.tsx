@@ -1,5 +1,5 @@
 import { NavLink, useNavigate, useLocation } from "react-router-dom"
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
 
@@ -113,10 +113,7 @@ const Header = ({ isSticky = false }: Props) => {
           hasActiveChild={currentLocation.includes("register") || currentLocation.includes("login")}
         >
           <DropDownMenu>
-            <DropDownItem
-              icon={<ProfileIcon />}
-              // closeNavigation={handleCloseNavigation}
-            >
+            <DropDownItem icon={<ProfileIcon />}>
               <NavLink
                 to={`/register`}
                 className="nav-item nav-item-link"
@@ -125,10 +122,7 @@ const Header = ({ isSticky = false }: Props) => {
                 {t("register")}
               </NavLink>
             </DropDownItem>
-            <DropDownItem
-              icon={<LogoutIcon />}
-              // className="logout-button-item"
-            >
+            <DropDownItem icon={<LogoutIcon />}>
               <NavLink
                 to={`/login`}
                 className="nav-item nav-item-link"

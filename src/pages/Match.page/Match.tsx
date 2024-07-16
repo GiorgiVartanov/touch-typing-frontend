@@ -35,13 +35,6 @@ const Match = () => {
     }
   }, [match_finished])
 
-  // useEffect(() => {
-  //   if (match.players[uid] === undefined || match.players[uid].has_finished === true) return
-
-  //   // may change latter
-  //   toast.success(t("The match has started. Good luck!"))
-  // }, [])
-
   useEffect(() => {
     if (!match_id) return
 

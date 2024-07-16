@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { MatchState } from "../../types/match.types"
 import MatchHistoricalCard from "./MatchHistoricalCard" // Update import
 import { useNavigate } from "react-router-dom"
-import Button from "../../components/Form/Button"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import { useTranslation } from "react-i18next"
 import PageLayout from "../../layout/Page.layout/Page.layout"
@@ -15,7 +14,6 @@ const MatchHistoricalList = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [userSearch, setUserSearch] = useState<string>("") //has to be saved when navigating...
   const navigate = useNavigate()
-  const { t: t_form } = useTranslation("translation", { keyPrefix: "forms" })
   const { t: t_play } = useTranslation("translation", { keyPrefix: "play page" })
 
   useEffect(() => {
@@ -29,8 +27,6 @@ const MatchHistoricalList = () => {
 
     setIsLoading(false)
   }, [userSearch])
-
-  // If data is still loading or match data is not available, display loading component
 
   // Function to handle navigation to a specific match
   const onClick = (match_id: string) => {

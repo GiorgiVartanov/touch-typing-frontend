@@ -10,7 +10,7 @@ interface Props {
 }
 
 const OptimizePanel = ({ optimizationConfig, optimizationSubmit }: Props) => {
-  const { progress, startOptimization, optimizationStatus } = useOptimizationStore()
+  const { progress, optimizationStatus } = useOptimizationStore()
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
   const handleClick = () => {

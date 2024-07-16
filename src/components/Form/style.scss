@@ -14,12 +14,6 @@ form {
     position: relative;
     width: 100%;
 
-    &:focus-within {
-      label {
-        // color: var(--primary-color);
-      }
-    }
-
     label {
       position: absolute;
       top: 1.5rem;
@@ -38,7 +32,6 @@ form {
     textarea {
       padding: 1.25rem 0.5rem 0.5rem 0.5rem;
       background-color: var(--secondary-background-color);
-      // width: 100%;
       width: 100%;
       display: block;
       color: var(--text-color);
@@ -214,7 +207,6 @@ form {
       padding: 0 0.75rem;
       display: flex;
       align-items: center;
-      // background-color: transparent;
       border-radius: 0 calc(var(--border-radius) - 0.15rem) calc(var(--border-radius) - 0.15rem) 0;
 
       .eye-icon {
@@ -225,17 +217,9 @@ form {
       }
 
       &:hover {
-        // background-color: var(--secondary-background-color-active);
-
         .eye-icon {
           fill: var(--accent-color);
         }
-      }
-    }
-
-    &:focus-within {
-      label {
-        // color: var(--primary-color);
       }
     }
 

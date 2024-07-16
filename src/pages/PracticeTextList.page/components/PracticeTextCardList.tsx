@@ -20,7 +20,6 @@ const PracticeTextCardList = ({
   showAddNewTextButton = false,
   addNewTextModal,
 }: Props) => {
-  // if (textList.length === 0) return
   const { t } = useTranslation("translation", { keyPrefix: "practice" })
 
   return (
@@ -41,7 +40,6 @@ const PracticeTextCardList = ({
           author={text.author}
           level={text.level}
           _id={text._id}
-          // style={{ animationDelay: `${index * 0.05}s` }}
           key={text._id}
         />
       ))}

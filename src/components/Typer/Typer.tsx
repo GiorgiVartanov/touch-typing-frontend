@@ -27,7 +27,7 @@ const Typer = ({
   showKeyboard = true,
   className,
 }: Props) => {
-  const { keyboardLayout, keyboardLanguage } = useTypingSettingsStore()
+  const { keyboardLayout } = useTypingSettingsStore()
 
   const textArray = text.split(" ")
 

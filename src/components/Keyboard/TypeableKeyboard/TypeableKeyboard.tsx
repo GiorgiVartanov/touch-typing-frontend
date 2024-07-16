@@ -11,9 +11,7 @@ import { useTypingSettingsStore } from "../../../store/context/typingSettingsCon
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside"
 import { downloadKLCFile, transformKeyboardLayout } from "../../../util/generateKLCFile"
 import { useAuthStore } from "../../../store/context/authContext"
-import ajax from "../../../services/ajax"
 
-import WrenchIcon from "../../../assets/icons/wrench.svg?react"
 import ExportIcon from "../../../assets/icons/export.svg?react"
 import QuestionIcon from "../../../assets/icons/question.svg?react"
 
@@ -73,10 +71,6 @@ const TypeableKeyboard = ({
   const [pressedKeys, setPressedKeys] = useState<string[]>([])
   const [areRightSideButtonsOpen, setAreRightSideButtonsOpen] = useState<boolean>(false)
   const [userOS, setUserOS] = useState<string | null>(null)
-
-  const handleButtonClick = () => {
-    setAreRightSideButtonsOpen((prevState) => !prevState)
-  }
 
   const handleClose = () => {
     setAreRightSideButtonsOpen(false)
@@ -219,20 +213,6 @@ const TypeableKeyboard = ({
       toast.success(t("Layout exported"), { toastId: t("layout exported") })
     }
   }
-
-  // const handleExportLayout = () => {
-  //   if (!forcedKeyboardLayout) {
-  //     toast.warning("something went wrong")
-  //     return
-  //   }
-
-  //   downloadKLCFile(
-  //     transformKeyboardLayout(forcedKeyboardLayout.keyboard),
-  //     `${forcedKeyboardLayout.title}.klc`
-  //   )
-
-  //   toast.success("Layout exported", { toastId: "layout exported" })
-  // }
 
   const renderKeyboardButtons = () => {
     return <div className="editable-keyboard-buttons">{renderRightSideKeyboardButtons()}</div>

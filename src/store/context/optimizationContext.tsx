@@ -44,16 +44,12 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     socket.connect()
     setSocket(socket)
     StartListeners()
-    // SendHandshake()
   }, [user])
 
   const StartListeners = () => {
-    socket.on("custom_event", (data: any) => {
-      console.log(data)
-    })
+    socket.on("custom_event", (data: any) => {})
 
     socket.on("result", (data: any) => {
-      console.log("result: ", data)
       setOptimizedEditingKeyboard(
         structuredClone(convertFromPythonApiLayoutToCurrent(data.characters_set))
       )
@@ -62,29 +58,23 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
     })
 
     socket.on("progress", (data: OptimizationProgress) => {
-      console.log("progress: ", data)
       setProgress(data)
     })
 
     socket.on("initialization_start", () => {
-      console.log("initialization_start")
       setOptimizationStatus(ProcessStatus.initialization_started)
     })
 
     socket.on("initialization_finish", (data_progress: OptimizationProgress) => {
-      console.log("initialization_finish")
       setOptimizationStatus(ProcessStatus.initialization_finished)
       setProgress(data_progress)
     })
 
     socket.on("analysis_start", () => {
-      console.log("Analysis started")
       setAnalysis(initialAnalysisEffort)
     })
 
     socket.on("analysis_result", (data: Analysis) => {
-      console.log("analysis finished")
-      console.log("here is analysis: ", data)
       setAnalysis(data)
     })
   }
@@ -127,7 +117,6 @@ export const OptimizationProvider: React.FunctionComponent<Props> = ({ children 
   }
 
   const startOptimization = async (optimization_config: OptimizationConfig) => {
-    console.log(optimization_config)
     socket.emit("generate_keyboard_layout", optimization_config)
     setOptimizationStatus(ProcessStatus.process_idle)
   }

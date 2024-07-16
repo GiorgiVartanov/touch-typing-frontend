@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next"
 import Modal from "../../Modal/Modal"
 import Form from "../../Form/Form"
 import Input from "../../Form/Input"
-import Select from "../../Form/Select"
 import Button from "../../Form/Button"
 
 interface Props {
@@ -47,8 +46,6 @@ const SaveLayoutModal = ({
   const [title, setTitle] = useState<string>(currentTitle || "")
 
   const hasEmptyKeys = checkIfKeyboardHasEmptyKeys(keyboard)
-
-  console.log(hasEmptyKeys)
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
@@ -95,16 +92,10 @@ const SaveLayoutModal = ({
           value={title}
           onChange={handleTitleChange}
         />
-        {/* {hasEmptyKeys ? (
-          <div className="warning-list">
-            <p>warnings:</p>
-            <ul>{hasEmptyKeys ? <li>this keyboard has empty keys</li> : ""}</ul>
-          </div>
-        ) : null} */}
+
         <Button
           className="save-keyboard-submit-button"
           type="submit"
-          // disabled={hasEmptyKeys}
         >
           {t("Save")}
         </Button>

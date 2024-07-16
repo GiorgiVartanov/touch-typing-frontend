@@ -19,14 +19,12 @@
       background-color: var(--secondary-background-color);
       padding: 0.25rem 0.5rem;
       border-radius: var(--border-radius);
-      // transition: background-color 300ms var(--animation-function);
       height: 2.25rem;
       margin-top: auto;
       font-size: 0.85rem;
 
       &:hover {
         background-color: var(--red-color);
-        // opacity: 0.5;
       }
     }
 
@@ -56,12 +54,6 @@
       }
     }
   }
-
-  // .modal-content {
-  //   flex: 1;
-  //   display: flex;
-  //   flex-direction: column;
-  // }
 
   .text-page-body {
     max-width: 1280px;
@@ -99,10 +91,6 @@
         text-align: left;
         display: flex;
         gap: 0.25rem;
-
-        // span {
-        //   transition: all 300ms var(--animation-function);
-        // }
 
         &:hover {
           .text-tag {
@@ -191,7 +179,6 @@
 .add-new-text-modal-form {
   max-width: 960px;
   width: 100%;
-  // margin: 0 0 auto 0;
   flex: 1;
 
   .textarea-text {

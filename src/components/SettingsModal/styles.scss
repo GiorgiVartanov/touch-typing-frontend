@@ -1,5 +1,4 @@
 .settings-modal {
-  // max-width: 720px !important;
   margin: auto;
 
   .settings-button-list {
@@ -8,7 +7,6 @@
     justify-content: end;
 
     .reset-settings-button {
-      // background-color: var(--secondary-background-color);
       padding: 0.25rem 0.5rem;
       margin-bottom: 2rem;
       background-color: transparent;
@@ -48,7 +46,6 @@
   .select-keyboard-layout-link {
     display: block;
     padding: 0.25rem 0.75rem;
-    // margin: 0.75rem 0.25rem 0.25rem 0.25rem;
     width: fit-content;
     background-color: var(--secondary-background-color);
     border-radius: var(--border-radius);
@@ -81,7 +78,6 @@
     border-bottom: 1px solid var(--secondary-color);
     padding-bottom: 1rem;
     margin-top: 1rem;
-    // margin: auto;
     width: auto;
 
     .section-title {
@@ -92,7 +88,6 @@
     .settings-list {
       display: flex;
       flex-direction: column;
-      // gap: 0.75rem;
 
       .setting-item {
         &.slider-setting-item {

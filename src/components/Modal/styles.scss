@@ -34,10 +34,6 @@
   flex-direction: column;
   padding: 0.5rem;
   border-radius: var(--border-radius);
-  // transition: background-color 300ms var(--animation-function);
-  // transition:
-  //   transform 100ms var(--animation-function),
-  //   opacity 100ms var(--animation-function);
   transform: translate(-50%, -50%);
   box-shadow: 0 2px 6px -1px var(--shadow-color);
 
@@ -97,15 +93,11 @@
 }
 
 .confirm-modal {
-  // width: fit-content;
   min-height: fit-content;
-  // padding: 0.5rem;
   max-width: 400px;
   z-index: 300;
 
   p {
-    // font-weight: 500;
-    // white-space: nowrap;
     margin-bottom: 1rem;
     text-align: center;
   }
@@ -118,9 +110,7 @@
       background-color: var(--secondary-background-color);
       padding: 0.25rem 0.75rem;
       flex: 1;
-      transition:
-        // background-color 300ms var(--animation-function),
-        box-shadow 300ms var(--animation-function);
+      transition: box-shadow 300ms var(--animation-function);
       font-weight: 600;
       box-shadow: 0px 4px 8px var(--shadow-color);
 
@@ -129,7 +119,6 @@
       }
 
       &.positive {
-        // background-color: var(--success-color);
         transition: 300ms var(--animation-function);
       }
 
@@ -163,7 +152,6 @@
 
 @keyframes modalAppear {
   0% {
-    // scale: 0;
     transform: translateX(-50%) translateY(-47.5%);
     opacity: 0;
   }
@@ -171,7 +159,6 @@
     opacity: 1;
   }
   100% {
-    // scale: 1;
     transform: translateX(-50%) translateY(-50%);
     opacity: 1;
   }

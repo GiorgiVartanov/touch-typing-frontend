@@ -8,11 +8,8 @@ import { useAuthStore } from "../../store/context/authContext"
 import { saveAssessment } from "../../services/lessonServices"
 import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
-import { MetricsProvider } from "../../store/context/MetricsContext"
 import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 import calculateAccuracy from "../../util/TypingStats/calculateAccuracy"
-import calculateTime from "../../util/TypingStats/calculateTime"
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const afterAssessmentLetters = ["ე", "ო", "უ", "ფ", "ჩ"]
@@ -23,8 +20,6 @@ const Assessment = () => {
   const { assessmentLevel } = useParams()
 
   const { token, saveAssessmentLocally, user } = useAuthStore()
-
-  const completedLessons = user?.completedLessons
 
   const { t } = useTranslation("translation", { keyPrefix: "lesson page" })
 
@@ -62,8 +57,6 @@ const Assessment = () => {
 
     const time =
       metrics.keyPressTimestamps[metrics.keyPressCount - 1] - metrics.keyPressTimestamps[0]
-
-    console.log({ accuracy, time })
 
     if (accuracy < 80) {
       toast.warning(t("You have to get more than 80% accuracy to unlock the next level."))

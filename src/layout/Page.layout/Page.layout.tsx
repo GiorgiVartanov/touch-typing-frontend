@@ -12,8 +12,6 @@ interface Props {
   className?: string
 }
 
-// const imgUrl = new URL("/assets/backgroundImage.jpg", import.meta.url).href
-
 const PageLayout = ({ children, className = "" }: Props) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
@@ -39,10 +37,7 @@ const PageLayout = ({ children, className = "" }: Props) => {
         ) : null}
         {children}
       </div>
-      <div
-        className="background-image"
-        // style={{ backgroundImage: `url(${imgUrl})` }}
-      ></div>
+      <div className="background-image"></div>
     </div>
   )
 }

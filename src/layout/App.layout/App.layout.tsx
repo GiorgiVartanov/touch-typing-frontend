@@ -26,7 +26,6 @@ const Layout = ({ children, themeToApply }: Props) => {
         draggable
         pauseOnHover
         theme={themeToApply}
-        // limit={3}
       />
     </div>
   )

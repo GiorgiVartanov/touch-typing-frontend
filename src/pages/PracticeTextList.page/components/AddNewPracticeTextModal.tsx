@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
 import { InvalidateQueryFilters } from "@tanstack/react-query"
@@ -11,7 +11,6 @@ import { postPracticeText } from "../../../services/practiceText"
 import Modal from "../../../components/Modal/Modal"
 import Form from "../../../components/Form/Form"
 import Input from "../../../components/Form/Input"
-import Select from "../../../components/Form/Select"
 import TextArea from "../../../components/Form/TextArea"
 import Button from "../../../components/Form/Button"
 
@@ -98,19 +97,6 @@ const AddNewPracticeTextModal = ({ isVisible, closeModal }: Props) => {
           onChange={(e) => handleChange("text", e.target.value)}
           className="textarea-text"
         />
-        {/* <TextArea
-          name={t("description")}
-          value={newTextData.description}
-          onChange={(e) => handleChange("description", e.target.value)}
-          className="textarea-description"
-        /> */}
-        {/* <Select
-          name={t("level")}
-          value={newTextData.level}
-          options={["Easy", "Medium", "Hard"]}
-          optionsToShow={[t("Easy"), t("Medium"), t("Hard")]}
-          onChange={(selectedLevel) => handleLevelChange(selectedLevel as DifficultyLevel)}
-        /> */}
         <Button className="submit-button cta-button add-new-text-button">{t("Add Text")}</Button>
       </Form>
     </Modal>

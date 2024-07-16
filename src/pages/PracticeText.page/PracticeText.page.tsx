@@ -30,8 +30,6 @@ const PracticeTextPage = () => {
     if (isLoading || !data) return <Loading />
 
     if (error || !data.data) {
-      console.log(error?.message || t("something went wrong"))
-
       return <div>{error?.message || t("something went wrong")}</div>
     }
 

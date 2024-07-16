@@ -38,7 +38,6 @@ body {
 
 * {
   box-sizing: border-box;
-  // transition: background-color ease-in-out 500ms;
 }
 
 html,
@@ -159,11 +158,6 @@ a {
   font: inherit;
 
   cursor: pointer;
-  // transition: all ease-in-out 200ms;
-
-  // &:hover {
-  //   opacity: 0.8;
-  // }
 }
 
 input {

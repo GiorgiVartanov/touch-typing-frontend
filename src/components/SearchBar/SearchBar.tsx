@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { useTranslation } from "react-i18next"
 
 import "./style.scss"
 
@@ -21,8 +20,6 @@ const SearchBar = ({
   debounceDelay = 1000,
   placeholder = "search",
 }: Props) => {
-  const { t } = useTranslation("translation", { keyPrefix: "search" })
-
   const [searchValue, setSearchValue] = useState<string>(value)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

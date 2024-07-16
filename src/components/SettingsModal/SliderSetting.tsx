@@ -6,8 +6,6 @@ interface Props {
 
 const SliderSetting = ({ name, selectedValue, selectValue }: Props) => {
   const changeValue = () => {
-    console.log(selectedValue)
-
     selectValue(!selectedValue)
   }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback, useMemo, useContext, ChangeEvent } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -14,12 +14,8 @@ import georgianLetters from "../../../letters/georgian.json"
 import englishLetters from "../../../letters/english.json"
 import symbols from "../../../letters/symbols.json"
 
-import WrenchIcon from "../../../assets/icons/wrench.svg?react"
-import AnalyzeIcon from "../../../assets/icons/analyze.svg?react"
 import ExportIcon from "../../../assets/icons/export.svg?react"
 import FloppyDiskIcon from "../../../assets/icons/floppy-disk.svg?react"
-import ImportIcon from "../../../assets/icons/import.svg?react"
-import RobotIcon from "../../../assets/icons/robot.svg?react"
 import EraserIcon from "../../../assets/icons/eraser.svg?react"
 import ResetIcon from "../../../assets/icons/arrow-rotate-left.svg?react"
 import QuestionIcon from "../../../assets/icons/question.svg?react"
@@ -29,15 +25,11 @@ import SelectedEditableKey from "./SelectedEditableKey"
 import Button from "../../Form/Button"
 import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
-// import OptimizeLayoutPanel from "./OptimizeLayoutPanel"
 import KeyboardOptions from "../KeyboardOptions"
 
 import { useOptimizationStore } from "../../../store/context/optimizationContext"
-import { OptimizationConfig, ProcessStatus } from "../../../types/optimization.types"
-import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
-import Form from "../../Form/Form"
-import Input from "../../Form/Input"
-import AnalyseLayoutModal, { inBetweenCall } from "./AnalyseLayoutModal"
+import { OptimizationConfig } from "../../../types/optimization.types"
+
 import {
   convertFromCurrentLayoutToPythonApi,
   fixPunctuationPlacement,
@@ -48,7 +40,6 @@ import {
 import EffortConfigurator from "./EffortConfigurator"
 import ajax from "../../../services/ajax"
 
-//import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
 interface Props {
   startingKeyboard: KeyInterface[]
   handleEditing: () => void
@@ -118,8 +109,6 @@ const EditableKeyboard = ({
   ) // startingKeyboard prop is used as a default value here
   const [userOS, setUserOS] = useState<string | null>(null)
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
-  // const [isOptimizeLayoutModalOpen, setIsOptimizeLayoutOpen] = useState<boolean>(false)
-  // const [isAnalyseModalOpen, setIsAnalyseModalOpen] = useState<boolean>(false)
   const [punctuationIndices, setPunctuationIndices] = useState<number[]>([])
 
   useEffect(() => {
@@ -213,9 +202,8 @@ const EditableKeyboard = ({
     downloadKLCFile(transformKeyboardLayout(currentLayout), `layout.klc`)
 
     if (user && Object.keys(user).length > 0) {
-      console.log("USER: ", user)
       try {
-        const response = await ajax.post(
+        await ajax.post(
           "/user/incrementLayoutCounter",
           {},
           {
@@ -224,8 +212,6 @@ const EditableKeyboard = ({
             },
           }
         )
-
-        console.log(response.data) // Handle the response data
       } catch (error) {
         console.error("Error:", error) // Handle any errors
       }
@@ -269,35 +255,6 @@ const EditableKeyboard = ({
     )
   }
 
-  // const handleOpenOptimizeKeyboardLayoutModal = () => {
-  //   setIsOptimizeLayoutOpen(true)
-  // }
-
-  // const handleCloseOptimizeKeyboardLayoutModal = () => {
-  //   setIsOptimizeLayoutOpen(false)
-  // }
-
-  // const handleOpenAnalysisModal = () => {
-  //   if (validateKeyboardLayout(editingKeyboard)) {
-  //     setIsAnalyseModalOpen(true)
-  //     const optimizationConfig: OptimizationConfig = {
-  //       ...initialOptimizationConfig,
-  //       characters_set: convertFromCurrentLayoutToPythonApi(
-  //         editingKeyboard,
-  //         initialOptimizationConfig.punctuation_placement
-  //       ),
-  //     } as OptimizationConfig
-  //     inBetweenCall(optimizationConfig, startAnalysis)
-  //   } else {
-  //     toast.warning("your keyboard layout doesn't contain all the symbols")
-  //     handleCloseAnalysisModal()
-  //   }
-  // }
-
-  // const handleCloseAnalysisModal = () => {
-  //   setIsAnalyseModalOpen(false)
-  // }
-
   const optimizationSubmit = (optimizationConfig: OptimizationConfig) => {
     const space_situtaion = spaceProblem(editingKeyboard)
     if (space_situtaion === 0) {
@@ -316,11 +273,7 @@ const EditableKeyboard = ({
       return
     }
     const current_punctuation = getPunctuationPlacementFromKeyboard(editingKeyboard)
-    console.log("optimizationSubmit: ", {
-      ...optimizationConfig,
-      characters_set: convertFromCurrentLayoutToPythonApi(editingKeyboard, current_punctuation),
-      punctuation_placement: current_punctuation,
-    })
+
     setPunctuationIndices(
       editingKeyboard.reduce((accumulator: number[], item, index) => {
         if (item.punct) {
@@ -337,7 +290,6 @@ const EditableKeyboard = ({
   }
 
   const analysisSubmit = (optimizationConfig: OptimizationConfig) => {
-    console.log("Analysis submit")
     startAnalysis({
       ...optimizationConfig,
       characters_set: convertFromCurrentLayoutToPythonApi(
@@ -352,8 +304,6 @@ const EditableKeyboard = ({
   }
 
   const renderOptimizeKeyboardLayoutPanel = () => {
-    // if (!isOptimizeLayoutModalOpen) return
-
     return (
       <EffortConfigurator
         optimizationSubmit={optimizationSubmit}
@@ -365,18 +315,6 @@ const EditableKeyboard = ({
       />
     )
   }
-
-  // const renderAnalysisModal = () => {
-  //   if (!isAnalyseModalOpen) return
-
-  //   return (
-  //     <AnalyseLayoutModal
-  //       isVisible={isAnalyseModalOpen}
-  //       closeModal={handleCloseAnalysisModal}
-  //       editingKeyboard={editingKeyboard}
-  //     />
-  //   )
-  // }
 
   // erases all editable keys (passed as a prop) from keyboard
   const emptyEditableKeys = () => {
@@ -522,13 +460,12 @@ const EditableKeyboard = ({
       if (checkPunctuation(letter1)) first_char = 2
       if (checkAlphabet(letter2)) second_char = 1
       if (checkPunctuation(letter2)) second_char = 2
-      console.log(first_char, second_char)
       return first_char != second_char
     }
 
     const handleOnFirstValueChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
       const enteredCharacter = event.nativeEvent?.data // it works, but typescript shows error.
-      console.log("Here: ", enteredCharacter)
+
       if (
         keyboardLanguage === "Geo" &&
         ![...georgianLetters, ...symbols].includes(enteredCharacter) &&
@@ -595,7 +532,6 @@ const EditableKeyboard = ({
           if (key.code === currentlyEditing) {
             return {
               code: key.code,
-              // value: [enteredCharacter?.toLowerCase() || enteredCharacter?.toUpperCase()],
               value: newValue,
               type: enteredCharacterType,
               punct:
@@ -675,8 +611,6 @@ const EditableKeyboard = ({
       if (!["Letter", "Digit", "Symbol"].includes(enteredCharacterType))
         enteredCharacterType = "Letter"
 
-      // if (!enteredCharacter) return
-      console.log(enteredCharacterType)
       setEditingKeyboard((prevState) => {
         const editedKeyboard = structuredClone(prevState).map((key) => {
           if (key.code === currentlyEditing) {
@@ -726,14 +660,7 @@ const EditableKeyboard = ({
               <QuestionIcon className="icon" />
             </Link>
           </Tooltip>
-          {/* <Tooltip
-            tooltipContent={t("Import")}
-            tooltipPosition="bottom-center"
-          >
-            <Button onClick={handleNotImplemented}>
-              <ImportIcon className="icon" />
-            </Button>
-          </Tooltip> */}
+
           <Tooltip
             tooltipContent={t("Export")}
             tooltipPosition="bottom-center"
@@ -742,22 +669,6 @@ const EditableKeyboard = ({
               <ExportIcon className="icon" />
             </Button>
           </Tooltip>
-          {/* <Tooltip
-            tooltipContent={t("Analyze")}
-            tooltipPosition="bottom-center"
-          >
-            <Button onClick={handleNotImplemented}>
-              <AnalyzeIcon className="icon" />
-            </Button>
-          </Tooltip> */}
-          {/* <Tooltip
-            tooltipContent={t("Optimize")}
-            tooltipPosition="bottom-center"
-          >
-            <Button onClick={handleOpenOptimizeKeyboardLayoutModal}>
-              <RobotIcon className="icon" />
-            </Button>
-          </Tooltip> */}
         </div>
       </div>
     )
@@ -859,8 +770,6 @@ const EditableKeyboard = ({
       const pressedKey = event.code
       if (pressedKey === "Alt") event.preventDefault()
 
-      // if (pressedKey === "Space") event.preventDefault()
-
       if (pressedKey === "CapsLock") {
         setPressedKeys((prevState) => {
           if (prevState.includes("CapsLock")) {
@@ -927,7 +836,6 @@ const EditableKeyboard = ({
         >
           {renderKeyboard()}
         </div>
-        {/* {renderAnalysisModal()} */}
         {renderEditableKeyboardButtons()}
         {renderSaveKeyboardLayoutModal()}
       </div>

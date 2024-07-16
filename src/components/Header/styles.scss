@@ -3,7 +3,6 @@
   background-color: var(--secondary-background-color);
   box-shadow: 0 1px 3px -1px var(--shadow-color);
   z-index: 20;
-  // transition: background-color 300ms var(--animation-function);
 
   &.sticky {
     position: fixed;
@@ -72,11 +71,9 @@
       align-items: center;
 
       .change-language-button {
-        // margin-right: 1rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        // margin-right: 1.75rem;
         transition: opacity 300ms var(--animation-function);
 
         &:hover {
@@ -101,9 +98,6 @@
         box-shadow: 0 2px 4px -1px var(--shadow-color);
 
         &:hover {
-          // background-color: var(--background-color-transparent);
-          // color: var(--accent-color-dim);
-
           .theme-icon {
             .moon-icon,
             .sun-icon {
@@ -143,8 +137,6 @@
       .nav {
         display: flex;
         height: fit-content;
-        // gap: 0.5rem;
-        // transition: 300ms var(--animation-function);
         position: relative;
 
         .header-buttons {
@@ -190,8 +182,6 @@
           }
 
           &.has-active-child {
-            // border-bottom: 1px solid var(--primary-color);
-            // border-top: 1px solid transparent;
             position: relative;
 
             &::after {
@@ -231,7 +221,6 @@
           .nav-item-children {
             .dropdown-menu {
               transition: opacity 300ms var(--animation-function);
-              // margin-top: 3rem;
               position: absolute;
               width: 200px;
               top: 3.25rem;
@@ -255,8 +244,6 @@
             &.nav-item-closed {
               .dropdown-menu {
                 visibility: hidden;
-                // opacity: 0;
-                // max-height: 0;
                 pointer-events: none;
                 transform: translateY(-40%) translateX(25%) scaleY(0.25) scaleX(0.25);
               }
@@ -332,21 +319,10 @@
               .arrow-right {
                 background-color: var(--accent-color-dim);
               }
-
-              &:hover {
-              }
             }
           }
 
           .dropdown-menu {
-            // border-radius: var(--border-radius);
-            // background-color: var(--secondary-background-color);
-            // background-color: var(--secondary-background-color);
-
-            &.hidden {
-              // animation: closeDropdown 300ms ease-in-out forwards;
-            }
-
             .dropdown-item {
               height: 50px;
               display: flex;

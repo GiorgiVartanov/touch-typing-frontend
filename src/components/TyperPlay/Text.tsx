@@ -3,9 +3,6 @@ import { useState, useEffect, useRef } from "react"
 import { KeyInterface } from "../../types/keyboard.types"
 import { useTypingSettingsStore } from "../../store/context/typingSettingsContext"
 
-// import ResetIcon from "../../assets/icons/arrow-rotate-left.svg?react"
-// it has "?react" at the end, so it will be imported as a Component
-
 import Word from "../Typer/Word"
 import ActiveWord from "../Typer/ActiveWord"
 import { wordLetterStatusesType } from "../../types/typer.types/letterStatuses.types"
@@ -33,8 +30,6 @@ const Text = ({
   const { metrics, handleMetrics } = useMetrics()
 
   const textLength = text.length
-
-  // const containerHeight = `${amountOfShownLines * lineSpacing}rem`
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [lettersStatuses, setLettersStatuses] = useState<(0 | 1 | 2)[][]>([])

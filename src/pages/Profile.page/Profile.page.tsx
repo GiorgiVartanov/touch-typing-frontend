@@ -1,5 +1,5 @@
-import { useParams, NavLink, Link, Outlet } from "react-router-dom"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useParams } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
 import PageLayout from "../../layout/Page.layout/Page.layout"
@@ -51,7 +51,6 @@ const ProfilePage = () => {
     if (isLoading) return <Loading />
 
     if (error) {
-      console.log(error)
       return <div className="fetch-error-message">{error?.message}</div>
     }
 

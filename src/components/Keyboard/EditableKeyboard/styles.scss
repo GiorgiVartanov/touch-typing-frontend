@@ -1,5 +1,4 @@
 .editable-keyboard {
-  // pointer-events: none;
   .key {
     &.editable {
       transition:
@@ -54,10 +53,6 @@
   box-shadow: 0 2px 4px -1px var(--shadow-color);
   opacity: 1;
 
-  // &:hover {
-  //   box-shadow: 0 2px 6px 2px var(--shadow-color);
-  // }
-
   .shift-value-text {
     position: absolute;
     left: 2.25rem;
@@ -68,35 +63,22 @@
 
   &.selected-key-open {
     opacity: 1;
-
-    // animation: 200ms var(--animation-function) selectedEditableKeyAppear forwards;
   }
 
   &.selected-key-closed {
     opacity: 1;
-
-    // animation: 200ms var(--animation-function) selectedEditableKeyDisappear forwards;
   }
 
   .editable-key-value {
     font-size: 2rem;
     height: 3rem;
     width: 3rem;
-    // opacity: 0;
     text-align: center;
     font-weight: 400;
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
-    // font-family: monospace;
-    // caret-color: transparent; // blinking vertical line
-
-    &:focus {
-      // outline: 2px solid var(--primary-color);
-    }
-
-    // animation: 200ms 50ms linear selectedEditableKeyValuesAppear forwards;
   }
 
   input.editable-key-value {
@@ -132,7 +114,6 @@
     }
   }
 
-  // &.Symbol-key,
   &.Digit-key {
     position: relative;
 
@@ -157,18 +138,8 @@
   }
 }
 
-.reset-key-button {
-  // padding: 0.25rem 0.5rem;
-}
-
 .save-layout-modal {
-  // height: 100%;
   min-height: fit-content !important;
-  // width: fit-content;
-
-  .modal-content {
-    // height: 100%;
-  }
 
   form {
     display: flex;
@@ -206,6 +177,13 @@
 }
 
 .configurator-layout-panel {
+  .slider-wrapper {
+    margin-top: 0.5rem;
+    border-top: 2px solid var(--secondary-background-color);
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+  }
+
   .configurator-layout-form {
     max-width: 960px;
     flex: 1;
@@ -236,15 +214,12 @@
       margin-bottom: 1rem;
       button {
         margin-top: 0;
-        // margin-right: 10px;
       }
     }
   }
 }
 
 .warning-list {
-  //
-
   p {
     color: var(--warning-color);
   }
@@ -255,9 +230,6 @@
 
     color: var(--warning-color);
   }
-}
-
-.analyze-modal {
 }
 
 .show-more-details-button {
@@ -311,15 +283,6 @@
   }
 }
 .two-columns {
-  // span {
-  //   margin-left: auto;
-  //   display: flex;
-  //   gap: 2rem;
-  //   div:nth-of-type(2) {
-  //     opacity: 0.75;
-  //   }
-  // }
-
   .effort-info {
     display: flex;
     justify-content: space-between;
@@ -358,4 +321,12 @@
     width: 22%;
     justify-content: space-between;
   }
+}
+
+.punctuation-label {
+  margin-top: 0.5rem;
+  border-bottom: 2px solid var(--secondary-background-color);
+  border-top: 2px solid var(--secondary-background-color);
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
 }

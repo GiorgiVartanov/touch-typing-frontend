@@ -17,7 +17,7 @@ const PlayPage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation("translation", { keyPrefix: "play page" })
   const { user, token } = useAuthStore()
-  console.log("here: ", user)
+
   useEffect(() => {
     if (username === "-1") {
       alert("already connected from another tab...")
@@ -72,7 +72,6 @@ const PlayPage = () => {
         </div>
         <div className="play-body">
           <div className="play-create">
-            {/*აქ იქნება matchSetting Modal*/}
             <Button
               className="create-match-button"
               onClick={clickCreateMatchHandler}
@@ -84,7 +83,6 @@ const PlayPage = () => {
                 className="play-page-link"
                 to="../rating"
               >
-                {/* {t("Match history")} */}
                 {t("Users rating")}
               </Link>
               <Link

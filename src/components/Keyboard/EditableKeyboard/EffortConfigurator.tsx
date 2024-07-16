@@ -13,7 +13,6 @@ import Button from "../../Form/Button"
 import OptimizePanel from "./OptimizePanel"
 import AnalysePanel from "./AnalysePanel"
 import { KeyInterface } from "../../../types/keyboard.types"
-import { convertFromCurrentLayoutToPythonApi } from "../../../util/keyboardLayoutConverter"
 import { punctuationLayouts } from "../../../store/initial/typingSettingsInitialState"
 
 const PunctPlaceModes = [0, 1, 2, 3, 4]
@@ -295,7 +294,7 @@ const EffortConfigurator = ({
                 }))
               }}
             />
-            <label>
+            <label className="punctuation-label">
               {t("punctation placement variants")}
               <select
                 id={"PunctPlace_id"}
@@ -352,9 +351,6 @@ const EffortConfigurator = ({
             validateLayout={validateLayout}
           />
         </div>
-        {/* <Button className="submit-button cta-button optimize-layout-button">
-          {t("Optimize Layout")}
-        </Button> */}
       </Form>
     </div>
   )

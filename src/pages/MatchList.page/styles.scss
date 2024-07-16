@@ -29,7 +29,6 @@
   }
   .history-body {
     .history-body-list {
-      // max-width: 650px;
       .title {
         font-size: large;
         margin-bottom: 7px;
@@ -72,17 +71,13 @@
 
   //SearchBar
   > input {
-    // max-width: 960px;
     align-self: center;
   }
 
   .match-body-main {
     margin-top: 1.5rem;
     display: flex;
-    // width: 100%;
-    // max-width: 960px;
     justify-content: space-between;
-    // padding: 0 15px;
     position: relative;
     width: 100%;
 
@@ -105,8 +100,6 @@
         box-shadow: 0 2px 4px -1px var(--shadow-color);
         min-height: 100px;
         justify-content: start;
-        // width: 80%;
-        // min-width: 360px;
         justify-content: space-between;
 
         animation: slideInFromLeft 500ms ease-in-out forwards;
@@ -126,7 +119,6 @@
             border-radius: var(--border-radius);
             background-color: var(--tertiary-background-color);
             padding: 0.25rem 0.75rem;
-            // transition: opacity 300ms var(--animation-function);
 
             &:hover {
               opacity: 0.75;

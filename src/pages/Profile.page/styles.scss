@@ -1,5 +1,4 @@
 .profile-page {
-  // display: flex;
   .user-panel {
     margin: auto;
     display: flex;
@@ -8,14 +7,8 @@
     gap: 0.25rem;
 
     .username {
-      // max-width: 3.5rem;
-      // margin-top: 0.5rem;
       font-weight: 600;
       font-size: 1.5rem;
-      // position: absolute;
-      // bottom: -1.75rem;
-      // transform: translateX(50%);
-      // right: 50%;
     }
 
     .username-text {
@@ -48,9 +41,6 @@
   .profile-page-layout-select {
     margin-top: 6rem;
     margin-bottom: 3rem;
-
-    .profile-page-layouts-link {
-    }
   }
 
   .profile-page-keyboard {
