@@ -93,6 +93,7 @@
     "qwerty": "Qwerty",
     "dvorjak": "Dvorjak",
     "Left": "Left",
+    "left": "Left",
     "middle_free": "Middle row free",
     "spread": "Spread",
     "Analyse Layout": "Analyse Layout",
