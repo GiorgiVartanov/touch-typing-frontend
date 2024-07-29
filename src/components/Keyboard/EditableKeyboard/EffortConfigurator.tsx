@@ -64,7 +64,6 @@ const EffortConfigurator = ({
           <Tooltip
             tooltipContent={t("number of generations tooltip")}
             maxWidth="12rem"
-            tooltipPosition="top-right"
           >
             <Input
               name={t("number of generations")}
