@@ -51,9 +51,6 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    // background-color: var(--secondary-background-color);
-    // box-shadow: 0 2px 4px -1px var(--shadow-color);
-    // border-radius: var(--border-radius);
     text-shadow: 0px 0px 4px var(--shadow-color);
     outline: none;
     padding: 0.75rem;
@@ -62,7 +59,6 @@
     transition: opacity 300ms var(--animation-function);
 
     &:hover {
-      // background-color: var(--secondary-background-color-active);
       opacity: 0.75;
     }
 
@@ -85,14 +81,12 @@
 
     .prev-slide-title {
       position: absolute;
-      // text-align: left;
       left: 0rem;
       bottom: 0.25rem;
       text-wrap: nowrap;
     }
     .next-slide-title {
       position: absolute;
-      // text-align: right;
       right: 0rem;
       bottom: 0.25rem;
       text-wrap: nowrap;

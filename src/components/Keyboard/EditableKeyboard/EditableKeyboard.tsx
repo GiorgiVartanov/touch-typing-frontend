@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback, useMemo, useContext, ChangeEvent } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -14,12 +14,8 @@ import georgianLetters from "../../../letters/georgian.json"
 import englishLetters from "../../../letters/english.json"
 import symbols from "../../../letters/symbols.json"
 
-import WrenchIcon from "../../../assets/icons/wrench.svg?react"
-import AnalyzeIcon from "../../../assets/icons/analyze.svg?react"
 import ExportIcon from "../../../assets/icons/export.svg?react"
 import FloppyDiskIcon from "../../../assets/icons/floppy-disk.svg?react"
-import ImportIcon from "../../../assets/icons/import.svg?react"
-import RobotIcon from "../../../assets/icons/robot.svg?react"
 import EraserIcon from "../../../assets/icons/eraser.svg?react"
 import ResetIcon from "../../../assets/icons/arrow-rotate-left.svg?react"
 import QuestionIcon from "../../../assets/icons/question.svg?react"
@@ -29,16 +25,20 @@ import SelectedEditableKey from "./SelectedEditableKey"
 import Button from "../../Form/Button"
 import Tooltip from "../../Tooltip/Tooltip"
 import SaveLayoutModal from "./SaveLayoutModal"
-import OptimizeLayoutPanel from "./OptimizeLayoutPanel"
 import KeyboardOptions from "../KeyboardOptions"
 
 import { useOptimizationStore } from "../../../store/context/optimizationContext"
-import { OptimizationConfig, ProcessStatus } from "../../../types/optimization.types"
-import { initialOptimizationConfig } from "../../../store/initial/optimizationInitialState"
-import Form from "../../Form/Form"
-import Input from "../../Form/Input"
-import AnalyseLayoutModal from "./AnalyseLayoutModal"
-import { convertFromCurrentLayoutToPythonApi } from "../../../util/keyboardLayoutConverter"
+import { OptimizationConfig } from "../../../types/optimization.types"
+
+import {
+  convertFromCurrentLayoutToPythonApi,
+  fixPunctuationPlacement,
+  getPunctuationPlacementFromKeyboard,
+  spaceProblem,
+  validateKeyboardLayout,
+} from "../../../util/keyboardLayoutConverter"
+import EffortConfigurator from "./EffortConfigurator"
+import ajax from "../../../services/ajax"
 
 interface Props {
   startingKeyboard: KeyInterface[]
@@ -86,10 +86,15 @@ const EditableKeyboard = ({
   uneditableSecondValueKeys = [], // keys that have their second (one accessed with shift/caps lock) value uneditable
   keySize = 3.25, // size of one key in rem
 }: Props) => {
-  const { optimizedEditingKeyboard, setOptimizedEditingKeyboard, startOptimization } =
-    useOptimizationStore()
+  const {
+    optimizedEditingKeyboard,
+    setOptimizedEditingKeyboard,
+    startOptimization,
+    startAnalysis,
+  } = useOptimizationStore()
 
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
+  const { user, token } = useAuthStore()
 
   const ref = useRef<HTMLInputElement>(null)
 
@@ -104,15 +109,19 @@ const EditableKeyboard = ({
   ) // startingKeyboard prop is used as a default value here
   const [userOS, setUserOS] = useState<string | null>(null)
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false)
-  const [isOptimizeLayoutModalOpen, setIsOptimizeLayoutOpen] = useState<boolean>(false)
-  const [isAnalyseModalOpen, setIsAnalyseModalOpen] = useState<boolean>(false)
+  const [punctuationIndices, setPunctuationIndices] = useState<number[]>([])
 
   useEffect(() => {
-    if (editingKeyboard === optimizedEditingKeyboard) setOptimizedEditingKeyboard(undefined)
+    if (editingKeyboard === optimizedEditingKeyboard) {
+      setEditingKeyboard(fixPunctuationPlacement(editingKeyboard, punctuationIndices))
+      setOptimizedEditingKeyboard(undefined)
+    }
   }, [editingKeyboard])
 
   if (optimizedEditingKeyboard) {
-    if (editingKeyboard !== optimizedEditingKeyboard) setEditingKeyboard(optimizedEditingKeyboard)
+    if (editingKeyboard !== optimizedEditingKeyboard) {
+      setEditingKeyboard(optimizedEditingKeyboard)
+    }
   }
 
   const renderKeyboard = () => {
@@ -124,7 +133,7 @@ const EditableKeyboard = ({
       code: "Phantom",
       value: ["", ""],
       type: "Letter",
-      fixed: [false, false],
+      punct: undefined,
     }
 
     const secondBackslash: KeyInterface = {
@@ -171,12 +180,8 @@ const EditableKeyboard = ({
     setEditingKeyboard(startingKeyboard)
   }, [startingKeyboard])
 
-  const handleNotImplemented = () => {
-    toast.warning("This feature is not yet implemented")
-  }
-
   // lets user download layout in a .klc format
-  const handleExportLayout = () => {
+  const handleExportLayout = async () => {
     const currentTitle = editingKeyboard
       .slice(15, 21)
       .reduce((accumulator, currentValue) => accumulator + currentValue?.value[0], "")
@@ -188,11 +193,31 @@ const EditableKeyboard = ({
       public: true,
       official: false,
       keyboard: editingKeyboard,
+      number:
+        user && Object.keys(user).length > 0
+          ? user.createdLayoutCounter
+          : Math.floor(Math.random() * 10000),
     }
 
-    downloadKLCFile(transformKeyboardLayout(currentLayout), `test.klc`)
+    downloadKLCFile(transformKeyboardLayout(currentLayout), `layout.klc`)
 
-    toast.success("Layout exported", { toastId: "layout exported" })
+    if (user && Object.keys(user).length > 0) {
+      try {
+        await ajax.post(
+          "/user/incrementLayoutCounter",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+      } catch (error) {
+        console.error("Error:", error) // Handle any errors
+      }
+    }
+
+    toast.success(t("Layout exported"), { toastId: t("layout exported") })
   }
 
   // opens save layout modal
@@ -200,7 +225,7 @@ const EditableKeyboard = ({
     if (isLoggedIn) {
       setIsSaveModalOpen(true)
     } else {
-      toast.warning("log in to save your layout", { toastId: "log in to save your layout" })
+      toast.warning(t("log in to save your layout"), { toastId: t("log in to save your layout") })
     }
   }
 
@@ -230,55 +255,63 @@ const EditableKeyboard = ({
     )
   }
 
-  const handleOpenOptimizeKeyboardLayoutModal = () => {
-    setIsOptimizeLayoutOpen(true)
-  }
-
-  const handleCloseOptimizeKeyboardLayoutModal = () => {
-    setIsOptimizeLayoutOpen(false)
-  }
-
-  const handleOpenAnalysisModal = () => {
-    setIsAnalyseModalOpen(true)
-  }
-
-  const handleCloseAnalysisModal = () => {
-    setIsAnalyseModalOpen(false)
-  }
-
   const optimizationSubmit = (optimizationConfig: OptimizationConfig) => {
-    console.log(editingKeyboard)
-    console.log("right here omni: ", {
-      ...optimizationConfig,
-      characters_set: convertFromCurrentLayoutToPythonApi(
-        editingKeyboard,
-        optimizationConfig.punctuation_placement
-      ),
-    })
+    const space_situtaion = spaceProblem(editingKeyboard)
+    if (space_situtaion === 0) {
+      toast.warning(
+        t(
+          "There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8."
+        )
+      )
+      return
+    } else if (space_situtaion === 1) {
+      toast.warning(
+        t(
+          "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17."
+        )
+      )
+      return
+    }
+    const current_punctuation = getPunctuationPlacementFromKeyboard(editingKeyboard)
 
+    setPunctuationIndices(
+      editingKeyboard.reduce((accumulator: number[], item, index) => {
+        if (item.punct) {
+          accumulator.push(index)
+        }
+        return accumulator
+      }, [] as number[])
+    )
     startOptimization({
       ...optimizationConfig,
+      characters_set: convertFromCurrentLayoutToPythonApi(editingKeyboard, current_punctuation),
+      punctuation_placement: current_punctuation,
+    })
+  }
+
+  const analysisSubmit = (optimizationConfig: OptimizationConfig) => {
+    startAnalysis({
+      ...optimizationConfig,
       characters_set: convertFromCurrentLayoutToPythonApi(
         editingKeyboard,
         optimizationConfig.punctuation_placement
       ),
     })
+  }
+
+  const punctuationPlacementChange = (newKeyboard: KeyInterface[]) => {
+    setEditingKeyboard(newKeyboard)
   }
 
   const renderOptimizeKeyboardLayoutPanel = () => {
-    // if (!isOptimizeLayoutModalOpen) return
-
-    return <OptimizeLayoutPanel optimizationSubmit={optimizationSubmit} />
-  }
-
-  const renderAnalysisModal = () => {
-    if (!isAnalyseModalOpen) return
-
     return (
-      <AnalyseLayoutModal
-        isVisible={isAnalyseModalOpen}
-        closeModal={handleCloseAnalysisModal}
-        editingKeyboard={editingKeyboard}
+      <EffortConfigurator
+        optimizationSubmit={optimizationSubmit}
+        analysisSubmit={analysisSubmit}
+        validateLayout={() => {
+          return validateKeyboardLayout(editingKeyboard)
+        }}
+        changePunctuation={punctuationPlacementChange}
       />
     )
   }
@@ -289,7 +322,7 @@ const EditableKeyboard = ({
       const currentKeyboard = structuredClone(prevState)
       const filteredKeyboard = currentKeyboard.map((key) => {
         if (uneditableKeys.includes(key.code)) return key
-        else return { code: key.code, value: ["", ""], type: key.type, fixed: [false, false] }
+        else return { code: key.code, value: ["", ""], type: key.type, punct: key.punct }
       })
 
       return filteredKeyboard
@@ -312,7 +345,7 @@ const EditableKeyboard = ({
               code: key.code,
               value: ["", ""],
               type: key.type,
-              fixed: [false, false],
+              punct: key.punct,
             }
           }
           return key
@@ -343,6 +376,7 @@ const EditableKeyboard = ({
           (key.value[1]?.toLowerCase() === keyboardKey.value[1]?.toLowerCase() ||
             key.value[1]?.toLowerCase() === keyboardKey.value[0]?.toLowerCase())
       )
+      const className = `${key.type}-key ${key.code}-key${"punct" in key && key.punct ? " punct" : ""}`
 
       return (
         <EditableKey
@@ -374,7 +408,7 @@ const EditableKeyboard = ({
             )
           }
           canBeDuplicate={key.code === "Backslash" || key.code === "Backslash-2"}
-          className={`${key.type}-key ${key.code}-key`}
+          className={className}
         />
       )
     },
@@ -403,6 +437,32 @@ const EditableKeyboard = ({
       "Backquote",
     ]
 
+    const checkAlphabet = (letter: string) => {
+      let returner = false
+      georgianLetters.forEach((lett) => {
+        if (lett == letter) returner = true
+      })
+      return returner
+    }
+
+    const checkPunctuation = (letter: string) => {
+      let returner = false
+      symbols.forEach((lett) => {
+        if (lett == letter) returner = true
+      })
+      return returner
+    }
+
+    const checkDifferenceBetweenTypes = (letter1: string, letter2: string) => {
+      let first_char = 0
+      let second_char = 0
+      if (checkAlphabet(letter1)) first_char = 1
+      if (checkPunctuation(letter1)) first_char = 2
+      if (checkAlphabet(letter2)) second_char = 1
+      if (checkPunctuation(letter2)) second_char = 2
+      return first_char != second_char
+    }
+
     const handleOnFirstValueChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
       const enteredCharacter = event.nativeEvent?.data // it works, but typescript shows error.
 
@@ -412,7 +472,7 @@ const EditableKeyboard = ({
         enteredCharacter !== null
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
@@ -425,7 +485,7 @@ const EditableKeyboard = ({
         enteredCharacter !== null
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
@@ -437,11 +497,22 @@ const EditableKeyboard = ({
         !keysThatWontShowWarning.includes(enteredCharacter)
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
         return
+      }
+
+      let enteredCharacterKey = editingKeyboard.find((key) => key.code === currentlyEditing)
+
+      let newValue = [enteredCharacter || "", enteredCharacterKey.value[1] || ""]
+
+      if (
+        enteredCharacter &&
+        checkDifferenceBetweenTypes(enteredCharacterKey.value[1], enteredCharacter)
+      ) {
+        newValue[1] = ""
       }
 
       let enteredCharacterType =
@@ -449,20 +520,26 @@ const EditableKeyboard = ({
           (key) => key.value[0] === enteredCharacter || key.value[1] === enteredCharacter
         )?.type || "Letter"
 
+      enteredCharacterType = symbols.find((key) => key === enteredCharacter)
+        ? "Symbol"
+        : enteredCharacterType
+
       if (!["Letter", "Digit", "Symbol"].includes(enteredCharacterType))
         enteredCharacterType = "Letter"
-
-      // if (!enteredCharacter) return
 
       setEditingKeyboard((prevState) => {
         const editedKeyboard = structuredClone(prevState).map((key) => {
           if (key.code === currentlyEditing) {
             return {
               code: key.code,
-              // value: [enteredCharacter?.toLowerCase() || enteredCharacter?.toUpperCase()],
-              value: [enteredCharacter || "", key.value[1] || ""],
+              value: newValue,
               type: enteredCharacterType,
-              fixed: key.fixed,
+              punct:
+                enteredCharacterType == "Symbol"
+                  ? true
+                  : enteredCharacter === null
+                    ? key.punct
+                    : undefined,
             }
           } else {
             return key
@@ -482,7 +559,7 @@ const EditableKeyboard = ({
         enteredCharacter !== null
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
@@ -495,7 +572,7 @@ const EditableKeyboard = ({
         enteredCharacter !== null
       ) {
         toast.dismiss("character-not-allowed-toast")
-        toast.warning("sorry, this character can't be used", {
+        toast.warning(t("sorry, this character can't be used"), {
           toastId: "character-not-allowed-toast",
         })
 
@@ -506,9 +583,20 @@ const EditableKeyboard = ({
         uneditableKeys.includes(enteredCharacter) &&
         !keysThatWontShowWarning.includes(enteredCharacter)
       ) {
-        toast.warning("this key can't be used")
+        toast.warning(t("this key can't be used"))
 
         return
+      }
+
+      let enteredCharacterKey = editingKeyboard.find((key) => key.code === currentlyEditing)
+
+      let newValue = [enteredCharacterKey.value[0] || "", enteredCharacter || ""]
+
+      if (
+        enteredCharacter &&
+        checkDifferenceBetweenTypes(enteredCharacterKey.value[0], enteredCharacter)
+      ) {
+        newValue[0] = ""
       }
 
       let enteredCharacterType =
@@ -516,23 +604,26 @@ const EditableKeyboard = ({
           (key) => key.value[0] === enteredCharacter || key.value[1] === enteredCharacter
         )?.type || "Letter"
 
+      enteredCharacterType = symbols.find((key) => key === enteredCharacter)
+        ? "Symbol"
+        : enteredCharacterType
+
       if (!["Letter", "Digit", "Symbol"].includes(enteredCharacterType))
         enteredCharacterType = "Letter"
-
-      // if (!enteredCharacter) return
 
       setEditingKeyboard((prevState) => {
         const editedKeyboard = structuredClone(prevState).map((key) => {
           if (key.code === currentlyEditing) {
             return {
               code: key.code,
-              value: [
-                // key.value[0] || enteredCharacter?.toLowerCase(),
-                key.value[0] || "",
-                enteredCharacter || "", //We no longer use English keyboard
-              ],
+              value: newValue,
               type: enteredCharacterType,
-              fixed: key.fixed,
+              punct:
+                enteredCharacterType == "Symbol"
+                  ? true
+                  : enteredCharacter === null
+                    ? key.punct
+                    : undefined,
             }
           } else {
             return key
@@ -569,36 +660,13 @@ const EditableKeyboard = ({
               <QuestionIcon className="icon" />
             </Link>
           </Tooltip>
-          <Tooltip
-            tooltipContent={t("Import")}
-            tooltipPosition="bottom-center"
-          >
-            <Button onClick={handleNotImplemented}>
-              <ImportIcon className="icon" />
-            </Button>
-          </Tooltip>
+
           <Tooltip
             tooltipContent={t("Export")}
             tooltipPosition="bottom-center"
           >
             <Button onClick={handleExportLayout}>
               <ExportIcon className="icon" />
-            </Button>
-          </Tooltip>
-          <Tooltip
-            tooltipContent={t("Analyze")}
-            tooltipPosition="bottom-center"
-          >
-            <Button onClick={handleOpenAnalysisModal}>
-              <AnalyzeIcon className="icon" />
-            </Button>
-          </Tooltip>
-          <Tooltip
-            tooltipContent={t("Optimize")}
-            tooltipPosition="bottom-center"
-          >
-            <Button onClick={handleOpenOptimizeKeyboardLayoutModal}>
-              <RobotIcon className="icon" />
             </Button>
           </Tooltip>
         </div>
@@ -702,8 +770,6 @@ const EditableKeyboard = ({
       const pressedKey = event.code
       if (pressedKey === "Alt") event.preventDefault()
 
-      // if (pressedKey === "Space") event.preventDefault()
-
       if (pressedKey === "CapsLock") {
         setPressedKeys((prevState) => {
           if (prevState.includes("CapsLock")) {
@@ -770,7 +836,6 @@ const EditableKeyboard = ({
         >
           {renderKeyboard()}
         </div>
-        {renderAnalysisModal()}
         {renderEditableKeyboardButtons()}
         {renderSaveKeyboardLayoutModal()}
       </div>

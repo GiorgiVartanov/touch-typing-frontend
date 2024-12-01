@@ -12,3 +12,15 @@ export const saveAssessment = (percentage: number, assessmentLevel: number, toke
     }
   )
 }
+
+export const saveLesson = (percentage: number, lessonLetter: string, token: string) => {
+  return ajax.post(
+    "/lesson/lesson",
+    { lessonLetter: lessonLetter, percentage: percentage },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+}

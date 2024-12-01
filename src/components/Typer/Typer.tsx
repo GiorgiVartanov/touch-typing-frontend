@@ -4,12 +4,14 @@ import { KeyboardLanguageType } from "../../types/typer.types/typingSettings.typ
 
 import Text from "./Text"
 import Keyboard from "../Keyboard/Keyboard"
+import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 
 interface Props {
   text: string
   textLanguage?: KeyboardLanguageType
   wordSeparator?: string
-  handleTextFinish: () => void
+  handleTextFinish?: () => void
+  handleSetMetrics?: (metrics: MetricsContextProps) => void
   className?: string
   showKeyboard?: boolean
 }
@@ -21,10 +23,11 @@ const Typer = ({
   textLanguage = "Eng",
   wordSeparator = "",
   handleTextFinish,
+  handleSetMetrics,
   showKeyboard = true,
   className,
 }: Props) => {
-  const { keyboardLayout, keyboardLanguage } = useTypingSettingsStore()
+  const { keyboardLayout } = useTypingSettingsStore()
 
   const textArray = text.split(" ")
 
@@ -36,6 +39,7 @@ const Typer = ({
         text={textArray}
         wordSeparator={wordSeparator}
         handleTextFinish={handleTextFinish}
+        handleSetMetrics={handleSetMetrics}
         className={className}
         keyboard={keyboardLayout[textLanguage].keyboard}
       />

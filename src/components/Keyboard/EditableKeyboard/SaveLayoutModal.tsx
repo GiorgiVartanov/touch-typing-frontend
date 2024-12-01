@@ -7,11 +7,11 @@ import { KeyboardLanguageType } from "../../../types/typer.types/typingSettings.
 import { useAuthStore } from "../../../store/context/authContext"
 import { saveKeyboardOnServer } from "../../../services/keyboardServices"
 import checkIfKeyboardHasEmptyKeys from "../../../util/checkIfKeyboardHasEmptyKeys"
+import { useTranslation } from "react-i18next"
 
 import Modal from "../../Modal/Modal"
 import Form from "../../Form/Form"
 import Input from "../../Form/Input"
-import Select from "../../Form/Select"
 import Button from "../../Form/Button"
 
 interface Props {
@@ -36,6 +36,8 @@ const SaveLayoutModal = ({
   currentTitle,
   className = "",
 }: Props) => {
+  const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
+
   const { token } = useAuthStore()
 
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
@@ -45,14 +47,8 @@ const SaveLayoutModal = ({
 
   const hasEmptyKeys = checkIfKeyboardHasEmptyKeys(keyboard)
 
-  console.log(hasEmptyKeys)
-
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
-  }
-
-  const handleSelectLanguage = (value: string) => {
-    setSelectedLanguage(value as KeyboardLanguageType)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -64,7 +60,7 @@ const SaveLayoutModal = ({
   const mutation = useMutation({
     mutationFn: (layout: { title: string; keyboard: KeyInterface[]; language: string }) => {
       if (!token) {
-        toast.error("log in to save created layout")
+        toast.error(t("log in to save created layout"))
         throw new Error("no token")
       }
 
@@ -75,16 +71,16 @@ const SaveLayoutModal = ({
       // there will be optimistic update
     },
     onSuccess: () => {
-      toast.success("Layout successfully saved ")
+      toast.success(t("Layout successfully saved"))
     },
     onError: () => {
-      toast.error("Something went wrong while saving layout")
+      toast.error(t("Something went wrong while saving layout"))
     },
   })
 
   return (
     <Modal
-      modalTitle={modalTitle}
+      modalTitle={t("save layout")}
       showCloseButton={true}
       isVisible={isVisible}
       closeModal={closeModal}
@@ -92,24 +88,16 @@ const SaveLayoutModal = ({
     >
       <Form onSubmit={handleSubmit}>
         <Input
-          name="title"
+          name={t("title")}
           value={title}
           onChange={handleTitleChange}
         />
-        {hasEmptyKeys ? (
-          <div className="ul">
-            <p>warnings:</p>
-            <ul>
-              <li></li>
-            </ul>
-          </div>
-        ) : null}
+
         <Button
           className="save-keyboard-submit-button"
           type="submit"
-          disabled={hasEmptyKeys}
         >
-          Save
+          {t("Save")}
         </Button>
       </Form>
     </Modal>

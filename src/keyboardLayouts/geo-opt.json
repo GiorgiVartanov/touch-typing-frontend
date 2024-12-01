@@ -8,80 +8,69 @@
       {
         "code": "Backquote",
         "value": ["`", "~"],
-        "type": "Symbol",
-        "fixed": [true, true]
+        "type": "Symbol"
       },
       {
         "code": "Digit1",
         "value": ["1", "!"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit2",
         "value": ["2", "@"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit3",
         "value": ["3", "#"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit4",
         "value": ["4", "$"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit5",
         "value": ["5", "%"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit6",
         "value": ["6", "^"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit7",
         "value": ["7", "&"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit8",
         "value": ["8", "*"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit9",
         "value": ["9", "("],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "Digit0",
         "value": ["0", ")"],
-        "type": "Digit",
-        "fixed": [true, true]
+        "type": "Digit"
       },
       {
         "code": "minus",
         "value": ["", ""],
         "type": "Symbol",
-        "fixed": [false, false]
+        "punct": true
       },
       {
         "code": "equal",
         "value": ["=", "+"],
         "type": "Symbol",
-        "fixed": [false, false]
+        "punct": true
       },
       {
         "code": "Backspace",
@@ -157,13 +146,13 @@
         "code": "BracketLeft",
         "value": ["[", "{"],
         "type": "Symbol",
-        "fixed": [true, true]
+        "punct": true
       },
       {
         "code": "BracketRight",
         "value": ["]", "}"],
         "type": "Symbol",
-        "fixed": [true, true]
+        "punct": true
       },
       {
         "code": "Backslash",
@@ -233,13 +222,13 @@
         "code": "Semicolon",
         "value": ["", ""],
         "type": "Symbol",
-        "fixed": [false, false]
+        "punct": true
       },
       {
         "code": "Quote",
         "value": ["", ""],
         "type": "Symbol",
-        "fixed": [false, false]
+        "punct": true
       },
       {
         "code": "Enter",
@@ -297,19 +286,19 @@
         "code": "Comma",
         "value": ["", "<"],
         "type": "Symbol",
-        "fixed": [false, true]
+        "punct": true
       },
       {
         "code": "Period",
         "value": ["", ">"],
         "type": "Symbol",
-        "fixed": [false, true]
+        "punct": true
       },
       {
         "code": "Slash",
         "value": ["", ""],
         "type": "Symbol",
-        "fixed": [false, false]
+        "punct": true
       },
       {
         "code": "ShiftRight",

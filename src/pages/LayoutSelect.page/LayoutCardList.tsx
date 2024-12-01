@@ -10,15 +10,12 @@ interface Props {
 const LayoutCardList = ({ layouts }: Props) => {
   return (
     <CardList className="layout-card-list">
-      {layouts?.map((layout, index) => (
+      {layouts?.map((layout) => (
         <LayoutCard
           _id={layout._id}
           title={layout.title}
           keys={[...layout.keyboard.slice(15, 19), ...layout.keyboard.slice(28, 33)]}
           language={layout.language}
-          // keyboard={layout.keyboard}
-          // _id={layout._id}
-          // style={{ animationDelay: `${index * 0.05}s` }}
           key={layout._id}
         />
       ))}

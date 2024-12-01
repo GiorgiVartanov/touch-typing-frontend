@@ -9,12 +9,14 @@ import { useTranslation } from "react-i18next"
 import PageLayout from "../../layout/Page.layout/Page.layout"
 import { Link } from "react-router-dom"
 import Modal from "../../components/Modal/Modal"
+import { useAuthStore } from "../../store/context/authContext"
 
 const PlayPage = () => {
   const { username, users, match_id, matches, CreateMatch, JoinMatch } = usePlayStore()
   const [showModal, setShowModal] = useState<boolean>(false)
   const navigate = useNavigate()
   const { t } = useTranslation("translation", { keyPrefix: "play page" })
+  const { user, token } = useAuthStore()
 
   useEffect(() => {
     if (username === "-1") {
@@ -64,21 +66,32 @@ const PlayPage = () => {
         <div className="active-users">
           {t("Active users")}: {users.length}
         </div>
+        <div className="user-rating">
+          {t("Rating")}:{" "}
+          {user ? (user.rating ? user.rating.toFixed(0) : t("Unrated")) : t("Unrated")}
+        </div>
         <div className="play-body">
           <div className="play-create">
-            {/*აქ იქნება matchSetting Modal*/}
             <Button
               className="create-match-button"
               onClick={clickCreateMatchHandler}
             >
               {t("Create a match")}
             </Button>
-            <Link
-              className="play-page-link"
-              to="../matches"
-            >
-              {t("Match history")}
-            </Link>
+            <div className="link-buttons">
+              <Link
+                className="play-page-link"
+                to="../rating"
+              >
+                {t("Users rating")}
+              </Link>
+              <Link
+                className="play-page-link"
+                to="../matches"
+              >
+                {t("Match history")}
+              </Link>
+            </div>
           </div>
           <PlayMatchesList
             matches={matches}

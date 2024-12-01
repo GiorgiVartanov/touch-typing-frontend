@@ -20,10 +20,6 @@ const MatchHistoricalCard = ({ match, onClick }: Props) => {
         </p>
       </div>
       <p>{match.text.length > 100 ? match.text.slice(0, 100) + "..." : match.text}</p>
-      {/* if we want to show the text generation type, instead of the text */}
-      {/* <p>
-        {match.request ? "text generation type: " + match.request.type : ""}
-      </p> */}
       <div className="match-card-bottom">
         <p>{new Date(match.date).toString().slice(4, 25)}</p>
         <Button onClick={() => onClick(match._id)}>{t("View")}</Button>

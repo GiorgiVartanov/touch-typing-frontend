@@ -15,14 +15,24 @@
     "Click on Project >> Build DLL and Setup Package and select exported layout (it will be a .klc file)": "Click on Project >> Build DLL and Setup Package and select exported layout (.klc file)",
     "Open newly created directory and open setup.exe": "Open newly created directory and open setup.exe",
     "After installing layout, go to Language Preferences >> Preferred languages": "After installing layout, go to Language Preferences >> Preferred languages",
-    "Click on Project >> Test Keyboard Layout and check if it works": "Click on Project >> Test Keyboard Layout and check if it works"
+    "Click on Project >> Test Keyboard Layout and check if it works": "Click on Project >> Test Keyboard Layout and check if it works",
+    "how to install keyboard layout on linux": "how to install keyboard layout on Linux",
+    "how to install keyboard layout on mac": "how to install keyboard layout on MAC",
+    "follow guide at": "follow guide at",
+    "this site": "this site",
+    "Export the keyboard layout by pressing on export button on the keyboard page": "Export the keyboard layout by pressing on export button on the keyboard page"
   },
 
   "lesson page": {
+    "You have to get more than 80% accuracy to unlock the next level.": "You have to get more than 80% accuracy to unlock the next level.",
     "you need to be logged in to save assessment results": "you need to be logged in to save assessment results",
     "Assessment": "Assessment",
     "Lesson texts for the letters": "Lesson texts for the letters",
-    "complete previous assessment to unlock": "complete previous assessment to unlock"
+    "complete previous assessment to unlock": "complete previous assessment to unlock",
+    "you don't have access to this lesson":"you don't have access to this lesson",
+    "something went wrong": "something went wrong",
+    "You have to use 1 second per character on average to unlock the next level\nYou have to fit in": "You have to use 1 second per character on average to unlock the next level\nYou have to fit in",
+    "seconds": "seconds"
   },
 
   "header": {
@@ -76,19 +86,60 @@
     "hand alternation weight": "hand alternation weight",
     "consecutive finger usage weight": "consecutive finger usage weight",
     "same hand finger steps weight": "same hand finger steps weight",
-    "left to right ratio": "left to right ratio",
+    "left to right ratio": "left to right hand effort ratio",
     "finger distance weight": "finger distance weight",
     "punctation placement variants": "punctation placement variants",
     "Custom": "Custom",
-    "Qwerty": "Qwerty",
-    "Dvorjak": "Dvorjak",
+    "qwerty": "Qwerty",
+    "dvorjak": "Dvorjak",
     "Left": "Left",
-    "Middle row free": "Middle row free",
-    "Spread": "Spread",
+    "left": "Left",
+    "middle_free": "Middle row free",
+    "spread": "Spread",
     "Analyse Layout": "Analyse Layout",
     "ANSI-ISO": "ANSI-ISO",
     "ISO": "ISO",
-    "ANSI": "ANSI"
+    "ANSI": "ANSI",
+    "layout exported": "layout was successfully exported",
+    "title": "title",
+    "save layout": "save layout",
+    "by": "by",
+    "show more": "show more ...",
+    "show less": "show less ...",
+    "Layout successfully saved": "Layout successfully saved",
+    "sorry, this character can't be used":"sorry, this character can't be used",
+    "Layout exported": "Layout exported",
+    "log in to save your layout": "log in to save your layout",
+    "Something went wrong while saving layout": "Something went wrong while saving layout",
+    "There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8.":"There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8.",
+    "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17.": "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17.",
+    "this key can't be used": "this key can't be used",
+    "effort function values": "effort function values",
+    "Your": "Your",
+    "Total effort":"Total effort",
+    "finger distance effort": "finger distance effort",
+    "modifier overhead effort": "modifier overhead effort",
+    "hand alternation effort": "hand alternation effort",
+    "consecutive finger usage effort": "consecutive finger usage effort",
+    "same hand finger steps effort": "same hand finger steps effort",
+    "hit direction effort": "hit direction weight",
+    "left hand effort": "left hand effort",
+    "right hand effort": "right hand effort",
+    "analysing your keyboard": "analysing your keyboard",
+    "Right": "Right",
+    "Effort function parameters": "Effort function parameters",
+    "your keyboard layout doesn't contain all the symbols": "your keyboard layout doesn't contain all the symbols",
+    "shift": "Shift",
+    "Optimization process is being initialized":"Optimization process is being initialized",
+    "Generations Complete": "Generations Complete",
+    "number of generations tooltip": "This specifies for how many generations the optimization algorithm will run",
+     "finger distance weight tooltip": "This is a parameter for the distance from a key to the closest finger. Symbols on the keys contribute to the effort function with their frequencies multiplied by distance.",
+    "modifier overhead weight panel": "This is a parameter for the effort of using shift keys for typing symbols. A frequency of the symbols, which are typed using shifts, are added to the effort function.",
+    "hit direction weight tooltip": "This is a parameter for the digraphs which have to be typed with the same hand but the hit direction is from the thumb towards the little finger. afterwards their frequencies are added to the effort function.",
+    "hand alternation weight tooltip": "This is a paramter for the digraphs which have to be typed with the same hand. afterwards their frequencies are added to the effort function.",
+    "consecutive finger usage weight tooltip": "This is a parameter for the digraphs which have to be typed with the same finger and it's keys are on different rows. The vertical differences between the letters, then multiplied by frequencies are summed and added to the effort function.",
+    "same hand finger steps weight tooltip": "This is a parameter for the digraphs which have to be typed with the same hand, different fingers, and the vertical difference between the keys is more than zero. later their frequencies, multiplied by the vertical differences and additional parameters, are added to the effort function.",
+    "successfully selected new layout": "successfully selected new layout"
   },
 
   "profile page": {
@@ -97,6 +148,10 @@
     "your": "your",
     "layouts": "layouts",
     "'s": "'s"
+  },
+
+  "search": {
+    "search": "search"
   },
 
   "practice": {
@@ -120,7 +175,14 @@
     "WPM": "WPM",
     "WPM definition": "Words Per Minute",
     "accuracy": "accuracy",
-    "time": "time"
+    "time": "time",
+    "s": "{{number}}s",
+    "m": "{{number}}m",
+    "Certificate of Completion": "Certificate of Completion",
+    "congratulations, you successfully completed touch typing course": "Congratulations, you successfully completed the Touch Typing course",
+    "Touch Typing": "Touch Typing",
+    "Certificate": "Certificate",
+    "Go to Next Level": "Go to the Next level"
   },
 
   "layout page": {
@@ -128,7 +190,8 @@
     "search": "search",
     "standard layouts": "standard layouts",
     "layouts created by our users": "layouts created by our users",
-    "more options": "more options"
+    "more options": "more options",
+    "something went wrong": "something went wrong"
   },
 
   "main page": {
@@ -151,7 +214,8 @@
     "compete": "Compete",
     "see lessons": "lessons",
     "texts": "texts",
-    "keyboard": "Keyboard"
+    "keyboard": "Keyboard",
+    "page not found": "page not found"
   },
 
   "auth page": {
@@ -166,10 +230,18 @@
     "user with this username does not exist": "user with this username does not exist",
     "username too short": "username should be longer than {{minUsernameLength}} characters",
     "username too long": "username should be shorter than {{maxUsernameLength}} characters",
-    "passwords do not match": "passwords do not match",
+    "passwords do not match": "Passwords do not match",
+    "incorrect password": "incorrect password",
     "after registration, you will be able to": "after registration, you will be able to",
     "save and share your layouts": "save and share your layouts",
-    "save your preferences": "save your preferences"
+    "save your preferences": "save your preferences",
+    "save lesson progress": "save lesson progress",
+    "being able to rank by score": "to rank by score",
+    "user with this username already exists": "user with this username already exists",
+    "Password too short": "password is too short",
+    "Password too long": "password is too long",
+    "password too short": "password should be at least {{minPasswordLength}} characters long",
+    "password too long": "password should not be longer than {{maxPasswordLength}}"
   },
 
   "settings page": {
@@ -214,7 +286,10 @@
     "text example": "text example",
     "text example text": "your text will look like this. words after that are only for length, so you will see how text looks on more than one line",
     "reset settings": "reset settings",
-    "Eng": "English"
+    "Eng": "English",
+    "reset": "Reset",
+    "dismiss": "dismiss",
+    "are you sure you want to reset all settings?":"are you sure you want to reset all settings?"
   },
 
   "play page": {
@@ -237,7 +312,11 @@
     "Search by username": "Search by username",
     "Active users": "Active users",
     "no rooms": "there are not active rooms right now",
-    "no matches": "there are not active matches right now"
+    "no matches": "there are not active matches right now",
+    "Rating": "Rating",
+    "Unrated": "Unrated",
+    "Users rating": "Users rating",
+    "Finished": "Finished"
   },
 
   "forms": {
@@ -255,6 +334,11 @@
     "Corpus words": "Corpus words",
     "Sentences": "Sentences",
     "seconds": "seconds",
-    "View": "View"
+    "View": "View",
+    "Something went wrong, check browser console for more detailed information": "Something went wrong, check browser console for more detailed information"
+  },
+
+  "loading": {
+    "please wait, initial request may take up to 1 minute": "please wait, initial request may take up to 1 minute"
   }
 }

@@ -19,5 +19,5 @@ export interface MatchStateList {
 }
 
 export interface PlayerStateList {
-  [sid: string]: { WPM: number; has_finished?: boolean; username: string }
+  [sid: string]: { WPM: number; has_finished?: boolean; username: string; rating?: number }
 }

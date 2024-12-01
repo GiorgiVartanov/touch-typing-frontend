@@ -6,6 +6,7 @@ import {
   PunctuationPlacement,
   PunctuationPlacementDictionary,
   Analysis,
+  AnalysisSpecific,
 } from "../../types/optimization.types"
 import config from "../../keyboardLayouts/config.json"
 
@@ -23,12 +24,11 @@ export const optimizationInitialState: OptimizationState = {
 }
 
 export const punctuationPlacements: PunctuationPlacementDictionary = {
-  0: [],
-  1: [11, 12, 58, 59, 34, 35, 81, 82, 43, 44, 45, 90, 91, 92, 23, 24, 70, 71],
-  2: [11, 12, 58, 59, 13, 14, 15, 60, 61, 62, 36, 83, 35, 82, 23, 24, 70, 71],
-  3: [11, 12, 58, 59, 13, 14, 60, 61, 25, 72, 36, 37, 83, 84, 23, 24, 70, 71],
-  4: [11, 12, 58, 59, 13, 60, 36, 83, 43, 44, 45, 90, 91, 92, 23, 24, 70, 71],
-  5: [11, 12, 58, 59, 13, 60, 36, 83, 35, 82, 44, 45, 91, 92, 23, 24, 70, 71],
+  0: [11, 12, 58, 59, 34, 35, 81, 82, 43, 44, 45, 90, 91, 92, 23, 24, 70, 71],
+  1: [11, 12, 58, 59, 13, 14, 15, 60, 61, 62, 36, 83, 35, 82, 23, 24, 70, 71],
+  2: [11, 12, 58, 59, 13, 14, 60, 61, 25, 72, 36, 37, 83, 84, 23, 24, 70, 71],
+  3: [11, 12, 58, 59, 13, 60, 36, 83, 43, 44, 45, 90, 91, 92, 23, 24, 70, 71],
+  4: [11, 12, 58, 59, 13, 60, 36, 83, 35, 82, 44, 45, 91, 92, 23, 24, 70, 71],
 }
 
 export const initialOptimizationConfig: OptimizationConfig = {
@@ -58,7 +58,7 @@ export const initialOptimizationConfig: OptimizationConfig = {
   characters_set: [],
 }
 
-export const initialAnalysisEffort: Analysis = {
+export const initialAnalysisSpecificEffort: AnalysisSpecific = {
   total_effort: -1,
   left_hand_effort: 0,
   right_hand_effort: 0,
@@ -68,5 +68,9 @@ export const initialAnalysisEffort: Analysis = {
   consecutive_finger_usage_effort: 0,
   same_hand_finger_steps_effort: 0,
   hit_direction_effort: 0,
-  qwerty_effort: 0,
+}
+
+export const initialAnalysisEffort: Analysis = {
+  your_layout: initialAnalysisSpecificEffort,
+  qwerty: initialAnalysisSpecificEffort,
 }

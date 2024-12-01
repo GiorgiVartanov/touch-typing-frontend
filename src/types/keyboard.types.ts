@@ -8,13 +8,13 @@ export type KeyInterface =
       code: string
       value: string[]
       type: "Letter" | "Symbol" | "Digit"
-      fixed: boolean[] | undefined
+      punct: boolean | undefined
     }
   | {
       code: string
       value: string
       type: "Modifier"
-      fixed: undefined
+      punct: undefined
     }
 
 export interface ModifierKeyInterface {

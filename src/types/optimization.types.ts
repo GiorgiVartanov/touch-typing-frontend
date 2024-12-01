@@ -12,6 +12,7 @@ export interface OptimizationState {
   optimizationStatus: ProcessStatus
   optimizedEditingKeyboard: KeyInterface[] | undefined
   analysis: Analysis | undefined
+  punctuation_indices: number[]
 }
 
 export enum ProcessStatus {
@@ -71,19 +72,18 @@ export interface Character {
 }
 
 export enum PunctuationPlacement {
-  custom = 0,
-  qwerty = 1,
-  dvorjak = 2,
-  left = 3,
-  middle_free = 4,
-  spread = 5,
+  qwerty = 0,
+  dvorjak = 1,
+  left = 2,
+  middle_free = 3,
+  spread = 4,
 }
 
 export interface PunctuationPlacementDictionary {
   [placement: number]: number[]
 }
 
-export interface Analysis {
+export interface AnalysisSpecific {
   total_effort: number
   left_hand_effort: number
   right_hand_effort: number
@@ -93,5 +93,9 @@ export interface Analysis {
   consecutive_finger_usage_effort: number
   same_hand_finger_steps_effort: number
   hit_direction_effort: number
-  qwerty_effort: number
+}
+
+export interface Analysis {
+  your_layout: AnalysisSpecific
+  qwerty: AnalysisSpecific
 }

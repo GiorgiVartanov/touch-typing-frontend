@@ -13,6 +13,7 @@ interface Props {
     | "left"
   tooltipContent: string
   showAsterisk?: boolean
+  maxWidth?: string
   className?: string
 }
 
@@ -21,12 +22,14 @@ const Tooltip = ({
   tooltipPosition = "bottom-right",
   tooltipContent,
   showAsterisk = false,
+  maxWidth = "auto",
   className = "",
 }: Props) => {
   return (
     <div
       data-tooltip={tooltipContent}
-      className={`tooltip tooltip-${tooltipPosition} ${className}`}
+      style={{ "--max-width": maxWidth }}
+      className={`tooltip ${maxWidth ? "tooltip-fixed-width" : ""} tooltip-${tooltipPosition} ${className}`}
     >
       {children}
       {showAsterisk ? "*" : ""}

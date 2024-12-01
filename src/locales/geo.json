@@ -1,6 +1,6 @@
 {
   "modal": {
-    "click anywhere to close": "გასათიშებლად დააწკაპეთ",
+    "click anywhere to close": "გასათიშად დააწკაპეთ",
     "are you sure you want to log out?": "გასვლა ნამდვილად გსურთ?",
     "stay": "დარჩენა",
     "log out": "გასვლა"
@@ -8,21 +8,31 @@
 
   "guide page": {
     "how to install keyboard layout on windows": "როგორ უნდა იყოს დაინსტალირებული კლავიატურის განლაგება თქვენს კომპიუტერზე",
-    "Install": "ჩაწერეთ დააინსტალირეთ",
+    "Install": "ჩაწერეთ და დააინსტალირეთ",
     "Microsoft Keyboard Layout Creator Tool 1.4 (MSKLC)": "Microsoft Keyboard Layout Creator Tool 1.4 (MSKLC)",
     "Click on File >> Load Source File and select exported layout (it will be a .klc file)": "დააჭირეთ File >> Load Source File და აირჩიეთ დაექსპორტებული განლაგება (.klc გაფართოების ფაილი)",
     "Open MSKLC": "გახსენით MSKLC",
     "Click on Project >> Build DLL and Setup Package and select exported layout (it will be a .klc file)": "დააჭირეთ Project >> Build DLL და Setup Package და აირჩიეთ დაექსპორტებული განლაგება (.klc გაფართოების ფაილი)",
     "Open newly created directory and open setup.exe": "გახსენით ახალშექმნილი დირექტორია და გახსენით setup.exe ფაილი",
     "After installing layout, go to Language Preferences >> Preferred languages": "განლაგების დაინსტალირების შემდეგ, გადადით Language Preferences >> Preferred languages",
-    "Click on Project >> Test Keyboard Layout and check if it works": "დააჭირეთ Project >> Test Keyboard Layout და შეამოწმეთ ის"
+    "Click on Project >> Test Keyboard Layout and check if it works": "დააჭირეთ Project >> Test Keyboard Layout და შეამოწმეთ ის",
+    "how to install keyboard layout on linux": "როგორ უნდა დაინსტალირდეს განლაგება ლინუქსზე",
+    "how to install keyboard layout on mac": "როგორ უნდა დაინსტალირდეს განლაგება მაკზე",
+    "follow guide at": "გაყევით ინსტრუქციას",
+    "this site": "ამ საიტზე",
+    "Export the keyboard layout by pressing on export button on the keyboard page": "დააექსპორტეტ კლავიატურის განლაგება ექსპორტის ღილაკის გამოყენებით კლავიატურის გვერდზე"
   },
 
   "lesson page": {
+    "You have to get more than 80% accuracy to unlock the next level.": "თქვენ უნდა გქონდეთ მინიმუმ 80% სიზუსტე შემდეგ ეტაპზე გადასასვლელად.",
     "you need to be logged in to save assessment results": "თქვენ უნდა იყოთ დარეგისტრირებული გაკვეთულის შეფასების შესანახად",
     "Assessment": "შეფასება",
     "Lesson texts for the letters": "გაკვეთულები ასოებისთვის :",
-    "complete previous assessment to unlock": "გასახსნელად დაასრულეთ წინა შემოწმება"
+    "complete previous assessment to unlock": "გასახსნელად დაასრულეთ წინა შემოწმება",
+    "you don't have access to this lesson": "თქვენ არ გაქვთ წვდომა ამ გაკვეთილზე",
+    "something went wrong": "რაღაც ხარვეზია",
+    "You have to use 1 second per character on average to unlock the next level\nYou have to fit in": "თქვენ უნდა გამოიყენოთ მაქსიმუმ 1 წამი ერთ ასოზე საშუალოდ, რათა გადახვიდეთ შემდეგ ეტაპზე\nთქვენ უნდა ჩაეტიოთ",
+    "seconds":"წამში"
   },
 
   "header": {
@@ -70,33 +80,78 @@
     "show": "კლავიატურის ჩვენება",
     "Erase": "წაშლა",
     "Optimize Layout": "განლაგების ოპტიმიზაცია",
-    "number of generations": "number of generations",
-    "modifier overhead weight": "modifier overhead weight",
-    "hit direction weight": "hit direction weight",
-    "hand alternation weight": "hand alternation weight",
-    "consecutive finger usage weight": "consecutive finger usage weight",
-    "same hand finger steps weight": "same hand finger steps weight",
-    "left to right ratio": "left to right ratio",
-    "finger distance weight": "finger distance weight",
-    "punctation placement variants": "punctation placement variants",
+    "number of generations": "გენერაციათა ოდენობა",
+    "modifier overhead weight": "შიფტიანი ღილაკების წონა",
+    "hit direction weight": "ხელის თითების მიმართულება",
+    "hand alternation weight": "ხელების ალტერნაციის წონა",
+    "consecutive finger usage weight": "მიმდევრობით თითის გამოყენება",
+    "same hand finger steps weight": "სხვადასხვა თითის ნაბიჯები",
+    "left to right ratio": "მარცხენისა და მარჯვენა ხელის ძალისხმევების თანაფარდობა",
+    "finger distance weight": "თითებიდან დაშორების წონა",
+    "punctation placement variants": "სასვენ ნიშანთა განლაგების ვარიანტები",
     "Custom": "Custom",
-    "Qwerty": "Qwerty",
-    "Dvorjak": "Dvorjak",
-    "Left": "Left",
-    "Middle row free": "Middle row free",
-    "Spread": "Spread",
-    "Analyse Layout": "Analyse Layout",
+    "qwerty": "Qwerty",
+    "dvorjak": "Dvorjak",
+    "Left": "მარცხენა",
+    "left": "მარცხენა",
+    "middle_free": "შუა მწკრივი თავისუფალი",
+    "spread": "გაფანტული",
+    "Analyse Layout": "განლაგების გაანალიზირება",
     "ANSI-ISO": "ANSI-ISO",
     "ISO": "ISO",
-    "ANSI": "ANSI"
+    "ANSI": "ANSI",
+    "layout exported": "განლაგება იყო წარმატებით დაექსპორტებული",
+    "title": "სათაური",
+    "save layout": "განლაგების შენახვა",
+    "by": "შემქმნელი",
+    "show more": "მეტის ნახვა ...",
+    "show less": "ნაკლების ნახვა ...",
+    "Layout successfully saved": "განლაგება წარმატებით შეინახა",
+    "sorry, this character can't be used": "უკაცრავად, ამ სიმბოლოს გამოყენება შეუძლებელია",
+    "Layout exported": "განლაგება ექსპორტირებულია",
+    "log in to save your layout": "გაიარეთ ავტორიზაცია განლაგების შესანახად",
+    "Something went wrong while saving layout": "გვაქვს ხარვეზი განლაგების შენახვისას",
+    "There is not enough space for all the punctuation. The number of keys for punctuation should be at least 8.":"არ არის ადგილი ყველა სასვენი ნიშნისთვის. ღილაკთა ოდენობა სასვენი ნიშნებისთვის უნდა იყოს მინიმუმ 8",
+    "There is not enough space for all the Georgian letters. The number of keys for letters should be at least 17.":"არ არის ადგილი ყველა ქართული ასოსთვის. ღილაკთა ოდენობა ასოებისთვის უნდა იყოს მინიმუმ 17",
+    "this key can't be used": "ამ ღილაკის გამოყენება არ შეიძლება",
+    "effort function values": "ხარჯის ფუნქციის მნიშვნელობები",
+    "Your": "თქვენი",
+    "Total effort": "სრული ხარჯი",
+    "finger distance effort": "თითებიდან დაშორების ხარჯი",
+    "modifier overhead effort": "შიფტიანი ღილაკების ხარჯი",
+    "hand alternation effort": "ხელების ალტერნაციის ხარჯი",
+    "consecutive finger usage effort": "მიმდევრობით თითის გამოყენების ხარჯი",
+    "same hand finger steps effort": "ხელის სხვადასხვა თითის ნაბიჯების ხარჯი",
+    "hit direction effort": "ხელის თითების მიმართულების ხარჯი",
+    "left hand effort": "მარცხენა ხელის ხარჯი",
+    "right hand effort": "მარჯვენა ხელის ხარჯი",
+    "analysing your keyboard": "მიმდინარეობს თქვენი კლავიატურის ანალიზი",
+    "Right": "მარჯვენა",
+    "Effort function parameters": "ხარჯის ფუნქციის პარამეტრები",
+    "your keyboard layout doesn't contain all the symbols": "თქვენი ასოების განლაგება კლავიატურაზე არ შეიცავს ყველა სიმბოლოს",
+    "shift": "შიფტი",
+    "Optimization process is being initialized": "ოპტიმიზაციის პროცესი ინიციალიზდება",
+    "Generations Complete": "შესრულებული გენერაციები",
+    "number of generations tooltip": "ეს განსაზღვრავს, რამდენი გენერაციის განმავლობაში იმუშავებს ოპტიმიზაციის ალგორითმი",
+    "finger distance weight tooltip": "ეს არის პარამეტრი კლავიშიდან უახლოეს თითამდე მანძილისთვის. კლავიშების სიმბოლოები ხარჯის ფუნქციაში შედიან მათი სიხშირეების გამრავლებით მანძილზე.",
+    "modifier overhead weight panel": "ეს არის პარამეტრი სიმბოლოების აკრეფისას shift კლავიშების გამოყენების ძალისხმევისთვის. Shift-ით დაწერილი სიმბოლოების სიხშირეები ემატება ძალისხმევის ფუნქციას.",
+    "hit direction weight tooltip": "ეს არის პარამეტრი დიგრაფებისთვის, რომლებიც უნდა აკრიფოთ ერთი და იმავე ხელით, მაგრამ კრეფის მიმართულება არის ცერა თითიდან ნეკა თითისკენ. შემდგომ ასეთი დიგრაფების სიხშირეები ემატება ძალისხმევის ფუნქციას.",
+    "hand alternation weight tooltip": "ეს არის პარამეტრი დიგრაფებისთვის, რომლებიც უნდა აკრიფოთ ერთი და იმავე ხელით. ასეთი დიგრაფების სიხშირეები ემატება ძალისხმევის ფუნქციას.",
+    "consecutive finger usage weight tooltip": "ეს არის პარამეტრი დიგრაფებისთვის, რომლებიც უნდა აკრიფოთ ერთი და იმავე თითით, ხოლო ასაკრეფი სიმბოლოები განლაგებულია კლავიატურის სხვადასხვა მწკრივში. ასოების ვერტიკალური დაშორებებს ვამრავლებთ სიხშირეებზე და ვუმატებთ ძალისხმევის ფუნქციას.",
+    "same hand finger steps weight tooltip": "ეს არის პარამეტრი დიგრაფებისთვის, რომლებიც უნდა აკრიფოთ ერთი და იმავე ხელით, თუმცა სხვადასხვა თითით, და სიმბოლოების ვერტიკალური დაშორება კლავიატურაზე მეტია ნულზე. მათი სიხშირეები, მრავლდება კონკრეტულ პარამეტრებზე სიმბოლოთა განლაგების მიხედვით და ემატება ძალისხმევის ფუნქციას."  ,
+    "successfully selected new layout": "წარმატებით აირჩიეთ ახალი განლაგება"
   },
 
   "profile page": {
     "currently selected layout": "არჩეული განლაგება",
-    "'s profile page": "ის პროფილი",
+    "'s profile page": "-ის პროფილი",
     "your": "თქვენი",
     "layouts": "განლაგებები",
     "'s": " ის"
+  },
+
+  "search": {
+    "search": "ძებნა"
   },
 
   "practice": {
@@ -120,7 +175,14 @@
     "WPM": "WPM",
     "WPM definition": "სიტყვა წუთში",
     "accuracy": "სიზუსტე",
-    "time": "დრო"
+    "time": "დრო",
+    "s": "{{number}}წმ",
+    "m": "{{number}}წთ",
+    "Certificate of Completion": "წარმატებით დასრულების სერტიფიკატი",
+    "congratulations, you successfully completed touch typing course": "გილოცავთ, თქვნ წარმატებით დაასრულეთ ბრმად ბეჭდვის კურსი",
+    "Touch Typing": "ბრმად ბეჭდვა",
+    "Certificate": "სერტიფიკატი",
+    "Go to Next Level": "შემდეგ გაკვეთილზე გადასვლა"
   },
 
   "layout page": {
@@ -128,7 +190,8 @@
     "search": "ძებნა",
     "standard layouts": "სტანდარტული განლაგებები",
     "layouts created by our users": "ჩვენი მომხმარებლების განალგებები",
-    "more options": "მეტი პარამეტრი"
+    "more options": "მეტი პარამეტრი",
+    "something went wrong": "რაღაც ხარვეზია"
   },
 
   "main page": {
@@ -145,32 +208,40 @@
     "compete against other users": "შეეჯიბრე სხვა მომხმარებლებს",
     "Challenge fellow users to real-time matches and put your typing skills to the test in thrilling competitions.": "დაუპირისპირდით სხვა მომხმარებლებს რეალურ დროში და შეამოწმეთ თქვენი ბეჭდვის უნარი შეჯიბრებში",
     "follow carefully crafted lessons": "ისწავლეთ ბეჭდვა ნებისმიერ განლაგებაზე",
-    "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.",
+    "Embark on a journey of learning with our meticulously designed lessons, carefully structured to enhance your typing proficiency and efficiency.": "დაიწყეთ ბრმად ბეჭდვის სწავლის თავგადასავალი ჩვენი ზედმიწევნით შემუშავებული გაკვეთილებით, ყურადღებით სტრუქტურირებული თქვენი ბეჭდვის მაქსიმალურად გაუმჯობესებისათვის.",
     "select layout": "არჩევა",
     "create layout": "შექმნა",
     "compete": "შეჯიბრი",
     "see lessons": "გაკვეთილები",
     "texts": "ტექსტები",
-    "keyboard": "კლავიატურა"
+    "keyboard": "კლავიატურა",
+    "page not found": "გვერდი ვერ მოიძებნა"
   },
 
   "auth page": {
     "username": "მომხმარებლის სახელი",
     "password": "პაროლი",
-    "confirm password": "გაიმეორე პაროლი",
+    "confirm password": "პაროლის გამეორება",
     "log in": "შესვლა",
     "register": "რეგისტრაცია",
     "don't have account yet? register": "არ გაქვს ანგარიში? დარეგისტრირდი",
     "already have account? log in": "უკვე გაქვს ანგარიში? გაიარე ავტორიზაცია",
     "this field should not be empty": "ეს ველი არ უნდა იყოს ცარიელი",
     "user with this username does not exist": "მომხმარებელი ამ სახელით არ არსებობს",
-    "username too short": "მომხმარებლის სახელი უნდა იყოს {{minUsernameLength}} სიმბოლოზე უფრო გრძელი",
-    "username too long": "მომხმარებლის სახელი უნდა იყოს {{maxUsernameLength}} სიმბოლოზე უფრო გრძელი",
+    "username too short": "მომხმარებლის სახელი უნდა შეიცავდეს მინიმუმ {{minUsernameLength}} სიმბოლოს",
+    "username too long": "მომხმარებლის სახელი უნდა შეიცავდეს მაქსიმუმ {{maxUsernameLength}} სიმბოლოს",
     "passwords do not match": "პაროლები ერთმანეთს არ ემთხვევა",
     "incorrect password": "პაროლი არასწორია",
     "after registration, you will be able to": "რეგისტრაციის შემდეგ თქვენ შეძლებთ",
     "save and share your layouts": "თავისი კლავიატურის განლაგების შენახვა და გაზიარება",
-    "save your preferences": "თავისი პარამეტრების შენახვა"
+    "save your preferences": "თავისი პარამეტრების შენახვა",
+    "save lesson progress": "შეინახოთ სავარჯიშოების პროგრესი",
+    "being able to rank by score": "ქულების მიხედვით დარანჟირდეთ",
+    "user with this username already exists": "მომხმარებელი ამ მომხმარებლის სახელით უკვე არსებობს",
+    "Password too short": "პაროლი არის მოკლე",
+    "Password too long": "პაროლი არის გრძელი",
+    "password too short": "პაროლი უნდა შეიცავდეს მინიმუმ {{minPasswordLength}} სიმბოლოს",
+    "password too long": "პაროლი უნდა შეიცავდეს მაქსიმუმ {{maxPasswordLength}} სიმბოლოს"
   },
 
   "settings page": {
@@ -215,7 +286,10 @@
     "text example": "ტექსტის მაგალითი",
     "text example text": "თქვენი ტექსტი ასე იქნება გამოსახული. შემდეგი სიტყვები მხოლოდ სიგრძისთვისაა, რომ თქვენ ნახოთ თუ როგორ გამოიყურება ტექსტი ერთზე მეტ სტრიქონზე",
     "reset settings": "თავდაპირველ პარამეტრებზე დაბრუნება",
-    "Eng": "ინგლისური"
+    "Eng": "ინგლისური",
+    "reset": "გადატვირთვა",
+    "dismiss": "უგულებელყოფა",
+    "are you sure you want to reset all settings?": "დარწმუნებული ხართ, რომ გსურთ თქვენი პარამეტრების გადატვირთვა?"
   },
 
   "play page": {
@@ -237,8 +311,12 @@
     "Results": "შედეგები",
     "Search by username": "მოძებნეთ მომხმარებლის სახელით",
     "Active users": "აქტიური მომხმარებლები",
-    "no rooms": "there are not active rooms right now",
-    "no matches": "there are not active matches right now"
+    "no rooms": "ამ მომენტში აქტიური ოთახები არაა",
+    "no matches": "ამ მომენტში აქტიური მატჩები არაა",
+    "Rating": "რეიტინგი",
+    "Unrated": "ურეიტინგო",
+    "Users rating": "მომხმარებელთა რეიტინგი",
+    "Finished": "დაასრულა"
   },
 
   "forms": {
@@ -256,6 +334,11 @@
     "Corpus words": "სიტყვები",
     "Sentences": "წინადადებები",
     "seconds": "წამი",
-    "View": "ნახვა"
+    "View": "ნახვა",
+    "Something went wrong, check browser console for more detailed information": "რაღაც ხარვეზია, შეამოწმეთ ბრაუზერის კონსოლი დეტალური ინფორმაციისთვის"
+  },
+
+  "loading": {
+    "please wait, initial request may take up to 1 minute": "გთხოვთ დაელოდეთ, საწყისი მოთხოვნის შესრულება შეიძლება 1 წუთამდე გაგრძელდეს"
   }
 }

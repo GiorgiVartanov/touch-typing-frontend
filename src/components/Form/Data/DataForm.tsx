@@ -66,7 +66,9 @@ const DataForm = ({ CreateMatch, setShowModal, className = "" }: FormProps) => {
 
   if (loading) return <Loading />
   if (error)
-    return <div>Something went wrong, check browser console for more detailed information</div>
+    return (
+      <div>{t("Something went wrong, check browser console for more detailed information")}</div>
+    )
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault()

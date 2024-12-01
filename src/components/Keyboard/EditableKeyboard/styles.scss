@@ -1,5 +1,4 @@
 .editable-keyboard {
-  // pointer-events: none;
   .key {
     &.editable {
       transition:
@@ -21,7 +20,17 @@
         outline: 2px solid var(--warning color);
         color: var(--warning-color);
       }
+
+      &:not(.punct) {
+        // Add your special styles here
+        font-size: medium; /* Example */
+        background-color: rgb(112, 113, 182); /* Example */
+      }
     }
+  }
+  .punct {
+    font-size: large;
+    background-color: rgb(62, 158, 113) !important;
   }
 }
 
@@ -44,10 +53,6 @@
   box-shadow: 0 2px 4px -1px var(--shadow-color);
   opacity: 1;
 
-  // &:hover {
-  //   box-shadow: 0 2px 6px 2px var(--shadow-color);
-  // }
-
   .shift-value-text {
     position: absolute;
     left: 2.25rem;
@@ -58,35 +63,22 @@
 
   &.selected-key-open {
     opacity: 1;
-
-    // animation: 200ms var(--animation-function) selectedEditableKeyAppear forwards;
   }
 
   &.selected-key-closed {
     opacity: 1;
-
-    // animation: 200ms var(--animation-function) selectedEditableKeyDisappear forwards;
   }
 
   .editable-key-value {
     font-size: 2rem;
     height: 3rem;
     width: 3rem;
-    // opacity: 0;
     text-align: center;
     font-weight: 400;
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
-    // font-family: monospace;
-    // caret-color: transparent; // blinking vertical line
-
-    &:focus {
-      // outline: 2px solid var(--primary-color);
-    }
-
-    // animation: 200ms 50ms linear selectedEditableKeyValuesAppear forwards;
   }
 
   input.editable-key-value {
@@ -122,7 +114,6 @@
     }
   }
 
-  // &.Symbol-key,
   &.Digit-key {
     position: relative;
 
@@ -147,18 +138,8 @@
   }
 }
 
-.reset-key-button {
-  // padding: 0.25rem 0.5rem;
-}
-
 .save-layout-modal {
-  // height: 100%;
   min-height: fit-content !important;
-  // width: fit-content;
-
-  .modal-content {
-    // height: 100%;
-  }
 
   form {
     display: flex;
@@ -177,8 +158,33 @@
   }
 }
 
-.optimize-layout-panel {
-  .optimize-layout-form {
+.optimize-layout-button {
+  display: flex;
+  gap: 1rem;
+}
+
+.optimize-panel {
+  position: relative;
+
+  .optimization-status {
+    position: absolute;
+    white-space: nowrap;
+
+    .complete-generations {
+      opacity: 0.75;
+    }
+  }
+}
+
+.configurator-layout-panel {
+  .slider-wrapper {
+    margin-top: 0.5rem;
+    border-top: 2px solid var(--secondary-background-color);
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+  }
+
+  .configurator-layout-form {
     max-width: 960px;
     flex: 1;
     width: 100%;
@@ -189,7 +195,7 @@
       display: grid;
       grid-template-columns: repeat(3, 225px);
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.25rem;
     }
 
     input {
@@ -200,7 +206,38 @@
       width: 200px;
       margin-right: auto;
     }
+
+    .effort-usages {
+      display: flex;
+      height: fit-content;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      button {
+        margin-top: 0;
+      }
+    }
   }
+}
+
+.warning-list {
+  p {
+    color: var(--warning-color);
+  }
+
+  ul {
+    list-style: circle;
+    margin-left: 1.5rem;
+
+    color: var(--warning-color);
+  }
+}
+
+.show-more-details-button {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  width: fit-content;
+  padding-left: 0 !important;
+  margin-top: 0 !important;
 }
 
 @keyframes selectedEditableKeyAppear {
@@ -238,4 +275,58 @@
     opacity: 1;
     transform: translateX(0);
   }
+}
+.vertically-placed {
+  h2 {
+    font-size: 1.45rem;
+    margin-bottom: 0.5rem;
+  }
+}
+.two-columns {
+  .effort-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-bottom: 2px solid var(--secondary-background-color);
+    padding-bottom: 0.25rem;
+  }
+  .effort-info:nth-of-type(1) {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .effort-info:nth-of-type(2) {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+  }
+}
+
+.differentiator {
+  width: 100%;
+  text-align: right;
+}
+
+.effort-function {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.effort-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .effort-values {
+    display: flex;
+    flex-direction: row;
+    width: 22%;
+    justify-content: space-between;
+  }
+}
+
+.punctuation-label {
+  margin-top: 0.5rem;
+  border-bottom: 2px solid var(--secondary-background-color);
+  border-top: 2px solid var(--secondary-background-color);
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
 }

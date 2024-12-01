@@ -1,4 +1,5 @@
-type Language = "Geo" | "Eng"
+import georgianLetters from "../letters/georgian.json"
+import punctuation from "../letters/symbols.json"
 
 interface KeyboardKey {
   code: string
@@ -13,153 +14,63 @@ interface KeyboardLayout {
   public: boolean
   official: boolean
   keyboard: KeyboardKey[]
+  number: number
 }
 
-// helper function to map key code to the required SC and VK_ values
-const keyCodeMap: { [key: string]: string } = {
-  Backquote: "29",
-  Digit1: "02",
-  Digit2: "03",
-  Digit3: "04",
-  Digit4: "05",
-  Digit5: "06",
-  Digit6: "07",
-  Digit7: "08",
-  Digit8: "09",
-  Digit9: "0a",
-  Digit0: "0b",
-  Minus: "0c",
-  Equal: "0d",
-  KeyQ: "10",
-  KeyW: "11",
-  KeyE: "12",
-  KeyR: "13",
-  KeyT: "14",
-  KeyY: "15",
-  KeyU: "16",
-  KeyI: "17",
-  KeyO: "18",
-  KeyP: "19",
-  BracketLeft: "1a",
-  BracketRight: "1b",
-  Backslash: "2b",
-  KeyA: "1e",
-  KeyS: "1f",
-  KeyD: "20",
-  KeyF: "21",
-  KeyG: "22",
-  KeyH: "23",
-  KeyJ: "24",
-  KeyK: "25",
-  KeyL: "26",
-  Semicolon: "27",
-  Quote: "28",
-  KeyZ: "2c",
-  KeyX: "2d",
-  KeyC: "2e",
-  KeyV: "2f",
-  KeyB: "30",
-  KeyN: "31",
-  KeyM: "32",
-  Comma: "33",
-  Period: "34",
-  Slash: "35",
-  Space: "39",
-  Backspace: "0e",
-  Tab: "0f",
-  CapsLock: "3a",
-  Enter: "1c",
-  ShiftLeft: "2a",
-  ShiftRight: "36",
-  ControlLeft: "1d",
-  ControlRight: "1d",
-  MetaLeft: "5b",
-  MetaRight: "5c",
-  AltLeft: "38",
-  AltRight: "38",
-  ContextMenu: "5d",
-  Decimal: "53",
-  OEM_1: "27",
-  OEM_2: "35",
-  OEM_3: "29",
-  OEM_4: "1a",
-  OEM_5: "56",
-  OEM_6: "1b",
-  OEM_7: "28",
-  OEM_8: "2b",
-  OEM_PLUS: "0d",
-  OEM_MINUS: "0c",
-  OEM_COMMA: "33",
-  OEM_PERIOD: "34",
-}
-
-const keyMap = {
-  Backquote: "OEM_3",
-  Digit1: "DIGIT ONE",
-  Digit2: "DIGIT TWO",
-  Digit3: "DIGIT THREE",
-  Digit4: "4",
-  Digit5: "5",
-  Digit6: "6",
-  Digit7: "7",
-  Digit8: "8",
-  Digit9: "9",
-  Digit0: "0",
-  Minus: "OEM_MINUS",
-  Equal: "OEM_PLUS",
-  Backspace: "BACKSPACE",
-  Tab: "TAB",
-  ქ: "GEORGIAN LETTER KHAR",
-  წ: "GEORGIAN LETTER CIL",
-  ჭ: "GEORGIAN LETTER CHAR",
-  რ: "GEORGIAN LETTER RAE",
-  ტ: "GEORGIAN LETTER TAR",
-  თ: "GEORGIAN LETTER TAN",
-  ყ: "GEORGIAN LETTER QAR",
-  უ: "GEORGIAN LETTER UN",
-  ი: "GEORGIAN LETTER IN",
-  ო: "GEORGIAN LETTER ON",
-  პ: "GEORGIAN LETTER PAR",
-  BracketLeft: "OEM_4",
-  BracketRight: "OEM_6",
-  Backslash: "OEM_5",
-  CapsLock: "CAPSLOCK",
-  ა: "GEORGIAN LETTER AN",
-  ს: "GEORGIAN LETTER SAN",
-  შ: "GEORGIAN LETTER SHIN",
-  დ: "GEORGIAN LETTER DON",
-  ფ: "GEORGIAN LETTER PHAR",
-  გ: "GEORGIAN LETTER GAN",
-  ჰ: "GEORGIAN LETTER HAE",
-  ჯ: "GEORGIAN LETTER JHAN",
-  ჟ: "GEORGIAN LETTER ZHAR",
-  კ: "GEORGIAN LETTER KAN",
-  ლ: "GEORGIAN LETTER LAS",
-  Semicolon: "OEM_1",
-  Quote: "OEM_7",
-  Enter: "ENTER",
-  ShiftLeft: "LSHIFT",
-  ზ: "GEORGIAN LETTER ZEN",
-  ძ: "GEORGIAN LETTER ZHAR",
-  ხ: "GEORGIAN LETTER KHAR",
-  ც: "GEORGIAN LETTER CAN",
-  ჩ: "GEORGIAN LETTER CHIN",
-  ვ: "GEORGIAN LETTER VIN",
-  ბ: "GEORGIAN LETTER BAN",
-  ნ: "GEORGIAN LETTER NAR",
-  მ: "GEORGIAN LETTER MAN",
-  Comma: "OEM_COMMA",
-  Period: "OEM_PERIOD",
-  Slash: "OEM_2",
-  ShiftRight: "RSHIFT",
-  ControlLeft: "LCTRL",
-  MetaLeft: "LWIN",
-  AltLeft: "LALT",
-  Space: "SPACE",
-  AltRight: "RALT",
-  MetaRight: "RWIN",
-  ContextMenu: "APPS",
-  ControlRight: "RCTRL",
+//you could add 10d0 the distance from letter x to letter 'ა', so 'ვ' = 10d0 + ('ვ' - 'ა') = 10d0 + 5 = 10d5, still let's save everything, this way we
+//reduce calculations, but memory is used.
+const keyMapDato = {
+  ა: "10d0",
+  ბ: "10d1",
+  გ: "10d2",
+  დ: "10d3",
+  ე: "10d4",
+  ვ: "10d5",
+  ზ: "10d6",
+  თ: "10d7",
+  ი: "10d8",
+  კ: "10d9",
+  ლ: "10da",
+  მ: "10db",
+  ნ: "10dc",
+  ო: "10dd",
+  პ: "10de",
+  ჟ: "10df",
+  რ: "10e0",
+  ს: "10e1",
+  ტ: "10e2",
+  უ: "10e3",
+  ფ: "10e4",
+  ქ: "10e5",
+  ღ: "10e6",
+  ყ: "10e7",
+  შ: "10e8",
+  ჩ: "10e9",
+  ც: "10ea",
+  ძ: "10eb",
+  წ: "10ec",
+  ჭ: "10ed",
+  ხ: "10ee",
+  ჯ: "10ef",
+  ჰ: "10f0",
+  "-": "002d",
+  _: "005f",
+  "=": "003d",
+  "+": "002b",
+  "[": "005b",
+  "{": "007b",
+  "]": "005d",
+  "}": "007d",
+  ";": "003b",
+  ":": "003a",
+  "'": "0027",
+  '"': "0022",
+  ",": "002c",
+  "<": "003c",
+  ".": "002e",
+  ">": "003e",
+  "/": "002f",
+  "?": "003f",
 }
 
 export const transformKeyboardLayout = (layout: KeyboardLayout): string => {
@@ -167,10 +78,9 @@ export const transformKeyboardLayout = (layout: KeyboardLayout): string => {
 
   const date = new Date()
 
-  let klcContent = `
-KBD\t"${layout.title}"
+  let klcContent = `KBD\tLayout${layout.number}\t"Georgian (${layout.title}) - ${layout.number}"
 
-COPYRIGHT\t"(c) ${date.getFullYear()} Company (not really :/)"
+COPYRIGHT\t"(c) ${date.getFullYear()} Company"
 
 COMPANY\t"Company"
 
@@ -182,37 +92,139 @@ VERSION\t1.0
 
 SHIFTSTATE
 
-0\t//Column 4
-1\t//Column 5 : Shft
-2\t//Column 6 :       Ctrl
-6\t//Column 7 :       Ctrl Alt
-7\t//Column 8 : Shft  Ctrl Alt
+0
+1
+2
+6
 
 LAYOUT\t\t;an extra '@' at the end is a dead key
 
-//SC\tVK_\t\tCap\t0\t1\t2\t6
-//--\t----\t\t----\t----\t----\t----\t----\t----
-`
+//SC	VK_		Cap	0	1	2	6
+//--	----		----	----	----	----	----
 
-  // adds keyboard layout details
+02	1		0	1	0021	-1	-1		// DIGIT ONE, EXCLAMATION MARK, <none>, <none>
+03	2		0	2	0040	-1	201e		// DIGIT TWO, COMMERCIAL AT, <none>, DOUBLE LOW-9 QUOTATION MARK
+04	3		0	3	0023	-1	201c		// DIGIT THREE, NUMBER SIGN, <none>, LEFT DOUBLE QUOTATION MARK
+05	4		0	4	0024	-1	-1		// DIGIT FOUR, DOLLAR SIGN, <none>, <none>
+06	5		0	5	0025	-1	20ac		// DIGIT FIVE, PERCENT SIGN, <none>, EURO SIGN
+07	6		0	6	005e	-1	-1		// DIGIT SIX, CIRCUMFLEX ACCENT, <none>, <none>
+08	7		0	7	0026	-1	-1		// DIGIT SEVEN, AMPERSAND, <none>, <none>
+09	8		0	8	002a	-1	00b0		// DIGIT EIGHT, ASTERISK, <none>, DEGREE SIGN
+0a	9		0	9	0028	-1	-1		// DIGIT NINE, LEFT PARENTHESIS, <none>, <none>
+0b	0		0	0	0029	-1	-1		// DIGIT ZERO, RIGHT PARENTHESIS, <none>, <none>
+`
+  const helperStringPrefix: string[] = [
+    "0c	OEM_MINUS	0	002d	005f	-1	2014		// HYPHEN-MINUS, LOW LINE, <none>, EM DASH",
+    "0d	OEM_PLUS	0	003d	002b	-1	2013		// EQUALS SIGN, PLUS SIGN, <none>, EN DASH",
+    "10	Q		0",
+    "11	W		0",
+    "12	E		0",
+    "13	R		0",
+    "14	T		0",
+    "15	Y		0",
+    "16	U		0",
+    "17	I		0",
+    "18	O		0",
+    "19	P		0",
+    "1a	OEM_4		0",
+    "1b	OEM_6		0",
+    "1e	A		0",
+    "1f	S		0",
+    "20	D		0",
+    "21	F		0",
+    "22	G		0",
+    "23	H		0",
+    "24	J		0",
+    "25	K		0",
+    "26	L		0",
+    "27	OEM_1		0",
+    "28	OEM_7		0",
+    "29	OEM_3		0	201e	201c	-1	-1		// DOUBLE LOW-9 QUOTATION MARK, LEFT DOUBLE QUOTATION MARK, <none>, <none>",
+    "2b	OEM_5		0	007e	007c	-1	-1		// TILDE, VERTICAL LINE, <none>, <none>",
+    "2c	Z		0",
+    "2d	X		0",
+    "2e	C		0",
+    "2f	V		0",
+    "30	B		0",
+    "31	N		0",
+    "32	M		0",
+    "33	OEM_COMMA	0",
+    "34	OEM_PERIOD	0",
+    "35	OEM_2		0",
+  ]
+
+  const helperStringSuffix: { [id: number]: string } = {
+    0: "2014",
+    1: "2013",
+    4: "10f1",
+    5: "00ae",
+    7: "10f8",
+    9: "10f2",
+    14: "10fa",
+    17: "10f6",
+    18: "10f9",
+    19: "10f5",
+    20: "10f7",
+    28: "10f4",
+    29: "00a9",
+    30: "10f3",
+    32: "10fc",
+    34: "00ab",
+    35: "00bb",
+    36: "10fb",
+  }
+
+  let index = 0
+
+  function get(obj: any, key: string) {
+    return obj[key]
+  }
+
+  function helperFunc(key: KeyboardKey) {
+    klcContent += helperStringPrefix[index] + "\t"
+    if (keyMapDato.hasOwnProperty(key.value[0])) {
+      klcContent += get(keyMapDato, key.value[0]) + "\t"
+    } else {
+      klcContent += "-1\t"
+    }
+    if (keyMapDato.hasOwnProperty(key.value[1])) {
+      klcContent += get(keyMapDato, key.value[1]) + "\t"
+    } else {
+      klcContent += "-1\t"
+    }
+    klcContent += "-1\t"
+    if (helperStringSuffix.hasOwnProperty(index)) {
+      klcContent += helperStringSuffix[index] + "\t"
+    } else klcContent += "-1\t"
+    klcContent += "\n"
+    index += 1
+  }
+
   layout.keyboard.forEach((key) => {
-    const sc = keyCodeMap[key.code]
-    if (sc) {
-      const vk = key.code.toUpperCase().replace(/KEY|DIGIT|OEM|QUOTE|SEMICOLON/, "")
-      const value0 =
-        typeof key.value === "string" ? key.value : key.value[0].charCodeAt(0).toString(16)
-      const value1 =
-        typeof key.value === "string"
-          ? "-1"
-          : key.value[1]
-            ? key.value[1].charCodeAt(0).toString(16)
-            : "-1"
-      klcContent += `${sc}\t${vk}\t\t0\t${value0}\t${value1}\t-1\t-1\t-1\t\t// ${key.type.toUpperCase()}\n`
+    if (Array.isArray(key.value)) {
+      if (index == 25) {
+        klcContent += helperStringPrefix[25] + "\n"
+        klcContent += helperStringPrefix[26] + "\n"
+        index += 2
+      }
+      if (georgianLetters.includes(key.value[0]) || georgianLetters.includes(key.value[1])) {
+        helperFunc(key)
+      } else if (punctuation.includes(key.value[0]) || punctuation.includes(key.value[1])) {
+        if (!["\\", "|"].includes(key.value[0])) {
+          helperFunc(key)
+        }
+      } else if (key.value[0] === "" && key.value[1] === "") {
+        helperFunc(key)
+      }
     }
   })
 
   // adds fixed content
-  klcContent += `
+  klcContent += `39	SPACE		0	0020	0020	0020	-1		// SPACE, SPACE, SPACE, <none>
+56	OEM_102	0	005c	-1	-1	-1		// REVERSE SOLIDUS, <none>, <none>, <none>
+53	DECIMAL	0	002c	002c	-1	-1		// COMMA, COMMA, , 
+
+
 KEYNAME
 
 01\tEsc
@@ -294,10 +306,10 @@ KEYNAME_EXT
 
 DESCRIPTIONS
 
-0409\tGeorgian\t(${layout.title})\t - the-touch-typing.netlify.app
+0409\tGeorgian (${layout.title}) - ${layout.number}
 LANGUAGENAMES
 
-0409\tGeorgian\t(Georgia)
+0409\tGeorgian (Georgia)
 ENDKBD
 `
 
@@ -305,13 +317,19 @@ ENDKBD
 }
 
 export const downloadKLCFile = (content: string, filename: string) => {
-  const blob = new Blob([content], { type: "text/plain" })
+  // Ensure Windows-style line endings (windows users: \r\n, while linux -- \n)
+  const formattedContent = content.replace(/\n/g, "\r\n")
+
+  const blob = new Blob([formattedContent], {
+    type: "text/plain",
+  })
   const url = window.URL.createObjectURL(blob)
   const a = document.createElement("a")
   a.href = url
   a.download = filename
   document.body.appendChild(a)
   a.click()
+
   setTimeout(() => {
     document.body.removeChild(a)
     window.URL.revokeObjectURL(url)

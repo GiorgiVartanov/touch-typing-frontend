@@ -1,5 +1,5 @@
-import { NavLink, useNavigate } from "react-router-dom"
-import { useState, useEffect, useRef } from "react"
+import { NavLink, useNavigate, useLocation } from "react-router-dom"
+import { useState, useRef } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
 
@@ -37,6 +37,9 @@ const Header = ({ isSticky = false }: Props) => {
   const navRef = useRef<HTMLElement>(null)
 
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const currentLocation = location.pathname
 
   const { isLoggedIn, logoutUser, user } = useAuthStore()
 
@@ -75,7 +78,10 @@ const Header = ({ isSticky = false }: Props) => {
 
   const renderAuthenticatedNavigation = () => {
     return (
-      <NavItem icon={username || "profile"}>
+      <NavItem
+        icon={username || "profile"}
+        hasActiveChild={currentLocation.includes("profile")}
+      >
         <DropDownMenu>
           <DropDownItem
             icon={<ProfileIcon />}
@@ -102,12 +108,12 @@ const Header = ({ isSticky = false }: Props) => {
   const renderGuestNavigation = () => {
     return (
       <>
-        <NavItem icon={t("account")}>
+        <NavItem
+          icon={t("account")}
+          hasActiveChild={currentLocation.includes("register") || currentLocation.includes("login")}
+        >
           <DropDownMenu>
-            <DropDownItem
-              icon={<ProfileIcon />}
-              // closeNavigation={handleCloseNavigation}
-            >
+            <DropDownItem icon={<ProfileIcon />}>
               <NavLink
                 to={`/register`}
                 className="nav-item nav-item-link"
@@ -116,10 +122,7 @@ const Header = ({ isSticky = false }: Props) => {
                 {t("register")}
               </NavLink>
             </DropDownItem>
-            <DropDownItem
-              icon={<LogoutIcon />}
-              // className="logout-button-item"
-            >
+            <DropDownItem icon={<LogoutIcon />}>
               <NavLink
                 to={`/login`}
                 className="nav-item nav-item-link"
@@ -209,7 +212,12 @@ const Header = ({ isSticky = false }: Props) => {
             </ul>
           </li>
 
-          <NavItem icon={t("keyboard")}>
+          <NavItem
+            icon={t("keyboard")}
+            hasActiveChild={
+              currentLocation.includes("layout") || currentLocation.includes("create")
+            }
+          >
             <DropDownMenu>
               <DropDownItem
                 icon={<SearchIcon />}
@@ -225,7 +233,14 @@ const Header = ({ isSticky = false }: Props) => {
               </DropDownItem>
             </DropDownMenu>
           </NavItem>
-          <NavItem icon={t("type")}>
+          <NavItem
+            icon={t("type")}
+            hasActiveChild={
+              currentLocation.includes("lessons") ||
+              currentLocation.includes("play") ||
+              currentLocation.includes("practice")
+            }
+          >
             <DropDownMenu>
               <DropDownItem
                 icon={<LaptopIcon />}

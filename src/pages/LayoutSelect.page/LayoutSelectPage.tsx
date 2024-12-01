@@ -47,16 +47,14 @@ const LayoutSelectPage = () => {
         return lastPage?.pagination?.nextPage
       },
       initialPageParam: 0,
-      staleTime: 1000000,
+      staleTime: 0,
     })
 
   const renderLayouts = () => {
     if (isLoading) return <Loading />
 
     if (error || !data?.pages) {
-      console.log(error?.message)
-
-      return <div>{error?.message || "something went wrong"}</div>
+      return <div>{error?.message || t("something went wrong")}</div>
     }
 
     const pagesData = data.pages.reduce<KeyboardLayoutInterface[]>(

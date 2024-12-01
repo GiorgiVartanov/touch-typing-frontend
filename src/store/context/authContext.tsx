@@ -7,6 +7,7 @@ import {
   RegisterCredentials,
   LoginCredentialsError,
   RegisterCredentialsError,
+  UserData,
 } from "../../types/auth.types"
 import {
   setUser,
@@ -177,6 +178,18 @@ const AuthProvider = ({ children }: Props) => {
 
     updatedUser.completedAssessments.push(assessmentLevel)
 
+    localStorage.setItem("user", JSON.stringify(updatedUser))
+    dispatch(setUser(updatedUser))
+  }
+
+  const saveLessonLocally = (lessonLetter: string) => {
+    if (!state.user) return
+
+    const updatedUser = structuredClone(state.user)
+
+    updatedUser.completedLessons.push(lessonLetter)
+
+    localStorage.setItem("user", JSON.stringify(updatedUser))
     dispatch(setUser(updatedUser))
   }
 
@@ -209,6 +222,10 @@ const AuthProvider = ({ children }: Props) => {
     }
   }
 
+  const resetUser = (user: UserData) => {
+    dispatch(setUser(user))
+  }
+
   useEffect(() => {
     checkTokenExpiration()
   }, [])
@@ -224,7 +241,9 @@ const AuthProvider = ({ children }: Props) => {
     resetLoginPasswordError,
     logoutUser,
     saveAssessmentLocally,
+    saveLessonLocally,
     addUserToSentFriendRequests,
+    resetUser,
   }
 
   return <AuthContext.Provider value={store}>{children}</AuthContext.Provider>

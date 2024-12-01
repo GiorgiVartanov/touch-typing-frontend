@@ -66,7 +66,7 @@ const KeyboardOptions = ({
   const selectKeyboardLayout = () => {
     if (!newKeyboardLayout) return
 
-    toast.success("successfully selected new layout")
+    toast.success(t("successfully selected new layout"))
 
     setKeyboardLayout({ ...keyboardLayout, [newKeyboardLayout.language]: newKeyboardLayout })
   }

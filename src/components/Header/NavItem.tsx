@@ -5,10 +5,11 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 interface Props {
   icon: React.ReactNode
   closeNavigation?: () => void
+  hasActiveChild?: boolean
   children?: React.ReactNode
 }
 
-const NavItem = ({ icon, closeNavigation, children }: Props) => {
+const NavItem = ({ icon, closeNavigation, hasActiveChild = false, children }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const ref = useRef<HTMLLIElement>(null)
@@ -29,7 +30,7 @@ const NavItem = ({ icon, closeNavigation, children }: Props) => {
     <li
       ref={ref}
       onClick={closeNavigation}
-      className={`nav-item ${isOpen ? "active" : ""}`}
+      className={`nav-item ${isOpen ? "active" : ""} ${hasActiveChild ? "has-active-child" : ""}`}
     >
       <button
         onClick={handleClickOnMenu}

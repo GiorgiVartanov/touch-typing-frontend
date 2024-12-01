@@ -25,10 +25,14 @@ export interface User {
   rating: number
   friends: string[]
   completedAssessments: number[]
+  completedLessons: string[]
   accountType: "User" | "Admin"
 }
 
 export interface UserData extends User {
   _id: string
+  completedAssessments: number[]
+  completedLessons: string[]
   sentFriendRequests: string[]
+  createdLayoutCounter: number
 }

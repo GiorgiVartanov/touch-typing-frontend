@@ -41,7 +41,6 @@
 
     .main-page-section {
       min-height: 100vh;
-      // transition: background-color 300ms var(--animation-function);
       flex: 1;
       display: flex;
 
@@ -121,8 +120,6 @@
       flex-direction: column;
       gap: 0.5rem;
 
-      // animation: appear 200ms var(--animation-function);
-
       .separate {
         display: flex;
         gap: 0.5rem;
@@ -135,9 +132,6 @@
         justify-content: center;
         max-width: 100%;
         padding: 0 0.75rem;
-        // transition:
-        //   background-color 300ms var(--animation-function),
-        //   box-shadow 300ms var(--animation-function);
         width: 360px;
         height: 76px;
         background-color: var(--secondary-background-color);
@@ -157,8 +151,6 @@
         &.main-button {
           color: var(--cta-color);
 
-          // border: 2px solid var(--accent-color);
-
           span {
             color: var(--cta-color);
           }
@@ -171,15 +163,12 @@
         }
 
         p {
-          // transition: color 300ms var(--animation-function);
           font-weight: bold;
           font-size: 1.5rem;
           line-height: 1.5rem;
         }
 
         span {
-          // transition: color 300ms var(--animation-function);
-          // opacity: 0.6;
           font-weight: 200;
           color: var(--accent-color);
           font-size: 0.9rem;

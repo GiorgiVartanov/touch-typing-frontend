@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { MatchState } from "../../types/match.types"
 import ajax from "../../services/ajax"
 import Loading from "../../components/Loading/Loading"
-import Button from "../../components/Form/Button"
 import "./styles.scss"
 import TypingArea from "../../components/TypingArea/TypingArea"
 import { useTranslation } from "react-i18next"
@@ -58,6 +57,13 @@ const MatchHistorical = () => {
                 key={ind}
                 className="card"
               >
+                <h1>
+                  {match.players[key]
+                    ? match.players[key].rating
+                      ? match.players[key].rating.toFixed(0)
+                      : t_play("Unrated")
+                    : t_play("Unrated")}
+                </h1>
                 <h1>{key}</h1>
                 {match.players[key].WPM != -1 ? (
                   <h1>WPM: {match.players[key].WPM.toFixed(2)}</h1>
@@ -69,7 +75,10 @@ const MatchHistorical = () => {
           })}
         </div>
         <div className="history-text">
-          <TypingArea text={match.text} />
+          <TypingArea
+            text={match.text}
+            textLanguage="Geo"
+          />
         </div>
       </div>
     </PageLayout>

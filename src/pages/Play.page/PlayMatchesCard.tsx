@@ -30,7 +30,6 @@ const PlayMatchCard = ({ match, match_key, onClick, option }: Props) => {
             : ""}
         </p>
         <p>{formatTime(match.time_limit)}</p>
-        {/* <p>{match.text.length > 100?match.text.slice(0,100)+"...":match.text}</p> */}
 
         <div className="user-limit">
           <p>{t_form("User limit")}:</p>

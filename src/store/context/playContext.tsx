@@ -43,7 +43,7 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
 
   const [PlayState, PlayDispatch] = useReducer(PlayReducer, playInitialState)
   const [loading, setLoading] = useState(true)
-  const { user, token } = useAuthStore()
+  const { user, token, resetUser } = useAuthStore()
 
   useEffect(() => {
     if (socket.connected) {
@@ -74,17 +74,12 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
 
     /** Connection / reconnection listeners */
     socket.io.on("reconnect", (attempt) => {
-      console.info("Reconnected on attempt: " + attempt)
       SendHandshake()
     })
 
-    socket.io.on("reconnect_attempt", (attempt) => {
-      console.info("Reconnection Attempt: " + attempt)
-    })
+    socket.io.on("reconnect_attempt", (attempt) => {})
 
-    socket.io.on("reconnect_error", (error) => {
-      console.info("Reconnection error: " + error)
-    })
+    socket.io.on("reconnect_error", (error) => {})
 
     socket.io.on("reconnect_failed", () => {
       //Reconnection failure.
@@ -118,6 +113,21 @@ const PlayProvider: React.FunctionComponent<Props> = ({ children }: Props) => {
     socket.on("already_connected", () => {
       //already connected from a different tab
       PlayDispatch(updateUsername("-1")) //Reserved username, lazy to add another boolean variable...
+    })
+
+    socket.on("rating_changes", (new_rating) => {
+      const userJson = localStorage.getItem("user")
+
+      if (userJson) {
+        let user = JSON.parse(userJson)
+
+        // Modify the rating attribute
+        user.rating = new_rating // or any modification you need
+
+        // Save the modified user object back to local storage
+        localStorage.setItem("user", JSON.stringify(user))
+        resetUser(user)
+      }
     })
   }
 

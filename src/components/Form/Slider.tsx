@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   name: string
@@ -10,11 +10,13 @@ interface Props {
 }
 
 const Slider = ({ name, minimalValue, maximumValue, step, value, onChange }: Props) => {
+  const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
+
   return (
     <div className="slider-wrapper">
       <label htmlFor={name}>{name}</label>
       <div className="slider">
-        <span>left</span>
+        <span>{t("Left")}</span>
         <div className="slider-value">
           <input
             id={name}
@@ -86,7 +88,7 @@ const Slider = ({ name, minimalValue, maximumValue, step, value, onChange }: Pro
             </span>
           </div>
         </div>
-        <span>right</span>
+        <span>{t("Right")}</span>
       </div>
     </div>
   )

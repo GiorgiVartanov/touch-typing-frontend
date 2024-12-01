@@ -6,39 +6,45 @@
   &.tooltip-bottom-left {
     &::before {
       right: 0;
-      top: 100%;
+      top: calc(100% + 0.25rem);
+      text-align: left;
     }
   }
   &.tooltip-bottom-center {
     &::before {
       right: 50%;
-      top: 100%;
+      top: calc(100% + 0.25rem);
       transform: translateX(50%);
+      text-align: center;
     }
   }
   &.tooltip-bottom-right {
     &::before {
       left: 0;
-      top: 100%;
+      top: calc(100% + 0.25rem);
+      text-align: right;
     }
   }
   &.tooltip-top-left {
     &::before {
       right: 0;
-      top: -50%;
+      bottom: calc(100% + 0.25rem);
+      text-align: right;
     }
   }
   &.tooltip-top-center {
     &::before {
       right: 50%;
-      top: -50%;
+      bottom: calc(100% + 0.25rem);
       transform: translateX(50%);
+      text-align: center;
     }
   }
   &.tooltip-top-right {
     &::before {
       left: 0;
-      top: -50%;
+      bottom: calc(100% + 0.25rem);
+      text-align: right;
     }
   }
   &.tooltip-left {
@@ -46,6 +52,7 @@
       top: 50%;
       right: 102.5%;
       transform: translateY(-50%);
+      text-align: left;
     }
   }
   &.tooltip-right {
@@ -53,6 +60,7 @@
       top: 50%;
       left: 102.5%;
       transform: translateY(-50%);
+      text-align: right;
     }
   }
 }
@@ -60,9 +68,6 @@
 .tooltip::before {
   content: attr(data-tooltip);
   position: absolute;
-  // top: 2rem;
-  // left: 100%;
-  // transform: translateX(-50%);
   white-space: nowrap;
   font-size: 0.75rem;
   padding: 0.1rem 0.5rem;
@@ -74,9 +79,17 @@
   visibility: hidden;
   transition: opacity 300ms var(--animation-function);
   z-index: 300;
+
+  max-width: var(--max-width);
 }
 
 .tooltip:hover::before {
   opacity: 1;
   visibility: visible;
+}
+.tooltip-fixed-width {
+  &:before {
+    white-space: normal !important;
+    text-align: left !important;
+  }
 }

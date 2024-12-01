@@ -5,15 +5,21 @@ import { MetricsProvider } from "../../store/context/MetricsContext"
 import { KeyboardLanguageType } from "../../types/typer.types/typingSettings.types"
 
 import "./styles.scss"
+import { MetricsContextProps } from "../../types/typer.types/Metrics.types"
 
 interface Props {
   text: string
   textLanguage: KeyboardLanguageType
   wordSeparator?: string
   handleTextFinish?: () => void
+  handleSetMetrics?: (metrics: MetricsContextProps) => void
   displayResultsAfterFinish?: boolean // will display results after finish even if handleTextFinish function was provided
   showKeyboard?: boolean
   className?: string
+  showGoToNextLevel?: boolean
+  nextLevelURL?: string
+  isLastAssessment?: boolean
+  accuracyToComplete?: number
 }
 
 const TypingAreaDisplay = ({
@@ -21,9 +27,14 @@ const TypingAreaDisplay = ({
   wordSeparator,
   textLanguage,
   handleTextFinish,
+  handleSetMetrics,
   displayResultsAfterFinish,
   showKeyboard = true,
   className,
+  showGoToNextLevel = false,
+  nextLevelURL = "/",
+  isLastAssessment = false,
+  accuracyToComplete = 0,
 }: Props) => {
   const [displayResults, setDisplayResults] = useState(false)
 
@@ -38,24 +49,29 @@ const TypingAreaDisplay = ({
   const handleRestart = () => setDisplayResults(false)
 
   return (
-    <MetricsProvider>
-      <div className="TypingArea">
-        {displayResults ? (
-          <div className="typer">
-            <Results handleRestart={handleRestart} />
-          </div>
-        ) : (
-          <Typer
-            text={text}
-            textLanguage={textLanguage}
-            wordSeparator={wordSeparator}
-            handleTextFinish={handleOnTextFinish}
-            showKeyboard={showKeyboard}
-            className={className}
+    <div className="TypingArea">
+      {displayResults ? (
+        <div className="typer">
+          <Results
+            handleRestart={handleRestart}
+            showGoToNextLevel={showGoToNextLevel}
+            nextLevelURL={nextLevelURL}
+            isLastAssessment={isLastAssessment}
+            accuracyToComplete={accuracyToComplete}
           />
-        )}
-      </div>
-    </MetricsProvider>
+        </div>
+      ) : (
+        <Typer
+          text={text}
+          textLanguage={textLanguage}
+          wordSeparator={wordSeparator}
+          handleTextFinish={handleOnTextFinish}
+          handleSetMetrics={handleSetMetrics}
+          showKeyboard={showKeyboard}
+          className={className}
+        />
+      )}
+    </div>
   )
 }
 
@@ -64,9 +80,14 @@ const TypingArea = ({
   wordSeparator,
   textLanguage,
   handleTextFinish,
+  handleSetMetrics,
   displayResultsAfterFinish,
   showKeyboard = true,
   className,
+  showGoToNextLevel = false,
+  nextLevelURL = "/",
+  accuracyToComplete = 0,
+  isLastAssessment = false,
 }: Props) => {
   return (
     <MetricsProvider>
@@ -76,8 +97,12 @@ const TypingArea = ({
         wordSeparator={wordSeparator}
         displayResultsAfterFinish={displayResultsAfterFinish}
         handleTextFinish={handleTextFinish}
+        handleSetMetrics={handleSetMetrics}
         showKeyboard={showKeyboard}
         className={className}
+        showGoToNextLevel={showGoToNextLevel}
+        nextLevelURL={nextLevelURL}
+        accuracyToComplete={accuracyToComplete}
       />
     </MetricsProvider>
   )

@@ -35,13 +35,6 @@ const Match = () => {
     }
   }, [match_finished])
 
-  // useEffect(() => {
-  //   if (match.players[uid] === undefined || match.players[uid].has_finished === true) return
-
-  //   // may change latter
-  //   toast.success(t("The match has started. Good luck!"))
-  // }, [])
-
   useEffect(() => {
     if (!match_id) return
 
@@ -59,7 +52,12 @@ const Match = () => {
     (matches[match_id].players[uid] === undefined &&
       matches[match_id].spectators[uid] === undefined)
   ) {
-    toast.warning("unauthorized", { toastId: "unauthorized" })
+    if (match_finished === true) {
+      navigate("../../")
+      return
+    }
+
+    toast.warning(t("Unauthorized"), { toastId: "unauthorized" })
     navigate("../../")
 
     return
@@ -113,10 +111,18 @@ const Match = () => {
                 }
               >
                 <div
-                  className={`progress-bar ${Number(match.players[uid].WPM.toFixed(2)) > 98 || match.players[uid].has_finished ? "finished" : ""}`}
+                  className={`progress-bar ${Number(match.players[uid].WPM.toFixed(2)) > 98 || match.players[uid].has_finished ? t("finished") : ""}`}
                   style={{ width: `${match.players[uid].WPM.toFixed(2)}%` }}
                 />
+                <div className="match-user-rating">
+                  {match.players[uid]
+                    ? match.players[uid].rating
+                      ? match.players[uid].rating.toFixed(0)
+                      : t("Unrated")
+                    : t("Unrated")}
+                </div>
                 <div className="list-element-user">{match.players[uid].username}</div>
+
                 <div className="list-element-percent">
                   {match.players[uid].WPM !== -1
                     ? match.players[uid].has_finished

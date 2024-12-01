@@ -1,10 +1,9 @@
 import axios from "axios"
 
 const SERVER_URL = import.meta.env.PYTHON_SERVER_URL
-console.log(SERVER_URL)
 
 const ajax = axios.create({
-  baseURL: "http://127.0.0.1:5000",
+  baseURL: SERVER_URL,
   timeout: 1600000,
   headers: {
     Accept: "application/json",

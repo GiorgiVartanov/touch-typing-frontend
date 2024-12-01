@@ -6,7 +6,6 @@ import "./styles.scss"
 import MainPageSection from "./MainPageSection"
 import Header from "../../components/Header/Header"
 import Carousel from "../../components/Carousel/Carousel"
-import Loading from "../../components/Loading/Loading"
 
 const MainPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "main page" })

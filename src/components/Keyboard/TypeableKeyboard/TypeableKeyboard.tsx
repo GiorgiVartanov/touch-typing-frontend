@@ -10,8 +10,8 @@ import { KeyboardLanguageType } from "../../../types/typer.types/typingSettings.
 import { useTypingSettingsStore } from "../../../store/context/typingSettingsContext"
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside"
 import { downloadKLCFile, transformKeyboardLayout } from "../../../util/generateKLCFile"
+import { useAuthStore } from "../../../store/context/authContext"
 
-import WrenchIcon from "../../../assets/icons/wrench.svg?react"
 import ExportIcon from "../../../assets/icons/export.svg?react"
 import QuestionIcon from "../../../assets/icons/question.svg?react"
 
@@ -58,6 +58,8 @@ const TypeableKeyboard = ({
     keyboardLayout: currentKeyboardLayout,
   } = useTypingSettingsStore()
 
+  const { user, token } = useAuthStore()
+
   const { t } = useTranslation("translation", { keyPrefix: "keyboard" })
 
   const ref = useRef<HTMLInputElement>(null)
@@ -69,10 +71,6 @@ const TypeableKeyboard = ({
   const [pressedKeys, setPressedKeys] = useState<string[]>([])
   const [areRightSideButtonsOpen, setAreRightSideButtonsOpen] = useState<boolean>(false)
   const [userOS, setUserOS] = useState<string | null>(null)
-
-  const handleButtonClick = () => {
-    setAreRightSideButtonsOpen((prevState) => !prevState)
-  }
 
   const handleClose = () => {
     setAreRightSideButtonsOpen(false)
@@ -170,18 +168,50 @@ const TypeableKeyboard = ({
   }
 
   // lets user download layout in a .klc format
-  const handleExportLayout = () => {
-    if (!forcedKeyboardLayout) {
-      toast.warning("something went wrong")
-      return
+  const handleExportLayout = async () => {
+    if (!forcedKeyboardLayout && !currentKeyboardLayout) return
+
+    if (forcedKeyboardLayout) {
+      const currentTitle = forcedKeyboardLayout.title
+
+      const currentLayout = {
+        _id: "null",
+        language: "Geo",
+        title: currentTitle,
+        public: true,
+        official: false,
+        keyboard: forcedKeyboardLayout.keyboard,
+        number:
+          user && Object.keys(user).length > 0
+            ? user.createdLayoutCounter
+            : Math.floor(Math.random() * 10000),
+      }
+
+      downloadKLCFile(transformKeyboardLayout(currentLayout), `layout.klc`)
+
+      toast.success(t("Layout exported"), { toastId: t("layout exported") })
     }
 
-    downloadKLCFile(
-      transformKeyboardLayout(forcedKeyboardLayout),
-      `${forcedKeyboardLayout.title}.klc`
-    )
+    if (currentKeyboardLayout) {
+      const currentTitle = currentKeyboardLayout.Geo.title
 
-    toast.success("Layout exported", { toastId: "layout exported" })
+      const currentLayout = {
+        _id: "null",
+        language: "Geo",
+        title: currentTitle,
+        public: true,
+        official: false,
+        keyboard: currentKeyboardLayout.Geo.keyboard,
+        number:
+          user && Object.keys(user).length > 0
+            ? user.createdLayoutCounter
+            : Math.floor(Math.random() * 10000),
+      }
+
+      downloadKLCFile(transformKeyboardLayout(currentLayout), `layout.klc`)
+
+      toast.success(t("Layout exported"), { toastId: t("layout exported") })
+    }
   }
 
   const renderKeyboardButtons = () => {

@@ -32,6 +32,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
 import Match from "./pages/Match.page/Match"
 import MatchHistorical from "./pages/MatchList.page/MatchHistorical"
 import MatchHistoricalList from "./pages/MatchList.page/MatchHistoricalList"
+import RatingPage from "./pages/Rating.page/Rating.page"
 
 const App = () => {
   const { theme } = useAppSettingsStore()
@@ -83,10 +84,6 @@ const App = () => {
           path="/practice/:id"
           element={<PracticePage />}
         />
-        {/* <Route
-          path="/lessons"
-          element={<LessonList />}
-        /> */}
         <Route
           path="/lessons"
           element={<Lesson />}
@@ -102,6 +99,10 @@ const App = () => {
         <Route
           path="/play"
           element={<PlayPage />}
+        />
+        <Route
+          path="/rating"
+          element={<RatingPage />}
         />
         <Route
           path="/match/:id"
@@ -132,7 +133,7 @@ const App = () => {
           element={<InstallationGuidePage />}
         />
         <Route
-          path="/guides/how_to_install_layout_on_map"
+          path="/guides/how_to_install_layout_on_mac"
           element={<InstallationGuideMacPage />}
         />
         <Route
